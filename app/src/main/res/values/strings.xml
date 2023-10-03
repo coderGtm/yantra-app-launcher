@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Yantra Launcher</string>
+    <string name="accessibility_service_description">This permission is required for and used only for applying Screen Lock from Yantra Launcher.</string>
+</resources>
