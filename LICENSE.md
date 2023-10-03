@@ -1,4 +1,4 @@
-### Conditional Distributors Only License (ODO)
+### Conditional Distributors Only License (CDO)
 
 This license grants the following rights and obligations to anyone who obtains a copy of this software and associated documentation files (the "Software"):
 
