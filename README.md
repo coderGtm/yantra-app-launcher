@@ -1,5 +1,5 @@
 # yantra-app-launcher
-A Minimal CLI Launcher for Android
+A Minimal CLI based Android app Launcher
 
 ## Installation
 Clone this repo and open in Android Studio. A `local.properties` file will be generated. Add the following lines in it:
