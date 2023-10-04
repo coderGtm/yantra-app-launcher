@@ -508,6 +508,26 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     }
                     isPrimary = false
                 }
+                else if (effectivePrimaryCmd == "openf") {
+                    if (!appListFetched) {
+                        return@Thread
+                    }
+                    if (args.size>1) {
+                        //search using regex
+                        overrideLastWord = true
+                        val name = cmdEntered.removePrefix(args[0]).trim().lowercase()
+                        val candidates = mutableListOf<Double>()
+                        for (app in appList) {
+                            val score = findSimilarity(app.appName.lowercase(), name)
+                            candidates.add(score)
+                            //addToPrevTxt(app.appName+" ---> "+score.toString(),4)
+                        }
+                        val maxIndex = candidates.indexOf(candidates.max())
+                        val appBlock = appList[maxIndex]
+                        suggestions.add(appBlock.appName)
+                    }
+                    isPrimary = false
+                }
                 else if (effectivePrimaryCmd == "call") {
                     if (!contactsFetched) {
                         runOnUiThread {
