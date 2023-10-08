@@ -60,6 +60,7 @@ import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.Contacts
 import com.coderGtm.yantra.utils.CustomFlag
+import com.coderGtm.yantra.utils.TerminalGestureListenerCallback
 import com.coderGtm.yantra.utils.clearConsole
 import com.coderGtm.yantra.utils.createNotificationChannel
 import com.coderGtm.yantra.utils.defaultWallpaperManager
@@ -109,7 +110,7 @@ import kotlin.concurrent.schedule
 import kotlin.math.roundToInt
 
 
-class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
+class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalGestureListenerCallback {
 
     private lateinit var curTheme: ArrayList<String>
     private lateinit var appList: ArrayList<AppBlock>
@@ -372,6 +373,21 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         return super.dispatchKeyEvent(event)
     }
 
+    override fun onSingleTap() {
+        val oneTapKeyboardActivation = preferenceObject.getBoolean("oneTapKeyboardActivation",true)
+        if (oneTapKeyboardActivation) {
+            requestCmdInputFocusAndShowKeyboard(this@MainActivity, binding)
+        }
+    }
+
+    override fun onDoubleTap() {
+        val cmdToExecute = preferenceObject.getString("doubleTapCommand", "lock")
+        if (cmdToExecute != "") {
+            //execute command
+            cmdHandler(cmdToExecute!!)
+        }
+    }
+
     private fun performInputChores() {
         binding.cmdInput.setOnEditorActionListener { v, actionId, event ->
             return@setOnEditorActionListener when (actionId) {
@@ -396,8 +412,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun createTouchListeners() {
-        //for detecting double-tap
-        binding.scrollView.setOnTouchListener { v, event -> gd.onTouchEvent(event) }
+        binding.scrollView.setGestureListenerCallback(this)
         // for keyboard open
         binding.inputLineLayout.setOnClickListener {
             requestCmdInputFocusAndShowKeyboard(this@MainActivity, binding)
@@ -2873,34 +2888,4 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             executeCommandsInQueue()
         }
     }
-
-    //source: https://stackoverflow.com/a/39816509/12312757
-    private val gd = GestureDetector(object : GestureDetector.SimpleOnGestureListener() {
-        //here is the method for double tap
-        override fun onDoubleTap(e: MotionEvent): Boolean {
-            //your action here for double tap
-            val cmdToExecute = preferenceObject.getString("doubleTapCommand", "lock")
-            if (cmdToExecute != "") {
-                //execute command
-                cmdHandler(cmdToExecute!!)
-            }
-            return true
-        }
-
-        override fun onDoubleTapEvent(e: MotionEvent): Boolean {
-            return true
-        }
-
-        override fun onDown(e: MotionEvent): Boolean {
-            return true
-        }
-
-        override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            val oneTapKeyboardActivation = preferenceObject.getBoolean("oneTapKeyboardActivation",true)
-            if (oneTapKeyboardActivation) {
-                requestCmdInputFocusAndShowKeyboard(this@MainActivity, binding)
-            }
-            return super.onSingleTapConfirmed(e)
-        }
-    })
 }
