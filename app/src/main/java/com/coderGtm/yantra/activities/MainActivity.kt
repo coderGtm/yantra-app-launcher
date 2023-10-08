@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     private var cmdHistory = ArrayList<String>()
     private var cmdHistoryCursor = -1
     private var tts: TextToSpeech? = null
-    private  var ttsTxt = ""
+    private var ttsTxt = ""
     private var contactNames = HashSet<String>()
     private var appListFetched: Boolean = false
     private var contactsFetched: Boolean = false
