@@ -6,7 +6,6 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.app.SearchManager
 import android.app.WallpaperManager
-import android.app.admin.DeviceAdminInfo
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.*
@@ -21,15 +20,12 @@ import android.graphics.drawable.Drawable
 import android.hardware.camera2.CameraManager
 import android.net.Uri
 import android.os.*
-import android.print.PrintAttributes.Resolution
 import android.provider.ContactsContract
 import android.provider.Settings
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
-import android.system.Os
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
-import android.util.DisplayMetrics
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -42,7 +38,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
@@ -114,8 +109,6 @@ import java.util.*
 import java.util.regex.Pattern
 import kotlin.concurrent.schedule
 import kotlin.math.roundToInt
-import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.minutes
 
 
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalGestureListenerCallback {
@@ -1131,6 +1124,9 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             if (args.size > 1) printToConsole("'settings' command does not take any parameters", 5)
             else openYantraSettings()
         }
+        else if (args[0].lowercase() == "sysinfo") {
+            showSystemInfo()
+        }
         else if (args[0].lowercase() == "scripts") {
             if (args.size > 1) printToConsole("'scripts' command does not take any parameters", 5)
             else yantraScripts()
@@ -1173,9 +1169,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         else if (args[0].lowercase() == "exit") {
             if (args.size > 1) printToConsole("'exit' command does not take any parameters", 5)
             else exitApp()
-        }
-        else if (args[0].lowercase() == "sysinfo") {
-            showSystemInfo()
         }
         else if (cmd==""){}
         else {
@@ -1552,20 +1545,19 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
 
         printToConsole("${getUserName(preferenceObject)}@yantra", 7)
         printToConsole("-------------------------", 7)
-        printToConsole("    Product: ${Build.PRODUCT}", 4)
-        printToConsole("    Brand: ${Build.BRAND}", 4)
-        printToConsole("    Kernel: ${Build.ID}", 4)
-        printToConsole("    Uptime: ${uptimeHours}h ${uptimeMinutes}m", 4)
-        printToConsole("    Apps: ${appList.size}", 4)
-        printToConsole("    Resolution: ${widthRes}x${heightRes}", 4)
-        /*
-            printToConsole("    Theme: ${curTheme}", 4)
-            TODO: Get curTheme name
-         */
-        printToConsole("    Terminal: Yantra Launcher", 4)
-        printToConsole("    Terminal Font: ${Constants().defaultFontName}", 4)
-        printToConsole("    CPU: ${Build.CPU_ABI}", 4)
-        printToConsole("    Memory: ${availableMem.toInt()} / ${totalMem.toInt()}", 4)
+        printToConsole("--> OS: Android ${Build.VERSION.RELEASE}", 4)
+        printToConsole("--> Host: ${Build.MANUFACTURER} ${Build.MODEL}", 4)
+        printToConsole("--> Kernel: ${System.getProperty("os.version")}", 4)
+        printToConsole("--> Uptime: ${uptimeHours}h ${uptimeMinutes}m", 4)
+        printToConsole("--> Apps: ${appList.size + 1}", 4)  // +1 as Yantra Launcher not included in appList
+        printToConsole("--> Terminal: Yantra Launcher ${BuildConfig.VERSION_NAME}", 4)
+        printToConsole("--> Terminal Font: ${preferenceObject.getString("font", Constants().defaultFontName) ?: Constants().defaultFontName}", 4)
+        printToConsole("--> Resolution: ${widthRes}x${heightRes}", 4)
+        printToConsole("--> Theme: ${Constants().themeList[preferenceObject.getInt("theme",0)]}", 4)
+        printToConsole("--> CPU: ${Build.SUPPORTED_ABIS[0]}", 4)
+        printToConsole("--> CPU Cores: ${Runtime.getRuntime().availableProcessors()}", 4)
+        printToConsole("--> Memory: ${availableMem.toInt()}MB/${totalMem.toInt()}MB", 4)
+        printToConsole("-------------------------", 7)
     }
     private fun alias(cmd: String) {
         if (cmd.trim() == "alias") {
