@@ -68,6 +68,7 @@ import com.coderGtm.yantra.utils.defaultWallpaperManager
 import com.coderGtm.yantra.utils.eval
 import com.coderGtm.yantra.utils.feedback
 import com.coderGtm.yantra.utils.findSimilarity
+import com.coderGtm.yantra.utils.getCPUSpeed
 import com.coderGtm.yantra.utils.getInit
 import com.coderGtm.yantra.utils.getScripts
 import com.coderGtm.yantra.utils.getToDo
@@ -1543,7 +1544,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         val widthRes = windowManager.defaultDisplay.width
         val heightRes = windowManager.defaultDisplay.height
 
-        printToConsole("${getUserName(preferenceObject)}@yantra", 7)
+        printToConsole("${getUserName(preferenceObject)}@YantraLauncher", 7)
         printToConsole("-------------------------", 7)
         printToConsole("--> OS: Android ${Build.VERSION.RELEASE}", 4)
         printToConsole("--> Host: ${Build.MANUFACTURER} ${Build.MODEL}", 4)
@@ -1554,9 +1555,8 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         printToConsole("--> Terminal Font: ${preferenceObject.getString("font", Constants().defaultFontName) ?: Constants().defaultFontName}", 4)
         printToConsole("--> Resolution: ${widthRes}x${heightRes}", 4)
         printToConsole("--> Theme: ${Constants().themeList[preferenceObject.getInt("theme",0)]}", 4)
-        printToConsole("--> CPU: ${Build.SUPPORTED_ABIS[0]}", 4)
-        printToConsole("--> CPU Cores: ${Runtime.getRuntime().availableProcessors()}", 4)
-        printToConsole("--> Memory: ${availableMem.toInt()}MB/${totalMem.toInt()}MB", 4)
+        printToConsole("--> CPU: ${Build.SUPPORTED_ABIS[0]} (${Runtime.getRuntime().availableProcessors()}) @ ${getCPUSpeed()}", 4)
+        printToConsole("--> Memory: ${availableMem.toInt()}MiB / ${totalMem.toInt()}MiB", 4)
         printToConsole("-------------------------", 7)
     }
     private fun alias(cmd: String) {
