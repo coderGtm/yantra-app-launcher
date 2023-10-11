@@ -205,9 +205,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
 
     private fun runInitTasks(initList: String?) {
         if (initList?.trim() != "") {
+            val initCmdLog = preferenceObject.getBoolean("initCmdLog", false)
             runOnUiThread {
                 initList?.lines()?.forEach {
-                    cmdHandler(it.trim())
+                    cmdHandler(it.trim(), logCmd = initCmdLog)
                 }
             }
         }
@@ -962,13 +963,15 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         printToConsole("Type 'help' or 'community' for more information.", 4, Typeface.BOLD)
         printToConsole("==================",4, Typeface.BOLD)
     }
-    private fun cmdHandler(cmd: String, isAlias: Boolean = false) {
+    private fun cmdHandler(cmd: String, isAlias: Boolean = false, logCmd: Boolean = true) {
         if (isSleeping) {
             commandQueue.add(cmd)
             return
         }
         if (!isAlias) {
-            printToConsole(getUserNamePrefix(preferenceObject)+getUserName(preferenceObject)+"> $cmd", 1)
+            if (logCmd && !Constants().noCmdLogCommands.contains(cmd.trim().split(" ").firstOrNull())) {
+                printToConsole(getUserNamePrefix(preferenceObject)+getUserName(preferenceObject)+"> $cmd", 1)
+            }
             if (cmd!="") {
                 cmdHistory.add(cmd)
                 cmdHistoryCursor = cmdHistory.size
@@ -1327,7 +1330,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             isSleeping = false
             runOnUiThread {
                 binding.terminalOutput.removeView(wakeBtn)
-                binding.terminalOutput.removeViewAt(binding.terminalOutput.childCount - 1)  // remove command
                 binding.cmdInput.isEnabled = true
                 executeCommandsInQueue()
             }
@@ -2077,7 +2079,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         }
         else if (inputString.length <= 2) {
             // no mode specified. output in normal text
-            binding.terminalOutput.removeViewAt(binding.terminalOutput.childCount - 1)  // remove command
             printToConsole(inputString, 4)
             return
         }
@@ -2093,12 +2094,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                 printToConsole("Invalid mode Provided. Use 'e', 'w' or 's'.", 5)
                 return
             }
-            binding.terminalOutput.removeViewAt(binding.terminalOutput.childCount - 1)  // remove command
             printToConsole(inputString.removePrefix(inputString.substring(0,2)).trim(), mode)
         }
         else {
             // mode is not specified. output in normal text
-            binding.terminalOutput.removeViewAt(binding.terminalOutput.childCount - 1)  // remove command
             printToConsole(inputString, 4)
             return
         }
@@ -2119,7 +2118,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             return
         }
         NotificationManagerCompat.from(this).notify(Constants().userNotificationId, builder.build())
-        binding.terminalOutput.removeViewAt(binding.terminalOutput.childCount - 1)  // remove command
         printToConsole("Notification Fired!",6)
     }
 

@@ -45,6 +45,7 @@ class SettingsActivity : AppCompatActivity() {
     private var oneTapKeyboardActivation = true
     private var hideKeyboardOnEnter = true
     private var actOnSuggestionTap = false
+    private var initCmdLog = false
     private var fontSize = 16
     private var orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     private var appSugOrderingMode = Constants().appSortMode_alphabetically
@@ -75,6 +76,7 @@ class SettingsActivity : AppCompatActivity() {
         oneTapKeyboardActivation = preferenceObject.getBoolean("oneTapKeyboardActivation",true)
         hideKeyboardOnEnter = preferenceObject.getBoolean("hideKeyboardOnEnter", true)
         actOnSuggestionTap = preferenceObject.getBoolean("actOnSuggestionTap", false)
+        initCmdLog = preferenceObject.getBoolean("initCmdLog", false)
         fontSize = preferenceObject.getInt("fontSize",16)
         orientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         appSugOrderingMode = preferenceObject.getInt("appSortMode", Constants().appSortMode_alphabetically)
@@ -185,6 +187,12 @@ class SettingsActivity : AppCompatActivity() {
         binding.actOnSuggestionTapSwitch.setOnCheckedChangeListener { _, isChecked ->
             actOnSuggestionTap = isChecked
             preferenceEditObject.putBoolean("actOnSuggestionTap", isChecked).apply()
+            changedSettingsCallback(this@SettingsActivity)
+        }
+        binding.initCmdLogSwitch.isChecked = initCmdLog
+        binding.initCmdLogSwitch.setOnCheckedChangeListener { _, isChecked ->
+            initCmdLog = isChecked
+            preferenceEditObject.putBoolean("initCmdLog", isChecked).apply()
             changedSettingsCallback(this@SettingsActivity)
         }
     }
