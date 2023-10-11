@@ -431,6 +431,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             val args = cmdEntered.split(" ")
             var overrideLastWord = false
             var isPrimary = true
+            var executeOnTapViable = true
             val getPrimarySuggestions = preferenceObject.getBoolean("getPrimarySuggestions",true)
             val getSecondarySuggestions = preferenceObject.getBoolean("getSecondarySuggestions",true)
 
@@ -634,6 +635,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                         }
                     }
                     isPrimary = false
+                    executeOnTapViable = false
                 }
                 else if (effectivePrimaryCmd == "help") {
                     if (args.size>1) {
@@ -700,6 +702,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                         }
                     }
                     isPrimary = false
+                    executeOnTapViable = false
                 }
                 else if (effectivePrimaryCmd == "echo") {
                     if (args.size > 1) {
@@ -713,6 +716,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                         }
                     }
                     isPrimary = false
+                    executeOnTapViable = false
                 }
                 else if (effectivePrimaryCmd == "run") {
                     try {
@@ -775,7 +779,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                     binding.suggestionsTab.removeView(it)
 
                     val actOnSuggestionTap = preferenceObject.getBoolean("actOnSuggestionTap", false)
-                    if (!isPrimary && actOnSuggestionTap) {
+                    if (!isPrimary && actOnSuggestionTap && executeOnTapViable) {
                         cmdHandler(binding.cmdInput.text.toString().trim())
                         binding.cmdInput.setText("")
                     }
