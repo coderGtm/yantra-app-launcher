@@ -68,6 +68,7 @@ import com.coderGtm.yantra.utils.defaultWallpaperManager
 import com.coderGtm.yantra.utils.eval
 import com.coderGtm.yantra.utils.feedback
 import com.coderGtm.yantra.utils.findSimilarity
+import com.coderGtm.yantra.utils.getCPUSpeed
 import com.coderGtm.yantra.utils.getInit
 import com.coderGtm.yantra.utils.getScripts
 import com.coderGtm.yantra.utils.getToDo
@@ -204,9 +205,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
 
     private fun runInitTasks(initList: String?) {
         if (initList?.trim() != "") {
+            val initCmdLog = preferenceObject.getBoolean("initCmdLog", false)
             runOnUiThread {
                 initList?.lines()?.forEach {
-                    cmdHandler(it.trim())
+                    cmdHandler(it.trim(), logCmd = initCmdLog)
                 }
             }
         }
@@ -430,6 +432,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             val args = cmdEntered.split(" ")
             var overrideLastWord = false
             var isPrimary = true
+            var executeOnTapViable = true
             val getPrimarySuggestions = preferenceObject.getBoolean("getPrimarySuggestions",true)
             val getSecondarySuggestions = preferenceObject.getBoolean("getSecondarySuggestions",true)
 
@@ -633,6 +636,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                         }
                     }
                     isPrimary = false
+                    executeOnTapViable = false
                 }
                 else if (effectivePrimaryCmd == "help") {
                     if (args.size>1) {
@@ -699,6 +703,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                         }
                     }
                     isPrimary = false
+                    executeOnTapViable = false
                 }
                 else if (effectivePrimaryCmd == "echo") {
                     if (args.size > 1) {
@@ -712,6 +717,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                         }
                     }
                     isPrimary = false
+                    executeOnTapViable = false
                 }
                 else if (effectivePrimaryCmd == "run") {
                     try {
@@ -774,7 +780,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                     binding.suggestionsTab.removeView(it)
 
                     val actOnSuggestionTap = preferenceObject.getBoolean("actOnSuggestionTap", false)
-                    if (!isPrimary && actOnSuggestionTap) {
+                    if (!isPrimary && actOnSuggestionTap && executeOnTapViable) {
                         cmdHandler(binding.cmdInput.text.toString().trim())
                         binding.cmdInput.setText("")
                     }
@@ -957,13 +963,15 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         printToConsole("Type 'help' or 'community' for more information.", 4, Typeface.BOLD)
         printToConsole("==================",4, Typeface.BOLD)
     }
-    private fun cmdHandler(cmd: String, isAlias: Boolean = false) {
+    private fun cmdHandler(cmd: String, isAlias: Boolean = false, logCmd: Boolean = true) {
         if (isSleeping) {
             commandQueue.add(cmd)
             return
         }
         if (!isAlias) {
-            printToConsole(getUserNamePrefix(preferenceObject)+getUserName(preferenceObject)+"> $cmd", 1)
+            if (logCmd && !Constants().noCmdLogCommands.contains(cmd.trim().split(" ").firstOrNull())) {
+                printToConsole(getUserNamePrefix(preferenceObject)+getUserName(preferenceObject)+"> $cmd", 1)
+            }
             if (cmd!="") {
                 cmdHistory.add(cmd)
                 cmdHistoryCursor = cmdHistory.size
@@ -1322,7 +1330,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             isSleeping = false
             runOnUiThread {
                 binding.terminalOutput.removeView(wakeBtn)
-                binding.terminalOutput.removeViewAt(binding.terminalOutput.childCount - 1)  // remove command
                 binding.cmdInput.isEnabled = true
                 executeCommandsInQueue()
             }
@@ -1543,7 +1550,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         val widthRes = windowManager.defaultDisplay.width
         val heightRes = windowManager.defaultDisplay.height
 
-        printToConsole("${getUserName(preferenceObject)}@yantra", 7)
+        printToConsole("${getUserName(preferenceObject)}@YantraLauncher", 7)
         printToConsole("-------------------------", 7)
         printToConsole("--> OS: Android ${Build.VERSION.RELEASE}", 4)
         printToConsole("--> Host: ${Build.MANUFACTURER} ${Build.MODEL}", 4)
@@ -1554,9 +1561,8 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         printToConsole("--> Terminal Font: ${preferenceObject.getString("font", Constants().defaultFontName) ?: Constants().defaultFontName}", 4)
         printToConsole("--> Resolution: ${widthRes}x${heightRes}", 4)
         printToConsole("--> Theme: ${Constants().themeList[preferenceObject.getInt("theme",0)]}", 4)
-        printToConsole("--> CPU: ${Build.SUPPORTED_ABIS[0]}", 4)
-        printToConsole("--> CPU Cores: ${Runtime.getRuntime().availableProcessors()}", 4)
-        printToConsole("--> Memory: ${availableMem.toInt()}MB/${totalMem.toInt()}MB", 4)
+        printToConsole("--> CPU: ${Build.SUPPORTED_ABIS[0]} (${Runtime.getRuntime().availableProcessors()}) @ ${getCPUSpeed()}", 4)
+        printToConsole("--> Memory: ${availableMem.toInt()}MiB / ${totalMem.toInt()}MiB", 4)
         printToConsole("-------------------------", 7)
     }
     private fun alias(cmd: String) {
@@ -2073,7 +2079,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         }
         else if (inputString.length <= 2) {
             // no mode specified. output in normal text
-            binding.terminalOutput.removeViewAt(binding.terminalOutput.childCount - 1)  // remove command
             printToConsole(inputString, 4)
             return
         }
@@ -2089,12 +2094,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                 printToConsole("Invalid mode Provided. Use 'e', 'w' or 's'.", 5)
                 return
             }
-            binding.terminalOutput.removeViewAt(binding.terminalOutput.childCount - 1)  // remove command
             printToConsole(inputString.removePrefix(inputString.substring(0,2)).trim(), mode)
         }
         else {
             // mode is not specified. output in normal text
-            binding.terminalOutput.removeViewAt(binding.terminalOutput.childCount - 1)  // remove command
             printToConsole(inputString, 4)
             return
         }
@@ -2115,7 +2118,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             return
         }
         NotificationManagerCompat.from(this).notify(Constants().userNotificationId, builder.build())
-        binding.terminalOutput.removeViewAt(binding.terminalOutput.childCount - 1)  // remove command
         printToConsole("Notification Fired!",6)
     }
 

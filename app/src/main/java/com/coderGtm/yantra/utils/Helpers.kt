@@ -822,3 +822,22 @@ fun openAiSystemPromptSetter(activity: Activity, preferenceObject: SharedPrefere
         .show()
     aiSystemPromptBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("aiSystemPrompt",Constants().aiSystemPrompt)!!)
 }
+
+fun getCPUSpeed(): String {
+    try {
+        val process = ProcessBuilder("/system/bin/cat", "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq")
+            .redirectErrorStream(true)
+            .start()
+        process.inputStream.bufferedReader().use { reader ->
+            val cpuSpeed = reader.readLine()
+            if (!cpuSpeed.isNullOrBlank()) {
+                val speedInKHz = cpuSpeed.trim().toInt()
+                val speedInGHz = speedInKHz / 1000000.0
+                return String.format("%.2f GHz", speedInGHz)
+            }
+        }
+    } catch (e: Exception) {
+        return "-- GHz"
+    }
+    return "-- GHz"
+}

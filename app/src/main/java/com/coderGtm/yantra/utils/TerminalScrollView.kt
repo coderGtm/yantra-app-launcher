@@ -21,7 +21,7 @@ class TerminalScrollView(context: Context, attrs: AttributeSet) : ScrollView(con
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
-        return gestureDetector.onTouchEvent(ev)
+        return super.onInterceptTouchEvent(ev) || gestureDetector.onTouchEvent(ev)
     }
 
     override fun onTouchEvent(ev: MotionEvent): Boolean {
