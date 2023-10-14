@@ -1133,7 +1133,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             else openYantraSettings()
         }
         else if (args[0].lowercase() == "sysinfo") {
-            showSystemInfo()
+            showSystemInfo(args.drop(1))
         }
         else if (args[0].lowercase() == "scripts") {
             if (args.size > 1) printToConsole("'scripts' command does not take any parameters", 5)
@@ -1537,7 +1537,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         }
     }
 
-    private fun showSystemInfo() {
+    private fun showSystemInfo(args: List<String>) {
         val actManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
         val memInfo = ActivityManager.MemoryInfo()
         actManager.getMemoryInfo(memInfo)
@@ -1550,20 +1550,42 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         val widthRes = windowManager.defaultDisplay.width
         val heightRes = windowManager.defaultDisplay.height
 
-        printToConsole("${getUserName(preferenceObject)}@YantraLauncher", 7)
-        printToConsole("-------------------------", 7)
-        printToConsole("--> OS: Android ${Build.VERSION.RELEASE}", 4)
-        printToConsole("--> Host: ${Build.MANUFACTURER} ${Build.MODEL}", 4)
-        printToConsole("--> Kernel: ${System.getProperty("os.version")}", 4)
-        printToConsole("--> Uptime: ${uptimeHours}h ${uptimeMinutes}m", 4)
-        printToConsole("--> Apps: ${appList.size + 1}", 4)  // +1 as Yantra Launcher not included in appList
-        printToConsole("--> Terminal: Yantra Launcher ${BuildConfig.VERSION_NAME}", 4)
-        printToConsole("--> Terminal Font: ${preferenceObject.getString("font", Constants().defaultFontName) ?: Constants().defaultFontName}", 4)
-        printToConsole("--> Resolution: ${widthRes}x${heightRes}", 4)
-        printToConsole("--> Theme: ${Constants().themeList[preferenceObject.getInt("theme",0)]}", 4)
-        printToConsole("--> CPU: ${Build.SUPPORTED_ABIS[0]} (${Runtime.getRuntime().availableProcessors()}) @ ${getCPUSpeed()}", 4)
-        printToConsole("--> Memory: ${availableMem.toInt()}MiB / ${totalMem.toInt()}MiB", 4)
-        printToConsole("-------------------------", 7)
+        val showAllInfo = args.isEmpty()
+
+        if (showAllInfo) {
+            printToConsole("${getUserName(preferenceObject)}@YantraLauncher", 7)
+            printToConsole("-------------------------", 7)
+            printToConsole("--> OS: Android ${Build.VERSION.RELEASE}", 4)
+            printToConsole("--> Host: ${Build.MANUFACTURER} ${Build.MODEL}", 4)
+            printToConsole("--> Kernel: ${System.getProperty("os.version")}", 4)
+            printToConsole("--> Uptime: ${uptimeHours}h ${uptimeMinutes}m", 4)
+            printToConsole("--> Apps: ${appList.size + 1}", 4)  // +1 as Yantra Launcher not included in appList
+            printToConsole("--> Terminal: Yantra Launcher ${BuildConfig.VERSION_NAME}", 4)
+            printToConsole("--> Terminal Font: ${preferenceObject.getString("font", Constants().defaultFontName) ?: Constants().defaultFontName}", 4)
+            printToConsole("--> Resolution: ${widthRes}x${heightRes}", 4)
+            printToConsole("--> Theme: ${Constants().themeList[preferenceObject.getInt("theme",0)]}", 4)
+            printToConsole("--> CPU: ${Build.SUPPORTED_ABIS[0]} (${Runtime.getRuntime().availableProcessors()}) @ ${getCPUSpeed()}", 4)
+            printToConsole("--> Memory: ${availableMem.toInt()}MiB / ${totalMem.toInt()}MiB", 4)
+            printToConsole("-------------------------", 7)
+        }
+        else {
+            for (arg in args) {
+                when (arg.lowercase()) {
+                    "-os" -> printToConsole("--> OS: Android ${Build.VERSION.RELEASE}", 4)
+                    "-host" -> printToConsole("--> Host: ${Build.MANUFACTURER} ${Build.MODEL}", 4)
+                    "-kernel" -> printToConsole("--> Kernel: ${System.getProperty("os.version")}", 4)
+                    "-uptime" -> printToConsole("--> Uptime: ${uptimeHours}h ${uptimeMinutes}m", 4)
+                    "-apps" -> printToConsole("--> Apps: ${appList.size + 1}", 4)  // +1 as Yantra Launcher not included in appList
+                    "-terminal" -> printToConsole("--> Terminal: Yantra Launcher ${BuildConfig.VERSION_NAME}", 4)
+                    "-font" -> printToConsole("--> Terminal Font: ${preferenceObject.getString("font", Constants().defaultFontName) ?: Constants().defaultFontName}", 4)
+                    "-resolution" -> printToConsole("--> Resolution: ${widthRes}x${heightRes}", 4)
+                    "-theme" -> printToConsole("--> Theme: ${Constants().themeList[preferenceObject.getInt("theme",0)]}", 4)
+                    "-cpu" -> printToConsole("--> CPU: ${Build.SUPPORTED_ABIS[0]} (${Runtime.getRuntime().availableProcessors()}) @ ${getCPUSpeed()}", 4)
+                    "-memory" -> printToConsole("--> Memory: ${availableMem.toInt()}MiB / ${totalMem.toInt()}MiB", 4)
+                    else -> printToConsole("Unknown flag: $arg", 5)
+                }
+            }
+        }
     }
     private fun alias(cmd: String) {
         if (cmd.trim() == "alias") {
