@@ -48,6 +48,7 @@ import com.coderGtm.yantra.services.YantraAccessibilityService
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.UpdateAvailability
+import org.json.JSONObject
 import java.io.IOException
 import java.util.Timer
 import kotlin.concurrent.schedule
@@ -840,4 +841,49 @@ fun getCPUSpeed(): String {
         return "-- GHz"
     }
     return "-- GHz"
+}
+
+fun getBackupJSON(preferenceObject: SharedPreferences, timestamp: Long): JSONObject {
+    val backup = JSONObject()
+    backup.put("string", JSONObject())
+    backup.put("int", JSONObject())
+    backup.put("float", JSONObject())
+    backup.put("boolean", JSONObject())
+    backup.put("long", JSONObject())
+    backup.put("set", JSONObject())
+    backup.put("list", JSONObject())
+    backup.put("map", JSONObject())
+
+    // store all shared pref values in backup
+    for (key in preferenceObject.all.keys) {
+        when (val value = preferenceObject.all[key]) {
+            is String -> {
+                backup.getJSONObject("string").put(key, value)
+            }
+            is Int -> {
+                backup.getJSONObject("int").put(key, value)
+            }
+            is Float -> {
+                backup.getJSONObject("float").put(key, value)
+            }
+            is Boolean -> {
+                backup.getJSONObject("boolean").put(key, value)
+            }
+            is Long -> {
+                backup.getJSONObject("long").put(key, value)
+            }
+            is MutableSet<*> -> {
+                backup.getJSONObject("set").put(key, value)
+            }
+            is MutableList<*> -> {
+                backup.getJSONObject("list").put(key, value)
+            }
+            is MutableMap<*, *> -> {
+                backup.getJSONObject("map").put(key, value)
+            }
+        }
+        backup.put("timestamp", timestamp.toString())
+    }
+
+    return backup
 }

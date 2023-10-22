@@ -68,6 +68,7 @@ import com.coderGtm.yantra.utils.defaultWallpaperManager
 import com.coderGtm.yantra.utils.eval
 import com.coderGtm.yantra.utils.feedback
 import com.coderGtm.yantra.utils.findSimilarity
+import com.coderGtm.yantra.utils.getBackupJSON
 import com.coderGtm.yantra.utils.getCPUSpeed
 import com.coderGtm.yantra.utils.getInit
 import com.coderGtm.yantra.utils.getScripts
@@ -100,6 +101,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
@@ -1173,6 +1175,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         else if (args[0].lowercase() == "fontpack") {
             if (args.size > 1) printToConsole("'fontpack' command does not take any parameters", 5)
             else fontPack()
+        }
+        else if (args[0].lowercase() == "backup") {
+            if (args.size > 1) printToConsole("'backup' command does not take any parameters", 5)
+            else backup()
         }
         else if (args[0].lowercase() == "exit") {
             if (args.size > 1) printToConsole("'exit' command does not take any parameters", 5)
@@ -2519,41 +2525,20 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
 
     private fun backup() {
         printToConsole("Preparing Backup...", 4, Typeface.ITALIC)
+
         val username = getUserName(preferenceObject)
-        val themeId = preferenceObject.getInt("theme", 0)
-        val customThemeClrs = preferenceObject.getString("customThemeClrs", "#121212,#A0A0A0,#E1BEE7,#FAEBD7,#EBEBEB,#F00000,#00C853,#FFD600")
-        // while restoring, check if plugin really purchased.
-        val todo = getToDo(preferenceObject)
-        val todoProgress = getToDoProgressList(todo.size, preferenceObject)
-        val init = getInit(preferenceObject, preferenceEditObject)
-        val alias = aliasList
-        val scriptNames = getScripts(preferenceObject)
-        val scriptBodies = ArrayList<String>()
-        scriptNames.forEach {
-            val scriptBody = preferenceObject.getString("script_$it","") ?: ""
-            scriptBodies.add(scriptBody)
+        val timestamp = System.currentTimeMillis()
+
+        val backup = getBackupJSON(preferenceObject, timestamp)
+
+        // write backup to file with name username@timestamp.yantra in downloads/Yantra Launcher Backups directory
+        val backupDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Yantra Launcher Backups")
+        if (!backupDir.exists()) {
+            backupDir.mkdir()
         }
-        val usernamePrefix = preferenceObject.getString("usernamePrefix","$")?:"$"
-        val getPrimarySuggestions = preferenceObject.getBoolean("getPrimarySuggestions",true)
-        val getSecondarySuggestions = preferenceObject.getBoolean("getSecondarySuggestions",true)
-        val fullscreenLauncher = preferenceObject.getBoolean("fullScreen",false)
-        val vibrationPermission = preferenceObject.getBoolean("vibrationPermission",true)
-        val showArrowKeys = preferenceObject.getBoolean("showArrowKeys",true)
-        val oneTapKeyboardActivation = preferenceObject.getBoolean("oneTapKeyboardActivation",true)
-        val hideKeyboardOnEnter = preferenceObject.getBoolean("hideKeyboardOnEnter", true)
-        val actOnSuggestionTap = preferenceObject.getBoolean("actOnSuggestionTap", false)
-        val doubleTapCommand = preferenceObject.getString("doubleTapCommand","lock")
-        val newsWebsite = preferenceObject.getString("newsWebsite","https://news.google.com/")
-        val fontSize = preferenceObject.getInt("fontSize",16)
-        val orientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-        val appSugOrderingMode = preferenceObject.getInt("appSortMode", Constants().appSortMode_alphabetically)
-        val fontName = preferenceObject.getString("font","Source Code Pro") ?: "Source Code Pro"
-        // check if fontpack is purchased when restore command used.
-        val termuxCmdPath = preferenceObject.getString("termuxCmdPath","/data/data/com.termux/files/usr/bin/")!!
-        val termuxCmdWorkDir = preferenceObject.getString("termuxCmdWorkDir","/data/data/com.termux/files/home/")!!
-        val termuxCmdSessionAction = preferenceObject.getInt("termuxCmdSessionAction",0)
-        //val aiApiKey = preferenceObject.getString("aiApiKey","")!!
-        val aiSystemPrompt = preferenceObject.getString("aiSystemPrompt",Constants().aiSystemPrompt)!!
+        val backupFile = File(backupDir, "$username@$timestamp.yantra")
+        backupFile.writeText(backup.toString())
+        printToConsole("Backup saved to ${backupFile.absolutePath}", 6)
     }
 
     private fun openAppSettings(appName: String) {
