@@ -26,6 +26,7 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -85,6 +86,7 @@ import com.coderGtm.yantra.utils.openURL
 import com.coderGtm.yantra.utils.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.utils.requestCommand
 import com.coderGtm.yantra.utils.requestUpdateIfAvailable
+import com.coderGtm.yantra.utils.restoreBackupJSON
 import com.coderGtm.yantra.utils.setArrowKeysVisibility
 import com.coderGtm.yantra.utils.setToDo
 import com.coderGtm.yantra.utils.setToDoProgress
@@ -101,10 +103,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.BufferedReader
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
+import java.io.InputStreamReader
 import java.net.URL
 import java.text.Collator
 import java.text.SimpleDateFormat
@@ -258,7 +262,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                 appList = newAppList
             }
 
-            if (!alreadyFetched || preferenceObject.getInt("appSortMode", Constants().appSortMode_alphabetically) == Constants().appSortMode_alphabetically) {
+            if (!alreadyFetched || preferenceObject.getInt("appSortMode", Constants().appSortModeAlphabetically) == Constants().appSortModeAlphabetically) {
                 appList.sortWith { app1, app2 ->
                     collator.compare(app1.appName, app2.appName)
                 }
@@ -288,6 +292,69 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                 wallpaperManager.setBitmap((bg as BitmapDrawable).bitmap)
                 preferenceEditObject.putBoolean("defaultWallpaper",false).apply()
                 printToConsole("Selected Wallpaper applied!", 6)
+            }
+        }
+        else if (requestCode == Constants().restoreBackupRequestCode) {
+            if (resultCode == RESULT_OK) {
+                // restore backup by replacing values of shared preferences file
+                try {
+                    data?.data?.let {
+                        contentResolver.openInputStream(it)
+                    }?.let {
+                        val r = BufferedReader(InputStreamReader(it))
+                        // parse json
+                        val jsonString = r.readText()
+                        try {
+                            val jsonObject = JSONObject(jsonString)
+                            r.close()
+                            try {
+                                val backupTimestamp = jsonObject.getString("timestamp")
+                                // convert timestamp which is in millis to date and time
+                                val sdf = SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.getDefault())
+                                val date = Date(backupTimestamp.toLong())
+                                val formattedDate = sdf.format(date)
+                                MaterialAlertDialogBuilder(this@MainActivity)
+                                    .setTitle("Restore Backup")
+                                    .setMessage("Are you sure you want to restore backup created on $formattedDate?\n\nThis will overwrite all your current settings and data!")
+                                    .setPositiveButton("Yes") { _, _ ->
+                                        try {
+                                            preferenceEditObject.clear().apply()
+                                            restoreBackupJSON(jsonObject, preferenceEditObject)
+                                            printToConsole("Backup restored successfully!", 6)
+                                            printToConsole("Restarting app...", 6)
+                                            // call recreate after 2 seconds
+                                            Timer().schedule(2000) {
+                                                recreate()
+                                            }
+                                        } catch (e: Exception) {
+                                            printToConsole("Error: Invalid backup file!", 5)
+                                            return@setPositiveButton
+                                        }
+                                    }
+                                    .setNegativeButton("No") { _, _ ->
+                                        printToConsole("Restore backup cancelled!", 6)
+                                    }
+                            }
+                            catch (e: Exception) {
+                                printToConsole("Error: Invalid backup file!", 5)
+                                return
+                            }
+                        }
+                        catch (e: Exception) {
+                            printToConsole("Error: Invalid backup file!", 5)
+                        }
+                    }
+                    // if the app failed to attempt to retrieve the backup file
+                    printToConsole("Error: Could not retrieve backup file!", 5)
+                } catch (e: Exception) { // If the app failed to attempt to retrieve the error file
+                    printToConsole("Error: Invalid backup file!", 5)
+                }
+            }
+            else if (resultCode == RESULT_CANCELED) {
+                printToConsole("Restore backup cancelled!", 6)
+            }
+            else {
+                printToConsole("Error: Invalid backup file!", 5)
             }
         }
     }
@@ -1180,6 +1247,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             if (args.size > 1) printToConsole("'backup' command does not take any parameters", 5)
             else backup()
         }
+        else if (args[0].lowercase() == "restore") {
+            if (args.size > 1) printToConsole("'restore' command does not take any parameters", 5)
+            else restoreBackup()
+        }
         else if (args[0].lowercase() == "exit") {
             if (args.size > 1) printToConsole("'exit' command does not take any parameters", 5)
             else exitApp()
@@ -2015,7 +2086,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         if (candidates.size == 1) {
             applicationContext.startActivity(applicationContext.packageManager.getLaunchIntentForPackage(candidates[0].packageName))
             printToConsole("Opened ${candidates[0].appName}", 6)
-            if (preferenceObject.getInt("appSortMode", Constants().appSortMode_alphabetically) == Constants().appSortMode_recency) {
+            if (preferenceObject.getInt("appSortMode", Constants().appSortModeAlphabetically) == Constants().appSortModeRecency) {
                 appList.remove(candidates[0])
                 appList.add(0, candidates[0])
             }
@@ -2034,7 +2105,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                         .setItems(items.toTypedArray()) { _, which ->
                             applicationContext.startActivity(applicationContext.packageManager.getLaunchIntentForPackage(candidates[which].packageName))
                             printToConsole("Opened ${candidates[which].appName}", 6)
-                            if (preferenceObject.getInt("appSortMode", Constants().appSortMode_alphabetically) == Constants().appSortMode_recency) {
+                            if (preferenceObject.getInt("appSortMode", Constants().appSortModeAlphabetically) == Constants().appSortModeRecency) {
                                 appList.remove(candidates[which])
                                 appList.add(0, candidates[which])
                             }
@@ -2060,7 +2131,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         val appBlock = appList[maxIndex]
         applicationContext.startActivity(applicationContext.packageManager.getLaunchIntentForPackage(appBlock.packageName))
         printToConsole("Opened ${appList[maxIndex].appName}",6)
-        if (preferenceObject.getInt("appSortMode", Constants().appSortMode_alphabetically) == Constants().appSortMode_recency) {
+        if (preferenceObject.getInt("appSortMode", Constants().appSortModeAlphabetically) == Constants().appSortModeRecency) {
             appList.remove(appBlock)
             appList.add(0, appBlock)
         }
@@ -2539,6 +2610,15 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         val backupFile = File(backupDir, "$username@$timestamp.yantra")
         backupFile.writeText(backup.toString())
         printToConsole("Backup saved to ${backupFile.absolutePath}", 6)
+    }
+
+    private fun restoreBackup() {
+        // open a file picker to select files with .yantra extension
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "*/*"
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        //intent.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("application/yantra"))
+        startActivityForResult(Intent.createChooser(intent, "Select a Yantra Launcher Backup"), Constants().restoreBackupRequestCode)
     }
 
     private fun openAppSettings(appName: String) {

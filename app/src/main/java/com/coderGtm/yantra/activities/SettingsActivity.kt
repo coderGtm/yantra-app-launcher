@@ -48,7 +48,7 @@ class SettingsActivity : AppCompatActivity() {
     private var initCmdLog = false
     private var fontSize = 16
     private var orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-    private var appSugOrderingMode = Constants().appSortMode_alphabetically
+    private var appSugOrderingMode = Constants().appSortModeAlphabetically
     private var fontName = "Source Code Pro"
 
     private lateinit var binding: ActivitySettingsBinding
@@ -79,7 +79,7 @@ class SettingsActivity : AppCompatActivity() {
         initCmdLog = preferenceObject.getBoolean("initCmdLog", false)
         fontSize = preferenceObject.getInt("fontSize",16)
         orientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-        appSugOrderingMode = preferenceObject.getInt("appSortMode", Constants().appSortMode_alphabetically)
+        appSugOrderingMode = preferenceObject.getInt("appSortMode", Constants().appSortModeAlphabetically)
         fontName = preferenceObject.getString("font","Source Code Pro") ?: "Source Code Pro"
 
 

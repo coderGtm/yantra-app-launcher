@@ -32,15 +32,16 @@ class Constants {
     val contactsPermission = 400
     val bluetoothPermission = 500
     val notificationsPermission = 600
+    val restoreBackupRequestCode = 700
 
     val userNotificationChannelName = "User Generated Notifications"
     val userNotificationChannelDescription = "This channel is for Notifications fired by user using the 'notify' command."
     val userNotificationChannelId = "userNotifications"
     val userNotificationId = 101
 
-    val appSortMode_alphabetically = 0
-    val appSortMode_recency = 1
-    //val appSortMode_mostUsed = 2
+    val appSortModeAlphabetically = 0
+    val appSortModeRecency = 1
+    //val appSortModeMostUsed = 2
 
     val defaultFontName = "Source Code Pro"
 

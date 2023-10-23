@@ -568,10 +568,10 @@ fun setOrientationTvText(binding: ActivitySettingsBinding, orientation: Int) {
 
 fun setAppSugOrderTvText(binding: ActivitySettingsBinding, appSugOrderingMode: Int) {
     binding.tvAppSugOrder.text = when (appSugOrderingMode) {
-        Constants().appSortMode_alphabetically -> {
+        Constants().appSortModeAlphabetically -> {
             "Alphabetically"
         }
-        Constants().appSortMode_recency -> {
+        Constants().appSortModeRecency -> {
             "Recency"
         }
         else -> {
@@ -713,11 +713,11 @@ fun openAppSugOrderingSetter(activity: Activity, binding: ActivitySettingsBindin
         .setItems(arrayOf("Alphabetically", "Recency")) { dialog, which ->
             when (which) {
                 0 -> {
-                    preferenceEditObject.putInt("appSortMode", Constants().appSortMode_alphabetically).apply()
+                    preferenceEditObject.putInt("appSortMode", Constants().appSortModeAlphabetically).apply()
                     binding.tvAppSugOrder.text = "Alphabetically"
                 }
                 1 -> {
-                    preferenceEditObject.putInt("appSortMode", Constants().appSortMode_recency).apply()
+                    preferenceEditObject.putInt("appSortMode", Constants().appSortModeRecency).apply()
                     binding.tvAppSugOrder.text = "Recency"
                 }
             }
@@ -886,4 +886,45 @@ fun getBackupJSON(preferenceObject: SharedPreferences, timestamp: Long): JSONObj
     }
 
     return backup
+}
+
+fun restoreBackupJSON(jsonObject: JSONObject, preferenceEditObject: Editor) {
+    val keys = jsonObject.keys()
+    // json has data types as keys in which shared pref key-value pairs are stored
+    // iterate over all data types
+    while (keys.hasNext()) {
+        val dataType = keys.next()
+        val dataObject = jsonObject.getJSONObject(dataType)
+        val dataKeys = dataObject.keys()
+        // iterate over all key-value pairs of a data type
+        while (dataKeys.hasNext()) {
+            val key = dataKeys.next()
+            when (dataType) {
+                "int" -> {
+                    preferenceEditObject.putInt(key, dataObject.getInt(key)).apply()
+                }
+                "float" -> {
+                    preferenceEditObject.putFloat(key, dataObject.getDouble(key).toFloat()).apply()
+                }
+                "long" -> {
+                    preferenceEditObject.putLong(key, dataObject.getInt(key).toLong()).apply()
+                }
+                "boolean" -> {
+                    preferenceEditObject.putBoolean(key, dataObject.getBoolean(key)).apply()
+                }
+                "string" -> {
+                    preferenceEditObject.putString(key, dataObject.getString(key)).apply()
+                }
+                "set" -> {
+                    preferenceEditObject.putStringSet(key, dataObject.getString(key).split(",").toSet()).apply()
+                }
+                "list" -> {
+                    preferenceEditObject.putString(key, dataObject.getString(key)).apply()
+                }
+                "map" -> {
+                    preferenceEditObject.putString(key, dataObject.getString(key)).apply()
+                }
+            }
+        }
+    }
 }
