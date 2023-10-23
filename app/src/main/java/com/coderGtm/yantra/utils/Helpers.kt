@@ -156,7 +156,7 @@ fun defaultWallpaperManager(preferenceObject: SharedPreferences, applicationCont
     if (preferenceObject.getBoolean("defaultWallpaper",true)) {
         val wallpaperManager = WallpaperManager.getInstance(applicationContext)
         val colorDrawable = ColorDrawable(Color.parseColor(curTheme[0]))
-        wallpaperManager.setBitmap(colorDrawable.toBitmap(applicationContext.resources.displayMetrics.widthPixels, applicationContext.resources.displayMetrics.heightPixels))
+        setSystemWallpaper(wallpaperManager, colorDrawable.toBitmap(applicationContext.resources.displayMetrics.widthPixels, applicationContext.resources.displayMetrics.heightPixels))
     }
 }
 
@@ -926,5 +926,14 @@ fun restoreBackupJSON(jsonObject: JSONObject, preferenceEditObject: Editor) {
                 }
             }
         }
+    }
+}
+
+fun setSystemWallpaper(wallpaperManager: WallpaperManager, bitmap: Bitmap) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_SYSTEM)
+    }
+    else {
+        wallpaperManager.setBitmap(bitmap)
     }
 }

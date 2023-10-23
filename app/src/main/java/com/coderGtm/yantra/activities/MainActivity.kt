@@ -88,6 +88,7 @@ import com.coderGtm.yantra.utils.requestCommand
 import com.coderGtm.yantra.utils.requestUpdateIfAvailable
 import com.coderGtm.yantra.utils.restoreBackupJSON
 import com.coderGtm.yantra.utils.setArrowKeysVisibility
+import com.coderGtm.yantra.utils.setSystemWallpaper
 import com.coderGtm.yantra.utils.setToDo
 import com.coderGtm.yantra.utils.setToDoProgress
 import com.coderGtm.yantra.utils.setupPermissions
@@ -289,7 +290,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                     Color.parseColor(curTheme[0]).toDrawable()
                 }
                 val wallpaperManager = WallpaperManager.getInstance(this)
-                wallpaperManager.setBitmap((bg as BitmapDrawable).bitmap)
+                setSystemWallpaper(wallpaperManager, (bg as BitmapDrawable).bitmap)
                 preferenceEditObject.putBoolean("defaultWallpaper",false).apply()
                 printToConsole("Selected Wallpaper applied!", 6)
             }
@@ -1358,7 +1359,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                 if (preferenceObject.getBoolean("defaultWallpaper",true)) {
                     val wallpaperManager = WallpaperManager.getInstance(applicationContext)
                     val colorDrawable = ColorDrawable(Color.parseColor(curTheme[0]))
-                    wallpaperManager.setBitmap(colorDrawable.toBitmap(resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels))
+                    setSystemWallpaper(wallpaperManager, colorDrawable.toBitmap(resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels))
                 }
                 toast(baseContext, "Setting theme to ${Constants().themeList[id.toInt()]}")
                 recreate()
@@ -2337,7 +2338,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         else if (cmd.trim().split(" ")[1] == "-1") {
             val wallpaperManager = WallpaperManager.getInstance(applicationContext)
             val colorDrawable = ColorDrawable(Color.parseColor(curTheme[0]))
-            wallpaperManager.setBitmap(colorDrawable.toBitmap(resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels))
+            setSystemWallpaper(wallpaperManager, colorDrawable.toBitmap(resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels))
             preferenceEditObject.putBoolean("defaultWallpaper",true).apply()
             printToConsole("Removed Wallpaper", 6)
         }
@@ -2371,7 +2372,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                             val tintedBitmap = tintBitMap(bitmap, Color.parseColor("#33${curTheme[0].removePrefix("#")}"))  //33 = 20%
                             // set wallpaper from ui thread
                             runOnUiThread {
-                                wallpaperManager.setBitmap(tintedBitmap)
+                                setSystemWallpaper(wallpaperManager, tintedBitmap)
                                 preferenceEditObject.putBoolean("defaultWallpaper",false).apply()
                                 printToConsole("Random Wallpaper applied!", 6)
                             }
