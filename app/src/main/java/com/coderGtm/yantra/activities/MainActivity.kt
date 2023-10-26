@@ -1256,10 +1256,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             if (args.size > 1) printToConsole("'restore' command does not take any parameters", 5)
             else restoreBackup()
         }
-        else if (args[0].lowercase() == "speedtest") {
-            if (args.size > 1) printToConsole("'speedtest' command does not take any parameters", 5)
-            else performSpeedTest()
-        }
         else if (args[0].lowercase() == "exit") {
             if (args.size > 1) printToConsole("'exit' command does not take any parameters", 5)
             else exitApp()
@@ -2754,45 +2750,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             printToConsole("--------------------------",7)
             initializeProductPurchase("fontpack")
         }
-    }
-
-    private fun performSpeedTest() {
-        printToConsole("Performing Speed Test...", 4, Typeface.ITALIC)
-        printToConsole("-------------------------", 4)
-        Thread {
-
-            val speedTestSocket = SpeedTestSocket()
-
-            speedTestSocket.socketTimeout = Constants().speedTestSocketTimeout
-
-            speedTestSocket.addSpeedTestListener(object : ISpeedTestListener {
-                override fun onCompletion(report: SpeedTestReport) {
-                    //called when download is complete
-                    runOnUiThread {
-                        printToConsole(report.speedTestMode.name, 7, Typeface.BOLD)
-                        printToConsole("-------------------------", 4)
-                        printToConsole("Total Packet Size: ${report.totalPacketSize / 1000000} MB", 4)
-                        printToConsole("${report.speedTestMode.name} Speed: ${report.transferRateBit / 1000000.toBigDecimal()} Mbps", 6, Typeface.BOLD)
-                    }
-                    if (report.speedTestMode == SpeedTestMode.DOWNLOAD) {
-                        printToConsole("-------------------------", 4)
-                        printToConsole("Performing Upload Test...", 4)
-                        speedTestSocket.startUpload(Constants().SPEED_TEST_SERVER_URI_UL, Constants().SPEED_TEST_UPLOAD_FILE_SIZE)
-                    }
-                }
-
-                override fun onError(speedTestError: SpeedTestError, errorMessage: String) {
-                    runOnUiThread {
-                        printToConsole("Speed Test Failed with error $speedTestError : $errorMessage", 5)
-                    }
-                }
-
-                override fun onProgress(percent: Float, downloadReport: SpeedTestReport) {}
-            })
-
-            printToConsole("Performing Download Test...", 4)
-            speedTestSocket.startDownload(Constants().SPEED_TEST_SERVER_URI_DL)
-        }.start()
     }
 
     private fun exitApp() {
