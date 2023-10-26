@@ -26,7 +26,6 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
-import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -99,6 +98,11 @@ import com.coderGtm.yantra.utils.verifyValidSignature
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
+import fr.bmartel.speedtest.SpeedTestReport
+import fr.bmartel.speedtest.SpeedTestSocket
+import fr.bmartel.speedtest.inter.ISpeedTestListener
+import fr.bmartel.speedtest.model.SpeedTestError
+import fr.bmartel.speedtest.model.SpeedTestMode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -1251,6 +1255,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         else if (args[0].lowercase() == "restore") {
             if (args.size > 1) printToConsole("'restore' command does not take any parameters", 5)
             else restoreBackup()
+        }
+        else if (args[0].lowercase() == "speedtest") {
+            if (args.size > 1) printToConsole("'speedtest' command does not take any parameters", 5)
+            else performSpeedTest()
         }
         else if (args[0].lowercase() == "exit") {
             if (args.size > 1) printToConsole("'exit' command does not take any parameters", 5)
@@ -2746,6 +2754,45 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             printToConsole("--------------------------",7)
             initializeProductPurchase("fontpack")
         }
+    }
+
+    private fun performSpeedTest() {
+        printToConsole("Performing Speed Test...", 4, Typeface.ITALIC)
+        printToConsole("-------------------------", 4)
+        Thread {
+
+            val speedTestSocket = SpeedTestSocket()
+
+            speedTestSocket.socketTimeout = Constants().speedTestSocketTimeout
+
+            speedTestSocket.addSpeedTestListener(object : ISpeedTestListener {
+                override fun onCompletion(report: SpeedTestReport) {
+                    //called when download is complete
+                    runOnUiThread {
+                        printToConsole(report.speedTestMode.name, 7, Typeface.BOLD)
+                        printToConsole("-------------------------", 4)
+                        printToConsole("Total Packet Size: ${report.totalPacketSize / 1000000} MB", 4)
+                        printToConsole("${report.speedTestMode.name} Speed: ${report.transferRateBit / 1000000.toBigDecimal()} Mbps", 6, Typeface.BOLD)
+                    }
+                    if (report.speedTestMode == SpeedTestMode.DOWNLOAD) {
+                        printToConsole("-------------------------", 4)
+                        printToConsole("Performing Upload Test...", 4)
+                        speedTestSocket.startUpload(Constants().SPEED_TEST_SERVER_URI_UL, Constants().SPEED_TEST_UPLOAD_FILE_SIZE)
+                    }
+                }
+
+                override fun onError(speedTestError: SpeedTestError, errorMessage: String) {
+                    runOnUiThread {
+                        printToConsole("Speed Test Failed with error $speedTestError : $errorMessage", 5)
+                    }
+                }
+
+                override fun onProgress(percent: Float, downloadReport: SpeedTestReport) {}
+            })
+
+            printToConsole("Performing Download Test...", 4)
+            speedTestSocket.startDownload(Constants().SPEED_TEST_SERVER_URI_DL)
+        }.start()
     }
 
     private fun exitApp() {

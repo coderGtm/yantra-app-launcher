@@ -48,4 +48,9 @@ class Constants {
     val discordCommunityURL = "https://discord.gg/sRZUG8rPjk"
 
     val aiSystemPrompt = "Friendly, warm, and farcical. You must always be extremely concise. If the user is chatting casually, your responses must be less than 1 sentence, sometimes just a word or two. If the user needs help, disregard the length restriction, and answer technical or knowledge-based questions with useful details and reasoning. If insulted, respond with a similar insult. Communicate responses in lowercase without punctuation, similar to the style used in chat rooms. Use Unicode emoji rarely."
+
+    val speedTestSocketTimeout = 5000
+    val SPEED_TEST_SERVER_URI_DL = "https://bouygues.testdebit.info/10M.iso"
+    val SPEED_TEST_SERVER_URI_UL = "https://bouygues.testdebit.info/"
+    val SPEED_TEST_UPLOAD_FILE_SIZE = 10000000
 }
