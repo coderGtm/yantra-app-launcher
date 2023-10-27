@@ -81,6 +81,7 @@ import com.coderGtm.yantra.utils.incrementNumOfCommandsEntered
 import com.coderGtm.yantra.utils.isNetworkAvailable
 import com.coderGtm.yantra.utils.lockDeviceByAccessibilityService
 import com.coderGtm.yantra.utils.lockDeviceByAdmin
+import com.coderGtm.yantra.utils.makePermissionRequest
 import com.coderGtm.yantra.utils.openURL
 import com.coderGtm.yantra.utils.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.utils.requestCommand
@@ -311,9 +312,9 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                         val jsonString = r.readText()
                         try {
                             val jsonObject = JSONObject(jsonString)
-                            r.close()
                             try {
                                 val backupTimestamp = jsonObject.getString("timestamp")
+                                jsonObject.remove("timestamp")
                                 // convert timestamp which is in millis to date and time
                                 val sdf = SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.getDefault())
                                 val date = Date(backupTimestamp.toLong())
@@ -325,28 +326,32 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                                         try {
                                             preferenceEditObject.clear().apply()
                                             restoreBackupJSON(jsonObject, preferenceEditObject)
-                                            printToConsole("Backup restored successfully!", 6)
-                                            printToConsole("Restarting app...", 6)
+                                            printToConsole("Backup restored successfully!", 6, Typeface.BOLD)
+                                            printToConsole("Restarting app...", 4)
                                             // call recreate after 2 seconds
                                             Timer().schedule(2000) {
-                                                recreate()
+                                                runOnUiThread { recreate() }
                                             }
                                         } catch (e: Exception) {
-                                            printToConsole("Error: Invalid backup file!", 5)
+                                            printToConsole("Error: Invalid backup file! (${e.message})", 5)
                                             return@setPositiveButton
                                         }
                                     }
                                     .setNegativeButton("No") { _, _ ->
                                         printToConsole("Restore backup cancelled!", 6)
                                     }
+                                    .show()
                             }
                             catch (e: Exception) {
                                 printToConsole("Error: Invalid backup file!", 5)
-                                return
                             }
                         }
                         catch (e: Exception) {
                             printToConsole("Error: Invalid backup file!", 5)
+                        }
+                        finally {
+                            r.close()
+                            return
                         }
                     }
                     // if the app failed to attempt to retrieve the backup file
@@ -2618,10 +2623,14 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     }
 
     private fun restoreBackup() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            makePermissionRequest(this@MainActivity)
+            return
+        }
         // open a file picker to select files with .yantra extension
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        //intent.addCategory(Intent.CATEGORY_OPENABLE)
         //intent.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("application/yantra"))
         startActivityForResult(Intent.createChooser(intent, "Select a Yantra Launcher Backup"), Constants().restoreBackupRequestCode)
     }
