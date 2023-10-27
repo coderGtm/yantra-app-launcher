@@ -9,6 +9,7 @@ import android.app.admin.DevicePolicyManager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.ComponentName
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -27,6 +28,7 @@ import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
+import android.provider.OpenableColumns
 import android.provider.Settings
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -935,5 +937,40 @@ fun setSystemWallpaper(wallpaperManager: WallpaperManager, bitmap: Bitmap) {
     }
     else {
         wallpaperManager.setBitmap(bitmap)
+    }
+}
+fun removePremiumValuesFromBackupJson(backup: JSONObject): JSONObject {
+    Constants().premiumPluginsId.forEach {
+        val key = "${it}___purchased"
+        backup.remove(key)
+    }
+    return backup
+}
+
+fun getFileNameFromUri(uri: Uri, contentResolver: ContentResolver): String {
+    val cursor = contentResolver.query(uri, null, null, null, null)
+    return if (cursor != null) {
+        val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+        if (nameIndex != -1 && cursor.moveToFirst()) {
+            val fileName = cursor.getString(nameIndex)
+            cursor.close()
+            fileName
+        } else {
+            // Handle the case where DISPLAY_NAME is not available
+            "unknown_file"
+        }
+    } else {
+        // Handle the case where cursor is null
+        "unknown_file"
+    }
+}
+
+fun getFileExtensionFromUri(uri: Uri, contentResolver: ContentResolver): String {
+    val fileName = getFileNameFromUri(uri, contentResolver)
+    val fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length)
+    return if (fileExtension == fileName) {
+        ""
+    } else {
+        fileExtension
     }
 }

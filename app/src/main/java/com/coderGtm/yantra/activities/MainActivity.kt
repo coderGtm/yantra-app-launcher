@@ -29,6 +29,7 @@ import android.text.style.UnderlineSpan
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.webkit.MimeTypeMap
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -70,6 +71,8 @@ import com.coderGtm.yantra.utils.feedback
 import com.coderGtm.yantra.utils.findSimilarity
 import com.coderGtm.yantra.utils.getBackupJSON
 import com.coderGtm.yantra.utils.getCPUSpeed
+import com.coderGtm.yantra.utils.getFileExtensionFromUri
+import com.coderGtm.yantra.utils.getFileNameFromUri
 import com.coderGtm.yantra.utils.getInit
 import com.coderGtm.yantra.utils.getScripts
 import com.coderGtm.yantra.utils.getToDo
@@ -83,6 +86,7 @@ import com.coderGtm.yantra.utils.lockDeviceByAccessibilityService
 import com.coderGtm.yantra.utils.lockDeviceByAdmin
 import com.coderGtm.yantra.utils.makePermissionRequest
 import com.coderGtm.yantra.utils.openURL
+import com.coderGtm.yantra.utils.removePremiumValuesFromBackupJson
 import com.coderGtm.yantra.utils.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.utils.requestCommand
 import com.coderGtm.yantra.utils.requestUpdateIfAvailable
@@ -305,20 +309,26 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                 // restore backup by replacing values of shared preferences file
                 try {
                     data?.data?.let {
+                        val fileExtension = getFileExtensionFromUri(it, contentResolver)
+                        if (fileExtension != "yantra") {
+                            printToConsole("Backup file must be a Yantra Launcher file, having .yantra extension.", 5)
+                            return
+                        }
                         contentResolver.openInputStream(it)
                     }?.let {
                         val r = BufferedReader(InputStreamReader(it))
                         // parse json
                         val jsonString = r.readText()
                         try {
-                            val jsonObject = JSONObject(jsonString)
+                            var jsonObject = JSONObject(jsonString)
                             try {
                                 val backupTimestamp = jsonObject.getString("timestamp")
-                                jsonObject.remove("timestamp")
                                 // convert timestamp which is in millis to date and time
                                 val sdf = SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.getDefault())
                                 val date = Date(backupTimestamp.toLong())
                                 val formattedDate = sdf.format(date)
+                                jsonObject.remove("timestamp")
+                                jsonObject = removePremiumValuesFromBackupJson(jsonObject)
                                 MaterialAlertDialogBuilder(this@MainActivity)
                                     .setTitle("Restore Backup")
                                     .setMessage("Are you sure you want to restore backup created on $formattedDate?\n\nThis will overwrite all your current settings and data!")
@@ -327,11 +337,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                                             preferenceEditObject.clear().apply()
                                             restoreBackupJSON(jsonObject, preferenceEditObject)
                                             printToConsole("Backup restored successfully!", 6, Typeface.BOLD)
-                                            printToConsole("Restarting app...", 4)
-                                            // call recreate after 2 seconds
-                                            Timer().schedule(2000) {
-                                                runOnUiThread { recreate() }
-                                            }
+                                            printToConsole("Please Restart Yantra Launcher using the 'reset' command...", 4)
                                         } catch (e: Exception) {
                                             printToConsole("Error: Invalid backup file! (${e.message})", 5)
                                             return@setPositiveButton
