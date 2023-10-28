@@ -329,7 +329,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                                 val formattedDate = sdf.format(date)
                                 jsonObject.remove("timestamp")
                                 jsonObject = removePremiumValuesFromBackupJson(jsonObject)
-                                MaterialAlertDialogBuilder(this@MainActivity)
+                                MaterialAlertDialogBuilder(this@MainActivity, R.style.Theme_AlertDialog)
                                     .setTitle("Restore Backup")
                                     .setMessage("Are you sure you want to restore backup created on $formattedDate?\n\nThis will overwrite all your current settings and data!")
                                     .setPositiveButton("Yes") { _, _ ->
