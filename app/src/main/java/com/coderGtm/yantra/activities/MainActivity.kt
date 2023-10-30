@@ -29,7 +29,6 @@ import android.text.style.UnderlineSpan
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.webkit.MimeTypeMap
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -72,7 +71,6 @@ import com.coderGtm.yantra.utils.findSimilarity
 import com.coderGtm.yantra.utils.getBackupJSON
 import com.coderGtm.yantra.utils.getCPUSpeed
 import com.coderGtm.yantra.utils.getFileExtensionFromUri
-import com.coderGtm.yantra.utils.getFileNameFromUri
 import com.coderGtm.yantra.utils.getInit
 import com.coderGtm.yantra.utils.getScripts
 import com.coderGtm.yantra.utils.getToDo
@@ -103,11 +101,6 @@ import com.coderGtm.yantra.utils.verifyValidSignature
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
-import fr.bmartel.speedtest.SpeedTestReport
-import fr.bmartel.speedtest.SpeedTestSocket
-import fr.bmartel.speedtest.inter.ISpeedTestListener
-import fr.bmartel.speedtest.model.SpeedTestError
-import fr.bmartel.speedtest.model.SpeedTestMode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -775,6 +768,20 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                         }
                     }
                     isPrimary = false
+                }
+                else if (effectivePrimaryCmd == "sysinfo") {
+                    if (args.size > 1) {
+                        overrideLastWord = true
+                    }
+                    val regex = Regex(Pattern.quote(cmdEntered.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                    val sysInfoArgs= listOf("-os", "-host", "-kernel", "-uptime", "-apps", "-terminal", "-font", "-resolution", "-theme", "-cpu", "-memory")
+                    for (arg in sysInfoArgs) {
+                        if (regex.containsMatchIn(arg)) {
+                            suggestions.add(arg)
+                        }
+                    }
+                    isPrimary = false
+                    executeOnTapViable = false
                 }
                 else if (effectivePrimaryCmd == "bg") {
                     if (args.size > 1) {
