@@ -5,19 +5,21 @@ import android.app.WallpaperManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.text.SpannableString
-import android.text.TextWatcher
 import android.text.style.UnderlineSpan
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
@@ -26,6 +28,7 @@ import androidx.core.provider.FontsContractCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
+import com.coderGtm.yantra.BuildConfig
 import com.coderGtm.yantra.DEFAULT_FONT_NAME
 import com.coderGtm.yantra.NO_LOG_COMMANDS
 import com.coderGtm.yantra.R
@@ -33,12 +36,12 @@ import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.databinding.ActivityMainBinding
+import com.coderGtm.yantra.getUserName
+import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Theme
-import com.coderGtm.yantra.misc.getUserName
-import com.coderGtm.yantra.misc.getUserNamePrefix
-import com.coderGtm.yantra.misc.requestCmdInputFocusAndShowKeyboard
-import com.coderGtm.yantra.misc.setSystemWallpaper
+import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
+import com.coderGtm.yantra.setSystemWallpaper
 import java.util.TimerTask
 
 class Terminal(
@@ -64,7 +67,6 @@ class Terminal(
     private var sleepTimer: TimerTask? = null
     private var commandCache = mutableListOf<Map<String, BaseCommand>>()
 
-    private lateinit var textWatcher: TextWatcher
     private lateinit var aliasList: MutableList<Alias>
     private lateinit var wakeBtn: TextView
 
@@ -74,12 +76,18 @@ class Terminal(
         enforceThemeComponents()
         setTypeface()
         setArrowKeysVisibility(preferenceObject, binding)
-        defaultWallpaperManager(preferenceObject, activity.applicationContext, theme)
+        setWallpaperIfNeeded(preferenceObject, activity.applicationContext, theme)
         createWakeButton()
         setTextChangedListener()
         createTouchListeners()
         aliasList = getAliasList()
         setInputListener()
+        //fetching contacts if permitted
+        if (ContextCompat.checkSelfPermission(activity.baseContext, android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            Thread {
+                fetchContacts()
+            }.start()
+        }
     }
 
     private fun enforceThemeComponents() {
@@ -115,7 +123,7 @@ class Terminal(
                 typeface = rTypeface
                 binding.username.setTypeface(typeface, Typeface.BOLD)
                 binding.cmdInput.typeface = typeface
-                //printIntro()
+                printIntro()
             }
 
             override fun onTypefaceRequestFailed(reason: Int) {
@@ -123,14 +131,14 @@ class Terminal(
                 typeface = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
                 binding.username.setTypeface(typeface, Typeface.BOLD)
                 binding.cmdInput.typeface = typeface
-                //printIntro()
+                printIntro()
             }
         }
         //make handler to fetch font in background
         val handler = Handler(Looper.getMainLooper())
         FontsContractCompat.requestFont(activity, request, callback, handler)
     }
-    private fun defaultWallpaperManager(preferenceObject: SharedPreferences, applicationContext: Context, curTheme: Theme, ) {
+    private fun setWallpaperIfNeeded(preferenceObject: SharedPreferences, applicationContext: Context, curTheme: Theme, ) {
         if (preferenceObject.getBoolean("defaultWallpaper",true)) {
             val wallpaperManager = WallpaperManager.getInstance(applicationContext)
             val colorDrawable = ColorDrawable(curTheme.bgColor)
@@ -157,13 +165,11 @@ class Terminal(
         }
     }
     private fun registerTextChangedListener() {
-        textWatcher = binding.cmdInput.addTextChangedListener {
+        binding.cmdInput.addTextChangedListener {
             showSuggestions()
         }
     }
-    private fun removeTextChangeListener() {
-        binding.cmdInput.removeTextChangedListener(textWatcher)
-    }
+
     private fun showSuggestions() {
 
     }
@@ -277,8 +283,10 @@ class Terminal(
             return null
         }
     }
-    private fun parseCommand(command: String) {
-
+    private fun printIntro() {
+        output("Yantra Launcher (v${BuildConfig.VERSION_NAME}) on ${Build.MANUFACTURER} ${Build.MODEL}",theme.resultTextColor, Typeface.BOLD)
+        output("Type 'help' or 'community' for more information.", theme.resultTextColor, Typeface.BOLD)
+        output("==================",theme.resultTextColor, Typeface.BOLD)
     }
     fun handleCommand(command: String, isAlias: Boolean = false, logCmd: Boolean = true) {
         if (isSleeping) {

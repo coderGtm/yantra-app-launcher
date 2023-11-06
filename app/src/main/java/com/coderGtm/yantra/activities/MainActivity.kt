@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
 import com.coderGtm.yantra.databinding.ActivityMainBinding
-import com.coderGtm.yantra.misc.requestCmdInputFocusAndShowKeyboard
+import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.views.TerminalGestureListenerCallback
 
