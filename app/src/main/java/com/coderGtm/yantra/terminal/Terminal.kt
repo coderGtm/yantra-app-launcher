@@ -36,6 +36,7 @@ import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.databinding.ActivityMainBinding
+import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.models.Alias
@@ -49,9 +50,7 @@ class Terminal(
     val binding: ActivityMainBinding,
     val preferenceObject: SharedPreferences
 ) {
-    val theme = Themes.entries[preferenceObject.getInt("theme", 0)].theme
     private val fontSize = preferenceObject.getInt("fontSize", 16).toFloat()
-    var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     private val hideKeyboardOnEnter = preferenceObject.getBoolean("hideKeyboardOnEnter", true)
 
     private val commands = mapOf(
@@ -70,6 +69,11 @@ class Terminal(
     private lateinit var aliasList: MutableList<Alias>
     private lateinit var wakeBtn: TextView
 
+    val theme = Themes.entries[preferenceObject.getInt("theme", 0)].theme
+    var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
+    var contactsFetched: Boolean = false
+    var contactNames = HashSet<String>()
+
     fun initialize() {
         activity.requestedOrientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         goFullScreen()
@@ -85,7 +89,7 @@ class Terminal(
         //fetching contacts if permitted
         if (ContextCompat.checkSelfPermission(activity.baseContext, android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             Thread {
-                fetchContacts()
+                contactsManager(this)
             }.start()
         }
     }
