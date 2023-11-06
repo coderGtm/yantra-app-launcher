@@ -1321,7 +1321,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                             imgBtn?.setImageDrawable(ColorDrawable(Color.parseColor(customThemeColors[i])))
                             imgBtn?.tag = customThemeColors[i]
                             imgBtn?.setOnClickListener {
-                                val colorDialogBuilder = ColorPickerDialog.Builder(this)
+                                val colorDialogBuilder = ColorPickerDialog.Builder(this, R.style.Theme_AlertDialog)
                                     .setTitle("Select Color")
                                     .setPositiveButton("Set", ColorEnvelopeListener(){ envelope, _->
                                         toast(baseContext, envelope.hexCode.drop(2).prependIndent("#"))
