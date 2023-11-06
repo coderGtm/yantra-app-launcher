@@ -13,40 +13,43 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         description = "Controls Flash"
     )
 
-    override fun execute(flags: Map<String, String>, body: String) {
-        if (flags.isNotEmpty()) {
-            output("'flash' command does not take any flags!", terminal.theme.errorTextColor)
+    override fun execute(command: String) {
+        val args = command.split(" ")
+        if (args.size < 2) {
+            output("Please specify a state for flashlight", terminal.theme.errorTextColor)
         }
-        if (body.isEmpty()) {
-            output("Please specify the state (on/off/0/1)", terminal.theme.errorTextColor)
-            return
-        }
-        val state: Boolean = when (body.lowercase()) {
-            "on", "1" -> {
-                true
+        if (args.size == 2) {
+            val stateInput = args[1]
+            val state: Boolean = when (stateInput.lowercase()) {
+                "on", "1" -> {
+                    true
+                }
+                "off", "0" -> {
+                    false
+                }
+                else -> {
+                    output("Toggle state not recognized. Try using 'on' | 'off' or 0 | 1.", terminal.theme.warningTextColor)
+                    return
+                }
             }
-            "off", "0" -> {
-                false
-            }
-            else -> {
-                output("Toggle state not recognized. Try using 'on' | 'off' or 0 | 1.", terminal.theme.warningTextColor)
-                return
-            }
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val cameraM = terminal.activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-            val cameraListId = cameraM.cameraIdList[0]
-            if (state) {
-                cameraM.setTorchMode(cameraListId, true)
-                output("Flashlight turned on", terminal.theme.successTextColor)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val cameraM = terminal.activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+                val cameraListId = cameraM.cameraIdList[0]
+                if (state) {
+                    cameraM.setTorchMode(cameraListId, true)
+                    output("Flashlight turned on", terminal.theme.successTextColor)
+                }
+                else {
+                    cameraM.setTorchMode(cameraListId, false)
+                    output("Flashlight turned off", terminal.theme.successTextColor)
+                }
             }
             else {
-                cameraM.setTorchMode(cameraListId, false)
-                output("Flashlight turned off", terminal.theme.successTextColor)
+                output("Flashlight not supported on this device", terminal.theme.warningTextColor)
             }
         }
         else {
-            output("Flashlight not supported on this device", terminal.theme.warningTextColor)
+            output("'flash' command takes only one argument.", terminal.theme.errorTextColor)
         }
     }
 }

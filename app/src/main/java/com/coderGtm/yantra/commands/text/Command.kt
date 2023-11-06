@@ -10,19 +10,18 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         name = "text",
         description = "Broadcasts text message."
     )
-    override fun execute(flags: Map<String, String>, body: String) {
-        if (flags.isNotEmpty()) {
-            output("'text' command does not take any flags!", terminal.theme.errorTextColor)
+    override fun execute(command: String) {
+        val args = command.split(" ")
+        if (args.size < 2) {
+            output("Please specify the message string.", terminal.theme.errorTextColor)
         }
-        if (body.isEmpty()) {
-            output("Please specify the text to broadcast!", terminal.theme.errorTextColor)
-            return
+        else {
+            val msg = command.removePrefix(args[0])
+            val  intent = Intent(Intent.ACTION_SEND)
+            intent.putExtra(Intent.EXTRA_TEXT, msg.trim())
+            intent.type = "text/plain"
+            terminal.activity.startActivity(Intent.createChooser(intent, "Send via"))
+            output("Text broadcasted",terminal.theme.successTextColor)
         }
-        val msg = body
-        val  intent = Intent(Intent.ACTION_SEND)
-        intent.putExtra(Intent.EXTRA_TEXT, msg.trim())
-        intent.type = "text/plain"
-        terminal.activity.startActivity(Intent.createChooser(intent, "Send via"))
-        output("Text broadcasted",terminal.theme.successTextColor)
     }
 }

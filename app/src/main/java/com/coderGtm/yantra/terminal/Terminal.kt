@@ -305,7 +305,7 @@ class Terminal(
         }
         val commandInstance = getCommandInstance(commandName.toString())
         if (commandInstance != null) {
-            commandInstance.execute(mapOf(), command.removePrefix(commandName.toString()).trim())
+            commandInstance.execute(command.trim())
         }
         else {
             output("$commandName is not a recognized command", theme.errorTextColor, null)
