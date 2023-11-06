@@ -1266,14 +1266,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             if (args.size > 1) printToConsole("'fontpack' command does not take any parameters", 5)
             else fontPack()
         }
-        else if (args[0].lowercase() == "backup") {
-            if (args.size > 1) printToConsole("'backup' command does not take any parameters", 5)
-            else backup()
-        }
-        else if (args[0].lowercase() == "restore") {
-            if (args.size > 1) printToConsole("'restore' command does not take any parameters", 5)
-            else restoreBackup()
-        }
         else if (args[0].lowercase() == "exit") {
             if (args.size > 1) printToConsole("'exit' command does not take any parameters", 5)
             else exitApp()
