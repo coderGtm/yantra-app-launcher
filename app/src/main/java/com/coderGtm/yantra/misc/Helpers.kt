@@ -1,4 +1,4 @@
-package com.coderGtm.yantra.utils
+package com.coderGtm.yantra.misc
 
 import android.Manifest
 import android.app.Activity
@@ -41,7 +41,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.coderGtm.yantra.Constants
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.databinding.ActivitySettingsBinding

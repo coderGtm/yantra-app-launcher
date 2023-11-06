@@ -1,4 +1,4 @@
-package com.coderGtm.yantra.utils
+package com.coderGtm.yantra.misc
 
 import android.content.Context
 import android.widget.TextView

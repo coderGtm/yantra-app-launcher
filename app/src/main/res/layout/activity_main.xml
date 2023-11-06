@@ -26,7 +26,7 @@
 
 <!--    </LinearLayout>-->
 
-    <com.coderGtm.yantra.utils.TerminalScrollView
+    <com.coderGtm.yantra.views.TerminalScrollView
         android:id="@+id/scrollView"
         android:background="#00ffffff"
         android:layout_width="match_parent"
@@ -79,7 +79,7 @@
             </LinearLayout>
 
         </LinearLayout>
-    </com.coderGtm.yantra.utils.TerminalScrollView>
+    </com.coderGtm.yantra.views.TerminalScrollView>
 
     <Button
         android:id="@+id/downBtn"

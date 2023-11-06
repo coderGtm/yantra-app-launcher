@@ -2,6 +2,7 @@ package com.coderGtm.yantra
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import org.acra.ReportField
 import org.acra.config.dialog
 import org.acra.config.mailSender
@@ -9,6 +10,9 @@ import org.acra.data.StringFormat
 import org.acra.ktx.initAcra
 
 class YantraLauncher : Application() {
+
+    lateinit var preferenceObject: SharedPreferences
+
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
 
