@@ -27,6 +27,7 @@ import java.util.Locale
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalGestureListenerCallback {
 
     private var tts: TextToSpeech? = null
+    private var ttsTxt = ""
 
     private lateinit var primaryTerminal: Terminal
     private lateinit var app: YantraLauncher
@@ -57,14 +58,37 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             runInitTasks(initList)
         }.start()
     }
-
+    override fun onRestart() {
+        super.onRestart()
+        val unwrappedCursorDrawable = AppCompatResources.getDrawable(this,
+            R.drawable.cursor_drawable
+        )
+        val wrappedCursorDrawable = DrawableCompat.wrap(unwrappedCursorDrawable!!)
+        DrawableCompat.setTint(wrappedCursorDrawable, primaryTerminal.theme.buttonColor)
+        Thread {
+            requestUpdateIfAvailable(app.preferenceObject, this@MainActivity)
+        }.start()
+    }
+    override fun onResume() {
+        super.onResume()
+        if (primaryTerminal.uninstallCmdActive) {
+            primaryTerminal.uninstallCmdActive = false
+            primaryTerminal.appList = getAppsList(primaryTerminal)
+        }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        try {
+            billingClient.endConnection()
+        }
+        catch(_: java.lang.Exception) {}
+    }
     override fun onSingleTap() {
         val oneTapKeyboardActivation = app.preferenceObject.getBoolean("oneTapKeyboardActivation",true)
         if (oneTapKeyboardActivation) {
             requestCmdInputFocusAndShowKeyboard(this@MainActivity, binding)
         }
     }
-
     override fun onDoubleTap() {
         val cmdToExecute = app.preferenceObject.getString("doubleTapCommand", "lock")
         if (cmdToExecute != "") {
@@ -72,8 +96,8 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             primaryTerminal.handleCommand(cmdToExecute!!)
         }
     }
-
     override fun onInit(status: Int) {
+        //TTS Initialization function
         if (status == TextToSpeech.SUCCESS) {
             val result = tts!!.setLanguage(Locale.getDefault())
 
@@ -138,31 +162,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             }
         }
     }
-    override fun onRestart() {
-        super.onRestart()
-        val unwrappedCursorDrawable = AppCompatResources.getDrawable(this,
-            R.drawable.cursor_drawable
-        )
-        val wrappedCursorDrawable = DrawableCompat.wrap(unwrappedCursorDrawable!!)
-        DrawableCompat.setTint(wrappedCursorDrawable, primaryTerminal.theme.buttonColor)
-        Thread {
-            requestUpdateIfAvailable(app.preferenceObject, this@MainActivity)
-        }.start()
-    }
-    override fun onResume() {
-        super.onResume()
-        if (primaryTerminal.uninstallCmdActive) {
-            primaryTerminal.uninstallCmdActive = false
-            primaryTerminal.appList = getAppsList(primaryTerminal)
-        }
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        try {
-            billingClient.endConnection()
-        }
-        catch(_: java.lang.Exception) {}
-    }
     override fun onBackPressed() {}
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -174,7 +173,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             }
         }
     }
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
