@@ -1,6 +1,7 @@
 package com.coderGtm.yantra.activities
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
 import com.android.billingclient.api.BillingClient
 import com.coderGtm.yantra.ActivityRequestCodes
+import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
@@ -124,6 +126,15 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                 setWallpaperFromUri(uri, this, primaryTerminal.theme.bgColor, app.preferenceObject)
                 primaryTerminal.output("Selected Wallpaper applied!", primaryTerminal.theme.successTextColor, null)
             }
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+            primaryTerminal.output("Permission denied!", primaryTerminal.theme.errorTextColor, null)
+        } else {
+            primaryTerminal.output("Permission Granted", primaryTerminal.theme.successTextColor, null)
         }
     }
 }
