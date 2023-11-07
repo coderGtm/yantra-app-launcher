@@ -46,6 +46,7 @@ import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.setSystemWallpaper
 import com.coderGtm.yantra.showRatingAndCommandPopups
+import java.lang.Exception
 import java.util.TimerTask
 
 class Terminal(
@@ -72,7 +73,11 @@ class Terminal(
     private lateinit var aliasList: MutableList<Alias>
     private lateinit var wakeBtn: TextView
 
-    val theme = Themes.entries[preferenceObject.getInt("theme", 0)].theme
+    val theme = try {
+        Themes.entries[preferenceObject.getInt("theme", 0)].theme
+    } catch (e: Exception) {
+        Themes.DEFAULT.theme
+    }
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var contactsFetched: Boolean = false
     var contactNames = HashSet<String>()
