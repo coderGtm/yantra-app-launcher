@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
@@ -76,7 +77,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             val result = tts!!.setLanguage(Locale.getDefault())
 
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                runOnUiThread { printToConsole("Error: TTS language not supported!",5) }
+                primaryTerminal.output("Error: TTS language not supported!", primaryTerminal.theme.errorTextColor, null)
             } else {
                 tts!!.setSpeechRate(.7f)
                 tts!!.speak(ttsTxt, TextToSpeech.QUEUE_FLUSH, null,"")
@@ -84,26 +85,26 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         }
         tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String) {
-                runOnUiThread { printToConsole("TTS synthesized! Playing now...",6) }
+                primaryTerminal.output("TTS synthesized! Playing now...", primaryTerminal.theme.successTextColor, null)
             }
             override fun onDone(utteranceId: String) {
-                runOnUiThread { printToConsole("Shutting down TTS engine...", 4) }
+                primaryTerminal.output("Shutting down TTS engine...", primaryTerminal.theme.resultTextColor, null)
 
                 if (tts != null) {
                     tts!!.stop()
                     tts!!.shutdown()
                 }
-                runOnUiThread { printToConsole("TTS engine shutdown.", 4) }
+                primaryTerminal.output("TTS engine shutdown.", primaryTerminal.theme.resultTextColor, null)
             }
             override fun onError(utteranceId: String) {
-                runOnUiThread { printToConsole("TTS error!!",5)
-                    printToConsole("Shutting down TTS engine...", 4) }
+                primaryTerminal.output("TTS error!!", primaryTerminal.theme.errorTextColor, null)
+                primaryTerminal.output("Shutting down TTS engine...", primaryTerminal.theme.resultTextColor, null)
 
                 if (tts != null) {
                     tts!!.stop()
                     tts!!.shutdown()
                 }
-                runOnUiThread { printToConsole("TTS engine shutdown.", 4) }
+                primaryTerminal.output("TTS engine shutdown.", primaryTerminal.theme.resultTextColor, null)
 
             }
         })
