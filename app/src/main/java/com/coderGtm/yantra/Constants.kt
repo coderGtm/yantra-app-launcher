@@ -18,9 +18,13 @@ enum class Themes(val theme: Theme) {
     ),
     // Add more theme types as needed
 }
+enum class AppSortMode(val value: Int) {
+    A_TO_Z(0),
+    RECENT(1),
+    MOST_USED(2)
+}
 
 const val SHARED_PREFS_FILE_NAME = "yantraSP"
 const val DEFAULT_TERMINAL_FONT_NAME = "Source Code Pro"
-const val DEFAULT_FONT_NAME = "Source Code Pro"
 
 val NO_LOG_COMMANDS = listOf("sleep", "echo", "notify")

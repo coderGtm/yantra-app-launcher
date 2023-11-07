@@ -7,6 +7,7 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -14,11 +15,13 @@ import android.provider.ContactsContract
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.coderGtm.yantra.databinding.ActivityMainBinding
+import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.Contacts
 import com.coderGtm.yantra.terminal.Terminal
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.UpdateAvailability
+import java.text.Collator
 import java.util.Timer
 import kotlin.concurrent.timerTask
 
@@ -231,4 +234,59 @@ fun showRatingAndCommandPopups(preferenceObject: SharedPreferences, preferenceEd
         }, 4000)
         return
     }
+}
+fun getAppsList(terminal: Terminal): ArrayList<AppBlock> {
+    val alreadyFetched = terminal.appListFetched
+    terminal.appListFetched = false
+    if (!alreadyFetched){
+        terminal.appList = ArrayList<AppBlock>()
+    }
+
+    try {
+        val collator = Collator.getInstance()
+        // get list of all apps which are launchable
+        val pm = terminal.activity.packageManager
+        val intent = Intent(Intent.ACTION_MAIN, null)
+        intent.addCategory(Intent.CATEGORY_LAUNCHER)
+
+        val apps = pm.queryIntentActivities(intent, 0)
+        for (app in apps) {
+            if (app.activityInfo.packageName != terminal.activity.packageName) {
+                val appBlock = AppBlock(
+                    app.loadLabel(pm).toString(),
+                    app.activityInfo.packageName
+                )
+                if (!terminal.appList.contains(appBlock)) {
+                    terminal.appList.add(appBlock)
+                }
+            }
+        }
+
+        if (alreadyFetched) {
+            val newAppList = terminal.appList
+            for (appBlock in terminal.appList) {
+                try {
+                    pm.getPackageInfo(appBlock.packageName, PackageManager.GET_META_DATA)
+                } catch (e: Exception) {
+                    // package does not exist now. Is deleted!
+                    val indexToRemove = newAppList.indexOfFirst {
+                        it.packageName == appBlock.packageName
+                    }
+                    newAppList.removeAt(indexToRemove)
+                }
+            }
+            terminal.appList = newAppList
+        }
+
+        if (!alreadyFetched || terminal.preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value) == AppSortMode.A_TO_Z.value) {
+            terminal.appList.sortWith { app1, app2 ->
+                collator.compare(app1.appName, app2.appName)
+            }
+        }
+
+    } catch (e: Exception) {
+        terminal.output("An error occurred while fetching apps list", terminal.theme.errorTextColor, null)
+    }
+    terminal.appListFetched = true
+    return terminal.appList
 }

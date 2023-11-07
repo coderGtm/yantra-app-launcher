@@ -29,7 +29,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
 import com.coderGtm.yantra.BuildConfig
-import com.coderGtm.yantra.DEFAULT_FONT_NAME
+import com.coderGtm.yantra.DEFAULT_TERMINAL_FONT_NAME
 import com.coderGtm.yantra.NO_LOG_COMMANDS
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
@@ -40,6 +40,7 @@ import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.models.Alias
+import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
@@ -75,6 +76,9 @@ class Terminal(
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var contactsFetched: Boolean = false
     var contactNames = HashSet<String>()
+    var appListFetched: Boolean = false
+
+    lateinit var appList: ArrayList<AppBlock>
 
     fun initialize() {
         activity.requestedOrientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
@@ -118,7 +122,7 @@ class Terminal(
         binding.downBtn.setTextColor(theme.resultTextColor)
     }
     private fun setTypeface() {
-        val fontName = preferenceObject.getString("font", DEFAULT_FONT_NAME) ?: DEFAULT_FONT_NAME
+        val fontName = preferenceObject.getString("font", DEFAULT_TERMINAL_FONT_NAME) ?: DEFAULT_TERMINAL_FONT_NAME
         val request = FontRequest(
             "com.google.android.gms.fonts",
             "com.google.android.gms",

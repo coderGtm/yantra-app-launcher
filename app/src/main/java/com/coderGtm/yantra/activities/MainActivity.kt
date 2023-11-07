@@ -1,11 +1,13 @@
 package com.coderGtm.yantra.activities
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import androidx.appcompat.app.AppCompatActivity
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
 import com.coderGtm.yantra.databinding.ActivityMainBinding
+import com.coderGtm.yantra.getAppsList
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.views.TerminalGestureListenerCallback
@@ -33,6 +35,15 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         primaryTerminal.initialize()
     }
 
+    override fun onStart() {
+        super.onStart()
+        Thread {
+            primaryTerminal.appList = getAppsList(primaryTerminal)
+            val initList = getInit()
+            runInitTasks(initList)
+        }.start()
+    }
+
     override fun onSingleTap() {
         val oneTapKeyboardActivation = app.preferenceObject.getBoolean("oneTapKeyboardActivation",true)
         if (oneTapKeyboardActivation) {
@@ -50,5 +61,25 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
 
     override fun onInit(p0: Int) {
         TODO("Not yet implemented")
+    }
+
+    private fun getInit(): String {
+        return try {
+            app.preferenceObject.getString("initList", "") ?: ""
+        } catch (e: ClassCastException) {
+            // prev Set implementation present
+            app.preferenceObject.edit().remove("initList").apply()
+            ""
+        }
+    }
+    private fun runInitTasks(initList: String?) {
+        if (initList?.trim() != "") {
+            val initCmdLog = app.preferenceObject.getBoolean("initCmdLog", false)
+            runOnUiThread {
+                initList?.lines()?.forEach {
+                    primaryTerminal.handleCommand(it.trim(), logCmd = initCmdLog)
+                }
+            }
+        }
     }
 }
