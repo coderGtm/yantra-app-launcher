@@ -150,7 +150,7 @@ fun contactsManager(terminal: Terminal, callingIntent: Boolean = false, callTo: 
     terminal.contactsFetched = true
     return builder.distinctBy { it.number }
 }
-fun requestUpdateIfAvailable(preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor, activity: Activity) {
+fun requestUpdateIfAvailable(preferenceObject: SharedPreferences, activity: Activity) {
     val lastUpdateCheck = preferenceObject.getLong("lastUpdateCheck", 0)
     if (System.currentTimeMillis()/60000 - lastUpdateCheck < 1440) {
         return
@@ -172,7 +172,7 @@ fun requestUpdateIfAvailable(preferenceObject: SharedPreferences, preferenceEdit
                 }
             activity.runOnUiThread { builder.show() }
         }
-        preferenceEditObject.putLong("lastUpdateCheck", System.currentTimeMillis()/60000).apply()
+        preferenceObject.edit().putLong("lastUpdateCheck", System.currentTimeMillis()/60000).apply()
     }
 }
 private fun askRating(preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor, activity: Activity) {

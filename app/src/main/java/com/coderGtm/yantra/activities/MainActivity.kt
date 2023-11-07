@@ -1,14 +1,17 @@
 package com.coderGtm.yantra.activities
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.graphics.drawable.DrawableCompat
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getAppsList
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
+import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.views.TerminalGestureListenerCallback
 
@@ -81,5 +84,16 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                 }
             }
         }
+    }
+    override fun onRestart() {
+        super.onRestart()
+        val unwrappedCursorDrawable = AppCompatResources.getDrawable(this,
+            R.drawable.cursor_drawable
+        )
+        val wrappedCursorDrawable = DrawableCompat.wrap(unwrappedCursorDrawable!!)
+        DrawableCompat.setTint(wrappedCursorDrawable, primaryTerminal.theme.buttonColor)
+        Thread {
+            requestUpdateIfAvailable(app.preferenceObject, this@MainActivity)
+        }.start()
     }
 }

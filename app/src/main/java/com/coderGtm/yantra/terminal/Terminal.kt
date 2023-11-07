@@ -99,7 +99,7 @@ class Terminal(
             }.start()
         }
         Thread {
-            requestUpdateIfAvailable(preferenceObject, preferenceObject.edit(), activity)
+            requestUpdateIfAvailable(preferenceObject, activity)
         }.start()
     }
 
