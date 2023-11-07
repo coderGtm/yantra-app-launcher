@@ -23,36 +23,26 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 output("---Yantra Launcher Help---",terminal.theme.successTextColor, Typeface.BOLD_ITALIC)
                 output("-------------------------",terminal.theme.resultTextColor)
                 for (commandClass in terminal.commands) {
-                    val kClass = commandClass.javaClass.kotlin
-                    val metadataProperty = kClass.members.find { it.name == "metadata" }
-                    if (metadataProperty is KProperty<*>) {
-                        val metadataValue = metadataProperty.call(kClass.objectInstance)
-                        if (metadataValue is CommandMetadata) {
-                            output(metadata.helpTitle ,terminal.theme.warningTextColor, Typeface.BOLD)
-                            output(metadata.description ,terminal.theme.resultTextColor)
-                            output("-------------------------",4)
-                        }
-                    }
+                        val cmdMetadata = commandClass.value.getDeclaredConstructor(Terminal::class.java)
+                            .newInstance(terminal).metadata
+                    output(cmdMetadata.helpTitle ,terminal.theme.warningTextColor, Typeface.BOLD)
+                    output(cmdMetadata.description ,terminal.theme.resultTextColor)
+                    output("-------------------------")
                 }
                 output("-------------------------",terminal.theme.resultTextColor)
                 output("Enjoy ㄟ( ▔, ▔ )ㄏ",terminal.theme.successTextColor, Typeface.BOLD_ITALIC)
             }
             2 -> {
                 val cmd = args[1].trim().lowercase()
-                for (commandClass in terminal.commands) {
-                    val kClass = commandClass.javaClass.kotlin
-                    val metadataProperty = kClass.members.find { it.name == "metadata" }
-                    if (metadataProperty is KProperty<*>) {
-                        val metadataValue = metadataProperty.call(kClass.objectInstance)
-                        if (metadataValue is CommandMetadata) {
-                            if (metadata.name == cmd) {
-                                output(metadata.helpTitle ,terminal.theme.warningTextColor, Typeface.BOLD)
-                                output(metadata.description ,terminal.theme.resultTextColor)
-                                output("-------------------------",4)
-                                return
-                            }
-                        }
-                    }
+                val commandClass = terminal.commands[cmd]
+                if (commandClass != null) {
+                    val cmdMetadata =
+                        commandClass.getDeclaredConstructor(Terminal::class.java)
+                            .newInstance(terminal).metadata
+                    output(cmdMetadata.helpTitle, terminal.theme.warningTextColor, Typeface.BOLD)
+                    output(cmdMetadata.description, terminal.theme.resultTextColor)
+                    output("-------------------------")
+                    return
                 }
                 output("Command not found. Use 'help' to get list of available commands.", terminal.theme.errorTextColor)
             }
