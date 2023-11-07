@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
+import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
@@ -109,7 +110,15 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             }
         })
     }
-
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+            primaryTerminal.cmdUp()
+        }
+        else if (event.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+            primaryTerminal.cmdDown()
+        }
+        return super.dispatchKeyEvent(event)
+    }
     private fun getInit(): String {
         return try {
             app.preferenceObject.getString("initList", "") ?: ""

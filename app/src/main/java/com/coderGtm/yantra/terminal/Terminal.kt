@@ -87,6 +87,8 @@ class Terminal(
         enforceThemeComponents()
         setTypeface()
         setArrowKeysVisibility(preferenceObject, binding)
+        binding.upBtn.setOnClickListener { cmdUp() }
+        binding.downBtn.setOnClickListener { cmdDown() }
         setWallpaperIfNeeded(preferenceObject, activity.applicationContext, theme)
         createWakeButton()
         setTextChangedListener()
@@ -303,6 +305,24 @@ class Terminal(
         output("Yantra Launcher (v${BuildConfig.VERSION_NAME}) on ${Build.MANUFACTURER} ${Build.MODEL}",theme.resultTextColor, Typeface.BOLD)
         output("Type 'help' or 'community' for more information.", theme.resultTextColor, Typeface.BOLD)
         output("==================",theme.resultTextColor, Typeface.BOLD)
+    }
+    fun cmdDown() {
+        binding.cmdInput.requestFocus()
+        if (cmdHistoryCursor<(cmdHistory.size-1)) {
+            cmdHistoryCursor++
+            binding.cmdInput.setText(cmdHistory[cmdHistoryCursor])
+            binding.cmdInput.setSelection(binding.cmdInput.text.length)
+            requestCmdInputFocusAndShowKeyboard(activity, binding)
+        }
+    }
+    fun cmdUp() {
+        binding.cmdInput.requestFocus()
+        if (cmdHistoryCursor>0) {
+            cmdHistoryCursor--
+            binding.cmdInput.setText(cmdHistory[cmdHistoryCursor])
+            binding.cmdInput.setSelection(binding.cmdInput.text.length)
+            requestCmdInputFocusAndShowKeyboard(activity, binding)
+        }
     }
     fun handleCommand(command: String, isAlias: Boolean = false, logCmd: Boolean = true) {
         if (isSleeping) {
