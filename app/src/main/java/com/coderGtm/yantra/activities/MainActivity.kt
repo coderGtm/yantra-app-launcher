@@ -5,6 +5,7 @@ import android.speech.tts.TextToSpeech
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
+import com.android.billingclient.api.BillingClient
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     private lateinit var primaryTerminal: Terminal
     private lateinit var app: YantraLauncher
     private lateinit var binding: ActivityMainBinding
+    private lateinit var billingClient: BillingClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,5 +104,12 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             primaryTerminal.uninstallCmdActive = false
             primaryTerminal.appList = getAppsList(primaryTerminal)
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        try {
+            billingClient.endConnection()
+        }
+        catch(_: java.lang.Exception) {}
     }
 }
