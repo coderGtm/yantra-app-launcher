@@ -361,7 +361,6 @@ class Terminal(
             output("$commandName is not a recognized command", theme.errorTextColor, null)
         }
     }
-
 }
 
 private fun TextView.setFont(typeface: Typeface?, style: Int?, state: Int, fontSize: Float) {

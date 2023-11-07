@@ -8,7 +8,8 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "text",
-        description = "Broadcasts text message."
+        helpTitle = "text [msg]",
+        description = "Broadcasts text message. Example: 'text Yantra is cool!'"
     )
     override fun execute(command: String) {
         val args = command.split(" ")

@@ -10,7 +10,8 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "flash",
-        description = "Controls Flash"
+        helpTitle = "flash [state]",
+        description = "Toggles flashlight on/off. Example: 'flash on' or 'flash 0'"
     )
 
     override fun execute(command: String) {
@@ -18,7 +19,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         if (args.size < 2) {
             output("Please specify a state for flashlight", terminal.theme.errorTextColor)
         }
-        if (args.size == 2) {
+        else if (args.size == 2) {
             val stateInput = args[1]
             val state: Boolean = when (stateInput.lowercase()) {
                 "on", "1" -> {
