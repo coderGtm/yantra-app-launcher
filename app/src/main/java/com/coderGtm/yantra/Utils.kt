@@ -12,13 +12,22 @@ import android.net.Uri
 import android.os.Build
 import android.provider.ContactsContract
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.models.Contacts
 import com.coderGtm.yantra.terminal.Terminal
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.UpdateAvailability
+import java.util.Timer
+import kotlin.concurrent.timerTask
 
+fun openURL(url: String, activity: Activity) {
+    activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+}
+fun toast(baseContext: Context, msg: String) {
+    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+}
 fun getUserNamePrefix(preferenceObject: SharedPreferences): String {
     return preferenceObject.getString("usernamePrefix","$")?:"$"
 }
@@ -161,5 +170,65 @@ fun requestUpdateIfAvailable(preferenceObject: SharedPreferences, preferenceEdit
             activity.runOnUiThread { builder.show() }
         }
         preferenceEditObject.putLong("lastUpdateCheck", System.currentTimeMillis()/60000).apply()
+    }
+}
+private fun askRating(preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor, activity: Activity) {
+    if (activity.isFinishing || !preferenceObject.getBoolean("ratePrompt",true)) {
+        return
+    }
+    MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog)
+        .setTitle("Rate app")
+        .setMessage("If you like this app, please consider rating it and giving a feedback. You can also request features or report bugs. It helps me in improving the app. Thanks :)")
+        .setPositiveButton("Rate") { dialogInterface, _ ->
+            dialogInterface.dismiss()
+            openURL("https://play.google.com/store/apps/details?id=com.coderGtm.yantra", activity)
+            preferenceEditObject.putBoolean("ratePrompt",false).apply()
+        }
+        .setNegativeButton("Maybe Later") {dialogInterface,_ ->
+            dialogInterface.dismiss()
+            toast(activity.baseContext, "Ok ⊙﹏⊙∥")
+        }
+        .setNeutralButton("Don't ask again") {dialogInterface,_ ->
+            dialogInterface.dismiss()
+            preferenceEditObject.putBoolean("ratePrompt",false).apply()
+            toast(activity.baseContext, "Done (￣┰￣*) Will never ask again!!")
+        }
+        .setCancelable(false)
+        .show()
+}
+private fun showCommunityPopup(preferenceEditObject: SharedPreferences.Editor, activity: Activity) {
+    MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog).setTitle("Join the community!")
+        .setMessage("Join the community to get the latest updates about Yantra Launcher, ask questions, get help, discuss new features, and more!\n\nEveryone out there are CLI enthusiasts\uD83D\uDE0E like you, so join the community and have fun!")
+        .setPositiveButton("Take me there") { dialog, _ ->
+            openURL("https://discord.gg/sRZUG8rPjk", activity)
+            dialog.dismiss()
+        }
+        .setNegativeButton("No thanks") { dialog, _ ->
+            dialog.dismiss()
+            toast(activity.baseContext, "We'd miss you!\n༼☯﹏☯༽")
+        }
+        .setCancelable(false)
+        .show()
+    preferenceEditObject.putBoolean("communityPopupShown",true).apply()
+}
+fun showRatingAndCommandPopups(preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor, activity: Activity) {
+    val n = preferenceObject.getLong("numOfCmdsEntered",0)
+    if ((n+1)%40 == 0L) {
+        //askRating() after 5 seconds
+        Timer().schedule(timerTask {
+            activity.runOnUiThread {
+                askRating(preferenceObject, preferenceEditObject, activity)
+            }
+        }, 4000)
+        return
+    }
+    if ((n+1)>10 && !preferenceObject.getBoolean("communityPopupShown",false)) {
+        //show community popup
+        Timer().schedule(timerTask {
+            activity.runOnUiThread {
+                showCommunityPopup(preferenceEditObject, activity)
+            }
+        }, 4000)
+        return
     }
 }

@@ -44,6 +44,7 @@ import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.setSystemWallpaper
+import com.coderGtm.yantra.showRatingAndCommandPopups
 import java.util.TimerTask
 
 class Terminal(
@@ -252,10 +253,12 @@ class Terminal(
         }
         return aliasList2
     }
-    private fun incrementNumOfCommandsEntered(preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor, activity: Activity) {
+    private fun incrementNumOfCommandsEntered(
+        preferenceObject: SharedPreferences,
+        preferenceEditObject: SharedPreferences.Editor
+    ) {
         val n = preferenceObject.getLong("numOfCmdsEntered",0)
         preferenceEditObject.putLong("numOfCmdsEntered",n+1).apply()
-        // TODO: Rating and community popup
     }
     fun output(text: String, color: Int, style: Int?) {
         val t = TextView(activity)
@@ -309,7 +312,8 @@ class Terminal(
             if (command.trim()!="") {
                 cmdHistory.add(command)
                 cmdHistoryCursor = cmdHistory.size
-                incrementNumOfCommandsEntered(preferenceObject, preferenceObject.edit(), activity)
+                incrementNumOfCommandsEntered(preferenceObject, preferenceObject.edit())
+                showRatingAndCommandPopups(preferenceObject, preferenceObject.edit(), activity)
             }
         }
         commandName?.let { _ ->
