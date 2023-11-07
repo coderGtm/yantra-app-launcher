@@ -96,4 +96,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             requestUpdateIfAvailable(app.preferenceObject, this@MainActivity)
         }.start()
     }
+    override fun onResume() {
+        super.onResume()
+        if (primaryTerminal.uninstallCmdActive) {
+            primaryTerminal.uninstallCmdActive = false
+            primaryTerminal.appList = getAppsList(primaryTerminal)
+        }
+    }
 }

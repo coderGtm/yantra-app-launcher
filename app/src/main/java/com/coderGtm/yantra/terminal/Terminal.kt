@@ -77,6 +77,7 @@ class Terminal(
     var contactsFetched: Boolean = false
     var contactNames = HashSet<String>()
     var appListFetched: Boolean = false
+    var uninstallCmdActive = false
 
     lateinit var appList: ArrayList<AppBlock>
 
