@@ -9,7 +9,6 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
 import com.android.billingclient.api.BillingClient
 import com.coderGtm.yantra.ActivityRequestCodes
-import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
@@ -20,9 +19,12 @@ import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.setWallpaperFromUri
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.views.TerminalGestureListenerCallback
+import java.util.Locale
 
 
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalGestureListenerCallback {
+
+    private var tts: TextToSpeech? = null
 
     private lateinit var primaryTerminal: Terminal
     private lateinit var app: YantraLauncher
@@ -69,8 +71,42 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         }
     }
 
-    override fun onInit(p0: Int) {
-        TODO("Not yet implemented")
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            val result = tts!!.setLanguage(Locale.getDefault())
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                runOnUiThread { printToConsole("Error: TTS language not supported!",5) }
+            } else {
+                tts!!.setSpeechRate(.7f)
+                tts!!.speak(ttsTxt, TextToSpeech.QUEUE_FLUSH, null,"")
+            }
+        }
+        tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+            override fun onStart(utteranceId: String) {
+                runOnUiThread { printToConsole("TTS synthesized! Playing now...",6) }
+            }
+            override fun onDone(utteranceId: String) {
+                runOnUiThread { printToConsole("Shutting down TTS engine...", 4) }
+
+                if (tts != null) {
+                    tts!!.stop()
+                    tts!!.shutdown()
+                }
+                runOnUiThread { printToConsole("TTS engine shutdown.", 4) }
+            }
+            override fun onError(utteranceId: String) {
+                runOnUiThread { printToConsole("TTS error!!",5)
+                    printToConsole("Shutting down TTS engine...", 4) }
+
+                if (tts != null) {
+                    tts!!.stop()
+                    tts!!.shutdown()
+                }
+                runOnUiThread { printToConsole("TTS engine shutdown.", 4) }
+
+            }
+        })
     }
 
     private fun getInit(): String {
