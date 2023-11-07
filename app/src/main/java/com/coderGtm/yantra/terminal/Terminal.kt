@@ -42,6 +42,7 @@ import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
+import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.setSystemWallpaper
 import java.util.TimerTask
 
@@ -92,6 +93,9 @@ class Terminal(
                 contactsManager(this)
             }.start()
         }
+        Thread {
+            requestUpdateIfAvailable(preferenceObject, preferenceObject.edit(), activity)
+        }.start()
     }
 
     private fun enforceThemeComponents() {

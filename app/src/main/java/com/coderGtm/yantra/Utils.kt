@@ -16,6 +16,8 @@ import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.models.Contacts
 import com.coderGtm.yantra.terminal.Terminal
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.UpdateAvailability
 
 fun getUserNamePrefix(preferenceObject: SharedPreferences): String {
     return preferenceObject.getString("usernamePrefix","$")?:"$"
@@ -135,4 +137,29 @@ fun contactsManager(terminal: Terminal, callingIntent: Boolean = false, callTo: 
     }
     terminal.contactsFetched = true
     return builder.distinctBy { it.number }
+}
+fun requestUpdateIfAvailable(preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor, activity: Activity) {
+    val lastUpdateCheck = preferenceObject.getLong("lastUpdateCheck", 0)
+    if (System.currentTimeMillis()/60000 - lastUpdateCheck < 1440) {
+        return
+    }
+    val appUpdateManager = AppUpdateManagerFactory.create(activity.baseContext)
+    val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+    appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+        if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+            val builder = MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog)
+                .setCancelable(false)
+                .setTitle("Update Available")
+                .setMessage("A new version of Yantra Launcher is available on the Play Store.")
+                .setPositiveButton("Update") { dialogInterface, _ ->
+                    dialogInterface.dismiss()
+                    activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.coderGtm.yantra")))
+                }
+                .setNegativeButton("Not now") {dialogInterface,_ ->
+                    dialogInterface.dismiss()
+                }
+            activity.runOnUiThread { builder.show() }
+        }
+        preferenceEditObject.putLong("lastUpdateCheck", System.currentTimeMillis()/60000).apply()
+    }
 }
