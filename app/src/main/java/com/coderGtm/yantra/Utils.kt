@@ -9,11 +9,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.provider.ContactsContract
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.graphics.drawable.toDrawable
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.Contacts
@@ -21,6 +24,7 @@ import com.coderGtm.yantra.terminal.Terminal
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.UpdateAvailability
+import java.io.FileNotFoundException
 import java.text.Collator
 import java.util.Timer
 import kotlin.concurrent.timerTask
@@ -45,6 +49,17 @@ fun setSystemWallpaper(wallpaperManager: WallpaperManager, bitmap: Bitmap) {
     else {
         wallpaperManager.setBitmap(bitmap)
     }
+}
+fun setWallpaperFromUri(uri: Uri?, activity: Activity, fallbackColor: Int, preferenceObject: SharedPreferences) {
+    val bg: Drawable = try {
+        val inputStream = activity.contentResolver.openInputStream(uri!!)
+        Drawable.createFromStream(inputStream, uri.toString())!!
+    } catch (e: FileNotFoundException) {
+        fallbackColor.toDrawable()
+    }
+    val wallpaperManager = WallpaperManager.getInstance(activity)
+    setSystemWallpaper(wallpaperManager, (bg as BitmapDrawable).bitmap)
+    preferenceObject.edit().putBoolean("defaultWallpaper",false).apply()
 }
 fun requestCmdInputFocusAndShowKeyboard(activity: Activity, binding: ActivityMainBinding) {
     binding.cmdInput.requestFocus()

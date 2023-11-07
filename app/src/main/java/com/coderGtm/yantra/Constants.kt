@@ -23,6 +23,9 @@ enum class AppSortMode(val value: Int) {
     RECENT(1),
     MOST_USED(2)
 }
+enum class ActivityRequestCodes(val code: Int) {
+    IMAGE_PICK(0)
+}
 
 const val SHARED_PREFS_FILE_NAME = "yantraSP"
 const val DEFAULT_TERMINAL_FONT_NAME = "Source Code Pro"

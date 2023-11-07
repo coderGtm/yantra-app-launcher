@@ -1,11 +1,13 @@
 package com.coderGtm.yantra.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
 import com.android.billingclient.api.BillingClient
+import com.coderGtm.yantra.ActivityRequestCodes
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
@@ -13,6 +15,7 @@ import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getAppsList
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
+import com.coderGtm.yantra.setWallpaperFromUri
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.views.TerminalGestureListenerCallback
 
@@ -111,5 +114,16 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             billingClient.endConnection()
         }
         catch(_: java.lang.Exception) {}
+    }
+    override fun onBackPressed() {}
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == ActivityRequestCodes.IMAGE_PICK.code) {
+            if (resultCode == RESULT_OK) {
+                val uri = data?.data
+                setWallpaperFromUri(uri, this, primaryTerminal.theme.bgColor, app.preferenceObject)
+                primaryTerminal.output("Selected Wallpaper applied!", primaryTerminal.theme.successTextColor, null)
+            }
+        }
     }
 }
