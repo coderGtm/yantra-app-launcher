@@ -35,8 +35,8 @@ import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.contactsManager
+import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.models.Alias
@@ -46,7 +46,6 @@ import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.setSystemWallpaper
 import com.coderGtm.yantra.showRatingAndCommandPopups
-import java.lang.Exception
 import java.util.TimerTask
 
 class Terminal(
@@ -56,11 +55,6 @@ class Terminal(
 ) {
     private val fontSize = preferenceObject.getInt("fontSize", 16).toFloat()
     private val hideKeyboardOnEnter = preferenceObject.getBoolean("hideKeyboardOnEnter", true)
-
-    private val commands = mapOf(
-        "flash" to com.coderGtm.yantra.commands.flash.Command::class.java,
-        "text" to com.coderGtm.yantra.commands.text.Command::class.java
-    )
     private val cacheSize = 5
 
     private var isSleeping = false
@@ -78,6 +72,12 @@ class Terminal(
     } catch (e: Exception) {
         Themes.DEFAULT.theme
     }
+    val commands = mapOf(
+        "open" to com.coderGtm.yantra.commands.open.Command::class.java,
+        "help" to com.coderGtm.yantra.commands.help.Command::class.java,
+        "flash" to com.coderGtm.yantra.commands.flash.Command::class.java,
+        "text" to com.coderGtm.yantra.commands.text.Command::class.java
+    )
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var contactsFetched: Boolean = false
     var contactNames = HashSet<String>()

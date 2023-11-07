@@ -8,7 +8,7 @@ abstract class BaseCommand(val terminal: Terminal) {
     abstract val metadata: CommandMetadata
     abstract fun execute(command: String)
 
-    fun output(text: String, state: Int, style: Int? = null) {
+    fun output(text: String, state: Int = terminal.theme.resultTextColor, style: Int? = null) {
         terminal.output(text = text, color = state, style = style)
     }
 }
