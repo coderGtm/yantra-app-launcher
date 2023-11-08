@@ -13,7 +13,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "help",
         helpTitle = "help | help [command_name]",
-        description = "Documentation for all commands of Yantra Launcher. Use 'help cmd_name' to get documentation for specific command."
+        description = "Documentation/Manual for all commands of Yantra Launcher. Use 'help cmd_name' to get documentation for specific command."
     )
 
     override fun execute(command: String) {
