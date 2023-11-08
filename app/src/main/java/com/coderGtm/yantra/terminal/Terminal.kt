@@ -83,6 +83,7 @@ class Terminal(
         "list" to com.coderGtm.yantra.commands.list.Command::class.java,
         "help" to com.coderGtm.yantra.commands.help.Command::class.java,
         "quote" to com.coderGtm.yantra.commands.quote.Command::class.java,
+        "bg" to com.coderGtm.yantra.commands.bg.Command::class.java,
         "flash" to com.coderGtm.yantra.commands.flash.Command::class.java,
         "text" to com.coderGtm.yantra.commands.text.Command::class.java
     )
