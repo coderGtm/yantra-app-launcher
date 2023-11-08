@@ -305,3 +305,33 @@ fun getAppsList(terminal: Terminal): ArrayList<AppBlock> {
     terminal.appListFetched = true
     return terminal.appList
 }
+private fun getLevenshteinDistance(x: String, y: String): Int {
+    val m = x.length
+    val n = y.length
+    val t = Array(m + 1) { IntArray(n + 1) }
+    for (i in 1..m) {
+        t[i][0] = i
+    }
+    for (j in 1..n) {
+        t[0][j] = j
+    }
+    var cost: Int
+    for (i in 1..m) {
+        for (j in 1..n) {
+            cost = if (x[i - 1] == y[j - 1]) 0 else 1
+            t[i][j] = Integer.min(
+                Integer.min(t[i - 1][j] + 1, t[i][j - 1] + 1),
+                t[i - 1][j - 1] + cost
+            )
+        }
+    }
+    return t[m][n]
+}
+fun findSimilarity(x: String?, y: String?): Double {
+    require(!(x == null || y == null)) { "Strings must not be null" }
+    val maxLength = java.lang.Double.max(x.length.toDouble(), y.length.toDouble())
+    return if (maxLength > 0) {
+        // optionally ignore case if needed
+        (maxLength - getLevenshteinDistance(x, y)) / maxLength
+    } else 1.0
+}

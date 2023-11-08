@@ -35,6 +35,7 @@ import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.commands.uninstall.Command
 import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getUserName
@@ -74,6 +75,7 @@ class Terminal(
     }
     val commands = mapOf(
         "open" to com.coderGtm.yantra.commands.open.Command::class.java,
+        "openf" to Command::class.java,
         "help" to com.coderGtm.yantra.commands.help.Command::class.java,
         "flash" to com.coderGtm.yantra.commands.flash.Command::class.java,
         "text" to com.coderGtm.yantra.commands.text.Command::class.java
@@ -336,7 +338,7 @@ class Terminal(
         }
         val commandName = command.trim().split(" ").firstOrNull()
         if (!isAlias) {
-            if (logCmd && NO_LOG_COMMANDS.contains(commandName)) {
+            if (logCmd && !NO_LOG_COMMANDS.contains(commandName)) {
                 output(getUserNamePrefix(preferenceObject)+getUserName(preferenceObject)+"> $command", theme.commandColor, null)
             }
             if (command.trim()!="") {
