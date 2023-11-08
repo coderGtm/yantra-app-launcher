@@ -1,4 +1,4 @@
-package com.coderGtm.yantra.commands.infof
+package com.coderGtm.yantra.commands.info
 
 import android.content.Intent
 import android.net.Uri
@@ -12,9 +12,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
-        name = "infof",
-        helpTitle = "infof [approx app name]",
-        description = "Opens app settings by matching given app name string using fuzzy search algorithm (Levenshtein distance). Example: 'openf tube' may open system settings for YouTube."
+        name = "info",
+        helpTitle = "infof [appName]",
+        description = "Opens app settings page for specified app. Example: 'info Big Battery Display' or 'i Farty Orbit'"
     )
     override fun execute(command: String) {
         val args = command.split(" ")
