@@ -35,7 +35,7 @@ import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.commands.uninstall.Command
+import com.coderGtm.yantra.commands.infof.Command
 import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getUserName
