@@ -40,7 +40,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 output("Too many arguments. Use ',' to separate topics like 'bg random city,night-life'", terminal.theme.warningTextColor)
                 return
             }
-            getRandomWallpaper(query)
+            getRandomWallpaper(query, this)
         }
         else {
             output("Invalid argument passed for bg",terminal.theme.errorTextColor)
