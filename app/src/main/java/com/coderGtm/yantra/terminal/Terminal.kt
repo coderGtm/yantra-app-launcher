@@ -35,7 +35,6 @@ import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.commands.infof.Command
 import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getUserName
@@ -75,7 +74,11 @@ class Terminal(
     }
     val commands = mapOf(
         "open" to com.coderGtm.yantra.commands.open.Command::class.java,
-        "openf" to Command::class.java,
+        "openf" to com.coderGtm.yantra.commands.openf.Command::class.java,
+        "info" to com.coderGtm.yantra.commands.info.Command::class.java,
+        "infof" to com.coderGtm.yantra.commands.infof.Command::class.java,
+        "uninstall" to com.coderGtm.yantra.commands.uninstall.Command::class.java,
+        "list" to com.coderGtm.yantra.commands.list.Command::class.java,
         "help" to com.coderGtm.yantra.commands.help.Command::class.java,
         "flash" to com.coderGtm.yantra.commands.flash.Command::class.java,
         "text" to com.coderGtm.yantra.commands.text.Command::class.java
