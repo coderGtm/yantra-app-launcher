@@ -13,6 +13,8 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.provider.ContactsContract
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -334,4 +336,15 @@ fun findSimilarity(x: String?, y: String?): Double {
         // optionally ignore case if needed
         (maxLength - getLevenshteinDistance(x, y)) / maxLength
     } else 1.0
+}
+fun vibrate(millis: Long? = 100, activity: Activity) {
+    if (millis == null) {
+        return
+    }
+    val v = activity.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        v.vibrate(VibrationEffect.createOneShot(millis, VibrationEffect.DEFAULT_AMPLITUDE))
+    } else {
+        v.vibrate(millis)
+    }
 }

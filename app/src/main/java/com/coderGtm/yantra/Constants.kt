@@ -4,7 +4,7 @@ import android.graphics.Color
 import com.coderGtm.yantra.models.Theme
 
 enum class Themes(val theme: Theme) {
-    DEFAULT(
+    Default(
         Theme(
             bgColor = Color.BLACK,
             commandColor = Color.WHITE,

@@ -46,6 +46,7 @@ import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.setSystemWallpaper
 import com.coderGtm.yantra.showRatingAndCommandPopups
+import com.coderGtm.yantra.vibrate
 import java.util.TimerTask
 
 class Terminal(
@@ -56,6 +57,7 @@ class Terminal(
     private val fontSize = preferenceObject.getInt("fontSize", 16).toFloat()
     private val hideKeyboardOnEnter = preferenceObject.getBoolean("hideKeyboardOnEnter", true)
     private val cacheSize = 5
+    private val vibrationPermission = preferenceObject.getBoolean("vibrationPermission",true)
 
     private var isSleeping = false
     private var commandQueue: MutableList<String> = mutableListOf()
@@ -70,7 +72,7 @@ class Terminal(
     val theme = try {
         Themes.entries[preferenceObject.getInt("theme", 0)].theme
     } catch (e: Exception) {
-        Themes.DEFAULT.theme
+        Themes.Default.theme
     }
     val commands = mapOf(
         "open" to com.coderGtm.yantra.commands.open.Command::class.java,
@@ -284,6 +286,10 @@ class Terminal(
         t.setTextIsSelectable(true)
         activity.runOnUiThread {
             binding.terminalOutput.addView(t)
+        }
+        // if error then vibrate
+        if (color == theme.errorTextColor && vibrationPermission) {
+            vibrate(activity = activity)
         }
     }
     private fun getCommandInstance(commandName: String): BaseCommand? {
