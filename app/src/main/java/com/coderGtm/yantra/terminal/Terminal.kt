@@ -85,6 +85,7 @@ class Terminal(
         "text" to com.coderGtm.yantra.commands.text.Command::class.java,
         "echo" to com.coderGtm.yantra.commands.echo.Command::class.java,
         "notify" to com.coderGtm.yantra.commands.notify.Command::class.java,
+        "ai" to com.coderGtm.yantra.commands.ai.Command::class.java,
     )
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var contactsFetched: Boolean = false
