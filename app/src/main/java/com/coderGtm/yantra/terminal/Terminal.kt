@@ -37,6 +37,7 @@ import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.databinding.ActivityMainBinding
+import com.coderGtm.yantra.getCurrentTheme
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.models.Alias
@@ -69,11 +70,7 @@ class Terminal(
     private lateinit var aliasList: MutableList<Alias>
     private lateinit var wakeBtn: TextView
 
-    val theme = try {
-        Themes.entries[preferenceObject.getInt("theme", 0)].theme
-    } catch (e: Exception) {
-        Themes.Default.theme
-    }
+    val theme = getCurrentTheme(preferenceObject)
     val commands = mapOf(
         "open" to com.coderGtm.yantra.commands.open.Command::class.java,
         "openf" to com.coderGtm.yantra.commands.openf.Command::class.java,
@@ -84,6 +81,7 @@ class Terminal(
         "help" to com.coderGtm.yantra.commands.help.Command::class.java,
         "quote" to com.coderGtm.yantra.commands.quote.Command::class.java,
         "bg" to com.coderGtm.yantra.commands.bg.Command::class.java,
+        "theme" to com.coderGtm.yantra.commands.theme.Command::class.java,
         "flash" to com.coderGtm.yantra.commands.flash.Command::class.java,
         "text" to com.coderGtm.yantra.commands.text.Command::class.java
     )
