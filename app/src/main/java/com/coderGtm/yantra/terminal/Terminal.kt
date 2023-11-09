@@ -83,7 +83,8 @@ class Terminal(
         "bg" to com.coderGtm.yantra.commands.bg.Command::class.java,
         "theme" to com.coderGtm.yantra.commands.theme.Command::class.java,
         "flash" to com.coderGtm.yantra.commands.flash.Command::class.java,
-        "text" to com.coderGtm.yantra.commands.text.Command::class.java
+        "text" to com.coderGtm.yantra.commands.text.Command::class.java,
+        "echo" to com.coderGtm.yantra.commands.echo.Command::class.java,
     )
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var contactsFetched: Boolean = false
