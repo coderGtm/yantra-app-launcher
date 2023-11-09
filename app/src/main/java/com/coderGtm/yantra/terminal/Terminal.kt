@@ -32,7 +32,6 @@ import com.coderGtm.yantra.BuildConfig
 import com.coderGtm.yantra.DEFAULT_TERMINAL_FONT_NAME
 import com.coderGtm.yantra.NO_LOG_COMMANDS
 import com.coderGtm.yantra.R
-import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.contactsManager
@@ -85,6 +84,7 @@ class Terminal(
         "flash" to com.coderGtm.yantra.commands.flash.Command::class.java,
         "text" to com.coderGtm.yantra.commands.text.Command::class.java,
         "echo" to com.coderGtm.yantra.commands.echo.Command::class.java,
+        "notify" to com.coderGtm.yantra.commands.notify.Command::class.java,
     )
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var contactsFetched: Boolean = false

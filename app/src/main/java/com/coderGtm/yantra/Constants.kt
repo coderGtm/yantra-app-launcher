@@ -33,8 +33,14 @@ enum class PermissionRequestCodes(val code: Int) {
     BLUETOOTH(500),
     NOTIFICATIONS(600)
 }
+enum class UserNotificationChannelConfig(val value: String) {
+    NAME("User Generated Notifications"),
+    DESCRIPTION("This channel is for Notifications fired by user using the 'notify' command."),
+    ID("userNotifications")
+}
 
 const val SHARED_PREFS_FILE_NAME = "yantraSP"
 const val DEFAULT_TERMINAL_FONT_NAME = "Source Code Pro"
+const val USER_NOTIFICATION_ID = 101
 
 val NO_LOG_COMMANDS = listOf("sleep", "echo", "notify")
