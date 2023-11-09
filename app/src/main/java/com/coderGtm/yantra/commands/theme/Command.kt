@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import androidx.core.graphics.drawable.toBitmap
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
+import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.misc.CustomFlag
 import com.coderGtm.yantra.models.CommandMetadata
@@ -48,7 +49,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                         output("2. All Customizable options: - Background - Input - Command - Normal Text and Arrow - Error Text - Positive Text - Warning Text - Suggestions")
                         output("3. Fine-tune the CLI to your liking and make it your own!")
                         output("--------------------------",terminal.theme.warningTextColor)
-                        //initializeProductPurchase("customtheme")
+                        val mainAct = terminal.activity as MainActivity
+                        mainAct.initializeProductPurchase("customtheme")
                         return
                     }
                     else {
