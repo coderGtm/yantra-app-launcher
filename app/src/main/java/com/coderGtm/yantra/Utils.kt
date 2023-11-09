@@ -353,13 +353,16 @@ fun vibrate(millis: Long? = 100, activity: Activity) {
         v.vibrate(millis)
     }
 }
+fun getCustomThemeColors(preferenceObject: SharedPreferences): ArrayList<String> {
+    return preferenceObject.getString(
+        "customThemeClrs",
+        "#000000,#A0A0A0,#E1BEE7,#FAEBD7,#EBEBEB,#F00000,#00C853,#FFD600"
+    )!!.split(",").toMutableList() as ArrayList<String>
+}
 fun getCurrentTheme(preferenceObject: SharedPreferences): Theme {
     val id = preferenceObject.getInt("theme", 0)
     if (id == -1) {
-        val customThemeColors = preferenceObject.getString(
-            "customThemeClrs",
-            "#000000,#A0A0A0,#E1BEE7,#FAEBD7,#EBEBEB,#F00000,#00C853,#FFD600"
-        )!!.split(",").toMutableList() as ArrayList<String>
+        val customThemeColors = getCustomThemeColors(preferenceObject)
         return Theme(
             bgColor = Color.parseColor(customThemeColors[0]),
             commandColor = Color.parseColor(customThemeColors[1]),

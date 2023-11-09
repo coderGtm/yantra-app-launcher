@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat
 import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.contactsManager
-import com.coderGtm.yantra.terminal.Terminal
 
 fun listApps(command: Command) {
     command.output("Found ${command.terminal.appList.size} apps")
