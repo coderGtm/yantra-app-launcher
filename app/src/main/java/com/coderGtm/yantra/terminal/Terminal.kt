@@ -95,6 +95,7 @@ class Terminal(
         "termux" to com.coderGtm.yantra.commands.termux.Command::class.java,
         "google" to com.coderGtm.yantra.commands.google.Command::class.java,
         "gupt" to com.coderGtm.yantra.commands.gupt.Command::class.java,
+        "tts" to com.coderGtm.yantra.commands.tts.Command::class.java,
     )
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var isSleeping = false
@@ -120,7 +121,7 @@ class Terminal(
         createWakeButton()
         setTextChangedListener()
         createTouchListeners()
-        aliasList = getAliasList()
+        aliasList = getAliases()
         setInputListener()
         //fetching contacts if permitted
         if (ContextCompat.checkSelfPermission(activity.baseContext, android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
@@ -273,7 +274,8 @@ class Terminal(
             requestCmdInputFocusAndShowKeyboard(activity, binding)
         }
     }
-    private fun getAliasList(): MutableList<Alias> {
+
+    private fun getAliases(): MutableList<Alias> {
         //get alias list from shared preferences
         val defaultAliasList = arrayListOf(Alias("h", "help"),Alias("o", "open"), Alias("i", "info"), Alias("u", "uninstall"), Alias("bt", "bluetooth"), Alias("w", "weather"), Alias("tx", "termux"), Alias("cls", "clear"))
         val defaultStringSet = mutableSetOf<String>()

@@ -42,13 +42,13 @@ import java.util.Locale
 
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalGestureListenerCallback {
 
-    private var tts: TextToSpeech? = null
-    private var ttsTxt = ""
-
     private lateinit var primaryTerminal: Terminal
     private lateinit var app: YantraLauncher
     private lateinit var binding: ActivityMainBinding
     private lateinit var billingClient: BillingClient
+
+    var tts: TextToSpeech? = null
+    var ttsTxt = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
