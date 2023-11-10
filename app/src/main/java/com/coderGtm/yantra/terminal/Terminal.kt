@@ -94,6 +94,7 @@ class Terminal(
         "unalias" to com.coderGtm.yantra.commands.unalias.Command::class.java,
         "termux" to com.coderGtm.yantra.commands.termux.Command::class.java,
         "google" to com.coderGtm.yantra.commands.google.Command::class.java,
+        "gupt" to com.coderGtm.yantra.commands.gupt.Command::class.java,
     )
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var isSleeping = false
