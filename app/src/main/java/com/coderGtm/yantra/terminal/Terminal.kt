@@ -58,16 +58,13 @@ class Terminal(
     private val hideKeyboardOnEnter = preferenceObject.getBoolean("hideKeyboardOnEnter", true)
     private val cacheSize = 5
     private val vibrationPermission = preferenceObject.getBoolean("vibrationPermission",true)
-
-    private var isSleeping = false
+    
     private var commandQueue: MutableList<String> = mutableListOf()
     private var cmdHistory = ArrayList<String>()
     private var cmdHistoryCursor = -1
-    private var sleepTimer: TimerTask? = null
     private var commandCache = mutableListOf<Map<String, BaseCommand>>()
 
     private lateinit var aliasList: MutableList<Alias>
-    private lateinit var wakeBtn: TextView
 
     val theme = getCurrentTheme(preferenceObject)
     val commands = mapOf(
@@ -89,14 +86,18 @@ class Terminal(
         "calc" to com.coderGtm.yantra.commands.calc.Command::class.java,
         "call" to com.coderGtm.yantra.commands.call.Command::class.java,
         "email" to com.coderGtm.yantra.commands.email.Command::class.java,
+        "sleep" to com.coderGtm.yantra.commands.sleep.Command::class.java,
     )
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
+    var isSleeping = false
+    var sleepTimer: TimerTask? = null
     var contactsFetched: Boolean = false
     var contactNames = HashSet<String>()
     var appListFetched: Boolean = false
     var uninstallCmdActive = false
 
     lateinit var appList: ArrayList<AppBlock>
+    lateinit var wakeBtn: TextView
 
     fun initialize() {
         activity.requestedOrientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
@@ -250,7 +251,7 @@ class Terminal(
             executeCommandsInQueue()
         }
     }
-    private fun executeCommandsInQueue() {
+    fun executeCommandsInQueue() {
         while (commandQueue.isNotEmpty() && !isSleeping) {
             val cmdToExecute = commandQueue.removeFirst()
             handleCommand(cmdToExecute)
