@@ -96,6 +96,7 @@ class Terminal(
         "google" to com.coderGtm.yantra.commands.google.Command::class.java,
         "gupt" to com.coderGtm.yantra.commands.gupt.Command::class.java,
         "tts" to com.coderGtm.yantra.commands.tts.Command::class.java,
+        "weather" to com.coderGtm.yantra.commands.weather.Command::class.java,
     )
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var isSleeping = false
