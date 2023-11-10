@@ -21,6 +21,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output("Please specify sleep duration in milliseconds.", terminal.theme.errorTextColor)
             return
         }
+        if (args.size > 3) {
+            output("'sleep' command takes only 1 parameter: sleep duration in milliseconds.", terminal.theme.errorTextColor)
+            return
+        }
         val milliseconds = args[1].toLongOrNull()
         if (milliseconds == null) {
             output("Invalid usage. 'sleep' command takes only 1 argument: time to sleep in milliseconds.",terminal.theme.errorTextColor)
