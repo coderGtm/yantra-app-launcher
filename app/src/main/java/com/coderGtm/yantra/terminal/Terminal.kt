@@ -65,8 +65,6 @@ class Terminal(
     private var cmdHistoryCursor = -1
     private var commandCache = mutableListOf<Map<String, BaseCommand>>()
 
-    private lateinit var aliasList: MutableList<Alias>
-
     val theme = getCurrentTheme(preferenceObject)
     val commands = mapOf(
         "open" to com.coderGtm.yantra.commands.open.Command::class.java,
@@ -92,6 +90,7 @@ class Terminal(
         "vibe" to com.coderGtm.yantra.commands.vibe.Command::class.java,
         "init" to com.coderGtm.yantra.commands.init.Command::class.java,
         "todo" to com.coderGtm.yantra.commands.todo.Command::class.java,
+        "alias" to com.coderGtm.yantra.commands.alias.Command::class.java,
     )
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var isSleeping = false
@@ -103,6 +102,7 @@ class Terminal(
 
     lateinit var appList: ArrayList<AppBlock>
     lateinit var wakeBtn: TextView
+    lateinit var aliasList: MutableList<Alias>
 
     fun initialize() {
         activity.requestedOrientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
@@ -384,12 +384,10 @@ class Terminal(
             // find most similar command and recommend
             var maxScore = 0.0
             var matchingName = "help"
-            for (cmd in commands.values) {
-                val cname = cmd.getDeclaredConstructor(Terminal::class.java)
-                    .newInstance(this@Terminal).metadata.name
-                val score = findSimilarity(cname, commandName)
+            for (cmd in commands.keys) {
+                val score = findSimilarity(cmd, commandName)
                 if (score > maxScore) {
-                    matchingName = cname
+                    matchingName = cmd
                     maxScore = score
                 }
             }
