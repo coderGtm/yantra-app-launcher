@@ -36,6 +36,7 @@ import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.databinding.ActivityMainBinding
+import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getCurrentTheme
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.getUserNamePrefix
@@ -374,8 +375,21 @@ class Terminal(
         if (commandInstance != null) {
             commandInstance.execute(command.trim())
         }
+        else if (command.trim() == "") {}
         else {
-            output("$commandName is not a recognized command", theme.errorTextColor, null)
+            // find most similar command and recommend
+            var maxScore = 0.0
+            var matchingName = "help"
+            for (cmd in commands.values) {
+                val cname = cmd.getDeclaredConstructor(Terminal::class.java)
+                    .newInstance(this@Terminal).metadata.name
+                val score = findSimilarity(cname, commandName)
+                if (score > maxScore) {
+                    matchingName = cname
+                    maxScore = score
+                }
+            }
+            output("$commandName is not a recognized command or alias. Did you mean $matchingName?", theme.errorTextColor, null)
         }
     }
 }

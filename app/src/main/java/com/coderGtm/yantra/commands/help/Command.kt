@@ -22,8 +22,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             1 -> {
                 output("---Yantra Launcher Help---",terminal.theme.successTextColor, Typeface.BOLD_ITALIC)
                 output("-------------------------",terminal.theme.resultTextColor)
-                for (commandClass in terminal.commands) {
-                        val cmdMetadata = commandClass.value.getDeclaredConstructor(Terminal::class.java)
+                for (commandClass in terminal.commands.values) {
+                        val cmdMetadata = commandClass.getDeclaredConstructor(Terminal::class.java)
                             .newInstance(terminal).metadata
                     output(cmdMetadata.helpTitle ,terminal.theme.warningTextColor, Typeface.BOLD)
                     output(cmdMetadata.description ,terminal.theme.resultTextColor)
