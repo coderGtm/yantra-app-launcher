@@ -261,7 +261,7 @@ fun getAppsList(terminal: Terminal): ArrayList<AppBlock> {
     val alreadyFetched = terminal.appListFetched
     terminal.appListFetched = false
     if (!alreadyFetched){
-        terminal.appList = ArrayList<AppBlock>()
+        terminal.appList = ArrayList()
     }
 
     try {
@@ -273,14 +273,12 @@ fun getAppsList(terminal: Terminal): ArrayList<AppBlock> {
 
         val apps = pm.queryIntentActivities(intent, 0)
         for (app in apps) {
-            if (app.activityInfo.packageName != terminal.activity.packageName) {
-                val appBlock = AppBlock(
-                    app.loadLabel(pm).toString(),
-                    app.activityInfo.packageName
-                )
-                if (!terminal.appList.contains(appBlock)) {
-                    terminal.appList.add(appBlock)
-                }
+            val appBlock = AppBlock(
+                app.loadLabel(pm).toString(),
+                app.activityInfo.packageName
+            )
+            if (!terminal.appList.contains(appBlock)) {
+                terminal.appList.add(appBlock)
             }
         }
 
