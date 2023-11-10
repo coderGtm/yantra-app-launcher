@@ -24,6 +24,7 @@ import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getAppsList
+import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.isNetworkAvailable
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         super.onStart()
         Thread {
             primaryTerminal.appList = getAppsList(primaryTerminal)
-            val initList = getInit()
+            val initList = getInit(app.preferenceObject)
             runInitTasks(initList)
         }.start()
     }
@@ -157,15 +158,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             primaryTerminal.cmdDown()
         }
         return super.dispatchKeyEvent(event)
-    }
-    private fun getInit(): String {
-        return try {
-            app.preferenceObject.getString("initList", "") ?: ""
-        } catch (e: ClassCastException) {
-            // prev Set implementation present
-            app.preferenceObject.edit().remove("initList").apply()
-            ""
-        }
     }
     private fun runInitTasks(initList: String?) {
         if (initList?.trim() != "") {

@@ -395,3 +395,12 @@ fun verifyValidSignature(signedData: String, signature: String, context: Context
         false
     }
 }
+fun getInit(preferenceObject: SharedPreferences): String {
+    return try {
+        preferenceObject.getString("initList", "") ?: ""
+    } catch (e: ClassCastException) {
+        // prev Set implementation present
+        preferenceObject.edit().remove("initList").apply()
+        ""
+    }
+}

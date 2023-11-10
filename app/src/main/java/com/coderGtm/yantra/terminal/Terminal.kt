@@ -90,6 +90,7 @@ class Terminal(
         "sleep" to com.coderGtm.yantra.commands.sleep.Command::class.java,
         "bluetooth" to com.coderGtm.yantra.commands.bluetooth.Command::class.java,
         "vibe" to com.coderGtm.yantra.commands.vibe.Command::class.java,
+        "init" to com.coderGtm.yantra.commands.init.Command::class.java,
     )
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var isSleeping = false
