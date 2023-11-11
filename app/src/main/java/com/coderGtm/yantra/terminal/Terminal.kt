@@ -103,6 +103,7 @@ class Terminal(
         "time" to com.coderGtm.yantra.commands.time.Command::class.java,
         "settings" to com.coderGtm.yantra.commands.settings.Command::class.java,
         "sysinfo" to com.coderGtm.yantra.commands.sysinfo.Command::class.java,
+        "scripts" to com.coderGtm.yantra.commands.scripts.Command::class.java,
     )
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var isSleeping = false

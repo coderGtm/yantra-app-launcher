@@ -402,3 +402,12 @@ fun getInit(preferenceObject: SharedPreferences): String {
         ""
     }
 }
+fun getScripts(preferenceObject: SharedPreferences): java.util.ArrayList<String> {
+    val scriptsFromSP = preferenceObject.getString("scripts", "").toString()
+    val scripts = scriptsFromSP.split(";").toMutableList() as java.util.ArrayList<String>
+    if (scripts.size == 1 && scripts[0].trim() == "") {
+        scripts.clear()
+    }
+
+    return scripts
+}
