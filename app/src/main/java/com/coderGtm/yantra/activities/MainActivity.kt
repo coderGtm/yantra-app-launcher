@@ -1,11 +1,13 @@
 package com.coderGtm.yantra.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.view.KeyEvent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
@@ -249,27 +251,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             }
         })
     }
-    private val purchasesUpdatedListener =
-        PurchasesUpdatedListener { billingResult, purchases ->
-            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-                CoroutineScope(Dispatchers.Main).launch {
-                    for (purchase in purchases) {
-                        handlePurchase(purchase)
-                    }
-                }
-            } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
-                toast(baseContext, "Purchase cancelled")
-                primaryTerminal.output("[-] Purchase cancelled", primaryTerminal.theme.warningTextColor, null)
-            } else if (billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
-                restoreAllPurchases()
-                toast(baseContext, "Already purchased")
-                primaryTerminal.output("[+] This item is already purchased. Please try again.", primaryTerminal.theme.warningTextColor, null)
-            } else {
-                toast(baseContext, "Purchase failed")
-                primaryTerminal.output("[-] Purchase failed. Please try again.", primaryTerminal.theme.errorTextColor, null)
-            }
-            billingClient.endConnection()
-        }
 
     private fun handlePurchase(purchase: Purchase) {
         if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
@@ -315,6 +296,41 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             if (p1.isNotEmpty()) {
                 for (purchase in p1) {
                     handlePurchase(purchase)
+                }
+            }
+        }
+    }
+
+
+
+    private val purchasesUpdatedListener =
+        PurchasesUpdatedListener { billingResult, purchases ->
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    for (purchase in purchases) {
+                        handlePurchase(purchase)
+                    }
+                }
+            } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
+                toast(baseContext, "Purchase cancelled")
+                primaryTerminal.output("[-] Purchase cancelled", primaryTerminal.theme.warningTextColor, null)
+            } else if (billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
+                restoreAllPurchases()
+                toast(baseContext, "Already purchased")
+                primaryTerminal.output("[+] This item is already purchased. Please try again.", primaryTerminal.theme.warningTextColor, null)
+            } else {
+                toast(baseContext, "Purchase failed")
+                primaryTerminal.output("[-] Purchase failed. Please try again.", primaryTerminal.theme.errorTextColor, null)
+            }
+            billingClient.endConnection()
+        }
+    var yantraSettingsLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            if (data != null) {
+                val settingsChanged = data.getBooleanExtra("settingsChanged", false)
+                if (settingsChanged) {
+                    recreate()
                 }
             }
         }
