@@ -110,6 +110,8 @@ class Terminal(
         "clear" to com.coderGtm.yantra.commands.clear.Command::class.java,
         "reset" to com.coderGtm.yantra.commands.reset.Command::class.java,
         "cmdrequest" to com.coderGtm.yantra.commands.cmdrequest.Command::class.java,
+        "feedback" to com.coderGtm.yantra.commands.feedback.Command::class.java,
+        "community" to com.coderGtm.yantra.commands.community.Command::class.java,
     )
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var isSleeping = false
