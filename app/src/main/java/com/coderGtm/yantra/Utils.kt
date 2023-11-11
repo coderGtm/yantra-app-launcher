@@ -45,7 +45,9 @@ fun toast(baseContext: Context, msg: String) {
 fun getUserNamePrefix(preferenceObject: SharedPreferences): String {
     return preferenceObject.getString("usernamePrefix","$")?:"$"
 }
-
+fun setUserNamePrefix(pre: String, preferenceEditObject: SharedPreferences.Editor) {
+    preferenceEditObject.putString("usernamePrefix",pre).apply()
+}
 fun getUserName(preferenceObject: SharedPreferences): String {
     return preferenceObject.getString("username","root") ?: "root"
 }

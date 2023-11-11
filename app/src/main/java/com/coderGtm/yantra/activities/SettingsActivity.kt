@@ -13,8 +13,25 @@ import com.android.volley.NoConnectionError
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.databinding.ActivitySettingsBinding
+import com.coderGtm.yantra.getUserNamePrefix
+import com.coderGtm.yantra.misc.changedSettingsCallback
+import com.coderGtm.yantra.misc.openAiApiKeySetter
+import com.coderGtm.yantra.misc.openAiApiProviderSetter
+import com.coderGtm.yantra.misc.openAiSystemPromptSetter
+import com.coderGtm.yantra.misc.openAppSugOrderingSetter
+import com.coderGtm.yantra.misc.openDoubleTapActionSetter
+import com.coderGtm.yantra.misc.openFontSizeSetter
+import com.coderGtm.yantra.misc.openNewsWebsiteSetter
+import com.coderGtm.yantra.misc.openOrientationSetter
+import com.coderGtm.yantra.misc.openTermuxCmdPathSelector
+import com.coderGtm.yantra.misc.openTermuxCmdSessionActionSelector
+import com.coderGtm.yantra.misc.openTermuxCmdWorkingDirSelector
+import com.coderGtm.yantra.misc.openUsernamePrefixSetter
+import com.coderGtm.yantra.misc.setAppSugOrderTvText
+import com.coderGtm.yantra.misc.setOrientationTvText
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.json.JSONObject
 
@@ -32,7 +49,7 @@ class SettingsActivity : AppCompatActivity() {
     private var initCmdLog = false
     private var fontSize = 16
     private var orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-    //private var appSugOrderingMode = Constants().appSortModeAlphabetically
+    private var appSugOrderingMode = AppSortMode.A_TO_Z.value
     private var fontName = "Source Code Pro"
 
     private lateinit var binding: ActivitySettingsBinding
@@ -51,7 +68,7 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-/*
+
         getPrimarySuggestions = preferenceObject.getBoolean("getPrimarySuggestions",true)
         getSecondarySuggestions = preferenceObject.getBoolean("getSecondarySuggestions",true)
         fullscreenLauncher = preferenceObject.getBoolean("fullScreen",false)
@@ -63,7 +80,7 @@ class SettingsActivity : AppCompatActivity() {
         initCmdLog = preferenceObject.getBoolean("initCmdLog", false)
         fontSize = preferenceObject.getInt("fontSize",16)
         orientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
-        appSugOrderingMode = preferenceObject.getInt("appSortMode", Constants().appSortModeAlphabetically)
+        appSugOrderingMode = preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value)
         fontName = preferenceObject.getString("font","Source Code Pro") ?: "Source Code Pro"
 
 
@@ -81,6 +98,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.termuxCmdPathLayout.setOnClickListener { openTermuxCmdPathSelector(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.termuxCmdWorkDirLayout.setOnClickListener { openTermuxCmdWorkingDirSelector(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.termuxCmdSessionActionLayout.setOnClickListener { openTermuxCmdSessionActionSelector(this@SettingsActivity, preferenceObject, preferenceEditObject) }
+        binding.aiProviderLayout.setOnClickListener { openAiApiProviderSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.aiApiKeyLayout.setOnClickListener { openAiApiKeySetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.aiSystemPromptLayout.setOnClickListener { openAiSystemPromptSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
 
@@ -178,9 +196,9 @@ class SettingsActivity : AppCompatActivity() {
             initCmdLog = isChecked
             preferenceEditObject.putBoolean("initCmdLog", isChecked).apply()
             changedSettingsCallback(this@SettingsActivity)
-        }*/
+        }
     }
-/*
+
     private fun downloadFont(name: String) {
         val request = FontRequest(
             "com.google.android.gms.fonts",
@@ -207,5 +225,4 @@ class SettingsActivity : AppCompatActivity() {
         val handler = Handler()
         FontsContractCompat.requestFont(this, request, callback, handler)
     }
-    */
 }

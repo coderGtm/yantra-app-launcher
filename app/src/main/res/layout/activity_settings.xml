@@ -438,6 +438,27 @@
                 android:background="?android:attr/listDivider" />
 
             <LinearLayout
+                android:id="@+id/aiProviderLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingVertical="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:text="Change AI API Provider" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
                 android:id="@+id/aiApiKeyLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
