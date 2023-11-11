@@ -31,7 +31,8 @@ enum class PermissionRequestCodes(val code: Int) {
     CALL(300),
     CONTACTS(400),
     BLUETOOTH(500),
-    NOTIFICATIONS(600)
+    NOTIFICATIONS(600),
+    TERMUX_RUN_COMMAND(700),
 }
 enum class UserNotificationChannelConfig(val value: String) {
     NAME("User Generated Notifications"),

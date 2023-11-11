@@ -1,6 +1,10 @@
 package com.coderGtm.yantra.commands.termux
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
+import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -23,6 +27,11 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         for (app in terminal.appList) {
             if (app.packageName == "com.termux") {
                 // termux is installed
+                if (ActivityCompat.checkSelfPermission(terminal.activity, "com.termux.permission.RUN_COMMAND") != PackageManager.PERMISSION_GRANTED) {
+                    output("You need to grant the Termux Run Command Permission to Yantra Launcher for this command to work!", terminal.theme.warningTextColor)
+                    ActivityCompat.requestPermissions(terminal.activity, arrayOf("com.termux.permission.RUN_COMMAND"), PermissionRequestCodes.TERMUX_RUN_COMMAND.code)
+                    return
+                }
                 val cmdName = cmd.split(" ")[0].trim()
                 var cmdArgs = arrayOf<String>()
                 if (cmd.split(" ").size > 1) {
