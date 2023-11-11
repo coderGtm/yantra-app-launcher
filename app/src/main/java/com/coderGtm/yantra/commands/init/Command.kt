@@ -1,7 +1,7 @@
 package com.coderGtm.yantra.commands.init
 
-import android.app.AlertDialog
 import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.getInit
