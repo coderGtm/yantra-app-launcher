@@ -14,7 +14,6 @@ import android.graphics.PorterDuffColorFilter
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.graphics.ColorUtils
-import androidx.core.graphics.toColor
 import com.android.volley.NoConnectionError
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest

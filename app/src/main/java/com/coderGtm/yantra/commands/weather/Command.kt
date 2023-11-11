@@ -2,15 +2,12 @@ package com.coderGtm.yantra.commands.weather
 
 import android.content.pm.PackageManager
 import android.graphics.Typeface
-import com.android.volley.NoConnectionError
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
-import org.json.JSONObject
-import kotlin.math.roundToInt
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(

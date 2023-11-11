@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.SystemClock
 import com.coderGtm.yantra.BuildConfig
 import com.coderGtm.yantra.DEFAULT_TERMINAL_FONT_NAME
-import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.getCurrentTheme
 import com.coderGtm.yantra.getUserName

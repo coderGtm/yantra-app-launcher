@@ -1,13 +1,9 @@
 package com.coderGtm.yantra.commands.help
 
-import android.content.Context
 import android.graphics.Typeface
-import android.hardware.camera2.CameraManager
-import android.os.Build
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
-import kotlin.reflect.KProperty
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(

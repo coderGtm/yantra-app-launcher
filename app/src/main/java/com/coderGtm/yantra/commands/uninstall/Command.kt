@@ -2,10 +2,8 @@ package com.coderGtm.yantra.commands.uninstall
 
 import android.content.Intent
 import android.net.Uri
-import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
