@@ -109,6 +109,7 @@ class Terminal(
         "lock" to com.coderGtm.yantra.commands.lock.Command::class.java,
         "clear" to com.coderGtm.yantra.commands.clear.Command::class.java,
         "reset" to com.coderGtm.yantra.commands.reset.Command::class.java,
+        "cmdrequest" to com.coderGtm.yantra.commands.cmdrequest.Command::class.java,
     )
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var isSleeping = false
