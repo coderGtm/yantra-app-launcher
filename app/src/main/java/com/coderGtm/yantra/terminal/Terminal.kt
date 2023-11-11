@@ -106,6 +106,8 @@ class Terminal(
         "scripts" to com.coderGtm.yantra.commands.scripts.Command::class.java,
         "run" to com.coderGtm.yantra.commands.run.Command::class.java,
         "battery" to com.coderGtm.yantra.commands.battery.Command::class.java,
+        "lock" to com.coderGtm.yantra.commands.lock.Command::class.java,
+        "clear" to com.coderGtm.yantra.commands.clear.Command::class.java,
     )
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var isSleeping = false
