@@ -1,13 +1,10 @@
 package com.coderGtm.yantra.commands.openf
 
 import com.coderGtm.yantra.AppSortMode
-import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.findSimilarity
-import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -19,10 +16,15 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val args = command.split(" ")
         val name = command.removePrefix(args[0]).trim().lowercase()
         val candidates = mutableListOf<Double>()
+        val currentPackage = terminal.activity.packageName
         for (app in terminal.appList) {
-            val score = findSimilarity(app.appName.lowercase(), name)
+            val score = if (app.packageName == currentPackage) {
+                0.0
+            }
+            else {
+                findSimilarity(app.appName.lowercase(), name)
+            }
             candidates.add(score)
-            //addToPrevTxt(app.appName+" ---> "+score.toString(),4)
         }
         val maxIndex = candidates.indexOf(candidates.max())
         val appBlock = terminal.appList[maxIndex]

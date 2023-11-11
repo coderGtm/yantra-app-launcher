@@ -24,6 +24,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 candidates.add(app)
             }
         }
+        candidates.removeAll {
+            it.packageName == terminal.activity.packageName
+        }
+
         if (candidates.size == 1) {
             terminal.activity.applicationContext.startActivity(terminal.activity.applicationContext.packageManager.getLaunchIntentForPackage(candidates[0].packageName))
             output("Opened ${candidates[0].appName}", terminal.theme.successTextColor)
