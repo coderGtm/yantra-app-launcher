@@ -272,7 +272,7 @@ fun showSuggestions(
                 }
                 val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
                 val themeArgs = mutableListOf("-1")
-                Themes.entries.forEach { themeArgs.add(it.name) }
+                Themes.entries.indices.forEach { themeArgs.add(it.toString()) }
                 themeArgs.filterTo(suggestions) { regex.containsMatchIn(it) }
                 isPrimary = false
             }
