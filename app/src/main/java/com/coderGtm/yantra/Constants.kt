@@ -6,17 +6,28 @@ import com.coderGtm.yantra.models.Theme
 enum class Themes(val theme: Theme) {
     Default(
         Theme(
-            bgColor = Color.BLACK,
-            commandColor = Color.WHITE,
-            suggestionTextColor = Color.WHITE,
-            buttonColor = Color.WHITE,
-            resultTextColor = Color.WHITE,
-            errorTextColor = Color.RED,
-            successTextColor = Color.GREEN,
-            warningTextColor = Color.YELLOW
+            bgColor = 0xFF121212.toInt(),
+            commandColor = 0xFFA0A0A0.toInt(),
+            suggestionTextColor = 0xFFE1BEE7.toInt(),
+            buttonColor = 0xFFFAEBD7.toInt(),
+            resultTextColor = 0xFFEBEBEB.toInt(),
+            errorTextColor = 0xFFF00000.toInt(),
+            successTextColor = 0xFF00C853.toInt(),
+            warningTextColor = 0xFFFFD600.toInt()
         )
     ),
-    // Add more theme types as needed
+    Light(
+        Theme(
+            bgColor = 0xFFFFFFFF.toInt(),
+            commandColor = 0xFF000000.toInt(),
+            suggestionTextColor = 0xFF000000.toInt(),
+            buttonColor = 0xFF000000.toInt(),
+            resultTextColor = 0xFF000000.toInt(),
+            errorTextColor = 0xFFF00000.toInt(),
+            successTextColor = 0xFF00C853.toInt(),
+            warningTextColor = 0xFFFFD600.toInt()
+        )
+    )
 }
 enum class AppSortMode(val value: Int) {
     A_TO_Z(0),
