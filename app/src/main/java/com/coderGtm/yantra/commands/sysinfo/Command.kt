@@ -7,7 +7,6 @@ import android.os.SystemClock
 import com.coderGtm.yantra.BuildConfig
 import com.coderGtm.yantra.DEFAULT_TERMINAL_FONT_NAME
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.getCurrentTheme
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -46,11 +45,11 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 "-host" -> output("--> Host: ${Build.MANUFACTURER} ${Build.MODEL}")
                 "-kernel" -> output("--> Kernel: ${System.getProperty("os.version")}")
                 "-uptime" -> output("--> Uptime: ${uptimeHours}h ${uptimeMinutes}m")
-                "-apps" -> output("--> Apps: ${terminal.appList.size}", 4)
+                "-apps" -> output("--> Apps: ${terminal.appList.size}")
                 "-terminal" -> output("--> Terminal: Yantra Launcher ${BuildConfig.VERSION_NAME}")
                 "-font" -> output("--> Terminal Font: ${terminal.preferenceObject.getString("font", DEFAULT_TERMINAL_FONT_NAME) ?: DEFAULT_TERMINAL_FONT_NAME}")
                 "-resolution" -> output("--> Resolution: ${widthRes}x${heightRes}")
-                "-theme" -> output("--> Theme: ${getCurrentTheme(terminal.preferenceObject)}")
+                "-theme" -> output("--> Theme: ${getCurrentThemeName(terminal.preferenceObject)}")
                 "-cpu" -> output("--> CPU: ${Build.SUPPORTED_ABIS[0]} (${Runtime.getRuntime().availableProcessors()}) @ ${getCPUSpeed()}")
                 "-memory" -> output("--> Memory: ${availableMem.toInt()}MiB / ${totalMem.toInt()}MiB")
                 else -> output("Unknown flag: $arg", terminal.theme.errorTextColor)

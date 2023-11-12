@@ -22,7 +22,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output("'run' command takes only 1 parameter: The script name to run.", terminal.theme.errorTextColor)
             return
         }
-        val rcvdScriptName = args[0]
+        val rcvdScriptName = args[1]
         val scripts = getScripts(terminal.preferenceObject)
 
         if (rcvdScriptName in scripts) {

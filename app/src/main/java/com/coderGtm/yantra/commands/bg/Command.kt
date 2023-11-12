@@ -4,6 +4,7 @@ import android.app.WallpaperManager
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import androidx.core.graphics.drawable.toBitmap
+import com.coderGtm.yantra.ActivityRequestCodes
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.setSystemWallpaper
@@ -22,7 +23,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             // select image
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
-            terminal.activity.startActivityForResult(intent, 0)
+            terminal.activity.startActivityForResult(intent, ActivityRequestCodes.IMAGE_PICK.code)
         }
         else if (command.trim().split(" ")[1] == "-1") {
             val wallpaperManager = WallpaperManager.getInstance(terminal.activity.applicationContext)
