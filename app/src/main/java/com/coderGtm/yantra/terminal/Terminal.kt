@@ -59,6 +59,8 @@ class Terminal(
     private val hideKeyboardOnEnter = preferenceObject.getBoolean("hideKeyboardOnEnter", true)
     private val cacheSize = 5
     private val vibrationPermission = preferenceObject.getBoolean("vibrationPermission",true)
+    private val getPrimarySuggestions = preferenceObject.getBoolean("getPrimarySuggestions",true)
+    private val getSecondarySuggestions = preferenceObject.getBoolean("getSecondarySuggestions",true)
     
     private var commandQueue: MutableList<String> = mutableListOf()
     private var cmdHistory = ArrayList<String>()
@@ -220,20 +222,14 @@ class Terminal(
         }
     }
     private fun setTextChangedListener() {
-        val getPrimarySuggestions = preferenceObject.getBoolean("getPrimarySuggestions",true)
-        val getSecondarySuggestions = preferenceObject.getBoolean("getSecondarySuggestions",true)
         if (getPrimarySuggestions || getSecondarySuggestions) {
             registerTextChangedListener()
         }
     }
     private fun registerTextChangedListener() {
         binding.cmdInput.addTextChangedListener {
-            showSuggestions()
+            showSuggestions(it.toString(), getPrimarySuggestions, getSecondarySuggestions, this@Terminal)
         }
-    }
-
-    private fun showSuggestions() {
-
     }
     private fun handleInput(input: String) {
         handleCommand(input)
