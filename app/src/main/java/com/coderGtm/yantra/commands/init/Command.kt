@@ -26,7 +26,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val initListString = getInit(terminal.preferenceObject)
         val initDialog = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
             .setTitle("Initialization Tasks")
-            .setMessage("Enter commands one-per-line to execute when Yantra Launcher gets in focus (opened or navigated-back to).")
+            .setMessage("Enter commands one-per-line to execute when Yantra Launcher gets in focus (opened or navigated-back to).\n\nWARNING: This is a powerful feature. Please be careful while using it. Using commands like 'reset' in this script can cause the launcher to recursively restart infinitely. Hence, it is recommended to use this feature only if you know what you are doing.")
             .setView(R.layout.dialog_multiline_input)
             .setCancelable(false)
             .setPositiveButton("Save") { dialog, _ ->
