@@ -220,6 +220,18 @@ enum class Themes(val theme: Theme) {
             warningTextColor = 0xFFE95420.toInt(),
         )
     ),
+    Tokyonight(
+        Theme(
+            bgColor = 0xFF1A1B26.toInt(),
+            commandColor = 0xFFC0CAF5.toInt(),
+            suggestionTextColor = 0xFFC0CAF5.toInt(),
+            buttonColor = 0xFFC0CAF5.toInt(),
+            resultTextColor = 0xFFC0CAF5.toInt(),
+            errorTextColor = 0xFFDB4B4B.toInt(),
+            successTextColor = 0xFF9ECE6A.toInt(),
+            warningTextColor = 0xFFE0AF68.toInt(),
+        )
+    ),
 }
 enum class AppSortMode(val value: Int) {
     A_TO_Z(0),
