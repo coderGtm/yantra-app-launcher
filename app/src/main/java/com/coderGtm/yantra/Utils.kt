@@ -310,7 +310,7 @@ fun getAppsList(terminal: Terminal): ArrayList<AppBlock> {
         terminal.output("An error occurred while fetching apps list", terminal.theme.errorTextColor, null)
     }
     terminal.appListFetched = true
-    return terminal.appList
+    return terminal.appList.distinct() as ArrayList<AppBlock>
 }
 private fun getLevenshteinDistance(x: String, y: String): Int {
     val m = x.length
