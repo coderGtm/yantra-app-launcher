@@ -202,13 +202,7 @@ class Terminal(
         val handler = Handler(Looper.getMainLooper())
         FontsContractCompat.requestFont(activity, request, callback, handler)
     }
-    private fun setWallpaperIfNeeded(preferenceObject: SharedPreferences, applicationContext: Context, curTheme: Theme, ) {
-        if (preferenceObject.getBoolean("defaultWallpaper",true)) {
-            val wallpaperManager = WallpaperManager.getInstance(applicationContext)
-            val colorDrawable = ColorDrawable(curTheme.bgColor)
-            setSystemWallpaper(wallpaperManager, colorDrawable.toBitmap(applicationContext.resources.displayMetrics.widthPixels, applicationContext.resources.displayMetrics.heightPixels))
-        }
-    }
+
     private fun setInputListener() {
         binding.cmdInput.setOnEditorActionListener { v, actionId, event ->
             return@setOnEditorActionListener when (actionId) {

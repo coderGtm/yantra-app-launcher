@@ -1,10 +1,15 @@
 package com.coderGtm.yantra.terminal
 
+import android.app.WallpaperManager
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
@@ -12,7 +17,9 @@ import com.coderGtm.yantra.commands.todo.getToDo
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.models.Alias
+import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
+import com.coderGtm.yantra.setSystemWallpaper
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.regex.Pattern
 
@@ -405,4 +412,11 @@ fun showSuggestions(
             }
         }
     }.start()
+}
+fun setWallpaperIfNeeded(preferenceObject: SharedPreferences, applicationContext: Context, curTheme: Theme, ) {
+    if (preferenceObject.getBoolean("defaultWallpaper",true)) {
+        val wallpaperManager = WallpaperManager.getInstance(applicationContext)
+        val colorDrawable = ColorDrawable(curTheme.bgColor)
+        setSystemWallpaper(wallpaperManager, colorDrawable.toBitmap(applicationContext.resources.displayMetrics.widthPixels, applicationContext.resources.displayMetrics.heightPixels))
+    }
 }
