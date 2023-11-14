@@ -18,6 +18,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     )
     override fun execute(command: String) {
         val args = command.split(" ")
+        if (args.size < 2) {
+            output("Please specify an app name.", terminal.theme.errorTextColor)
+            return
+        }
         val name = command.removePrefix(args[0]).trim().lowercase()
         val candidates = mutableListOf<AppBlock>()
         //wait till appList has been initialized
