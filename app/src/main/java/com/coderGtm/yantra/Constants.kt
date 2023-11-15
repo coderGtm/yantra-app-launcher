@@ -1,6 +1,5 @@
 package com.coderGtm.yantra
 
-import android.graphics.Color
 import com.coderGtm.yantra.models.Theme
 
 enum class Themes(val theme: Theme) {

@@ -153,11 +153,15 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         })
     }
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-        if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+        if (event.keyCode == KeyEvent.KEYCODE_DPAD_UP && event.action == KeyEvent.ACTION_UP) {
             primaryTerminal.cmdUp()
         }
-        else if (event.keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+        else if (event.keyCode == KeyEvent.KEYCODE_DPAD_DOWN && event.action == KeyEvent.ACTION_UP) {
             primaryTerminal.cmdDown()
+        }
+        else if (event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+            val inputReceived = binding.cmdInput.text.toString().trim()
+            primaryTerminal.handleInput(inputReceived)
         }
         return super.dispatchKeyEvent(event)
     }

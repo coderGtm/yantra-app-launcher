@@ -8,9 +8,6 @@ import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(

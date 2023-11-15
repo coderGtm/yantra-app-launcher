@@ -1,14 +1,12 @@
 package com.coderGtm.yantra.terminal
 
 import android.app.Activity
-import android.app.WallpaperManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -21,7 +19,6 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
@@ -42,10 +39,8 @@ import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.AppBlock
-import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
-import com.coderGtm.yantra.setSystemWallpaper
 import com.coderGtm.yantra.showRatingAndCommandPopups
 import com.coderGtm.yantra.vibrate
 import java.util.TimerTask
@@ -226,7 +221,7 @@ class Terminal(
             showSuggestions(it.toString(), getPrimarySuggestions, getSecondarySuggestions, this@Terminal)
         }
     }
-    private fun handleInput(input: String) {
+    fun handleInput(input: String) {
         handleCommand(input)
         binding.cmdInput.setText("")
         if (hideKeyboardOnEnter) hideSoftKeyboard()
