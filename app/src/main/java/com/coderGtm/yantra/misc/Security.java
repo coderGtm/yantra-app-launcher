@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.coderGtm.yantra.utils;
+package com.coderGtm.yantra.misc;
 
 import android.text.TextUtils;
 import android.util.Base64;
