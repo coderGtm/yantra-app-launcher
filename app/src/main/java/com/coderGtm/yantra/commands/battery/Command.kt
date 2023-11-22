@@ -12,7 +12,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "battery",
         helpTitle = "battery",
-        description = "Shows current Battery Level. Use the optional '-bar' argument to show just the battery percentage in visual form."
+        description = "Shows current Battery Level. Use the optional '-bar' argument to show just the battery percentage and charging status in visual form."
     )
 
     override fun execute(command: String) {
@@ -23,8 +23,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val level: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) ?: -1
         val scale: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_SCALE, -1) ?: -1
         val batteryPct: Float = level / scale.toFloat()
+        val charging: Boolean = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) == BatteryManager.BATTERY_STATUS_CHARGING
         if (args.isEmpty()) {
-            val charging: Boolean = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) == BatteryManager.BATTERY_STATUS_CHARGING
             val health: String = when (batteryStatus?.getIntExtra(BatteryManager.EXTRA_HEALTH, -1)) {
                 BatteryManager.BATTERY_HEALTH_COLD -> "Cold"
                 BatteryManager.BATTERY_HEALTH_DEAD -> "Dead"
@@ -52,8 +52,9 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             val emptyBars = totalBars - filledBars
             val filledBarSymbol = "|"
             val emptyBarSymbol = "x"
+            val chargingPrefix = if (charging) "⚡" else ""
 
-            val barString = "[" + filledBarSymbol.repeat(filledBars) + "${(batteryPct * 100).toInt()}%" + emptyBarSymbol.repeat(emptyBars) + "]"
+            val barString = "$chargingPrefix[" + filledBarSymbol.repeat(filledBars) + "${(batteryPct * 100).toInt()}%" + emptyBarSymbol.repeat(emptyBars) + "]"
             output(barString)
         }
         else {
