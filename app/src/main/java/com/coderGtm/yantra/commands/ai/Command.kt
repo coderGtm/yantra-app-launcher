@@ -56,6 +56,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         // Add the request to the Volley queue for execution
         val requestQueue = Volley.newRequestQueue(terminal.activity)
         requestQueue.add(request)
-        output("Communicating with AI...", terminal.theme.resultTextColor, Typeface.ITALIC)
+        output("Communicating with AI...", terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
     }
 }
