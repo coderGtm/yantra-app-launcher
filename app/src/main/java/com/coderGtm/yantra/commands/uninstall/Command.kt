@@ -30,7 +30,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             val intent = Intent(Intent.ACTION_DELETE)
             intent.data = Uri.parse("package:"+candidates[0].packageName)
             terminal.activity.startActivity(intent)
-            terminal.uninstallCmdActive = true
         }
         else if (candidates.size > 1) {
             val b1 = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
@@ -48,7 +47,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                             val intent = Intent(Intent.ACTION_DELETE)
                             intent.data = Uri.parse("package:"+candidates[which].packageName)
                             terminal.activity.startActivity(intent)
-                            terminal.uninstallCmdActive = true
                         }
                     terminal.activity.runOnUiThread { b2.show() }
                 }

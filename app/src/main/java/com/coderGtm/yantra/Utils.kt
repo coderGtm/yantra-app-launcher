@@ -23,7 +23,6 @@ import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.misc.Security
-import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.Contacts
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.terminal.Terminal
@@ -32,7 +31,6 @@ import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.UpdateAvailability
 import java.io.FileNotFoundException
 import java.io.IOException
-import java.text.Collator
 import java.util.Timer
 import kotlin.concurrent.timerTask
 
@@ -259,59 +257,6 @@ fun showRatingAndCommandPopups(preferenceObject: SharedPreferences, preferenceEd
         return
     }
 }
-fun getAppsList(terminal: Terminal): ArrayList<AppBlock> {
-    val alreadyFetched = terminal.appListFetched
-    terminal.appListFetched = false
-    if (!alreadyFetched){
-        terminal.appList = ArrayList()
-    }
-
-    try {
-        val collator = Collator.getInstance()
-        // get list of all apps which are launchable
-        val pm = terminal.activity.packageManager
-        val intent = Intent(Intent.ACTION_MAIN, null)
-        intent.addCategory(Intent.CATEGORY_LAUNCHER)
-
-        val apps = pm.queryIntentActivities(intent, 0)
-        for (app in apps) {
-            val appBlock = AppBlock(
-                app.loadLabel(pm).toString(),
-                app.activityInfo.packageName
-            )
-            if (!terminal.appList.contains(appBlock)) {
-                terminal.appList.add(appBlock)
-            }
-        }
-
-        if (alreadyFetched) {
-            val newAppList = terminal.appList
-            for (appBlock in terminal.appList) {
-                try {
-                    pm.getPackageInfo(appBlock.packageName, PackageManager.GET_META_DATA)
-                } catch (e: Exception) {
-                    // package does not exist now. Is deleted!
-                    val indexToRemove = newAppList.indexOfFirst {
-                        it.packageName == appBlock.packageName
-                    }
-                    newAppList.removeAt(indexToRemove)
-                }
-            }
-            terminal.appList = newAppList
-        }
-
-        if (!alreadyFetched || terminal.preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value) == AppSortMode.A_TO_Z.value) {
-            terminal.appList.sortWith { app1, app2 ->
-                collator.compare(app1.appName, app2.appName)
-            }
-        }
-
-    } catch (e: Exception) {
-        terminal.output("An error occurred while fetching apps list", terminal.theme.errorTextColor, null)
-    }
-    terminal.appListFetched = true
-    return terminal.appList.distinct() as ArrayList<AppBlock>
-}
 private fun getLevenshteinDistance(x: String, y: String): Int {
     val m = x.length
     val n = y.length
@@ -402,6 +347,16 @@ fun getInit(preferenceObject: SharedPreferences): String {
         // prev Set implementation present
         preferenceObject.edit().remove("initList").apply()
         ""
+    }
+}
+fun runInitTasks(initList: String?, preferenceObject: SharedPreferences, terminal: Terminal) {
+    if (initList?.trim() != "") {
+        val initCmdLog = preferenceObject.getBoolean("initCmdLog", false)
+        terminal.activity.runOnUiThread {
+            initList?.lines()?.forEach {
+                terminal.handleCommand(it.trim(), logCmd = initCmdLog)
+            }
+        }
     }
 }
 fun getScripts(preferenceObject: SharedPreferences): java.util.ArrayList<String> {

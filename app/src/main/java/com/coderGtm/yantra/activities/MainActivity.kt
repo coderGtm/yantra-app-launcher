@@ -25,11 +25,11 @@ import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
 import com.coderGtm.yantra.databinding.ActivityMainBinding
-import com.coderGtm.yantra.getAppsList
 import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.isNetworkAvailable
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
+import com.coderGtm.yantra.runInitTasks
 import com.coderGtm.yantra.setWallpaperFromUri
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.toast
@@ -70,11 +70,12 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
 
     override fun onStart() {
         super.onStart()
-        Thread {
-            primaryTerminal.appList = getAppsList(primaryTerminal)
-            val initList = getInit(app.preferenceObject)
-            runInitTasks(initList)
-        }.start()
+        if (primaryTerminal.initialized) {
+            Thread {
+                val initList = getInit(app.preferenceObject)
+                runInitTasks(initList, app.preferenceObject, primaryTerminal)
+            }.start()
+        }
     }
     override fun onRestart() {
         super.onRestart()
@@ -86,13 +87,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         Thread {
             requestUpdateIfAvailable(app.preferenceObject, this@MainActivity)
         }.start()
-    }
-    override fun onResume() {
-        super.onResume()
-        if (primaryTerminal.uninstallCmdActive) {
-            primaryTerminal.uninstallCmdActive = false
-            primaryTerminal.appList = getAppsList(primaryTerminal)
-        }
     }
     override fun onDestroy() {
         super.onDestroy()
@@ -164,16 +158,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             primaryTerminal.handleInput(inputReceived)
         }
         return super.dispatchKeyEvent(event)
-    }
-    private fun runInitTasks(initList: String?) {
-        if (initList?.trim() != "") {
-            val initCmdLog = app.preferenceObject.getBoolean("initCmdLog", false)
-            runOnUiThread {
-                initList?.lines()?.forEach {
-                    primaryTerminal.handleCommand(it.trim(), logCmd = initCmdLog)
-                }
-            }
-        }
     }
     override fun onBackPressed() {}
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

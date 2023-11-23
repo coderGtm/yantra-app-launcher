@@ -35,12 +35,14 @@ import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getCurrentTheme
+import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
+import com.coderGtm.yantra.runInitTasks
 import com.coderGtm.yantra.showRatingAndCommandPopups
 import com.coderGtm.yantra.vibrate
 import java.util.TimerTask
@@ -112,13 +114,13 @@ class Terminal(
         "fontpack" to com.coderGtm.yantra.commands.fontpack.Command::class.java,
         "exit" to com.coderGtm.yantra.commands.exit.Command::class.java,
     )
+    var initialized = false
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var isSleeping = false
     var sleepTimer: TimerTask? = null
     var contactsFetched: Boolean = false
     var contactNames = HashSet<String>()
     var appListFetched: Boolean = false
-    var uninstallCmdActive = false
 
     lateinit var appList: ArrayList<AppBlock>
     lateinit var wakeBtn: TextView
@@ -138,6 +140,8 @@ class Terminal(
         createTouchListeners()
         aliasList = getAliases()
         setInputListener()
+        setLauncherAppsListener(this@Terminal)
+        appList = getAppsList(this@Terminal)
         showSuggestions(binding.cmdInput.text.toString(), getPrimarySuggestions, getSecondarySuggestions, this@Terminal)
         //fetching contacts if permitted
         if (ContextCompat.checkSelfPermission(activity.baseContext, android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
@@ -183,7 +187,7 @@ class Terminal(
                 typeface = rTypeface
                 binding.username.setTypeface(typeface, Typeface.BOLD)
                 binding.cmdInput.typeface = typeface
-                printIntro()
+                finishInitialization()
             }
 
             override fun onTypefaceRequestFailed(reason: Int) {
@@ -191,7 +195,7 @@ class Terminal(
                 typeface = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
                 binding.username.setTypeface(typeface, Typeface.BOLD)
                 binding.cmdInput.typeface = typeface
-                printIntro()
+                finishInitialization()
             }
         }
         //make handler to fetch font in background
@@ -338,11 +342,21 @@ class Terminal(
             return null
         }
     }
+    private fun finishInitialization() {
+        printIntro()
+        Thread {
+            val initList = getInit(preferenceObject)
+            runInitTasks(initList, preferenceObject, this@Terminal)
+        }.start()
+        initialized = true
+    }
+
     private fun printIntro() {
         output("Yantra Launcher (v${BuildConfig.VERSION_NAME}) on ${Build.MANUFACTURER} ${Build.MODEL}",theme.resultTextColor, Typeface.BOLD)
         output("Type 'help' or 'community' for more information.", theme.resultTextColor, Typeface.BOLD)
         output("==================",theme.resultTextColor, Typeface.BOLD)
     }
+
     fun cmdDown() {
         binding.cmdInput.requestFocus()
         if (cmdHistoryCursor<(cmdHistory.size-1)) {
