@@ -34,7 +34,7 @@ fun handleResponse(response: JSONObject, command: Command) {
         val choicesArray = jsonObject.getJSONArray("choices")
         if (choicesArray.length() > 0) {
             val firstChoice = choicesArray.getJSONObject(0)
-            val replyContent = firstChoice.getJSONObject("message").getString("content")
+            val replyContent = firstChoice.getJSONObject("message").getString("content").replace("\\n","\n")
 
             command.output(replyContent, command.terminal.theme.resultTextColor, Typeface.ITALIC)
         } else {
