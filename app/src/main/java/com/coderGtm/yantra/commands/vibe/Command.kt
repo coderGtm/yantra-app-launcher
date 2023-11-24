@@ -27,6 +27,14 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output("Invalid usage. 'vibe' command takes only 1 argument: time to vibrate in milliseconds.",terminal.theme.errorTextColor)
             return
         }
+        if (millis < 0) {
+            output("Hold on wiz! How can your device vibrate in negative time? Only positive values allowed!",terminal.theme.errorTextColor)
+            return
+        }
+        if (millis == 0L) {
+            output("You want to vibrate for 0 milliseconds? Really?",terminal.theme.errorTextColor)
+            return
+        }
         vibrate(millis, terminal.activity)
     }
 }
