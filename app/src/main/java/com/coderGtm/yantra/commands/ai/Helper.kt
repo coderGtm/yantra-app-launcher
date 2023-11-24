@@ -53,7 +53,7 @@ fun handleError(error: VolleyError, command: Command) {
         }
 
         is TimeoutError -> {
-            command.output("Request Timed out. Try again or try a request with a shorter expected output.", command.terminal.theme.errorTextColor)
+            command.output("I lost my patience! Try again or try a request with a shorter expected output.", command.terminal.theme.errorTextColor)
         }
 
         is AuthFailureError -> {
@@ -61,7 +61,7 @@ fun handleError(error: VolleyError, command: Command) {
         }
 
         else -> {
-            command.output("An error occurred: $error",command.terminal.theme.errorTextColor)
+            command.output("An error occurred: ${error.networkResponse.statusCode}",command.terminal.theme.errorTextColor)
         }
     }
 }
