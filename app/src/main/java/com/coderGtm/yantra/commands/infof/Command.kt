@@ -29,9 +29,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         val maxIndex = candidates.indexOf(candidates.max())
         val appBlock = terminal.appList[maxIndex]
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-        intent.data = Uri.parse("package:"+appBlock.packageName)
-        terminal.activity.startActivity(intent)
+        launchAppInfo(this@Command, appBlock)
         output("Opened settings for ${terminal.appList[maxIndex].appName}", terminal.theme.successTextColor)
     }
 }

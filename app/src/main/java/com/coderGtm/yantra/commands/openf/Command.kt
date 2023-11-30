@@ -2,6 +2,7 @@ package com.coderGtm.yantra.commands.openf
 
 import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.commands.open.launchApp
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -32,7 +33,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         val maxIndex = candidates.indexOf(candidates.max())
         val appBlock = terminal.appList[maxIndex]
-        terminal.activity.applicationContext.startActivity(terminal.activity.applicationContext.packageManager.getLaunchIntentForPackage(appBlock.packageName))
+        launchApp(this@Command, appBlock)
         output("Opened ${terminal.appList[maxIndex].appName}",terminal.theme.successTextColor)
         if (terminal.preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value) == AppSortMode.RECENT.value) {
             terminal.appList.remove(appBlock)

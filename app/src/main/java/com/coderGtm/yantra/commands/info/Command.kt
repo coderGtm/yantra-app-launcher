@@ -5,6 +5,7 @@ import android.net.Uri
 import android.provider.Settings
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.commands.open.isDefaultUser
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -31,9 +32,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             }
         }
         if (candidates.size == 1) {
-            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-            intent.data = Uri.parse("package:"+candidates[0].packageName)
-            terminal.activity.startActivity(intent)
+            launchAppInfo(this@Command, candidates[0])
             output("Opened settings for ${candidates[0].appName}", terminal.theme.successTextColor)
         }
         else if (candidates.size > 1) {
@@ -44,6 +43,22 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     val items = mutableListOf<String>()
                     for (app in candidates) {
                         items.add(app.packageName)
+                    }
+                    for (i in 0 until items.size) {
+                        for (j in i + 1 until items.size) {
+                            if (candidates[i].user != candidates[j].user) {
+                                if (!isDefaultUser(candidates[i].user, this@Command)) {
+                                    if (!items[i].endsWith(" (work)")) {
+                                        items[i] = "${items[i]} (work)"
+                                    }
+                                }
+                                else {
+                                    if (!items[j].endsWith(" (work)")) {
+                                        items[j] = "${items[j]} (work)"
+                                    }
+                                }
+                            }
+                        }
                     }
                     val b2 = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
                         .setTitle("Select Package Name")

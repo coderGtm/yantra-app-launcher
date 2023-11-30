@@ -33,7 +33,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
 
         if (candidates.size == 1) {
-            terminal.activity.applicationContext.startActivity(terminal.activity.applicationContext.packageManager.getLaunchIntentForPackage(candidates[0].packageName))
+            launchApp(this@Command, candidates[0])
             output("Opened ${candidates[0].appName}", terminal.theme.successTextColor)
             if (terminal.preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value) == AppSortMode.RECENT.value) {
                 terminal.appList.remove(candidates[0])
@@ -49,10 +49,26 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     for (app in candidates) {
                         items.add(app.packageName)
                     }
+                    for (i in 0 until items.size) {
+                        for (j in i + 1 until items.size) {
+                            if (candidates[i].user != candidates[j].user) {
+                                if (!isDefaultUser(candidates[i].user, this@Command)) {
+                                    if (!items[i].endsWith(" (work)")) {
+                                        items[i] = "${items[i]} (work)"
+                                    }
+                                }
+                                else {
+                                    if (!items[j].endsWith(" (work)")) {
+                                        items[j] = "${items[j]} (work)"
+                                    }
+                                }
+                            }
+                        }
+                    }
                     MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
                         .setTitle("Select Package Name")
                         .setItems(items.toTypedArray()) { _, which ->
-                            terminal.activity.applicationContext.startActivity(terminal.activity.applicationContext.packageManager.getLaunchIntentForPackage(candidates[which].packageName))
+                            launchApp(this@Command, candidates[which])
                             output("Opened ${candidates[which].appName}", terminal.theme.successTextColor)
                             if (terminal.preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value) == AppSortMode.RECENT.value) {
                                 terminal.appList.remove(candidates[which])

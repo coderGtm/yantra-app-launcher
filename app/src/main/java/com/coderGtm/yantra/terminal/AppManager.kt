@@ -21,7 +21,8 @@ fun getAppsList(terminal: Terminal): ArrayList<AppBlock> {
             for (app in launcherApps.getActivityList(null, profile)) {
                 val appBlock = AppBlock(
                     app.label.toString(),
-                    app.applicationInfo.packageName
+                    app.applicationInfo.packageName,
+                    profile
                 )
                 if (!terminal.appList.contains(appBlock)) {
                     terminal.appList.add(appBlock)
