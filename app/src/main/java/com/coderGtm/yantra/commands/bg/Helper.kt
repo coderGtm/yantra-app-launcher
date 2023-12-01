@@ -1,9 +1,6 @@
 package com.coderGtm.yantra.commands.bg
 
-import android.Manifest
-import android.app.Activity
 import android.app.WallpaperManager
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -11,29 +8,15 @@ import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.graphics.ColorUtils
 import com.android.volley.NoConnectionError
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.setSystemWallpaper
 import java.io.IOException
 import java.net.URL
 
-fun setupPermissions(activity: Activity) {
-    val permission = checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE)
-    if (permission != PackageManager.PERMISSION_GRANTED) {
-        makePermissionRequest(activity)
-    }
-}
-fun makePermissionRequest(activity: Activity) {
-    ActivityCompat.requestPermissions(activity,
-        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-        PermissionRequestCodes.STORAGE.code)
-}
 fun getRandomWallpaper(query: String = "", command: Command) {
     val dimensions = "${command.terminal.activity.resources.displayMetrics.widthPixels}x${command.terminal.activity.resources.displayMetrics.heightPixels}"
     val url = "https://source.unsplash.com/random/$dimensions/?$query"
