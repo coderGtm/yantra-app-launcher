@@ -9,6 +9,7 @@ import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.setSystemWallpaper
 import com.coderGtm.yantra.terminal.Terminal
+import com.coderGtm.yantra.toast
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -23,7 +24,12 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             // select image
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
-            terminal.activity.startActivityForResult(intent, ActivityRequestCodes.IMAGE_PICK.code)
+            if (intent.resolveActivity(terminal.activity.packageManager) != null) {
+                terminal.activity.startActivityForResult(intent, ActivityRequestCodes.IMAGE_PICK.code)
+            }
+            else {
+                toast(terminal.activity.baseContext, "Could not open an Image picker app.")
+            }
         }
         else if (command.trim().split(" ")[1] == "-1") {
             val wallpaperManager = WallpaperManager.getInstance(terminal.activity.applicationContext)
