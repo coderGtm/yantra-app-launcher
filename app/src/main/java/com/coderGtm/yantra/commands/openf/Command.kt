@@ -2,7 +2,6 @@ package com.coderGtm.yantra.commands.openf
 
 import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.commands.open.launchApp
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal

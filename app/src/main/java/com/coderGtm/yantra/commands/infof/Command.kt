@@ -1,8 +1,5 @@
 package com.coderGtm.yantra.commands.infof
 
-import android.content.Intent
-import android.net.Uri
-import android.provider.Settings
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.models.CommandMetadata
