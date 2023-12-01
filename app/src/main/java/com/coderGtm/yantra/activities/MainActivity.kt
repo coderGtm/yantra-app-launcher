@@ -3,10 +3,12 @@ package com.coderGtm.yantra.activities
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Typeface
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.view.KeyEvent
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
@@ -20,7 +22,6 @@ import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.android.billingclient.api.QueryPurchasesParams
-import com.coderGtm.yantra.ActivityRequestCodes
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
@@ -66,6 +67,12 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             preferenceObject = app.preferenceObject
         )
         primaryTerminal.initialize()
+
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Handle the back button event
+            }
+        })
     }
 
     override fun onStart() {
@@ -158,17 +165,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             primaryTerminal.handleInput(inputReceived)
         }
         return super.dispatchKeyEvent(event)
-    }
-    override fun onBackPressed() {}
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == ActivityRequestCodes.IMAGE_PICK.code) {
-            if (resultCode == RESULT_OK) {
-                val uri = data?.data
-                setWallpaperFromUri(uri, this, primaryTerminal.theme.bgColor, app.preferenceObject)
-                primaryTerminal.output("Selected Wallpaper applied!", primaryTerminal.theme.successTextColor, null)
-            }
-        }
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -312,6 +308,17 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             }
             billingClient.endConnection()
         }
+    // Registers a photo picker activity launcher in single-select mode.
+    val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        // Callback is invoked after the user selects a media item or closes the
+        // photo picker.
+        if (uri != null) {
+            setWallpaperFromUri(uri, this, primaryTerminal.theme.bgColor, app.preferenceObject)
+            primaryTerminal.output("Selected Wallpaper applied!", primaryTerminal.theme.successTextColor, null)
+        } else {
+            primaryTerminal.output("No Image selected!", primaryTerminal.theme.resultTextColor, Typeface.ITALIC)
+        }
+    }
     var yantraSettingsLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
