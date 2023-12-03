@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.coderGtm.yantra.AI_SYSTEM_PROMPT
 import com.coderGtm.yantra.AppSortMode
+import com.coderGtm.yantra.DEFAULT_AI_API_DOMAIN
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.databinding.ActivitySettingsBinding
 import com.coderGtm.yantra.getUserNamePrefix
@@ -272,7 +273,8 @@ fun openAiApiProviderSetter(activity: Activity, preferenceObject: SharedPreferen
             dialog.dismiss()
         }
         .show()
-    aiApiProviderBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("aiApiDomain","zukijourney.xyzbot.net")!!)
+    aiApiProviderBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("aiApiDomain",
+        DEFAULT_AI_API_DOMAIN)!!)
 }
 
 fun openAiApiKeySetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {

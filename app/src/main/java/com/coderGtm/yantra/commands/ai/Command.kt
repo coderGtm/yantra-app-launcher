@@ -5,6 +5,7 @@ import com.android.volley.DefaultRetryPolicy
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.coderGtm.yantra.AI_SYSTEM_PROMPT
+import com.coderGtm.yantra.DEFAULT_AI_API_DOMAIN
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -23,7 +24,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output("Please specify the message to send to AI.", terminal.theme.errorTextColor)
             return
         }
-        val apiDomain = terminal.preferenceObject.getString("aiApiDomain","zukijourney.xyzbot.net")
+        val apiDomain = terminal.preferenceObject.getString("aiApiDomain", DEFAULT_AI_API_DOMAIN) ?: DEFAULT_AI_API_DOMAIN
         val url = "https://$apiDomain/v1/chat/completions"
         val apiKey = terminal.preferenceObject.getString("aiApiKey", "") ?: ""
         val systemPrompt = terminal.preferenceObject.getString("aiSystemPrompt", AI_SYSTEM_PROMPT) ?: AI_SYSTEM_PROMPT
