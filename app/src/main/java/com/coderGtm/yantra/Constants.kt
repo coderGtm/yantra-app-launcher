@@ -231,6 +231,18 @@ enum class Themes(val theme: Theme) {
             warningTextColor = 0xFFE0AF68.toInt(),
         )
     ),
+    Everforest(
+        Theme(
+            bgColor = 0xFF272E33.toInt(),
+            commandColor = 0xFFD3C6AA.toInt(),
+            suggestionTextColor = 0xFFD699B6.toInt(),
+            buttonColor = 0xFFA7C080.toInt(),
+            resultTextColor = 0xFFD3C6AA.toInt(),
+            errorTextColor = 0xFFE67E80.toInt(),
+            successTextColor = 0xFFA7C080.toInt(),
+            warningTextColor = 0xFFDBBC7F.toInt(),
+        )
+    )
 }
 enum class AppSortMode(val value: Int) {
     A_TO_Z(0),
