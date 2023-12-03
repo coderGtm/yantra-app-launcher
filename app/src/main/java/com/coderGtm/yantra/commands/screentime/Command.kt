@@ -5,7 +5,6 @@ import android.os.Build
 import android.provider.Settings
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
