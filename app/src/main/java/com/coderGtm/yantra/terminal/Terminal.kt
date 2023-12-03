@@ -86,7 +86,7 @@ class Terminal(
         "time" to com.coderGtm.yantra.commands.time.Command::class.java,
         "settings" to com.coderGtm.yantra.commands.settings.Command::class.java,
         "sysinfo" to com.coderGtm.yantra.commands.sysinfo.Command::class.java,
-        "stats" to com.coderGtm.yantra.commands.stats.Command::class.java,
+        "screentime" to com.coderGtm.yantra.commands.screentime.Command::class.java,
         "scripts" to com.coderGtm.yantra.commands.scripts.Command::class.java,
         "quote" to com.coderGtm.yantra.commands.quote.Command::class.java,
         "bg" to com.coderGtm.yantra.commands.bg.Command::class.java,

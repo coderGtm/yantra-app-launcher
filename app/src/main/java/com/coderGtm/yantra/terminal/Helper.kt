@@ -151,6 +151,30 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
+            else if (effectivePrimaryCmd == "screentime") {
+                if (!terminal.appListFetched) {
+                    return@Thread
+                }
+                val screentimeArgs = listOf("-all") + terminal.appList.map { it.appName }
+                if (args.size>1) {
+                    //search using regex
+                    overrideLastWord = true
+                    val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                    for (arg in screentimeArgs) {
+                        if (regex.containsMatchIn(arg) && !suggestions.contains(arg)) {
+                            suggestions.add(arg)
+                        }
+                    }
+                }
+                else {
+                    for (arg in screentimeArgs) {
+                        if (!suggestions.contains(arg)) {
+                            suggestions.add(arg)
+                        }
+                    }
+                }
+                isPrimary = false
+            }
             else if (effectivePrimaryCmd == "call") {
                 if (!terminal.contactsFetched) {
                     terminal.activity.runOnUiThread {
