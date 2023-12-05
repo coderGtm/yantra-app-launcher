@@ -45,6 +45,7 @@ import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
 import com.coderGtm.yantra.showRatingAndCommandPopups
 import com.coderGtm.yantra.vibrate
+import io.noties.markwon.Markwon
 import java.util.TimerTask
 
 class Terminal(
@@ -305,10 +306,17 @@ class Terminal(
         val n = preferenceObject.getLong("numOfCmdsEntered",0)
         preferenceEditObject.putLong("numOfCmdsEntered",n+1).apply()
     }
-    fun output(text: String, color: Int, style: Int?) {
+    fun output(text: String, color: Int, style: Int?, markdown: Boolean = false) {
         val t = TextView(activity)
-        t.text = text
-        t.setFont(typeface, style, color, fontSize)
+        if (markdown) {
+            t.setFont(typeface, null, color, fontSize)
+            val markwon = Markwon.create(activity)
+            markwon.setMarkdown(t, text)
+        }
+        else {
+            t.setFont(typeface, style, color, fontSize)
+            t.text = text
+        }
         t.setTextIsSelectable(true)
         activity.runOnUiThread {
             binding.terminalOutput.addView(t)

@@ -66,6 +66,7 @@ dependencies {
     implementation "ch.acra:acra-mail:$acraVersion"
     implementation "ch.acra:acra-dialog:$acraVersion"
     implementation "androidx.activity:activity-ktx:1.8.1"
+    implementation "io.noties.markwon:core:4.6.2"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
