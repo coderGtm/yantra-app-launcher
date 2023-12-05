@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "com.coderGtm.yantra"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode 88
         versionName "8.1.1"
 
