@@ -24,6 +24,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             mainAct.pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
         else if (command.trim().split(" ")[1] == "-1") {
+            if (command.trim().split(" ").size > 2) {
+                output("Too many arguments. Use 'bg -1' to remove custom Wallpaper", terminal.theme.warningTextColor)
+                return
+            }
             val wallpaperManager = WallpaperManager.getInstance(terminal.activity.applicationContext)
             val colorDrawable = ColorDrawable(terminal.theme.bgColor)
             setSystemWallpaper(wallpaperManager, colorDrawable.toBitmap(terminal.activity.resources.displayMetrics.widthPixels, terminal.activity.resources.displayMetrics.heightPixels))
