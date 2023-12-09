@@ -51,7 +51,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             // if it doesn't, open the search engine website with the query
             val urlEncodedQuery = java.net.URLEncoder.encode(query, "UTF-8")
             if (isSearchEngineAppInstalled(engine, terminal.appList)) {
-                openUrlInApp("$url$urlEncodedQuery", getPackageName(engine), terminal)
+                openUrlInApp("$url$urlEncodedQuery", query, getPackageName(engine), terminal)
             } else {
                 openURL("$url$urlEncodedQuery", terminal.activity)
             }

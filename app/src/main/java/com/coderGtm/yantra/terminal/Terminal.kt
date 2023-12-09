@@ -296,7 +296,7 @@ class Terminal(
         val aliasList = preferenceObject.getStringSet("aliasList", defaultStringSet)?.toMutableList()
         val aliasList2 = mutableListOf<Alias>() //convert to list of list
         for (i in aliasList!!.indices) {
-            aliasList2.add(Alias(aliasList[i].split("=")[0],aliasList[i].split("=")[1]))
+            aliasList2.add(Alias(aliasList[i].split("=")[0],aliasList[i].split("=").drop(1).joinToString("=")))
         }
         return aliasList2
     }

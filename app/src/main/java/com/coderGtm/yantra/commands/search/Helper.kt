@@ -1,9 +1,11 @@
 package com.coderGtm.yantra.commands.search
 
+import android.app.SearchManager
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import com.coderGtm.yantra.models.AppBlock
+import com.coderGtm.yantra.openURL
 import com.coderGtm.yantra.terminal.Terminal
 
 
@@ -16,15 +18,16 @@ fun isPackageInstalled(packageName: String, appList: List<AppBlock>): Boolean {
     return appList.any { it.packageName == packageName }
 }
 
-fun openUrlInApp(url: String, packageName: String, terminal: Terminal) {
-    val intent = Intent(Intent.ACTION_VIEW)
-    intent.setData(Uri.parse(url))
-    try {
-        intent.setPackage(packageName)
+fun openUrlInApp(url: String, query: String, packageName: String, terminal: Terminal) {
+    val intent = Intent(Intent.ACTION_WEB_SEARCH)
+    intent.setPackage(packageName)
+    intent.putExtra(SearchManager.QUERY, query)
+    if (intent.resolveActivity(terminal.activity.packageManager) != null) {
         terminal.activity.startActivity(intent)
-    } catch (a: ActivityNotFoundException) {
-        intent.setPackage(null)
-        terminal.activity.startActivity(intent)
+    }
+    //else search in browser
+    else {
+        openURL(url, terminal.activity)
     }
 }
 
