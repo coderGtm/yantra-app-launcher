@@ -26,6 +26,8 @@ import com.coderGtm.yantra.misc.openDoubleTapActionSetter
 import com.coderGtm.yantra.misc.openFontSizeSetter
 import com.coderGtm.yantra.misc.openNewsWebsiteSetter
 import com.coderGtm.yantra.misc.openOrientationSetter
+import com.coderGtm.yantra.misc.openSwipeLeftActionSetter
+import com.coderGtm.yantra.misc.openSwipeRightActionSetter
 import com.coderGtm.yantra.misc.openTermuxCmdPathSelector
 import com.coderGtm.yantra.misc.openTermuxCmdSessionActionSelector
 import com.coderGtm.yantra.misc.openTermuxCmdWorkingDirSelector
@@ -91,6 +93,8 @@ class SettingsActivity : AppCompatActivity() {
         binding.tvFontName.text = fontName
         binding.prefixLayout.setOnClickListener { openUsernamePrefixSetter(this@SettingsActivity, binding, preferenceObject, preferenceEditObject) }
         binding.doubleTapActionLayout.setOnClickListener { openDoubleTapActionSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
+        binding.rightSwipeActionLayout.setOnClickListener { openSwipeRightActionSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
+        binding.leftSwipeActionLayout.setOnClickListener { openSwipeLeftActionSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.newsWebsiteLayout.setOnClickListener { openNewsWebsiteSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.fontSizeBtn.setOnClickListener { openFontSizeSetter(this@SettingsActivity, binding, preferenceObject, preferenceEditObject) }
         binding.orientationLay.setOnClickListener { openOrientationSetter(this@SettingsActivity, binding, preferenceEditObject) }

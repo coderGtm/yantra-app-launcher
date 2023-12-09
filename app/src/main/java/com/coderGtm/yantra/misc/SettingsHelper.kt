@@ -93,6 +93,42 @@ fun openDoubleTapActionSetter(activity: Activity, preferenceObject: SharedPrefer
     doubleTapActionBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("doubleTapCommand","lock"))
 }
 
+fun openSwipeRightActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+    val swipeRightActionBuilder = MaterialAlertDialogBuilder(activity)
+        .setTitle("Swipe Right Command")
+        .setMessage("Enter a command to be executed when you swipe right on the terminal.")
+        .setView(R.layout.dialog_singleline_input)
+        .setPositiveButton("Save") { dialog, _ ->
+            val command = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
+            preferenceEditObject.putString("swipeRightCommand",command.trim()).apply()
+            Toast.makeText(activity, "Swipe right command updated!", Toast.LENGTH_SHORT).show()
+            changedSettingsCallback(activity)
+        }
+        .setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
+    swipeRightActionBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("swipeRightCommand","echo Right Swipe detected! You can change the command in settings.")!!)
+}
+
+fun openSwipeLeftActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+    val swipeLeftActionBuilder = MaterialAlertDialogBuilder(activity)
+        .setTitle("Swipe Left Command")
+        .setMessage("Enter a command to be executed when you swipe left on the terminal.")
+        .setView(R.layout.dialog_singleline_input)
+        .setPositiveButton("Save") { dialog, _ ->
+            val command = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
+            preferenceEditObject.putString("swipeLeftCommand",command.trim()).apply()
+            Toast.makeText(activity, "Swipe left command updated!", Toast.LENGTH_SHORT).show()
+            changedSettingsCallback(activity)
+        }
+        .setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
+    swipeLeftActionBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("swipeLeftCommand","echo Left Swipe detected! You can change the command in settings.")!!)
+}
+
 fun openNewsWebsiteSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val newsWebsiteBuilder = MaterialAlertDialogBuilder(activity)
         .setTitle("Change News Website")

@@ -115,6 +115,23 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             primaryTerminal.handleCommand(cmdToExecute!!)
         }
     }
+
+    override fun onSwipeRight() {
+        val cmdToExecute = app.preferenceObject.getString("swipeRightCommand", "echo Right Swipe detected! You can change the command in settings.")
+        if (cmdToExecute != "") {
+            //execute command
+            primaryTerminal.handleCommand(cmdToExecute!!)
+        }
+    }
+
+    override fun onSwipeLeft() {
+        val cmdToExecute = app.preferenceObject.getString("swipeLeftCommand", "echo Left Swipe detected! You can change the command in settings.")
+        if (cmdToExecute != "") {
+            //execute command
+            primaryTerminal.handleCommand(cmdToExecute!!)
+        }
+    }
+
     override fun onInit(status: Int) {
         //TTS Initialization function
         if (status == TextToSpeech.SUCCESS) {
