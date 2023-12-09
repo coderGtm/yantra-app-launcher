@@ -316,8 +316,8 @@ fun showSuggestions(
                     overrideLastWord = true
                 }
                 val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val themeArgs = mutableListOf("-1")
-                Themes.entries.indices.forEach { themeArgs.add(it.toString()) }
+                val themeArgs = mutableListOf("Custom")
+                Themes.entries.forEach { themeArgs.add(it.name) }
                 themeArgs.filterTo(suggestions) { regex.containsMatchIn(it) }
                 isPrimary = false
             }
