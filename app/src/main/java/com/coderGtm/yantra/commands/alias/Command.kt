@@ -38,7 +38,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     return
                 }
                 // set aliasList to default
-                terminal.aliasList = arrayListOf(Alias("h", "help"),Alias("o", "open"), Alias("i", "info"), Alias("u", "uninstall"), Alias("bt", "bluetooth"), Alias("w", "weather"), Alias("tx", "termux"), Alias("cls", "clear"))
+                terminal.aliasList = arrayListOf(Alias("h", "help"),Alias("o", "open"), Alias("i", "info"), Alias("u", "uninstall"), Alias("bt", "bluetooth"), Alias("w", "weather"), Alias("tx", "termux"), Alias("cls", "clear"), Alias("google", "search -e=google"), Alias("ddg", "search -e=duckduckgo"))
                 updateAliasList(terminal.aliasList, terminal.preferenceObject.edit())
                 output("Alias list set to default", terminal.theme.successTextColor)
                 return
