@@ -1,8 +1,10 @@
 package com.coderGtm.yantra.commands.search
 
 import android.app.SearchManager
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Typeface
+import android.net.Uri
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.openURL
@@ -57,7 +59,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
         else if (args.first().trim().startsWith("-u")) {
-            val url = args.first().trim().split("=").last().trim()
+            var url = args.first().trim().split("=").drop(1).joinToString("=").trim()
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                url = "https://$url"
+            }
             val query = args.drop(1).joinToString(" ").trim()
             if (query.isEmpty()) {
                 output("Please provide a query.", terminal.theme.errorTextColor)
@@ -65,7 +70,16 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             }
             output("Searching for '$query' with custom search engine...", style = Typeface.ITALIC)
             val urlEncodedQuery = java.net.URLEncoder.encode(query, "UTF-8")
-            openURL("$url$urlEncodedQuery", terminal.activity)
+            try {
+                openURL("$url$urlEncodedQuery", terminal.activity)
+            } catch (e: Exception) {
+                if (e is ActivityNotFoundException) {
+                    output("No app found to open the URL.", terminal.theme.errorTextColor)
+                }
+                else {
+                    output("An error occurred while opening the URL.", terminal.theme.errorTextColor)
+                }
+            }
             return
         }
         else {
