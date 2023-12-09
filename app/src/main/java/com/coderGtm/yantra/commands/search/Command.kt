@@ -13,7 +13,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "search",
         helpTitle = "search",
-        description = "Searches the internet for the provided query. Search engine can be specified with the -e flag (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you). Default is google. You can use a custom search engine by specifying the url with the -u flag (-u=https://example.com/search?q=). The query is the only required argument that is provided at the end of the command. It is automatically URL encoded during execution of the command. Examples:\n'search Yantra Launcher'\n'search -e=duckduckgo Yantra Launcher'\n'search -u=https://example.com/search?q= Yantra Launcher'"
+        description = "Searches the internet for the provided query. Search engine can be specified with the -e flag (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore). Default is google. You can use a custom search engine by specifying the url with the -u flag (-u=https://example.com/search?q=). The query is the only required argument that is provided at the end of the command. It is automatically URL encoded during execution of the command. Examples:\n'search Yantra Launcher'\n'search -e=duckduckgo Yantra Launcher'\n'search -u=https://example.com/search?q= Yantra Launcher'"
     )
 
     override fun execute(command: String) {
@@ -41,6 +41,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 "startpage" -> "https://www.startpage.com/do/search?q="
                 "qwant" -> "https://www.qwant.com/?q="
                 "you" -> "https://you.com/search?q="
+                "playstore" -> "https://play.google.com/store/search?q="
                 else -> {
                     output("Invalid search engine. See 'help search' to get info about search engine keywords.", terminal.theme.errorTextColor)
                     return

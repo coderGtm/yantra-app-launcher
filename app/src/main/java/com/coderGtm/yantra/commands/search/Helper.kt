@@ -40,6 +40,7 @@ fun getPackageName(engine: String): String {
         "startpage" -> "com.startpage.search"
         "qwant" -> "com.qwant.liberty"
         "you" -> "com.you.app"
+        "playstore" -> "com.android.vending"
         else -> ""
     }
 }
