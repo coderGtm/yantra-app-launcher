@@ -4,7 +4,6 @@ import android.app.SearchManager
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Typeface
-import android.net.Uri
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.openURL
@@ -52,7 +51,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             // if it doesn't, open the search engine website with the query
             val urlEncodedQuery = java.net.URLEncoder.encode(query, "UTF-8")
             if (isSearchEngineAppInstalled(engine, terminal.appList)) {
-                openUrlInApp("$url$urlEncodedQuery", getPackageName(engine), engine, terminal)
+                openUrlInApp("$url$urlEncodedQuery", getPackageName(engine), terminal)
             } else {
                 openURL("$url$urlEncodedQuery", terminal.activity)
             }

@@ -16,7 +16,7 @@ fun isPackageInstalled(packageName: String, appList: List<AppBlock>): Boolean {
     return appList.any { it.packageName == packageName }
 }
 
-fun openUrlInApp(url: String, packageName: String, engine: String, terminal: Terminal) {
+fun openUrlInApp(url: String, packageName: String, terminal: Terminal) {
     val intent = Intent(Intent.ACTION_VIEW)
     intent.setData(Uri.parse(url))
     try {
