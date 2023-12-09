@@ -1,9 +1,7 @@
 package com.coderGtm.yantra.commands.search
 
 import android.app.SearchManager
-import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.net.Uri
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.openURL
 import com.coderGtm.yantra.terminal.Terminal
@@ -35,6 +33,7 @@ fun getPackageName(engine: String): String {
     return when (engine) {
         "google" -> "com.google.android.googlequicksearchbox"
         "duckduckgo" -> "com.duckduckgo.mobile.android"
+        "brave" -> "com.brave.browser"
         "bing" -> "com.microsoft.bing"
         "yahoo" -> "com.yahoo.mobile.client.android.search"
         "ecosia" -> "com.ecosia.android"
