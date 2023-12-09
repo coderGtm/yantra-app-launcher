@@ -6,6 +6,7 @@ import android.os.UserHandle
 import android.os.UserManager
 import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.models.AppBlock
+import com.coderGtm.yantra.receivers.launcherAppsCallback
 
 fun getAppsList(terminal: Terminal): ArrayList<AppBlock> {
     val alreadyFetched = terminal.appListFetched
@@ -42,30 +43,4 @@ fun getAppsList(terminal: Terminal): ArrayList<AppBlock> {
 fun setLauncherAppsListener(terminal: Terminal) {
     val launcherApps = terminal.activity.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
     launcherApps.registerCallback(launcherAppsCallback(terminal), null)
-}
-fun launcherAppsCallback(terminal: Terminal): LauncherApps.Callback {
-    return object : LauncherApps.Callback() {
-        override fun onPackageRemoved(packageName: String, user: UserHandle) {
-            val indexToRemove = terminal.appList.indexOfFirst {
-                it.packageName == packageName
-            }
-            terminal.appList.removeAt(indexToRemove)
-        }
-
-        override fun onPackageAdded(p0: String?, p1: UserHandle?) {
-            getAppsList(terminal)
-        }
-
-        override fun onPackageChanged(p0: String?, p1: UserHandle?) {
-            getAppsList(terminal)
-        }
-
-        override fun onPackagesAvailable(p0: Array<out String>?, p1: UserHandle?, p2: Boolean) {
-            getAppsList(terminal)
-        }
-
-        override fun onPackagesUnavailable(p0: Array<out String>?, p1: UserHandle?, p2: Boolean) {
-            getAppsList(terminal)
-        }
-    }
 }
