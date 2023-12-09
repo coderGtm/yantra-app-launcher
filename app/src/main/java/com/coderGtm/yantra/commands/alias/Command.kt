@@ -34,7 +34,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         if (cmdArray.size >= 2) {
             if (cmdArray[1].trim() == "-1") {
                 if (cmdArray.size > 2) {
-                    output("Invalid command. See 'help' for usage info", terminal.theme.errorTextColor)
+                    output("Invalid command. See 'help alias' for usage info", terminal.theme.errorTextColor)
                     return
                 }
                 // set aliasList to default
@@ -46,7 +46,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             val aliasComponents = cmdArray.drop(1).joinToString(" ").split("=")
             if (aliasComponents.size == 1) {
                 if (aliasComponents[0].split(" ").size > 1) {
-                    output("Invalid command. See 'help' for usage info", terminal.theme.errorTextColor)
+                    output("Invalid command. See 'help alias' for usage info", terminal.theme.errorTextColor)
                     return
                 }
                 val aliasName = aliasComponents[0].split(" ")[0].trim()
@@ -59,7 +59,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 output("No alias found for '$aliasName'", terminal.theme.errorTextColor)
                 return
             }
-            if (aliasComponents.size == 2) {
+            if (aliasComponents.size >= 2) {
                 val aliasName = aliasComponents[0].trim()
                 if (aliasName.trim() in terminal.commands.keys) {
                     output("Alias name cannot be an existing command name.", terminal.theme.errorTextColor)
@@ -70,7 +70,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     output("Alias name must contain only alphanumeric characters and must start with a letter", terminal.theme.errorTextColor)
                     return
                 }
-                val aliasCmd = aliasComponents[1].trim()
+                val aliasCmd = aliasComponents.drop(1).joinToString("=").trim()
                 for (i in terminal.aliasList.indices) {
                     if (terminal.aliasList[i].key == aliasName) {
                         terminal.aliasList[i] = Alias(aliasName, aliasCmd)
@@ -85,6 +85,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 return
             }
         }
-        output("Invalid command. See 'help' to get usage info.", terminal.theme.errorTextColor)
+        output("Invalid command. See 'help alias' to get usage info.", terminal.theme.errorTextColor)
     }
 }
