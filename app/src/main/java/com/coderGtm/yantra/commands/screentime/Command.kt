@@ -61,9 +61,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 output("No apps found.", terminal.theme.warningTextColor)
                 return
             }
-            val appList = terminal.appList
             screenTimes.forEach { st ->
-                val appBlock = appList.find { it.packageName == st.key } ?: return@forEach
+                val appBlock = terminal.appList.find { it.packageName == st.key } ?: return@forEach
                 output("${appBlock.appName}: ${formatScreenTime(st.value!!.toLong())}")
             }
         }
