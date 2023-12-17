@@ -74,6 +74,7 @@ class Terminal(
         "call" to com.coderGtm.yantra.commands.call.Command::class.java,
         "bluetooth" to com.coderGtm.yantra.commands.bluetooth.Command::class.java,
         "flash" to com.coderGtm.yantra.commands.flash.Command::class.java,
+        "network" to com.coderGtm.yantra.commands.network.Command::class.java,
         "ai" to com.coderGtm.yantra.commands.ai.Command::class.java,
         "todo" to com.coderGtm.yantra.commands.todo.Command::class.java,
         "alias" to com.coderGtm.yantra.commands.alias.Command::class.java,
