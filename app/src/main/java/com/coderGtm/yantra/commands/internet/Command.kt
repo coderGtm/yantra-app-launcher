@@ -1,4 +1,4 @@
-package com.coderGtm.yantra.commands.network
+package com.coderGtm.yantra.commands.internet
 
 import android.content.Intent
 import android.os.Build
@@ -11,15 +11,15 @@ import com.coderGtm.yantra.terminal.Terminal
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
-        name = "network",
-        helpTitle = "network",
-        description = "Opens the network settings panel."
+        name = "internet",
+        helpTitle = "internet",
+        description = "Opens a panel containing settings to enable internet connection."
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size > 1) {
-            output("'network' command takes no arguments.", terminal.theme.errorTextColor)
+            output("'internet' command takes no arguments.", terminal.theme.errorTextColor)
             return
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -27,7 +27,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             startActivityForResult(terminal.activity, panelIntent, 0, null)
         }
         else {
-            output("Network settings not supported on this device", terminal.theme.warningTextColor)
+            output("Uh oh! I am sorry but it's time to upgrade to Android 10 atleast to use this command :(", terminal.theme.warningTextColor)
         }
     }
 }
