@@ -362,7 +362,7 @@ class Terminal(
     }
 
     private fun printIntro() {
-        output("Yantra Launcher (v${BuildConfig.VERSION_NAME}) on ${Build.MANUFACTURER} ${Build.MODEL}",theme.resultTextColor, Typeface.BOLD)
+        output("${activity.applicationInfo.loadLabel(activity.packageManager)} (v${BuildConfig.VERSION_NAME}) on ${Build.MANUFACTURER} ${Build.MODEL}",theme.resultTextColor, Typeface.BOLD)
         output("Type 'help' or 'community' for more information.", theme.resultTextColor, Typeface.BOLD)
         output("==================",theme.resultTextColor, Typeface.BOLD)
     }
