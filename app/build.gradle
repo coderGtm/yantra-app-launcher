@@ -11,7 +11,7 @@ android {
         applicationId "com.coderGtm.yantra"
         minSdk 21
         targetSdk 34
-        versionCode 89
+        versionCode 90
         versionName "8.2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -62,13 +62,13 @@ dependencies {
     implementation "com.google.android.play:app-update:2.1.0"
     implementation "com.google.android.play:app-update-ktx:2.1.0"
     implementation 'com.android.volley:volley:1.2.1'
-    implementation "com.android.billingclient:billing:6.0.0"
-    implementation "com.android.billingclient:billing-ktx:6.0.0"
+    implementation "com.android.billingclient:billing:6.1.0"
+    implementation "com.android.billingclient:billing-ktx:6.1.0"
     implementation "com.github.skydoves:colorpickerview:2.2.4"
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation "ch.acra:acra-mail:$acraVersion"
     implementation "ch.acra:acra-dialog:$acraVersion"
-    implementation "androidx.activity:activity-ktx:1.8.1"
+    implementation "androidx.activity:activity-ktx:1.8.2"
     implementation "io.noties.markwon:core:4.6.2"
 
     testImplementation 'junit:junit:4.13.2'
