@@ -1,6 +1,7 @@
 package com.coderGtm.yantra.commands.alias
 
 import android.graphics.Typeface
+import com.coderGtm.yantra.DEFAULT_ALIAS_LIST
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.CommandMetadata
@@ -38,7 +39,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     return
                 }
                 // set aliasList to default
-                terminal.aliasList = arrayListOf(Alias("h", "help"),Alias("o", "open"), Alias("i", "info"), Alias("u", "uninstall"), Alias("bt", "bluetooth"), Alias("w", "weather"), Alias("tx", "termux"), Alias("cls", "clear"), Alias("google", "search -e=google"), Alias("ddg", "search -e=duckduckgo"))
+                terminal.aliasList = DEFAULT_ALIAS_LIST
                 updateAliasList(terminal.aliasList, terminal.preferenceObject.edit())
                 output("Alias list set to default", terminal.theme.successTextColor)
                 return

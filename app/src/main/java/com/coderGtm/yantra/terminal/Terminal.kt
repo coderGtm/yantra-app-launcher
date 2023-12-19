@@ -26,6 +26,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
 import com.coderGtm.yantra.BuildConfig
+import com.coderGtm.yantra.DEFAULT_ALIAS_LIST
 import com.coderGtm.yantra.DEFAULT_TERMINAL_FONT_NAME
 import com.coderGtm.yantra.NO_LOG_COMMANDS
 import com.coderGtm.yantra.R
@@ -288,10 +289,9 @@ class Terminal(
 
     private fun getAliases(): MutableList<Alias> {
         //get alias list from shared preferences
-        val defaultAliasList = arrayListOf(Alias("h", "help"),Alias("o", "open"), Alias("i", "info"), Alias("u", "uninstall"), Alias("bt", "bluetooth"), Alias("w", "weather"), Alias("tx", "termux"), Alias("cls", "clear"))
         val defaultStringSet = mutableSetOf<String>()
-        for (i in defaultAliasList.indices) {
-            defaultStringSet.add(defaultAliasList[i].key + "=" + defaultAliasList[i].value)
+        for (i in DEFAULT_ALIAS_LIST.indices) {
+            defaultStringSet.add(DEFAULT_ALIAS_LIST[i].key + "=" + DEFAULT_ALIAS_LIST[i].value)
         }
         val aliasList = preferenceObject.getStringSet("aliasList", defaultStringSet)?.toMutableList()
         val aliasList2 = mutableListOf<Alias>() //convert to list of list
