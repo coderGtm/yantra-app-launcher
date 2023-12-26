@@ -50,8 +50,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             val totalBars = 10
             val filledBars = (batteryPct * totalBars).roundToInt()
             val emptyBars = totalBars - filledBars
-            val filledBarSymbol = "|"
-            val emptyBarSymbol = "x"
+            val filledBarSymbol = "#"
+            val emptyBarSymbol = "."
             val chargingPrefix = if (charging) "⚡" else ""
 
             val barString = "$chargingPrefix[" + filledBarSymbol.repeat(filledBars) + "${(batteryPct * 100).toInt()}%" + emptyBarSymbol.repeat(emptyBars) + "]"
