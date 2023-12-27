@@ -95,6 +95,7 @@ class Terminal(
         "bg" to com.coderGtm.yantra.commands.bg.Command::class.java,
         "text" to com.coderGtm.yantra.commands.text.Command::class.java,
         "echo" to com.coderGtm.yantra.commands.echo.Command::class.java,
+        "speedtest" to com.coderGtm.yantra.commands.speedtest.Command::class.java,
         "notify" to com.coderGtm.yantra.commands.notify.Command::class.java,
         "calc" to com.coderGtm.yantra.commands.calc.Command::class.java,
         "email" to com.coderGtm.yantra.commands.email.Command::class.java,

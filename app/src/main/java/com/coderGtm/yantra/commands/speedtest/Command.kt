@@ -38,22 +38,9 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val webView = dialog.findViewById<WebView>(R.id.webView)
         webView?.settings?.javaScriptEnabled = true
         webView?.webViewClient = object : android.webkit.WebViewClient() {
-            // on error
-            override fun onReceivedError(view: WebView?, webResourceRequest: android.webkit.WebResourceRequest?, webResourceError: android.webkit.WebResourceError?) {
-                super.onReceivedError(view, webResourceRequest, webResourceError)
-                output("Error loading speedtest utility", terminal.theme.errorTextColor)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    output(webResourceError?.description.toString(), terminal.theme.errorTextColor)
-                }
-                dialog.dismiss()
-            }
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 dialog.findViewById<TextView>(R.id.loadingText)?.visibility = android.view.View.GONE
-            }
-            override fun shouldOverrideUrlLoading(view: WebView?, request: android.webkit.WebResourceRequest?): Boolean {
-                view?.loadUrl(request?.url.toString())
-                return true
             }
         }
         dialog.findViewById<Button>(R.id.closeBtn)?.setOnClickListener {
