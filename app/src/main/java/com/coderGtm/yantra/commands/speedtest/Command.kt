@@ -1,15 +1,11 @@
 package com.coderGtm.yantra.commands.speedtest
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.os.Build
 import android.view.LayoutInflater
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.TextView
 import com.coderGtm.yantra.R
-import com.coderGtm.yantra.activities.MainActivity
-import com.coderGtm.yantra.activities.SettingsActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
