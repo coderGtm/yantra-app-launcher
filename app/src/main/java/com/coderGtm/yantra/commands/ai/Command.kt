@@ -30,6 +30,11 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val systemPrompt = terminal.preferenceObject.getString("aiSystemPrompt", AI_SYSTEM_PROMPT) ?: AI_SYSTEM_PROMPT
         val requestBody = getRequestBody(systemPrompt, message)
 
+        if (apiKey == "") {
+            output("You probably forgot to provide an API key. Please enter it in 'settings'.", terminal.theme.errorTextColor, Typeface.BOLD_ITALIC)
+            return
+        }
+
         // Create a Volley request
         val request = object: JsonObjectRequest(
             Method.POST,
