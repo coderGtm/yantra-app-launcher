@@ -110,6 +110,7 @@ class Terminal(
         "unalias" to com.coderGtm.yantra.commands.unalias.Command::class.java,
         "termux" to com.coderGtm.yantra.commands.termux.Command::class.java,
         "run" to com.coderGtm.yantra.commands.run.Command::class.java,
+        "dict" to com.coderGtm.yantra.commands.dict.Command::class.java,
         "battery" to com.coderGtm.yantra.commands.battery.Command::class.java,
         "lock" to com.coderGtm.yantra.commands.lock.Command::class.java,
         "clear" to com.coderGtm.yantra.commands.clear.Command::class.java,
