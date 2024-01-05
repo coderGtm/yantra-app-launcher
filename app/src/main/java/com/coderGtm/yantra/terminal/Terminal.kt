@@ -82,6 +82,7 @@ class Terminal(
         "weather" to com.coderGtm.yantra.commands.weather.Command::class.java,
         "username" to com.coderGtm.yantra.commands.username.Command::class.java,
         "search" to com.coderGtm.yantra.commands.search.Command::class.java,
+        "web" to com.coderGtm.yantra.commands.web.Command::class.java,
         "gupt" to com.coderGtm.yantra.commands.gupt.Command::class.java,
         "tts" to com.coderGtm.yantra.commands.tts.Command::class.java,
         "news" to com.coderGtm.yantra.commands.news.Command::class.java,
