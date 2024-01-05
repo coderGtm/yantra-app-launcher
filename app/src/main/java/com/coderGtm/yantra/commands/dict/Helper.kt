@@ -58,7 +58,7 @@ fun showMeanings(response: JSONObject, command: Command) {
 fun handleError(error: Exception, command: Command) {
     when (error) {
         is NoConnectionError -> {
-            command.output("No internet connection", command.terminal.theme.errorTextColor)
+            command.output("No internet connection! This command relies on an online Dictionary API, so an internet connection is required to access it.", command.terminal.theme.errorTextColor)
         }
 
         is TimeoutError -> {
