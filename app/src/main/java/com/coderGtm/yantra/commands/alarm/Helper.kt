@@ -1,4 +1,4 @@
-package com.coderGtm.yantra.commands.battery
+package com.coderGtm.yantra.commands.alarm
 
 fun isValidTimeString(ts: String): Boolean {
     val sp = ts.split(":")

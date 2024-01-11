@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.provider.AlarmClock
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.commands.battery.isValidTimeString
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
 
