@@ -1,6 +1,7 @@
 package com.coderGtm.yantra.commands.info
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.provider.Settings
 import com.coderGtm.yantra.R
@@ -23,18 +24,22 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
         val name = command.removePrefix(args[0]).trim().lowercase()
+
+        output("Locating '$name'...", terminal.theme.resultTextColor, Typeface.ITALIC)
+
         val candidates = mutableListOf<AppBlock>()
-        //wait till appList has been initialized
         for (app in terminal.appList) {
             if (app.appName.lowercase() == name) {
+                output("+ Found ${app.packageName}")
                 candidates.add(app)
             }
         }
         if (candidates.size == 1) {
+            output("Opening settings for ${candidates[0].appName} (${candidates[0].packageName})", terminal.theme.successTextColor)
             launchAppInfo(this@Command, candidates[0])
-            output("Opened settings for ${candidates[0].appName}", terminal.theme.successTextColor)
         }
         else if (candidates.size > 1) {
+            output("Multiple entries found for'$name'. Opening selection dialog.", terminal.theme.warningTextColor)
             val b1 = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
                 .setTitle("Multiple apps found")
                 .setMessage("Multiple apps found with name '$name'. Please select one.")
@@ -62,10 +67,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     val b2 = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
                         .setTitle("Select Package Name")
                         .setItems(items.toTypedArray()) { _, which ->
-                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                            intent.data = Uri.parse("package:"+candidates[which].packageName)
-                            terminal.activity.startActivity(intent)
-                            output("Opened settings for ${candidates[which].appName}", terminal.theme.successTextColor)
+                            output("Opening settings for ${candidates[which].appName} (${candidates[which].packageName})", terminal.theme.successTextColor)
+                            launchAppInfo(this@Command, candidates[which])
                         }
                     terminal.activity.runOnUiThread { b2.show() }
                 }

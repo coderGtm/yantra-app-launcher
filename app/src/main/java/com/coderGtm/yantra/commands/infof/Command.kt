@@ -1,5 +1,6 @@
 package com.coderGtm.yantra.commands.infof
 
+import android.graphics.Typeface
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.models.CommandMetadata
@@ -18,6 +19,9 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
         val name = command.removePrefix(args[0]).trim().lowercase()
+
+        output("Getting nearest match for '$name'...", terminal.theme.resultTextColor, Typeface.ITALIC)
+
         val candidates = mutableListOf<Double>()
         for (app in terminal.appList) {
             val score = findSimilarity(app.appName.lowercase(), name)
@@ -26,7 +30,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         val maxIndex = candidates.indexOf(candidates.max())
         val appBlock = terminal.appList[maxIndex]
+        output("+ Found ${appBlock.appName} with max score (${candidates.max()})")
+        output("Opening settings for ${appBlock.appName} (${appBlock.packageName})", terminal.theme.successTextColor)
         launchAppInfo(this@Command, appBlock)
-        output("Opened settings for ${terminal.appList[maxIndex].appName}", terminal.theme.successTextColor)
     }
 }

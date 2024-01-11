@@ -22,6 +22,7 @@ import com.coderGtm.yantra.misc.openAiApiKeySetter
 import com.coderGtm.yantra.misc.openAiApiProviderSetter
 import com.coderGtm.yantra.misc.openAiSystemPromptSetter
 import com.coderGtm.yantra.misc.openAppSugOrderingSetter
+import com.coderGtm.yantra.misc.openArrowSizeSetter
 import com.coderGtm.yantra.misc.openDoubleTapActionSetter
 import com.coderGtm.yantra.misc.openFontSizeSetter
 import com.coderGtm.yantra.misc.openNewsWebsiteSetter
@@ -50,6 +51,7 @@ class SettingsActivity : AppCompatActivity() {
     private var actOnSuggestionTap = false
     private var initCmdLog = false
     private var fontSize = 16
+    private var arrowSize = 65
     private var orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     private var appSugOrderingMode = AppSortMode.A_TO_Z.value
     private var fontName = "Source Code Pro"
@@ -81,6 +83,7 @@ class SettingsActivity : AppCompatActivity() {
         actOnSuggestionTap = preferenceObject.getBoolean("actOnSuggestionTap", false)
         initCmdLog = preferenceObject.getBoolean("initCmdLog", false)
         fontSize = preferenceObject.getInt("fontSize",16)
+        arrowSize = preferenceObject.getInt("arrowSize", 65)
         orientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         appSugOrderingMode = preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value)
         fontName = preferenceObject.getString("font","Source Code Pro") ?: "Source Code Pro"
@@ -88,6 +91,7 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.usernamePrefix.text = getUserNamePrefix(preferenceObject)
         binding.fontSizeBtn.text = fontSize.toString()
+        binding.arrowSizeBtn.text = arrowSize.toString()
         setOrientationTvText(binding, orientation)
         setAppSugOrderTvText(binding, appSugOrderingMode)
         binding.tvFontName.text = fontName
@@ -97,6 +101,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.leftSwipeActionLayout.setOnClickListener { openSwipeLeftActionSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.newsWebsiteLayout.setOnClickListener { openNewsWebsiteSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.fontSizeBtn.setOnClickListener { openFontSizeSetter(this@SettingsActivity, binding, preferenceObject, preferenceEditObject) }
+        binding.arrowSizeBtn.setOnClickListener { openArrowSizeSetter(this@SettingsActivity, binding, preferenceObject, preferenceEditObject) }
         binding.orientationLay.setOnClickListener { openOrientationSetter(this@SettingsActivity, binding, preferenceEditObject) }
         binding.appSugOrderingLay.setOnClickListener { openAppSugOrderingSetter(this@SettingsActivity, binding, preferenceEditObject) }
         binding.termuxCmdPathLayout.setOnClickListener { openTermuxCmdPathSelector(this@SettingsActivity, preferenceObject, preferenceEditObject) }

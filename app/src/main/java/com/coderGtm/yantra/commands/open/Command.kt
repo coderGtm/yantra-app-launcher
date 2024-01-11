@@ -1,5 +1,7 @@
 package com.coderGtm.yantra.commands.open
 
+import android.graphics.Typeface
+import android.os.Build
 import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
@@ -21,26 +23,32 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
         val name = command.removePrefix(args[0]).trim().lowercase()
+
+        output("Locating '$name'...", terminal.theme.resultTextColor, Typeface.ITALIC)
+
         val candidates = mutableListOf<AppBlock>()
-        //wait till appList has been initialized
         for (app in terminal.appList) {
             if (app.appName.lowercase() == name) {
+                output("+ Found ${app.packageName}")
                 candidates.add(app)
             }
         }
-        candidates.removeAll {
-            it.packageName == terminal.activity.packageName
+        if (candidates.removeAll {
+                it.packageName == terminal.activity.packageName
+            }) {
+            output("- Excluding ${terminal.activity.packageName}", terminal.theme.warningTextColor)
         }
 
         if (candidates.size == 1) {
+            output("Opening ${candidates[0].appName} (${candidates[0].packageName})", terminal.theme.successTextColor)
             launchApp(this@Command, candidates[0])
-            output("Opened ${candidates[0].appName}", terminal.theme.successTextColor)
             if (terminal.preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value) == AppSortMode.RECENT.value) {
                 terminal.appList.remove(candidates[0])
                 terminal.appList.add(0, candidates[0])
             }
         }
         else if (candidates.size > 1) {
+            output("Multiple entries found for'$name'. Opening selection dialog.", terminal.theme.warningTextColor)
             MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
                 .setTitle("Multiple apps found")
                 .setMessage("Multiple apps found with name '$name'. Please select one.")
@@ -68,8 +76,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
                         .setTitle("Select Package Name")
                         .setItems(items.toTypedArray()) { _, which ->
+                            output("Opening ${candidates[which].appName} (${candidates[which].packageName})", terminal.theme.successTextColor)
                             launchApp(this@Command, candidates[which])
-                            output("Opened ${candidates[which].appName}", terminal.theme.successTextColor)
                             if (terminal.preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value) == AppSortMode.RECENT.value) {
                                 terminal.appList.remove(candidates[which])
                                 terminal.appList.add(0, candidates[which])
