@@ -150,7 +150,7 @@ fun openNewsWebsiteSetter(activity: Activity, preferenceObject: SharedPreference
 fun openFontSizeSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val fontSizeBuilder = MaterialAlertDialogBuilder(activity)
         .setTitle("Font Size")
-        .setMessage("Enter a font size for the terminal.")
+        .setMessage("Enter a font size for the terminal:")
         .setView(R.layout.dialog_singleline_input)
         .setPositiveButton("Save") { dialog, _ ->
             val size = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
@@ -168,6 +168,29 @@ fun openFontSizeSetter(activity: Activity, binding: ActivitySettingsBinding, pre
         }
         .show()
     fontSizeBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getInt("fontSize",16).toString())
+}
+
+fun openArrowSizeSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+    val arrowSizeBuilder = MaterialAlertDialogBuilder(activity)
+        .setTitle("Arrow Size")
+        .setMessage("Enter a size for the terminal Arrow Keys:")
+        .setView(R.layout.dialog_singleline_input)
+        .setPositiveButton("Save") { dialog, _ ->
+            val size = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
+            if (size.toIntOrNull() == null) {
+                Toast.makeText(activity, "Invalid Arrow size!", Toast.LENGTH_SHORT).show()
+                return@setPositiveButton
+            }
+            preferenceEditObject.putInt("arrowSize",size.toInt()).apply()
+            binding.arrowSizeBtn.text = size
+            Toast.makeText(activity, "Arrow size updated!", Toast.LENGTH_SHORT).show()
+            changedSettingsCallback(activity)
+        }
+        .setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
+    arrowSizeBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getInt("arrowSize",65).toString())
 }
 
 fun openOrientationSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceEditObject: SharedPreferences.Editor) {

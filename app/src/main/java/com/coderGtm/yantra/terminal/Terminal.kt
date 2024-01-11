@@ -138,7 +138,7 @@ class Terminal(
         goFullScreen()
         enforceThemeComponents()
         setTypeface()
-        setArrowKeysVisibility(preferenceObject, binding)
+        setArrowKeys(preferenceObject, binding)
         binding.upBtn.setOnClickListener { cmdUp() }
         binding.downBtn.setOnClickListener { cmdDown() }
         setWallpaperIfNeeded(preferenceObject, activity.applicationContext, theme)
@@ -249,9 +249,12 @@ class Terminal(
             windowInsetsController?.hide(WindowInsetsCompat.Type.systemBars())
         }
     }
-    private fun setArrowKeysVisibility(preferenceObject: SharedPreferences, binding: ActivityMainBinding) {
+    private fun setArrowKeys(preferenceObject: SharedPreferences, binding: ActivityMainBinding) {
         val showArrowKeys = preferenceObject.getBoolean("showArrowKeys",true)
         if (showArrowKeys) {
+            val arrowSize = preferenceObject.getInt("arrowSize", 65).toFloat()
+            binding.upBtn.textSize = arrowSize
+            binding.downBtn.textSize = arrowSize
             binding.upBtn.visibility = View.VISIBLE
             binding.downBtn.visibility = View.VISIBLE
         }
@@ -265,7 +268,7 @@ class Terminal(
         val spannable = SpannableString("Break")
         spannable.setSpan(UnderlineSpan(), 0, spannable.length, 0)
         wakeBtn.text = spannable
-        wakeBtn.textSize = fontSize.toFloat()
+        wakeBtn.textSize = fontSize
         wakeBtn.setTextColor(theme.errorTextColor)
         wakeBtn.setOnClickListener {
             sleepTimer?.cancel()
