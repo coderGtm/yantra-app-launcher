@@ -1,5 +1,6 @@
 package com.coderGtm.yantra.commands.openf
 
+import android.graphics.Typeface
 import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.findSimilarity
@@ -19,6 +20,9 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
         val name = command.removePrefix(args[0]).trim().lowercase()
+
+        output("Getting nearest match for '$name'...", terminal.theme.resultTextColor, Typeface.ITALIC)
+
         val candidates = mutableListOf<Double>()
         val currentPackage = terminal.activity.packageName
         for (app in terminal.appList) {
@@ -32,8 +36,9 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         val maxIndex = candidates.indexOf(candidates.max())
         val appBlock = terminal.appList[maxIndex]
+        output("+ Found ${appBlock.appName} with max score (${candidates.max()})")
+        output("Opening ${appBlock.appName} (${appBlock.packageName})", terminal.theme.successTextColor)
         launchApp(this@Command, appBlock)
-        output("Opened ${terminal.appList[maxIndex].appName}",terminal.theme.successTextColor)
         if (terminal.preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value) == AppSortMode.RECENT.value) {
             terminal.appList.remove(appBlock)
             terminal.appList.add(0, appBlock)
