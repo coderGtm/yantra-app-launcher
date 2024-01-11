@@ -154,7 +154,7 @@ fun openFontSizeSetter(activity: Activity, binding: ActivitySettingsBinding, pre
         .setView(R.layout.dialog_singleline_input)
         .setPositiveButton("Save") { dialog, _ ->
             val size = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
-            if (size.toIntOrNull() == null) {
+            if (size.toIntOrNull() == null && size.toInt() < 100 && size.toInt() > 5 ) {
                 Toast.makeText(activity, "Invalid font size!", Toast.LENGTH_SHORT).show()
                 return@setPositiveButton
             }
@@ -177,7 +177,7 @@ fun openArrowSizeSetter(activity: Activity, binding: ActivitySettingsBinding, pr
         .setView(R.layout.dialog_singleline_input)
         .setPositiveButton("Save") { dialog, _ ->
             val size = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
-            if (size.toIntOrNull() == null) {
+            if (size.toIntOrNull() == null && size.toInt() < 100 && size.toInt() > 10 ) {
                 Toast.makeText(activity, "Invalid Arrow size!", Toast.LENGTH_SHORT).show()
                 return@setPositiveButton
             }
