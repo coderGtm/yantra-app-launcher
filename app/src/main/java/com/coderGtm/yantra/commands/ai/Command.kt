@@ -4,10 +4,11 @@ import android.graphics.Typeface
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.coderGtm.yantra.AI_SYSTEM_PROMPT
+import com.coderGtm.yantra.DEFAULT_AI_API_DOMAIN
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
-import org.json.JSONObject
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -23,10 +24,16 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output("Please specify the message to send to AI.", terminal.theme.errorTextColor)
             return
         }
-        val url = "https://us-central1-chat-for-chatgpt.cloudfunctions.net/basicUserRequestBeta"
-        val requestBody = JSONObject(mapOf( "data" to mapOf("message" to message)))
+        val apiDomain = terminal.preferenceObject.getString("aiApiDomain", DEFAULT_AI_API_DOMAIN) ?: DEFAULT_AI_API_DOMAIN
+        val url = "https://$apiDomain/v1/chat/completions"
+        val apiKey = terminal.preferenceObject.getString("aiApiKey", "") ?: ""
+        val systemPrompt = terminal.preferenceObject.getString("aiSystemPrompt", AI_SYSTEM_PROMPT) ?: AI_SYSTEM_PROMPT
+        val requestBody = getRequestBody(systemPrompt, message)
 
-        println(requestBody)
+        if (apiKey == "") {
+            output("You probably forgot to provide an API key. Please enter it in 'settings'.", terminal.theme.errorTextColor, Typeface.BOLD_ITALIC)
+            return
+        }
 
         // Create a Volley request
         val request = object: JsonObjectRequest(
@@ -44,13 +51,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
-                headers["Host"] = "us-central1-chat-for-chatgpt.cloudfunctions.net"
-                headers["Connection"] = "keep-alive"
-                headers["Accept"] = "*/*"
-                headers["User-Agent"] = "com.tappz.aichat/1.2.2 iPhone/16.3.1 hw/iPhone12_5"
-                headers["Accept-Language"] = "en"
-                headers["Content-Type"] = "application/json; charset=UTF-8"
-
+                headers["Authorization"] = "Bearer $apiKey"
+                headers["Content-Type"] = "application/json"
                 return headers
             }
         }

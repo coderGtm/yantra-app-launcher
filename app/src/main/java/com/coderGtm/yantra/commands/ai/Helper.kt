@@ -5,31 +5,45 @@ import com.android.volley.AuthFailureError
 import com.android.volley.NoConnectionError
 import com.android.volley.TimeoutError
 import com.android.volley.VolleyError
+import org.json.JSONArray
 import org.json.JSONObject
+
+fun getRequestBody(systemPrompt: String, message: String): JSONObject {
+    val requestBody = JSONObject().apply {
+        put("model", "gpt-3.5-turbo")
+        put("messages", JSONArray().apply {
+            put(JSONObject().apply {
+                put("role", "system")
+                put("content", systemPrompt)
+            })
+            put(JSONObject().apply {
+                put("role", "user")
+                put("content", message)
+            })
+        })
+    }
+    return requestBody
+}
 
 fun handleResponse(response: JSONObject, command: Command) {
     val jsonResponse = response.toString()
     val jsonObject = JSONObject(jsonResponse)
 
-    if (jsonObject.has("result")) {
-        val resultObject = jsonObject.getJSONObject("result")
-        if (resultObject.has("choices")) {
-            val choicesArray = resultObject.getJSONArray("choices")
-            if (choicesArray.length() > 0) {
-                val firstChoice = choicesArray.getJSONObject(0)
-                val replyContent = firstChoice.getString("text")
+    if (jsonObject.has("choices")) {
+        // Extract the reply content
+        val choicesArray = jsonObject.getJSONArray("choices")
+        if (choicesArray.length() > 0) {
+            val firstChoice = choicesArray.getJSONObject(0)
+            val replyContent = firstChoice.getJSONObject("message").getString("content")
 
-                command.output(replyContent, command.terminal.theme.resultTextColor, Typeface.ITALIC, markdown = true)
-            } else {
-                command.output("No 'choices' found in the response", command.terminal.theme.errorTextColor)
-            }
+            command.output(replyContent, command.terminal.theme.resultTextColor, Typeface.ITALIC, markdown = true)
         } else {
-            command.output("No 'choices' found in the 'result' object", command.terminal.theme.errorTextColor)
+            command.output("No reply found in the response", command.terminal.theme.errorTextColor)
         }
-    } else {
-        command.output("No 'result' object found in the response", command.terminal.theme.errorTextColor)
     }
-
+    else {
+        command.output("The server did not send a chat reply! Try again.", command.terminal.theme.errorTextColor)
+    }
 }
 
 fun handleError(error: VolleyError, command: Command) {
