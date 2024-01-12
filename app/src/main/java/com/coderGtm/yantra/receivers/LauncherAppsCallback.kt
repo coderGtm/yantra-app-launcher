@@ -11,6 +11,7 @@ fun launcherAppsCallback(terminal: Terminal): LauncherApps.Callback {
             val indexToRemove = terminal.appList.indexOfFirst {
                 it.packageName == packageName
             }
+            if (indexToRemove == -1) return
             terminal.appList.removeAt(indexToRemove)
         }
 
