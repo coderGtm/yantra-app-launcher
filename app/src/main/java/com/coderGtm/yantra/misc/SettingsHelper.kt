@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
+import android.text.InputType
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -168,6 +169,7 @@ fun openFontSizeSetter(activity: Activity, binding: ActivitySettingsBinding, pre
         }
         .show()
     fontSizeBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getInt("fontSize",16).toString())
+    fontSizeBuilder.findViewById<EditText>(R.id.bodyText)?.inputType = InputType.TYPE_CLASS_NUMBER
 }
 
 fun openArrowSizeSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
@@ -191,6 +193,7 @@ fun openArrowSizeSetter(activity: Activity, binding: ActivitySettingsBinding, pr
         }
         .show()
     arrowSizeBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getInt("arrowSize",65).toString())
+    arrowSizeBuilder.findViewById<EditText>(R.id.bodyText)?.inputType = InputType.TYPE_CLASS_NUMBER
 }
 
 fun openOrientationSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceEditObject: SharedPreferences.Editor) {
