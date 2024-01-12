@@ -1,9 +1,6 @@
 package com.coderGtm.yantra.commands.info
 
-import android.content.Intent
 import android.graphics.Typeface
-import android.net.Uri
-import android.provider.Settings
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.AppBlock

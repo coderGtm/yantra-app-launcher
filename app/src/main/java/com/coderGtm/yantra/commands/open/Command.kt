@@ -1,7 +1,6 @@
 package com.coderGtm.yantra.commands.open
 
 import android.graphics.Typeface
-import android.os.Build
 import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
