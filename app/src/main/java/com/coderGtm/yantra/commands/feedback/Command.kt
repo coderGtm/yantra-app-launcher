@@ -13,7 +13,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "feedback",
         helpTitle = "feedback",
-        description = "Clears the console"
+        description = "Please provide your valuable feedback and any features you want in the next release of the app. Consider giving a 5 star review on the Play Store if you like the app."
     )
 
     override fun execute(command: String) {
