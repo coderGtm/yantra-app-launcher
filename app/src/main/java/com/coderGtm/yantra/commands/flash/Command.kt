@@ -11,13 +11,34 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "flash",
         helpTitle = "flash [state]",
-        description = "Toggles flashlight on/off. Example: 'flash on' or 'flash 0'"
+        description = "Toggles flashlight on/off. Example: 'flash on' or 'flash 0'. Use without any args to toggle the state."
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size < 2) {
-            output("Please specify a state for flashlight", terminal.theme.errorTextColor)
+            // get current state
+            val cameraM = terminal.activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+            val cameraListId = cameraM.cameraIdList[0]
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                cameraM.registerTorchCallback(object : CameraManager.TorchCallback() {
+                    // toggle state
+                    override fun onTorchModeChanged(cameraId: String, enabled: Boolean) {
+                        if (enabled) {
+                            cameraM.unregisterTorchCallback(this)
+                            cameraM.setTorchMode(cameraListId, false)
+                            output("Flashlight turned off", terminal.theme.successTextColor)
+                        } else {
+                            cameraM.unregisterTorchCallback(this)
+                            cameraM.setTorchMode(cameraListId, true)
+                            output("Flashlight turned on", terminal.theme.successTextColor)
+                        }
+                    }
+                }, null)
+            }
+            else {
+                output("Flashlight not supported on this device", terminal.theme.warningTextColor)
+            }
         }
         else if (args.size == 2) {
             val stateInput = args[1]
