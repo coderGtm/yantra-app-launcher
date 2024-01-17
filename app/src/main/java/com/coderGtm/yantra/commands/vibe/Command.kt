@@ -8,7 +8,7 @@ import com.coderGtm.yantra.vibrate
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "vibe",
-        helpTitle = "calc <millis>",
+        helpTitle = "vibe <millis>",
         description = "Vibrates the device for specified duration (in milliseconds).\nExample: 'vibe 1000' does a 1 second vibration."
     )
 
