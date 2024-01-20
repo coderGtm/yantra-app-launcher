@@ -46,7 +46,7 @@ fun openCustomThemeDesigner(terminal: Terminal) {
         imgBtn?.setOnClickListener {
             val colorDialogBuilder = ColorPickerDialog.Builder(terminal.activity, R.style.Theme_AlertDialog)
                 .setTitle("Select Color")
-                .setPositiveButton("Set", ColorEnvelopeListener(){ envelope, _->
+                .setPositiveButton("Set", ColorEnvelopeListener { envelope, _->
                     toast(terminal.activity.baseContext, envelope.hexCode.drop(2).prependIndent("#"))
                     imgBtn.setImageDrawable(ColorDrawable(Color.parseColor(envelope.hexCode.drop(2).prependIndent("#"))))
                     imgBtn.tag = envelope.hexCode.drop(2).prependIndent("#")
