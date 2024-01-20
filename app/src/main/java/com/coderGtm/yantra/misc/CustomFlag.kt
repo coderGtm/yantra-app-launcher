@@ -12,7 +12,16 @@ class CustomFlag(context: Context?, layout: Int) : FlagView(context, layout) {
     private val alphaTileView: AlphaTileView = findViewById(R.id.flag_color_layout)
 
     override fun onRefresh(colorEnvelope: ColorEnvelope) {
-        textView.text = "#" + colorEnvelope.hexCode.substring(2)
+        textView.text = "#${colorEnvelope.hexCode.substring(2)}"
         alphaTileView.setPaintColor(colorEnvelope.color)
+    }
+
+    override fun onFlipped(isFlipped: Boolean?) {
+        if (isFlipped == true) {
+            textView.rotation = 180f;
+        } else {
+            textView.rotation = 0f;
+        }
+
     }
 }
