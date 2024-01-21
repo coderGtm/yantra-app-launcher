@@ -18,9 +18,9 @@ class CustomFlag(context: Context?, layout: Int) : FlagView(context, layout) {
 
     override fun onFlipped(isFlipped: Boolean?) {
         if (isFlipped == true) {
-            textView.rotation = 180f;
+            textView.rotation = 180f
         } else {
-            textView.rotation = 0f;
+            textView.rotation = 0f
         }
 
     }

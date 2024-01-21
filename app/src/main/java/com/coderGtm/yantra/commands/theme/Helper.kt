@@ -4,7 +4,9 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import android.widget.EditText
 import android.widget.ImageButton
+import androidx.appcompat.app.AlertDialog
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.getCustomThemeColors
 import com.coderGtm.yantra.misc.CustomFlag
@@ -44,26 +46,56 @@ fun openCustomThemeDesigner(terminal: Terminal) {
         imgBtn?.setImageDrawable(ColorDrawable(Color.parseColor(customThemeColors[i])))
         imgBtn?.tag = customThemeColors[i]
         imgBtn?.setOnClickListener {
-            val colorDialogBuilder = ColorPickerDialog.Builder(terminal.activity, R.style.Theme_AlertDialog)
-                .setTitle("Select Color")
-                .setPositiveButton("Set", ColorEnvelopeListener { envelope, _->
-                    toast(terminal.activity.baseContext, envelope.hexCode.drop(2).prependIndent("#"))
-                    imgBtn.setImageDrawable(ColorDrawable(Color.parseColor(envelope.hexCode.drop(2).prependIndent("#"))))
-                    imgBtn.tag = envelope.hexCode.drop(2).prependIndent("#")
-                })
-                .setNegativeButton("Cancel") { dialogInterface, i ->
-                    dialogInterface.dismiss()
+            MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
+                .setItems(arrayOf("Color Picker", "Hex Code")) { _, which ->
+                    when (which) {
+                        0 -> {
+                            val colorDialogBuilder = ColorPickerDialog.Builder(terminal.activity, R.style.Theme_AlertDialog)
+                                .setTitle("Select Color")
+                                .setPositiveButton("Set", ColorEnvelopeListener { envelope, _->
+                                    toast(terminal.activity.baseContext, envelope.hexCode.drop(2).prependIndent("#"))
+                                    imgBtn.setImageDrawable(ColorDrawable(Color.parseColor(envelope.hexCode.drop(2).prependIndent("#"))))
+                                    imgBtn.tag = envelope.hexCode.drop(2).prependIndent("#")
+                                })
+                                .setNegativeButton("Cancel") { dialogInterface, i ->
+                                    dialogInterface.dismiss()
+                                }
+                                .attachAlphaSlideBar(false) // the default value is true.
+                                .attachBrightnessSlideBar(true) // the default value is true.
+                                .setBottomSpace(12) // set a bottom space between the last slidebar and buttons.
+                            //val bubbleFlag = BubbleFlag(this)
+                            //bubbleFlag.flagMode = FlagMode.FADE
+                            colorDialogBuilder.colorPickerView.flagView = CustomFlag(terminal.activity,
+                                R.layout.color_picker_flag_view
+                            )
+                            colorDialogBuilder.colorPickerView.setInitialColor(Color.parseColor("#FF"+imgBtn.tag.toString().drop(1)))
+                            terminal.activity.runOnUiThread { colorDialogBuilder.show() }
+                        }
+                        1 -> {
+                            terminal.activity.runOnUiThread {
+                                val hexDialog = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
+                                    .setTitle("Enter 6-digit Hex Code (without the #)")
+                                    .setView(R.layout.dialog_singleline_input)
+                                    .setPositiveButton("Set") { dialog, _ ->
+                                        val hexCode = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString().trim()
+                                        if (!isValidHexCode(hexCode)) {
+                                            toast(terminal.activity.baseContext, "Invalid Hex Code")
+                                            return@setPositiveButton
+                                        }
+                                        imgBtn.setImageDrawable(ColorDrawable(Color.parseColor("#$hexCode")))
+                                        imgBtn.tag = "#$hexCode"
+                                    }
+                                    .setNegativeButton("Cancel") { dialogInterface, i ->
+                                        dialogInterface.dismiss()
+                                    }
+                                    .show()
+                                // prefilled hex code, without the #
+                                hexDialog.findViewById<EditText>(R.id.bodyText)?.setText(imgBtn.tag.toString().drop(1))
+                            }
+                        }
+                    }
                 }
-                .attachAlphaSlideBar(false) // the default value is true.
-                .attachBrightnessSlideBar(true) // the default value is true.
-                .setBottomSpace(12) // set a bottom space between the last slidebar and buttons.
-            //val bubbleFlag = BubbleFlag(this)
-            //bubbleFlag.flagMode = FlagMode.FADE
-            colorDialogBuilder.colorPickerView.flagView = CustomFlag(terminal.activity,
-                R.layout.color_picker_flag_view
-            )
-            colorDialogBuilder.colorPickerView.setInitialColor(Color.parseColor("#FF"+imgBtn.tag.toString().drop(1)))
-            terminal.activity.runOnUiThread { colorDialogBuilder.show() }
+                .show()
         }
         i++
     }
@@ -87,4 +119,14 @@ fun openCustomThemeDesigner(terminal: Terminal) {
         terminal.activity.recreate()
     }
     terminal.activity.runOnUiThread { dialog.show() }
+}
+
+fun isValidHexCode(hexCode: String): Boolean {
+    return try {
+        Color.parseColor("#FF$hexCode")
+        true
+    }
+    catch (e: Exception) {
+        false
+    }
 }
