@@ -2,7 +2,6 @@ package com.coderGtm.yantra.commands.translate
 
 import android.graphics.Typeface
 import com.android.volley.NoConnectionError
-import com.android.volley.TimeoutError
 import com.android.volley.VolleyError
 import org.json.JSONArray
 import org.json.JSONException
@@ -11,7 +10,12 @@ fun handleResponse(response: JSONArray, command: Command) {
     try {
         val translationsArray = response.getJSONArray(0)
         println(translationsArray)
-        val translatedText = translationsArray.getJSONArray(0).getString(0)
+
+        var translatedText = ""
+
+        for (i in 0..<translationsArray.length()) {
+            translatedText += translationsArray.getJSONArray(i).getString(0)
+        }
 
         command.output(
             translatedText,
@@ -35,12 +39,25 @@ fun handleError(error: VolleyError, command: Command) {
             command.output("No internet connection", command.terminal.theme.errorTextColor)
         }
 
-        is TimeoutError -> {
-            command.output("I lost my patience! Try again or try a request with a shorter expected output.", command.terminal.theme.errorTextColor)
-        }
-
         else -> {
             command.output("An error occurred: ${error.networkResponse}",command.terminal.theme.errorTextColor)
         }
     }
+}
+
+fun incorrectLanguage(language: String): Boolean {
+    val correctLanguage = arrayOf(
+        "az", "ay", "sq", "am", "chk", "en", "ar", "hy", "as", "af", "bm", "eu", "be", "bn", "my",
+        "bg", "bs", "bho", "cy", "hu", "vi", "haw", "gl", "el", "ka", "gn", "gu", "da", "doi", "zu",
+        "he", "ig", "yi", "ilo", "id", "ga", "is", "es", "it", "yo", "kk", "kn", "ca", "qu", "ky",
+        "zh-TW", "zh-CN", "kok", "ko", "co", "xh", "ht", "ht", "hr", "mus", "cr", "ku", "sd", "km",
+        "lo", "la", "lv", "ln", "lt", "lu", "lb", "mai", "mk", "mg", "ms", "ml", "dv", "mt", "mi",
+        "mr", "mni", "lus", "mn", "de", "ne", "nl", "no", "or", "om", "pa", "fa", "pl", "pt", "ps",
+        "rw", "ro", "hist", "ru", "sm", "sa", "ceb", "st", "sr", "sn", "si", "sd", "sk", "sl", "so",
+        "sw", "su", "tl", "tg", "th", "ta", "tt", "te", "ti", "ts", "tr", "tk", "uz", "ug", "uk",
+        "ur", "tl", "ph", "fi", "fr", "fy", "ha", "hi", "hmn", "hr", "cv", "ce", "cs", "sv", "sn",
+        "gd", "ee", "eo", "et", "jv", "ja"
+    )
+
+    return language !in correctLanguage
 }

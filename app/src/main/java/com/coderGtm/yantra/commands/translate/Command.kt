@@ -17,48 +17,62 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     )
 
     override fun execute(command: String) {
+        // Split the command into individual arguments.
         val args = command.split(" ")
 
+        // Check for insufficient arguments.
         if (args.size < 3) {
-            output("Please, specify language and text.", terminal.theme.errorTextColor)
+            output("Please specify language and text.", terminal.theme.errorTextColor)
             return
         }
 
-        val language = args[1]
+        // Extract the target language and message from the command.
+        val language = args[1].removePrefix("-")
         val message = command.removePrefix(args[0] + " " + args[1])
 
+        // Check for incorrect language.
+        if (incorrectLanguage(language)) {
+            output("Error, specify a correct language like -en", terminal.theme.errorTextColor)
+            return
+        }
+
+        // Construct the URL for translation.
         val url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=" +
                 language + "&dt=t&q=" + java.net.URLEncoder.encode(message, "UTF-8")
 
+        // Create a JSON request to the translation API.
         val request = object : JsonArrayRequest(
             Method.GET,
             url,
             null,
             Response.Listener { response ->
+                // Handle a successful response.
                 handleResponse(response, this@Command)
             },
             Response.ErrorListener { error ->
-                // Handling error
+                // Handle an error that occurs during the request.
                 handleError(error, this@Command)
                 println(error)
             }
         )
         {
+            // Set headers for the request.
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
-                headers["Connection"] = "keep-alive"
-                headers["Accept"] = "*/*"
-                headers["User-Agent"] = "PostmanRuntime/7.36.1"
+                headers["User-Agent"] = "Yantra Launcher"
+
                 return headers
             }
         }
 
+        // Configure the request retry policy.
         request.retryPolicy = DefaultRetryPolicy(1000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 
-// Add the request to the Volley queue for execution
+        // Create a request queue and add the translation request to it.
         val requestQueue = Volley.newRequestQueue(terminal.activity)
         requestQueue.add(request)
-        output("Translating...", terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
 
+        // Display a message indicating that translation is in progress.
+        output("Translating...", terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
     }
 }
