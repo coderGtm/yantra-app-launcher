@@ -24,8 +24,6 @@ fun handleResponse(response: JSONArray, command: Command) {
             markdown = true
         )
     } catch (e: JSONException) {
-        e.printStackTrace()
-
         command.output(
             "Error, please try again.",
             command.terminal.theme.errorTextColor

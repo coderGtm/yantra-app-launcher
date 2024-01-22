@@ -12,8 +12,8 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "translate",
-        helpTitle = "translate [-language] [text]",
-        description = "Translator based on Google Translate."
+        helpTitle = "translate [-language] <text>",
+        description = "Translator based on Google Translate. Provide a valid language code flag and the text to translate. The source language is automatically detected. Example:\n translate -fr Hello"
     )
 
     override fun execute(command: String) {
@@ -22,17 +22,17 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
         // Check for insufficient arguments.
         if (args.size < 3) {
-            output("Please specify language and text.", terminal.theme.errorTextColor)
+            output("Please provide the language code flag and the text to translate.", terminal.theme.errorTextColor)
             return
         }
 
         // Extract the target language and message from the command.
         val language = args[1].removePrefix("-")
-        val message = command.removePrefix(args[0] + " " + args[1])
+        val message = command.substringAfter(language).trim()
 
         // Check for incorrect language.
         if (incorrectLanguage(language)) {
-            output("Error, specify a correct language like -en", terminal.theme.errorTextColor)
+            output("Language code not found. Please provide a valid language code.", terminal.theme.errorTextColor)
             return
         }
 
@@ -52,7 +52,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             Response.ErrorListener { error ->
                 // Handle an error that occurs during the request.
                 handleError(error, this@Command)
-                println(error)
             }
         )
         {
@@ -73,6 +72,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         requestQueue.add(request)
 
         // Display a message indicating that translation is in progress.
-        output("Translating...", terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
+        output(":: Translating...", terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
     }
 }
