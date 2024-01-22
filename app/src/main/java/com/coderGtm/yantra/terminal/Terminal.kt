@@ -97,6 +97,7 @@ class Terminal(
         "quote" to com.coderGtm.yantra.commands.quote.Command::class.java,
         "bg" to com.coderGtm.yantra.commands.bg.Command::class.java,
         "text" to com.coderGtm.yantra.commands.text.Command::class.java,
+        "translate" to com.coderGtm.yantra.commands.translate.Command::class.java,
         "echo" to com.coderGtm.yantra.commands.echo.Command::class.java,
         "speedtest" to com.coderGtm.yantra.commands.speedtest.Command::class.java,
         "notify" to com.coderGtm.yantra.commands.notify.Command::class.java,
