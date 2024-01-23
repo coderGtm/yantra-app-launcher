@@ -24,11 +24,12 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output("Please specify the message to send to AI.", terminal.theme.errorTextColor)
             return
         }
+        val helper = CommandHelper()
         val apiDomain = terminal.preferenceObject.getString("aiApiDomain", DEFAULT_AI_API_DOMAIN) ?: DEFAULT_AI_API_DOMAIN
         val url = "https://$apiDomain/v1/chat/completions"
         val apiKey = terminal.preferenceObject.getString("aiApiKey", "") ?: ""
         val systemPrompt = terminal.preferenceObject.getString("aiSystemPrompt", AI_SYSTEM_PROMPT) ?: AI_SYSTEM_PROMPT
-        val requestBody = getRequestBody(systemPrompt, message)
+        val requestBody = helper.getRequestBody(systemPrompt, message)
 
         if (apiKey == "") {
             output("You probably forgot to provide an API key. Please enter it in 'settings'.", terminal.theme.errorTextColor, Typeface.BOLD_ITALIC)
@@ -41,10 +42,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             url,
             requestBody,
             { response ->
-                handleResponse(response, this@Command)
+                helper.handleResponse(response, this@Command)
             },
             { error ->
-                handleError(error, this@Command)
+                helper.handleError(error, this@Command)
             }
         )
 

@@ -17,9 +17,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output("Please specify an expression to evaluate.", terminal.theme.errorTextColor)
             return
         }
+        val helper = CommandHelper()
         val expression = command.removePrefix(args[0]).trim()
         try {
-            val result = eval(expression)
+            val result = helper.eval(expression)
             output(result.toString())
         }
         catch (e: RuntimeException) {
