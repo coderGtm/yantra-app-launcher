@@ -46,10 +46,6 @@ fun getNormalTimeString(inputTime: String): Array<Int> {
         return if (time.contains(":")){
             var arrayOfTime = time.split(":").toMutableList()
 
-            if (arrayOfTime[1].length == 1) {
-                arrayOfTime[1] += "0"
-            }
-
             if (arrayOfTime[0].toInt() > 13 || arrayOfTime[0].toInt() < -11) {
                 arrayOfTime[0] = "0"
             }
