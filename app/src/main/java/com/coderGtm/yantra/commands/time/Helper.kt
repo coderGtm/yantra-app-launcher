@@ -18,65 +18,30 @@ fun currentTimeWithOffset(offsetHours: Int, offsetMinutes: Int = 0): String {
 }
 
 fun getNormalTimeString(inputTime: String): Array<Int> {
-    var time = inputTime
+    val direction = inputTime.first()
+    val ts = inputTime.drop(1)
+    var hrs = ts.split(":")[0].toInt()
+    val mins = ts.split(":")[1].toInt()
 
-    if (time.length > 7) {
-        return arrayOf(0, 0)
-    }
+    if (direction == '-')   hrs*=-1
 
-    if (time.contains(" ")){
-        time = time.replace(" ", "")
-    }
-
-    if (time.first() == '+'){
-        time = time.drop(1)
-    }
-
-    if (time.length > 1) {
-        if (time.first() == '0') {
-            time = time.drop(1)
-        } else if (time.first() == '-' && time[1] == '0' && time.length > 2) {
-            time = removeNthChar(time, 1)
-        }
-
-        if (time.isEmpty()) {
-            return arrayOf(0, 0)
-        }
-
-        return if (time.contains(":")){
-            var arrayOfTime = time.split(":").toMutableList()
-
-            if (arrayOfTime[0].toInt() > 13 || arrayOfTime[0].toInt() < -11) {
-                arrayOfTime[0] = "0"
-            }
-
-            arrayOf(arrayOfTime[0].toInt(), arrayOfTime[1].toInt())
-        } else {
-            arrayOf(time.toInt(), 0)
-        }
-    } else {
-        if (time.toInt() > 13 || time.toInt() < -11) {
-            time = "0"
-        }
-
-        return arrayOf(time.toInt(), 0)
-    }
+    return arrayOf(hrs, mins)
 }
 
-fun isCorrectString(str: String): Boolean {
-    for (symbol in str.toCharArray()) {
-        for (sym in "0123456789 +-:".toCharArray()) {
-            if (symbol == sym) {
-                break
-            } else if (sym == ':') {
-                return false
-            }
-        }
+fun isValidString(str: String): Boolean {
+    val ts = str.trim()
+    val sp = ts.split(":")
+    if (sp.size != 2) {
+        return false
     }
+    val hr = sp[0].toIntOrNull()
+    val min = sp[1].toIntOrNull()
 
+    if (hr == null || min == null) {
+        return false
+    }
+    if (hr < -24 || hr > 24 || min<0 || min>59) {
+        return false
+    }
     return true
-}
-
-fun removeNthChar(str: String, n: Int): String {
-    return str.substring(0, n) + str.substring(n + 1)
 }

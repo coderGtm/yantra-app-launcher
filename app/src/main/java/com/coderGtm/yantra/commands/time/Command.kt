@@ -10,15 +10,15 @@ import java.util.Locale
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "time",
-        helpTitle = "time <utc> [GMT]",
-        description = "Shows current local Date and Time or current GMT Date and time witch you provide"
+        helpTitle = "time [utc] [GMT]",
+        description = "Shows current local Date and Time. Use the utc arg to get UTC time. An optional time difference parameter can add or subtract that from UTC time. Example:\ntime\ntime utc\ntime utc +5:30"
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
 
         if (args.size >= 2 && args[1] != "utc") {
-            output("Invalid second argument, please provide a correct parameter", terminal.theme.errorTextColor)
+            output("Invalid parameter provided. See 'help time' for usage info.", terminal.theme.errorTextColor)
             return
         } else if (args.size == 2) {
             output(currentTimeWithOffset(0))
@@ -26,8 +26,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         } else if (args.size >= 3) {
             val time = command.substringAfter(args[1]).trim()
 
-            if (!isCorrectString(time)) {
-                output("Invalid GMT, please provide a correct parameter", terminal.theme.errorTextColor)
+            if (!isValidString(time)) {
+                output("Invalid time difference provided. Please provide a correct parameter. Refer 'help time' for usage info.", terminal.theme.errorTextColor)
                 return
             }
 
