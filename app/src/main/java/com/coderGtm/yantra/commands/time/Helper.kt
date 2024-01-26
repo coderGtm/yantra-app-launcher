@@ -30,6 +30,10 @@ fun getNormalTimeString(inputTime: String): Array<Int> {
 
 fun isValidString(str: String): Boolean {
     val ts = str.trim()
+    val direction = ts.first()
+    if (direction != '+' && direction != '-') {
+        return false
+    }
     val sp = ts.split(":")
     if (sp.size != 2) {
         return false
