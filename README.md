@@ -26,3 +26,5 @@ Now you should be good to go 🚀...
 
 
 ***LIVE THE CLI EXPERIENCE :heart_eyes:***
+
+![yantra-genai](https://github.com/coderGtm/yantra-app-launcher/assets/66418526/e721cdc3-f925-4b31-8b47-a8cba6fd7a63)
