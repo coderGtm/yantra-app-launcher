@@ -45,7 +45,7 @@ fun isValidString(str: String): Boolean {
         return false
     }
 
-    if (hr < -11 || hr > 13 || min < 0 || min > 59) {
+    if (hr < -12 || hr > 14 || min < 0 || min > 59) {
         return false
     }
     return true
