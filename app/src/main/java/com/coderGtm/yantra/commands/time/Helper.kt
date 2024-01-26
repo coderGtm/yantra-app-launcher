@@ -23,7 +23,7 @@ fun getNormalTimeString(inputTime: String): Array<Int> {
     var hrs = ts.split(":")[0].toInt()
     val mins = ts.split(":")[1].toInt()
 
-    if (direction == '-')   hrs*=-1
+    if (direction == '-') hrs *= -1
 
     return arrayOf(hrs, mins)
 }
@@ -44,7 +44,8 @@ fun isValidString(str: String): Boolean {
     if (hr == null || min == null) {
         return false
     }
-    if (hr < -24 || hr > 24 || min<0 || min>59) {
+
+    if (hr < -11 || hr > 13 || min < 0 || min > 59) {
         return false
     }
     return true
