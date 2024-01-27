@@ -69,9 +69,14 @@ fun showSuggestions(
                 if (args.size>1) {
                     //search using regex
                     overrideLastWord = true
-                    val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                    val reg = input.removePrefix(args[0]).trim()
+                    val regex = Regex(Pattern.quote(reg), RegexOption.IGNORE_CASE)
                     for (app in terminal.appList) {
                         if (regex.containsMatchIn(app.appName) && !suggestions.contains(app.appName)) {
+                            if (app.appName.substring(0, reg.length).lowercase() == reg && reg.isNotEmpty()){
+                                suggestions.add(0, app.appName)
+                                continue
+                            }
                             suggestions.add(app.appName)
                         }
                     }
