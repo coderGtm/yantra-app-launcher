@@ -7,7 +7,6 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
@@ -22,7 +21,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
 import com.coderGtm.yantra.databinding.ActivityMainBinding
-import com.coderGtm.yantra.misc.Security
 import com.coderGtm.yantra.models.Contacts
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.terminal.Terminal
@@ -30,7 +28,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.UpdateAvailability
 import java.io.FileNotFoundException
-import java.io.IOException
 import java.util.Timer
 import kotlin.concurrent.timerTask
 
@@ -330,15 +327,6 @@ fun isNetworkAvailable(activity: Activity): Boolean {
     val connectivityManager = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val activeNetworkInfo = connectivityManager.activeNetworkInfo
     return activeNetworkInfo != null && activeNetworkInfo.isConnected
-}
-fun verifyValidSignature(signedData: String, signature: String, context: Context, packageManager: PackageManager): Boolean {
-    return try {
-        // To get key go to Developer Console > Select your app > Development Tools > Services & APIs.
-        val base64Key = packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA).metaData["LICENSE_KEY"] as String
-        Security.verifyPurchase(base64Key, signedData, signature)
-    } catch (e: IOException) {
-        false
-    }
 }
 fun getInit(preferenceObject: SharedPreferences): String {
     return try {
