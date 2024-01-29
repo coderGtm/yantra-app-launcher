@@ -1,4 +1,4 @@
-package com.coderGtm.yantra.receivers
+package com.coderGtm.yantra.listeners
 
 import android.content.pm.LauncherApps
 import android.os.UserHandle

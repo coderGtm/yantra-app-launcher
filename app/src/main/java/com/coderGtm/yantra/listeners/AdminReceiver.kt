@@ -1,4 +1,4 @@
-package com.coderGtm.yantra.receivers
+package com.coderGtm.yantra.listeners
 
 import android.app.admin.DeviceAdminReceiver
 import android.content.Context

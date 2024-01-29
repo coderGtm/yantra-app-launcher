@@ -91,7 +91,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <receiver
-            android:name=".receivers.AdminReceiver"
+            android:name=".listeners.AdminReceiver"
             android:exported="false"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
             <meta-data

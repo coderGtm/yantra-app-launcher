@@ -5,7 +5,7 @@ import android.content.pm.LauncherApps
 import android.os.UserManager
 import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.models.AppBlock
-import com.coderGtm.yantra.receivers.launcherAppsCallback
+import com.coderGtm.yantra.listeners.launcherAppsCallback
 
 fun getAppsList(terminal: Terminal): ArrayList<AppBlock> {
     val alreadyFetched = terminal.appListFetched
