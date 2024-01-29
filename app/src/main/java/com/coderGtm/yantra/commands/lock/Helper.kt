@@ -10,7 +10,7 @@ import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.databinding.ActivityMainBinding
-import com.coderGtm.yantra.receivers.AdminReceiver
+import com.coderGtm.yantra.listeners.AdminReceiver
 import com.coderGtm.yantra.services.YantraAccessibilityService
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
