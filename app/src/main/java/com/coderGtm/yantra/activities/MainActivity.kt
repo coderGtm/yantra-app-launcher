@@ -187,7 +187,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         iapConnector = IapConnector(
             context = this,
             nonConsumableKeys = listOf("fontpack","gupt","customtheme"),
-            consumableKeys = listOf(),
+            consumableKeys = listOf("donate0","donate1","donate2","donate3","donate4"),
             subscriptionKeys = listOf(),
             key = packageManager.getApplicationInfo(this.packageName, PackageManager.GET_META_DATA).metaData["LICENSE_KEY"] as String, // pass your app's license key
             enableLogging = false
@@ -228,8 +228,8 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         try {
             iapConnector.purchase(this, skuId)
         } catch (e: Exception) {
-            initializeIAP()
             primaryTerminal.output("Error initializing purchase. Please try again.",primaryTerminal.theme.errorTextColor, null)
+            initializeIAP()
         }
     }
 
