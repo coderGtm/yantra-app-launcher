@@ -18,7 +18,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
         if (args.size == 1) {
             output("-------------------------", terminal.theme.warningTextColor)
-            output("Yantra Launcher is a powerful and free open-source tool to boost your productivity and be cool. Developing this launcher and maintaining it genuinely demands a lot of efforts, resources and invaluable time. If Yantra Launcher has made any positive difference in your life, I appeal you to consider manifesting your gratefulness by supporting the project.\n\nYou can make any of the following donations as many time you like it :)\n\n")
+            output("Yantra Launcher is a powerful and free open-source tool to boost your productivity and be cool. Developing this launcher and maintaining it genuinely demands a lot of efforts, resources and invaluable time. If Yantra Launcher has made any positive difference in your life, I appeal you to consider manifesting your gratefulness by supporting the project.\n\nYou can make any of the following donations as many time as you like it :)\n\n")
             output("0:  Tiny", terminal.theme.resultTextColor, Typeface.BOLD)
             output("1:  Mini", terminal.theme.resultTextColor, Typeface.BOLD)
             output("2:  Small", terminal.theme.resultTextColor, Typeface.BOLD)
