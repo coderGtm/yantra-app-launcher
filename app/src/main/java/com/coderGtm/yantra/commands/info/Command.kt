@@ -11,7 +11,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "info",
-        helpTitle = "infof [appName]",
+        helpTitle = "info [appName]",
         description = "Opens app settings page for specified app. Example: 'info Big Battery Display' or 'i Farty Orbit'"
     )
     override fun execute(command: String) {
