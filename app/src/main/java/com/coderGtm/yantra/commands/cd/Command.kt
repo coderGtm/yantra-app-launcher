@@ -1,8 +1,11 @@
 package com.coderGtm.yantra.commands.cd
 
+import android.Manifest
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
+import androidx.core.app.ActivityCompat
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.getUserNamePrefix
@@ -26,11 +29,17 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
 
-        if (!checkPermission()) {
-            val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION) // this check in Helper.kt in checkPermission()
-            val uri = Uri.fromParts("package", terminal.activity.packageName, null)
-            intent.data = uri
-            terminal.activity.startActivity(intent)
+        if (!checkPermission(this@Command)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                val uri = Uri.fromParts("package", terminal.activity.packageName, null)
+                intent.data = uri
+                terminal.activity.startActivity(intent)
+            } else {
+                ActivityCompat.requestPermissions(terminal.activity,
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    1230)
+            }
 
             output("Error! Permission needed", terminal.theme.errorTextColor)
             return
@@ -46,13 +55,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             }
         }
 
-        println(pathN)
-
         val newPath = getPathIfExists(pathN)
 
         if (newPath != null) {
             path = newPath
-            list(path, this@Command)
             terminal.binding.username.text = getUserNamePrefix(terminal.preferenceObject) + getUserName(terminal.preferenceObject) + path + ">"
             return
         }
