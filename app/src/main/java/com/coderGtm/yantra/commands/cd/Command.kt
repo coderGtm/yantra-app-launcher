@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
+import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.getUserNamePrefix
@@ -16,7 +17,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "cd",
         helpTitle = "cd [path]",
-        description = "cd"
+        description = "Changes the current directory to the specified path"
     )
 
     var path: String = "/"
@@ -25,11 +26,13 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val args = command.split(" ").drop(1)
 
         if (args.isEmpty()) {
-            output("Error! No path provided", terminal.theme.errorTextColor)
+            output("Please provide a path", terminal.theme.errorTextColor)
             return
         }
 
         if (!checkPermission(this@Command)) {
+            output("File Permission Missing!", terminal.theme.warningTextColor)
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
                 val uri = Uri.fromParts("package", terminal.activity.packageName, null)
@@ -38,10 +41,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             } else {
                 ActivityCompat.requestPermissions(terminal.activity,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    1230)
+                    PermissionRequestCodes.STORAGE.code)
             }
-
-            output("Error! Permission needed", terminal.theme.errorTextColor)
             return
         }
 
@@ -59,11 +60,12 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
         if (newPath != null) {
             path = newPath
-            terminal.binding.username.text = getUserNamePrefix(terminal.preferenceObject) + getUserName(terminal.preferenceObject) + path + ">"
+            terminal.binding.username.text =
+                "${getUserNamePrefix(terminal.preferenceObject)}${getUserName(terminal.preferenceObject)}$path>"
             return
         }
 
-        output("Error! Path not exist", terminal.theme.errorTextColor)
+        output("Error! No matching directory found!", terminal.theme.errorTextColor)
         return
     }
 }

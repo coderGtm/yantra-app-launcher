@@ -9,6 +9,7 @@ import android.os.Environment
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.getUserNamePrefix
@@ -20,18 +21,20 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "ls",
         helpTitle = "ls",
-        description = "ls"
+        description = "Lists all files in the current directory"
     )
 
     override fun execute(command: String) {
         val args = command.split(" ").drop(1)
 
         if (args.isNotEmpty()) {
-            output("Error! No arguments provided", terminal.theme.errorTextColor)
+            output("Error! 'ls' command does not take any arguments", terminal.theme.errorTextColor)
             return
         }
 
         if (!checkPermission(this@Command)) {
+            output("File Permission Missing!", terminal.theme.warningTextColor)
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
                 val uri = Uri.fromParts("package", terminal.activity.packageName, null)
@@ -40,10 +43,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             } else {
                 ActivityCompat.requestPermissions(terminal.activity,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    1230)
+                    PermissionRequestCodes.STORAGE.code)
             }
-
-            output("Error! Permission needed", terminal.theme.errorTextColor)
             return
         }
 
@@ -55,20 +56,18 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val files = File(Environment.getExternalStorageDirectory().absolutePath + path).listFiles()
 
         if (files == null) {
-            output("Empty", terminal.theme.resultTextColor)
             return
         }
 
-        data class AllFiles(val name: String)
-        val fullList = mutableListOf<AllFiles>()
+        val fullList = mutableListOf<String>()
 
         for (file in files) {
-            fullList.add(AllFiles(file.name))
+            fullList.add(file.name)
         }
 
-        fullList.sortBy { it.name }
+        fullList.sort()
         for (obj in fullList) {
-            output(obj.name, terminal.theme.resultTextColor)
+            output(obj, terminal.theme.resultTextColor)
         }
     }
 

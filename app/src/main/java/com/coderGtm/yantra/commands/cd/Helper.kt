@@ -9,7 +9,7 @@ import java.io.File
 
 fun getPathIfExists(path: String): String? {
     val file = File(Environment.getExternalStorageDirectory().absolutePath + path)
-    return if (file.exists()) {
+    return if (file.isDirectory) {
         file.path.toString().substring(Environment.getExternalStorageDirectory().absolutePath.length)
     } else {
         null
