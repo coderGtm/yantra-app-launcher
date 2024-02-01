@@ -32,6 +32,7 @@ import com.coderGtm.yantra.NO_LOG_COMMANDS
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.commands.cd.Command
 import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.findSimilarity
@@ -70,6 +71,8 @@ class Terminal(
     val commands = mapOf(
         "open" to com.coderGtm.yantra.commands.open.Command::class.java,
         "help" to com.coderGtm.yantra.commands.help.Command::class.java,
+        "cd" to com.coderGtm.yantra.commands.cd.Command::class.java,
+        "ls" to com.coderGtm.yantra.commands.ls.Command::class.java,
         "community" to com.coderGtm.yantra.commands.community.Command::class.java,
         "theme" to com.coderGtm.yantra.commands.theme.Command::class.java,
         "call" to com.coderGtm.yantra.commands.call.Command::class.java,
@@ -166,12 +169,14 @@ class Terminal(
     }
 
     private fun enforceThemeComponents() {
+        val myInstance = Command(this)
+
         binding.username.textSize = fontSize
         binding.cmdInput.textSize = fontSize
         binding.cmdInput.textSize = fontSize
         activity.window.statusBarColor = Color.TRANSPARENT
         activity.window.navigationBarColor = theme.bgColor
-        binding.username.text = getUserNamePrefix(preferenceObject)+getUserName(preferenceObject)+">"
+        binding.username.text = getUserNamePrefix(preferenceObject) + getUserName(preferenceObject) + myInstance.path + ">"
         binding.suggestionsTab.background = theme.bgColor.toDrawable()
         binding.username.setTextColor(theme.buttonColor)
         binding.cmdInput.setTextColor(theme.buttonColor)
