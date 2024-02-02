@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
+import android.os.Environment
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -16,11 +17,14 @@ import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.commands.todo.getToDo
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getScripts
+import com.coderGtm.yantra.getUserName
+import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.setSystemWallpaper
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.io.File
 import java.util.regex.Pattern
 
 fun showSuggestions(
@@ -86,6 +90,34 @@ fun showSuggestions(
                     for (app in terminal.appList) {
                         if (!suggestions.contains(app.appName)) {
                             suggestions.add(app.appName)
+                        }
+                    }
+                }
+                isPrimary = false
+            }
+            else if (effectivePrimaryCmd == "file"){
+                if (!terminal.appListFetched) {
+                    return@Thread
+                }
+
+                if (args.size>1) {
+                    //search using regex
+                    overrideLastWord = true
+                    val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                    for (file in getFiles(terminal)!!) {
+                        if (regex.containsMatchIn(file) && !suggestions.contains(file)) {
+                            if (file.substring(0, reg.length).lowercase() == reg && reg.isNotEmpty()){
+                                suggestions.add(0, file)
+                                continue
+                            }
+                            suggestions.add(file)
+                        }
+                    }
+                }
+                else {
+                    for (file in getFiles(terminal)!!) {
+                        if (!suggestions.contains(file)) {
+                            suggestions.add(file)
                         }
                     }
                 }
@@ -465,6 +497,31 @@ fun showSuggestions(
         }
     }.start()
 }
+
+fun getFiles(terminal: Terminal): MutableList<String>? {
+    val path = terminal.binding.username.text.toString().substring(
+        getUserNamePrefix(terminal.preferenceObject).length +
+                getUserName(terminal.preferenceObject).length
+    ).dropLast(1)
+
+    val files = File(Environment.getExternalStorageDirectory().absolutePath + path).listFiles()
+
+    if (files == null) {
+        return null
+    }
+
+    val fullList = mutableListOf<String>()
+
+    for (file in files) {
+        if (file.isFile) {
+            fullList.add(file.name)
+        }
+    }
+
+    fullList.sort()
+    return fullList
+}
+
 fun setWallpaperIfNeeded(preferenceObject: SharedPreferences, applicationContext: Context, curTheme: Theme, ) {
     if (preferenceObject.getBoolean("defaultWallpaper",true)) {
         val wallpaperManager = WallpaperManager.getInstance(applicationContext)
