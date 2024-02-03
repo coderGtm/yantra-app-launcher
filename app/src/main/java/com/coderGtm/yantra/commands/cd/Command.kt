@@ -15,14 +15,14 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "cd",
         helpTitle = "cd [path]",
-        description = "Changes the current directory to the specified path"
+        description = "Changes the current directory to the specified path.\nExample: 'cd DCIM'"
     )
 
     override fun execute(command: String) {
         val args = command.split(" ").drop(1)
 
         if (args.isEmpty()) {
-            output("Please provide a path", terminal.theme.errorTextColor)
+            output("Please provide a path!", terminal.theme.errorTextColor)
             return
         }
 
