@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
+import com.coderGtm.yantra.models.DirectoryContents
 import com.coderGtm.yantra.terminal.Terminal
 import java.io.File
 
@@ -52,15 +53,26 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
 
-        val fullList = mutableListOf<String>()
+        val fullList = mutableListOf<DirectoryContents>()
 
         for (file in files) {
-            fullList.add(file.name)
+            fullList.add(
+                DirectoryContents(
+                    name = file.name,
+                    isDirectory = file.isDirectory,
+                    isHidden = file.isHidden
+                )
+            )
         }
 
-        fullList.sort()
+        fullList.sortBy { it.name }
         for (obj in fullList) {
-            output(obj, terminal.theme.resultTextColor)
+            if (obj.isDirectory) {
+                output(obj.name, terminal.theme.suggestionTextColor)
+            }
+            else {
+                output(obj.name, terminal.theme.resultTextColor)
+            }
         }
     }
 
