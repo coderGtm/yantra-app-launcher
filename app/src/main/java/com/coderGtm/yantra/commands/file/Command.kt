@@ -17,18 +17,12 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size < 2) {
-            output("Please specify an file to open.", terminal.theme.errorTextColor)
+            output("Please specify a file to open.", terminal.theme.errorTextColor)
             return
         }
         val name = command.removePrefix(args[0]).trim().lowercase()
 
-        val path = terminal.binding.username.text.toString().substring(
-            getUserNamePrefix(terminal.preferenceObject).length +
-                    getUserName(terminal.preferenceObject).length
-        ).dropLast(1)
-
-        val fullPath = Environment.getExternalStorageDirectory().absolutePath + "$path/$name"
-        println(fullPath)
+        val fullPath = Environment.getExternalStorageDirectory().absolutePath + "${terminal.filePath}/$name"
         val file = File(fullPath)
 
         if (isExists(fullPath)) {
@@ -36,6 +30,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
 
-        output("Error! File not found, please type or select correct file.", terminal.theme.errorTextColor)
+        output("Error! '$fullPath' is not a file.", terminal.theme.errorTextColor)
     }
 }

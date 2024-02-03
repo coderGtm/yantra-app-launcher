@@ -48,12 +48,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
 
-        val path = terminal.binding.username.text.toString().substring(
-            getUserNamePrefix(terminal.preferenceObject).length +
-                    getUserName(terminal.preferenceObject).length
-        ).dropLast(1)
-
-        val files = File(Environment.getExternalStorageDirectory().absolutePath + path).listFiles()
+        val files = File(Environment.getExternalStorageDirectory().absolutePath + terminal.filePath).listFiles()
 
         if (files == null) {
             return

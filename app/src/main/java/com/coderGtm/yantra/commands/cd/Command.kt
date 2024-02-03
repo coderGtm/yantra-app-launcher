@@ -20,8 +20,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         description = "Changes the current directory to the specified path"
     )
 
-    var path: String = "/"
-
     override fun execute(command: String) {
         val args = command.split(" ").drop(1)
 
@@ -47,7 +45,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
 
         val split = command.substring(3).split('/')
-        var pathN = path
+        var pathN = terminal.filePath
         for ( i in split ) {
             if (i == "..") {
                 pathN = pathN.dropLast(pathN.split('/')[pathN.split('/').size - 1].length + 1)
@@ -59,9 +57,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val newPath = getPathIfExists(pathN)
 
         if (newPath != null) {
-            path = newPath
-            terminal.binding.username.text =
-                "${getUserNamePrefix(terminal.preferenceObject)}${getUserName(terminal.preferenceObject)}$path>"
+            terminal.filePath = newPath
+            terminal.setPromptText()
             return
         }
 

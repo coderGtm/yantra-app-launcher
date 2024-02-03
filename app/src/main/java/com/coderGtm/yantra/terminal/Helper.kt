@@ -95,16 +95,12 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
-            else if (effectivePrimaryCmd == "file"){
-                if (!terminal.appListFetched) {
-                    return@Thread
-                }
-
+            else if (effectivePrimaryCmd == "file") {
                 if (args.size>1) {
                     //search using regex
                     overrideLastWord = true
                     val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                    for (file in getFiles(terminal)!!) {
+                    for (file in getFiles(terminal)) {
                         if (regex.containsMatchIn(file) && !suggestions.contains(file)) {
                             if (file.substring(0, reg.length).lowercase() == reg && reg.isNotEmpty()){
                                 suggestions.add(0, file)
@@ -115,7 +111,7 @@ fun showSuggestions(
                     }
                 }
                 else {
-                    for (file in getFiles(terminal)!!) {
+                    for (file in getFiles(terminal)) {
                         if (!suggestions.contains(file)) {
                             suggestions.add(file)
                         }
@@ -498,16 +494,11 @@ fun showSuggestions(
     }.start()
 }
 
-fun getFiles(terminal: Terminal): MutableList<String>? {
-    val path = terminal.binding.username.text.toString().substring(
-        getUserNamePrefix(terminal.preferenceObject).length +
-                getUserName(terminal.preferenceObject).length
-    ).dropLast(1)
-
-    val files = File(Environment.getExternalStorageDirectory().absolutePath + path).listFiles()
+fun getFiles(terminal: Terminal): List<String> {
+    val files = File(Environment.getExternalStorageDirectory().absolutePath + terminal.filePath).listFiles()
 
     if (files == null) {
-        return null
+        return listOf()
     }
 
     val fullList = mutableListOf<String>()

@@ -20,7 +20,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         val newUsername = command.trim().removePrefix(args[0]).trim()
         terminal.preferenceObject.edit().putString("username",newUsername).apply()
-        terminal.binding.username.text = getUserNamePrefix(terminal.preferenceObject)+newUsername+">"
+        terminal.setPromptText()
         output("Username set to $newUsername", terminal.theme.successTextColor)
     }
 }

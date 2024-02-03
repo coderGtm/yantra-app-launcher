@@ -136,6 +136,7 @@ class Terminal(
     var contactsFetched: Boolean = false
     var contactNames = HashSet<String>()
     var appListFetched: Boolean = false
+    var filePath = ""
 
     lateinit var appList: ArrayList<AppBlock>
     lateinit var wakeBtn: TextView
@@ -170,14 +171,12 @@ class Terminal(
     }
 
     private fun enforceThemeComponents() {
-        val myInstance = Command(this)
-
         binding.username.textSize = fontSize
         binding.cmdInput.textSize = fontSize
         binding.cmdInput.textSize = fontSize
         activity.window.statusBarColor = Color.TRANSPARENT
         activity.window.navigationBarColor = theme.bgColor
-        binding.username.text = getUserNamePrefix(preferenceObject) + getUserName(preferenceObject) + myInstance.path + ">"
+        setPromptText()
         binding.suggestionsTab.background = theme.bgColor.toDrawable()
         binding.username.setTextColor(theme.buttonColor)
         binding.cmdInput.setTextColor(theme.buttonColor)
@@ -342,6 +341,10 @@ class Terminal(
         if (color == theme.errorTextColor && vibrationPermission) {
             vibrate(activity = activity)
         }
+    }
+    fun setPromptText() {
+        binding.username.text =
+            "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}@${filePath}>"
     }
     private fun getCommandInstance(commandName: String): BaseCommand? {
         val cachedCommand = commandCache.find { it.containsKey(commandName) }
