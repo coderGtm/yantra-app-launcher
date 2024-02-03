@@ -19,15 +19,25 @@ import java.io.File
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "ls",
-        helpTitle = "ls",
-        description = "Lists all files in the current directory."
+        helpTitle = "ls [-a]",
+        description = "Lists contents in the current directory. Optionally, pass the '-a' flag to also show hidden files/folders."
     )
 
     override fun execute(command: String) {
         val args = command.split(" ").drop(1)
+        var showHidden = false
 
-        if (args.isNotEmpty()) {
-            output("Error! 'ls' command does not take any arguments.", terminal.theme.errorTextColor)
+        if (args.size == 1) {
+            if (args.first().trim() == "-a") {
+                showHidden = true
+            }
+            else {
+                output("Error! Invalid argument provided. 'ls' command accepts only 1 flag parameter: '-a'.", terminal.theme.errorTextColor)
+                return
+            }
+        }
+        if (args.size > 1) {
+            output("Error! 'ls' command accepts only 1 flag parameter: '-a'.", terminal.theme.errorTextColor)
             return
         }
 
@@ -67,6 +77,9 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
         fullList.sortBy { it.name }
         for (obj in fullList) {
+            if (obj.isHidden && !showHidden) {
+                return
+            }
             if (obj.isDirectory) {
                 output(obj.name, terminal.theme.suggestionTextColor)
             }
