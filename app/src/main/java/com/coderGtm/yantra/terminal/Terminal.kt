@@ -73,6 +73,7 @@ class Terminal(
         "help" to com.coderGtm.yantra.commands.help.Command::class.java,
         "cd" to com.coderGtm.yantra.commands.cd.Command::class.java,
         "ls" to com.coderGtm.yantra.commands.ls.Command::class.java,
+        "file" to com.coderGtm.yantra.commands.file.Command::class.java,
         "community" to com.coderGtm.yantra.commands.community.Command::class.java,
         "theme" to com.coderGtm.yantra.commands.theme.Command::class.java,
         "call" to com.coderGtm.yantra.commands.call.Command::class.java,
