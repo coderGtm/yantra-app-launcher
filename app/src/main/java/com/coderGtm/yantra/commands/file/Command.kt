@@ -10,7 +10,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "file",
         helpTitle = "file [file name]",
-        description = "Opens specified file."
+        description = "Opens specified file. Example: 'file certificate.pdf'"
     )
     override fun execute(command: String) {
         val args = command.split(" ")

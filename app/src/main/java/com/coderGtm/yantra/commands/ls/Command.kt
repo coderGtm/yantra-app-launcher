@@ -19,14 +19,14 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "ls",
         helpTitle = "ls",
-        description = "Lists all files in the current directory"
+        description = "Lists all files in the current directory."
     )
 
     override fun execute(command: String) {
         val args = command.split(" ").drop(1)
 
         if (args.isNotEmpty()) {
-            output("Error! 'ls' command does not take any arguments", terminal.theme.errorTextColor)
+            output("Error! 'ls' command does not take any arguments.", terminal.theme.errorTextColor)
             return
         }
 
