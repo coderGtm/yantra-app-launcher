@@ -2,8 +2,6 @@ package com.coderGtm.yantra.commands.file
 
 import android.os.Environment
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.getUserName
-import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
 import java.io.File
@@ -22,7 +20,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         val name = command.removePrefix(args[0]).trim().lowercase()
 
-        val fullPath = Environment.getExternalStorageDirectory().absolutePath + "${terminal.filePath}/$name"
+        val fullPath = Environment.getExternalStorageDirectory().absolutePath + "${terminal.workingDir}/$name"
         val file = File(fullPath)
 
         if (isExists(fullPath)) {

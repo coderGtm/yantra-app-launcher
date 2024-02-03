@@ -11,8 +11,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.getUserName
-import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
 import java.io.File
@@ -48,7 +46,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
 
-        val files = File(Environment.getExternalStorageDirectory().absolutePath + terminal.filePath).listFiles()
+        val files = File(Environment.getExternalStorageDirectory().absolutePath + terminal.workingDir).listFiles()
 
         if (files == null) {
             return

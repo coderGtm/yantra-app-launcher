@@ -17,8 +17,6 @@ import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.commands.todo.getToDo
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getScripts
-import com.coderGtm.yantra.getUserName
-import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
@@ -495,7 +493,7 @@ fun showSuggestions(
 }
 
 fun getFiles(terminal: Terminal): List<String> {
-    val files = File(Environment.getExternalStorageDirectory().absolutePath + terminal.filePath).listFiles()
+    val files = File(Environment.getExternalStorageDirectory().absolutePath + terminal.workingDir).listFiles()
 
     if (files == null) {
         return listOf()

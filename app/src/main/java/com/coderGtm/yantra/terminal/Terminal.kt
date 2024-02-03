@@ -32,7 +32,6 @@ import com.coderGtm.yantra.NO_LOG_COMMANDS
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.commands.cd.Command
 import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.findSimilarity
@@ -136,7 +135,7 @@ class Terminal(
     var contactsFetched: Boolean = false
     var contactNames = HashSet<String>()
     var appListFetched: Boolean = false
-    var filePath = ""
+    var workingDir = ""
 
     lateinit var appList: ArrayList<AppBlock>
     lateinit var wakeBtn: TextView
@@ -344,7 +343,7 @@ class Terminal(
     }
     fun setPromptText() {
         binding.username.text =
-            "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}@${filePath}>"
+            "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}>"
     }
     private fun getCommandInstance(commandName: String): BaseCommand? {
         val cachedCommand = commandCache.find { it.containsKey(commandName) }

@@ -8,8 +8,6 @@ import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.getUserName
-import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
 
@@ -45,7 +43,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
 
         val split = command.substring(3).split('/')
-        var pathN = terminal.filePath
+        var pathN = terminal.workingDir
         for ( i in split ) {
             if (i == "..") {
                 pathN = pathN.dropLast(pathN.split('/')[pathN.split('/').size - 1].length + 1)
@@ -57,7 +55,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val newPath = getPathIfExists(pathN)
 
         if (newPath != null) {
-            terminal.filePath = newPath
+            terminal.workingDir = newPath
             terminal.setPromptText()
             return
         }
