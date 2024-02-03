@@ -409,7 +409,7 @@ class Terminal(
             commandQueue.add(command)
             return
         }
-        val commandName = command.trim().split(" ").firstOrNull()
+        val commandName = command.trim().split(" ").firstOrNull()?.lowercase()
         if (!isAlias) {
             if (logCmd && !NO_LOG_COMMANDS.contains(commandName)) {
                 output(getUserNamePrefix(preferenceObject)+getUserName(preferenceObject)+"> $command", theme.commandColor, null)
