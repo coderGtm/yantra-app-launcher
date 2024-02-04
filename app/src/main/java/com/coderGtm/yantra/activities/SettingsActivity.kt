@@ -46,6 +46,7 @@ class SettingsActivity : AppCompatActivity() {
     private var fullscreenLauncher = false
     private var vibrationPermission = true  // permission to vibrate on error
     private var showArrowKeys = true
+    private var showLastFolder = false
     private var oneTapKeyboardActivation = true
     private var hideKeyboardOnEnter = true
     private var actOnSuggestionTap = false
@@ -78,6 +79,7 @@ class SettingsActivity : AppCompatActivity() {
         fullscreenLauncher = preferenceObject.getBoolean("fullScreen",false)
         vibrationPermission = preferenceObject.getBoolean("vibrationPermission",true)
         showArrowKeys = preferenceObject.getBoolean("showArrowKeys",true)
+        showLastFolder = preferenceObject.getBoolean("showLastFolder", false)
         oneTapKeyboardActivation = preferenceObject.getBoolean("oneTapKeyboardActivation",true)
         hideKeyboardOnEnter = preferenceObject.getBoolean("hideKeyboardOnEnter", true)
         actOnSuggestionTap = preferenceObject.getBoolean("actOnSuggestionTap", false)
@@ -180,6 +182,12 @@ class SettingsActivity : AppCompatActivity() {
         binding.showArrowSwitch.setOnCheckedChangeListener { _, isChecked ->
             showArrowKeys = isChecked
             preferenceEditObject.putBoolean("showArrowKeys",isChecked).apply()
+            changedSettingsCallback(this@SettingsActivity)
+        }
+        binding.showLastFolder.isChecked = showLastFolder
+        binding.showLastFolder.setOnCheckedChangeListener { _, isChecked ->
+            showLastFolder = isChecked
+            preferenceEditObject.putBoolean("showLastFolder",isChecked).apply()
             changedSettingsCallback(this@SettingsActivity)
         }
         binding.oneTapKeyboardActivationSwitch.isChecked = oneTapKeyboardActivation
