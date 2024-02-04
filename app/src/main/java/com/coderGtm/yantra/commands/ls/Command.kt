@@ -82,7 +82,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 continue
             }
             if (obj.isDirectory) {
-                output(obj.name, terminal.theme.suggestionTextColor, Typeface.BOLD)
+                output(obj.name, terminal.theme.warningTextColor, Typeface.BOLD)
             }
             else {
                 output(obj.name, terminal.theme.resultTextColor)
