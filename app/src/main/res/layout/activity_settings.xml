@@ -152,12 +152,12 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/showLastFolder"
+                    android:id="@+id/showCurrentFolderInPrompt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Show name of last folder" />
+                    android:text="Show Current Folder in Prompt" />
             </LinearLayout>
 
             <View
