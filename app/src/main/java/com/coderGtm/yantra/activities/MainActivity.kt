@@ -26,6 +26,7 @@ import com.coderGtm.yantra.setWallpaperFromUri
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.toast
 import com.coderGtm.yantra.views.TerminalGestureListenerCallback
+import com.limurse.iap.BillingClientConnectionListener
 import com.limurse.iap.DataWrappers
 import com.limurse.iap.IapConnector
 import com.limurse.iap.PurchaseServiceListener
@@ -62,8 +63,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                 // Handle the back button event
             }
         })
-
-        initializeIAP()
     }
 
     override fun onStart() {
@@ -183,7 +182,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         }
     }
 
-    private fun initializeIAP() {
+    private fun initializeIAP(purchasePostInitialization: Boolean = false, skuId: String = "", purchaseRetryCount: Int = 0) {
         iapConnector = IapConnector(
             context = this,
             nonConsumableKeys = listOf("fontpack","gupt","customtheme"),
@@ -192,6 +191,14 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             key = packageManager.getApplicationInfo(this.packageName, PackageManager.GET_META_DATA).metaData["LICENSE_KEY"] as String, // pass your app's license key
             enableLogging = false
         )
+        iapConnector.addBillingClientConnectionListener(object : BillingClientConnectionListener {
+            override fun onConnected(status: Boolean, billingResponseCode: Int) {
+                if (status && purchasePostInitialization && purchaseRetryCount>0) {
+                    initializeProductPurchase(skuId, purchaseRetryCount-1)
+                }
+            }
+
+        })
         iapConnector.addPurchaseListener(object : PurchaseServiceListener {
             override fun onPricesUpdated(iapKeyPrices: Map<String, List<DataWrappers.ProductDetails>>) {
                 // list of available products will be received here, so you can update UI with prices if needed
@@ -218,7 +225,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             }
         })
     }
-    fun initializeProductPurchase(skuId: String) {
+    fun initializeProductPurchase(skuId: String, retryCount: Int = 5) {
         primaryTerminal.output("Initializing purchase...Please wait.",primaryTerminal.theme.resultTextColor, null)
         // check internet connection
         if (!isNetworkAvailable(this@MainActivity)) {
@@ -228,8 +235,12 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         try {
             iapConnector.purchase(this, skuId)
         } catch (e: Exception) {
-            primaryTerminal.output("Error initializing purchase. Please try again.",primaryTerminal.theme.errorTextColor, null)
-            initializeIAP()
+            if (retryCount > 0) {
+                initializeIAP(purchasePostInitialization = true, skuId = skuId, purchaseRetryCount = retryCount)
+            }
+            else {
+                primaryTerminal.output("Error initializing purchase. Please try again.",primaryTerminal.theme.errorTextColor, null)
+            }
         }
     }
 
