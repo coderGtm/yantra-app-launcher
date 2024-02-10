@@ -12,14 +12,14 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "timer",
         helpTitle = "timer [length] [message]",
-        description = "Used to create a countdown timer using the default app on your device. Use without args to open the timer app. The length must be in seconds and ranges from 1 to 86400 (24 hrs). It can optionally be followed by a message string to display in timer.\nExamples:\n'timer 60' sets timer for 1 minute\n'timer 3600 Take out the trash' sets timer for 1 hour with a message to display."
+        description = "Used to create a countdown timer using the default app on your device. Use without args to launch the timer app. The length must be in seconds and ranges from 1 to 86400 (24 hrs). It can optionally be followed by a message string to display in timer.\nExamples:\n'timer 60' sets timer for 1 minute\n'timer 3600 Take out the trash' sets timer for 1 hour with a message to display."
     )
 
     override fun execute(command: String) {
         val args = command.split(" ").drop(1)
 
         if (args.isEmpty()) {
-            output("No length provided. Opening timer app.", terminal.theme.resultTextColor)
+            output("No length provided. Launching timer app.", terminal.theme.resultTextColor)
             terminal.activity.startActivity(Intent(AlarmClock.ACTION_SET_TIMER))
         }
         else {

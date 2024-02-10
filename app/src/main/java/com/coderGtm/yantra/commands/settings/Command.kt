@@ -11,7 +11,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "settings",
         helpTitle = "settings",
-        description = "Opens Settings for Yantra Launcher."
+        description = "Launches Settings for Yantra Launcher."
     )
 
     override fun execute(command: String) {

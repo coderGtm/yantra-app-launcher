@@ -21,7 +21,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output("[-] G.U.P.T is a paid add-on feature. Consider buying it to enable it.",terminal.theme.errorTextColor)
             output("Salient features of G.U.P.T:",terminal.theme.warningTextColor, Typeface.BOLD)
             output("--------------------------",terminal.theme.warningTextColor)
-            output("1. Open a private browsing tab inside Yantra Launcher.")
+            output("1. Launch a private browsing tab inside Yantra Launcher.")
             output("2. All the data is cleared after closing the tab.")
             output("3. You can also open a specific url in the private tab.")
             output("4. Hidden from the recent apps list.")
@@ -44,6 +44,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             url = cmdArray[1]
         }
         terminal.activity.startActivity(Intent(terminal.activity, WebViewActivity::class.java).putExtra("url", url))
-        output("[+] Opened G.U.P.T...",terminal.theme.successTextColor)
+        output("[+] Launched G.U.P.T...",terminal.theme.successTextColor)
     }
 }

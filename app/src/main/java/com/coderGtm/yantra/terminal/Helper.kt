@@ -65,7 +65,7 @@ fun showSuggestions(
                 args[0].lowercase()
             }
             val reg = input.removePrefix(args[0]).trim()
-            if (effectivePrimaryCmd == "open") {
+            if (effectivePrimaryCmd == "launch") {
                 if (!terminal.appListFetched) {
                     return@Thread
                 }
@@ -171,7 +171,7 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
-            else if (effectivePrimaryCmd == "openf") {
+            else if (effectivePrimaryCmd == "launchf") {
                 if (!terminal.appListFetched) {
                     return@Thread
                 }

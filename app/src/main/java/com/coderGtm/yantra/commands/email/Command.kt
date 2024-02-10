@@ -11,7 +11,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "email",
         helpTitle = "email <email-id>",
-        description = "Opens email app with recipient set. Example: 'email coderGtm@gmail.com'"
+        description = "Launches email app with recipient set. Example: 'email coderGtm@gmail.com'"
     )
 
     override fun execute(command: String) {
@@ -27,10 +27,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         if (intent.resolveActivity(terminal.activity.packageManager) != null) {
             terminal.activity.startActivity(intent)
-            output("Opened email app...",terminal.theme.successTextColor)
+            output("Launched email app...",terminal.theme.successTextColor)
         }
         else {
-            toast(terminal.activity.baseContext, "Could not open an email app.")
+            toast(terminal.activity.baseContext, "Could not launch an email app.")
         }
     }
 }

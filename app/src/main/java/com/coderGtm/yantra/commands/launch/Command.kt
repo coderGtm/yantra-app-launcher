@@ -1,4 +1,4 @@
-package com.coderGtm.yantra.commands.open
+package com.coderGtm.yantra.commands.launch
 
 import android.graphics.Typeface
 import com.coderGtm.yantra.AppSortMode
@@ -11,14 +11,14 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
-        name = "open",
-        helpTitle = "open [app name]",
-        description = "Opens specified app. Example: 'open Chrome'"
+        name = "launch",
+        helpTitle = "launch [app name]",
+        description = "Launches specified app. Example: 'launch Chrome'"
     )
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size < 2) {
-            output("Please specify an app to open.", terminal.theme.errorTextColor)
+            output("Please specify an app to launch.", terminal.theme.errorTextColor)
             return
         }
         val name = command.removePrefix(args[0]).trim().lowercase()
@@ -39,7 +39,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
 
         if (candidates.size == 1) {
-            output("Opening ${candidates[0].appName} (${candidates[0].packageName})", terminal.theme.successTextColor)
+            output("Launching ${candidates[0].appName} (${candidates[0].packageName})", terminal.theme.successTextColor)
             launchApp(this@Command, candidates[0])
             if (terminal.preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value) == AppSortMode.RECENT.value) {
                 terminal.appList.remove(candidates[0])
@@ -75,7 +75,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
                         .setTitle("Select Package Name")
                         .setItems(items.toTypedArray()) { _, which ->
-                            output("Opening ${candidates[which].appName} (${candidates[which].packageName})", terminal.theme.successTextColor)
+                            output("Launching ${candidates[which].appName} (${candidates[which].packageName})", terminal.theme.successTextColor)
                             launchApp(this@Command, candidates[which])
                             if (terminal.preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value) == AppSortMode.RECENT.value) {
                                 terminal.appList.remove(candidates[which])

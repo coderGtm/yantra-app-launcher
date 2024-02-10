@@ -30,7 +30,7 @@ fun lockDeviceByAccessibilityService(activity: Activity, binding: ActivityMainBi
     else {
         MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog).setTitle("Enable Locking Device")
             .setMessage("Please turn on Accessibility Service for Yantra Launcher for 'lock' command to work.")
-            .setPositiveButton("Open Settings") { dialog, _ ->
+            .setPositiveButton("Launch Settings") { dialog, _ ->
                 activity.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
                 dialog.dismiss()
             }
@@ -50,7 +50,7 @@ fun lockDeviceByAdmin(activity: Activity) {
         } catch (ex: SecurityException) {
             MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog).setTitle("Enable Locking Device")
                 .setMessage("Please enable device administrator for Yantra Launcher for Lock command to work.\n\nNote that for Android 8 and below, using lock from Yantra Launcher may prevent Biometric Authentication and use only PIN or Password for the next time you unlock your Device, due to Android API limitations.")
-                .setPositiveButton("Open Settings") { dialog, _ ->
+                .setPositiveButton("Launch Settings") { dialog, _ ->
                     val admin = ComponentName(activity.baseContext, AdminReceiver::class.java)
                     val intent: Intent = Intent(
                         DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN

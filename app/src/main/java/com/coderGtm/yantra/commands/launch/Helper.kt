@@ -1,4 +1,4 @@
-package com.coderGtm.yantra.commands.open
+package com.coderGtm.yantra.commands.launch
 
 import android.content.Context
 import android.content.pm.LauncherApps
@@ -14,7 +14,7 @@ fun launchApp(command: Command, app: AppBlock) {
         launcher.startMainActivity(component, app.user, null, null)
         command.output(":: Rendering Display to ${Build.MANUFACTURER} ${Build.MODEL}...")
     } catch (e: Exception) {
-        command.output("Failed to open app :(", command.terminal.theme.errorTextColor)
+        command.output("Failed to launch app :(", command.terminal.theme.errorTextColor)
     }
 }
 

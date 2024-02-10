@@ -68,7 +68,7 @@ class Terminal(
 
     val theme = getCurrentTheme(preferenceObject)
     val commands = mapOf(
-        "open" to com.coderGtm.yantra.commands.open.Command::class.java,
+        "launch" to com.coderGtm.yantra.commands.launch.Command::class.java,
         "help" to com.coderGtm.yantra.commands.help.Command::class.java,
         "community" to com.coderGtm.yantra.commands.community.Command::class.java,
         "theme" to com.coderGtm.yantra.commands.theme.Command::class.java,
@@ -110,7 +110,7 @@ class Terminal(
         "sleep" to com.coderGtm.yantra.commands.sleep.Command::class.java,
         "vibe" to com.coderGtm.yantra.commands.vibe.Command::class.java,
         "init" to com.coderGtm.yantra.commands.init.Command::class.java,
-        "openf" to com.coderGtm.yantra.commands.openf.Command::class.java,
+        "launchf" to com.coderGtm.yantra.commands.launchf.Command::class.java,
         "info" to com.coderGtm.yantra.commands.info.Command::class.java,
         "infof" to com.coderGtm.yantra.commands.infof.Command::class.java,
         "uninstall" to com.coderGtm.yantra.commands.uninstall.Command::class.java,

@@ -12,6 +12,6 @@ fun launchAppInfo(command: Command, app: AppBlock) {
         launcher.startAppDetailsActivity(component, app.user, null, null)
         command.output(":: Rendering Display to ${Build.MANUFACTURER} ${Build.MODEL}...")
     } catch (e: Exception) {
-        command.output("Failed to open app info :(", command.terminal.theme.errorTextColor)
+        command.output("Failed to launch app info page :(", command.terminal.theme.errorTextColor)
     }
 }

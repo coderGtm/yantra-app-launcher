@@ -19,7 +19,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val args = command.split(" ").drop(1)
 
         if (args.isEmpty()) {
-            output("No time provided. Opening alarm app.", terminal.theme.resultTextColor)
+            output("No time provided. Launching alarm app.", terminal.theme.resultTextColor)
             terminal.activity.startActivity(Intent(AlarmClock.ACTION_SHOW_ALARMS))
         }
         else {

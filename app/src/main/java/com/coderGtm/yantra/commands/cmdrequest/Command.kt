@@ -35,7 +35,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             terminal.activity.startActivity(intent)
         } else {
             MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog).setTitle("Oops!")
-                .setMessage("Could not open an email app. Please send the mail to coderGtm@gmail.com with title 'Command request for Yantra Launcher'")
+                .setMessage("Could not launch an email app. Please send the mail to coderGtm@gmail.com with title 'Command request for Yantra Launcher'")
                 .setPositiveButton("OK") { dialog, _ ->
                     //copy title to clipboard
                     val clipboard = terminal.activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

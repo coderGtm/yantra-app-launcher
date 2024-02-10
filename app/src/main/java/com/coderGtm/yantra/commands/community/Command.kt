@@ -10,7 +10,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "community",
         helpTitle = "community",
-        description = "Opens the Discord server of Yantra Launcher. Here you can share and get Feedback, Suggestions, Insights, tips and CLI emotions from other users like you!"
+        description = "Redirects the Discord server of Yantra Launcher. Here you can share and get Feedback, Suggestions, Insights, tips and CLI emotions from other users like you!"
     )
 
     override fun execute(command: String) {

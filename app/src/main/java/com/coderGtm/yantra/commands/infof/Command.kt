@@ -10,12 +10,12 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "infof",
         helpTitle = "infof [approx app name]",
-        description = "Opens app settings by matching given app name string using fuzzy search algorithm (Levenshtein distance). Example: 'openf tube' may open system settings for YouTube."
+        description = "Launches app settings by matching given app name string using fuzzy search algorithm (Levenshtein distance). Example: 'openf tube' may open system settings for YouTube."
     )
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size < 2) {
-            output("Please give a string to open app settings with fuzzy search.", terminal.theme.errorTextColor)
+            output("Please give a string to launch app settings with fuzzy search.", terminal.theme.errorTextColor)
             return
         }
         val name = command.removePrefix(args[0]).trim().lowercase()
@@ -31,7 +31,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val maxIndex = candidates.indexOf(candidates.max())
         val appBlock = terminal.appList[maxIndex]
         output("+ Found ${appBlock.appName} with max score (${candidates.max()})")
-        output("Opening settings for ${appBlock.appName} (${appBlock.packageName})", terminal.theme.successTextColor)
+        output("Launching settings for ${appBlock.appName} (${appBlock.packageName})", terminal.theme.successTextColor)
         launchAppInfo(this@Command, appBlock)
     }
 }

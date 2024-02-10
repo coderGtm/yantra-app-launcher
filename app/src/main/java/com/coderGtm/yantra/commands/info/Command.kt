@@ -12,7 +12,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "info",
         helpTitle = "info [appName]",
-        description = "Opens app settings page for specified app. Example: 'info Big Battery Display' or 'i Farty Orbit'"
+        description = "Launches app settings page for specified app. Example: 'info Big Battery Display' or 'i Farty Orbit'"
     )
     override fun execute(command: String) {
         val args = command.split(" ")
@@ -32,7 +32,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             }
         }
         if (candidates.size == 1) {
-            output("Opening settings for ${candidates[0].appName} (${candidates[0].packageName})", terminal.theme.successTextColor)
+            output("Launching settings for ${candidates[0].appName} (${candidates[0].packageName})", terminal.theme.successTextColor)
             launchAppInfo(this@Command, candidates[0])
         }
         else if (candidates.size > 1) {
@@ -64,7 +64,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     val b2 = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
                         .setTitle("Select Package Name")
                         .setItems(items.toTypedArray()) { _, which ->
-                            output("Opening settings for ${candidates[which].appName} (${candidates[which].packageName})", terminal.theme.successTextColor)
+                            output("Launching settings for ${candidates[which].appName} (${candidates[which].packageName})", terminal.theme.successTextColor)
                             launchAppInfo(this@Command, candidates[which])
                         }
                     terminal.activity.runOnUiThread { b2.show() }

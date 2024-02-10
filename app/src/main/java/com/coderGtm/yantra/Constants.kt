@@ -272,5 +272,5 @@ const val DISCORD_COMMUNITY_URL = "https://discord.gg/sRZUG8rPjk"
 const val DEFAULT_AI_API_DOMAIN = "api.naga.ac"
 
 val NO_LOG_COMMANDS = listOf("sleep", "echo", "notify")
-val DEFAULT_ALIAS_LIST = arrayListOf(Alias("h", "help"), Alias("o", "open"), Alias("i", "info"), Alias("u", "uninstall"), Alias("bt", "bluetooth"), Alias("w", "weather"), Alias("tx", "termux"), Alias("cls", "clear"), Alias("google", "search -e=google"), Alias("ddg", "search -e=duckduckgo")
+val DEFAULT_ALIAS_LIST = arrayListOf(Alias("h", "help"), Alias("l", "launch"), Alias("i", "info"), Alias("u", "uninstall"), Alias("bt", "bluetooth"), Alias("w", "weather"), Alias("tx", "termux"), Alias("cls", "clear"), Alias("google", "search -e=google"), Alias("ddg", "search -e=duckduckgo")
 )

@@ -39,7 +39,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     return
                 }
                 else {
-                    output("[+] Opening Custom Theme Designer",terminal.theme.resultTextColor, Typeface.ITALIC)
+                    output("[+] Launching Custom Theme Designer",terminal.theme.resultTextColor, Typeface.ITALIC)
                     openCustomThemeDesigner(terminal)
                 }
                 return
