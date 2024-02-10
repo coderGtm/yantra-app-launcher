@@ -13,6 +13,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
+import com.android.billingclient.api.AcknowledgePurchaseParams
+import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.BillingClientStateListener
+import com.android.billingclient.api.BillingFlowParams
+import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.Purchase
+import com.android.billingclient.api.PurchasesUpdatedListener
+import com.android.billingclient.api.QueryProductDetailsParams
+import com.android.billingclient.api.QueryPurchasesParams
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
@@ -25,11 +34,12 @@ import com.coderGtm.yantra.runInitTasks
 import com.coderGtm.yantra.setWallpaperFromUri
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.toast
+import com.coderGtm.yantra.verifyValidSignature
 import com.coderGtm.yantra.views.TerminalGestureListenerCallback
-import com.limurse.iap.BillingClientConnectionListener
-import com.limurse.iap.DataWrappers
-import com.limurse.iap.IapConnector
-import com.limurse.iap.PurchaseServiceListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.json.JSONObject
 import java.util.Locale
 
 
@@ -38,7 +48,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     private lateinit var primaryTerminal: Terminal
     private lateinit var app: YantraLauncher
     private lateinit var binding: ActivityMainBinding
-    private lateinit var iapConnector: IapConnector
+    private lateinit var billingClient: BillingClient
 
     var tts: TextToSpeech? = null
     var ttsTxt = ""
@@ -85,10 +95,16 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             requestUpdateIfAvailable(app.preferenceObject, this@MainActivity)
         }.start()
     }
+
+    override fun onResume() {
+        getBillingClientReady()
+        super.onResume()
+        restoreAllPurchases()
+    }
     override fun onDestroy() {
         super.onDestroy()
         try {
-            iapConnector.destroy()
+            billingClient.endConnection()
         }
         catch(_: java.lang.Exception) {}
     }
@@ -182,67 +198,142 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         }
     }
 
-    private fun initializeIAP(purchasePostInitialization: Boolean = false, skuId: String = "", purchaseRetryCount: Int = 0) {
-        iapConnector = IapConnector(
-            context = this,
-            nonConsumableKeys = listOf("fontpack","gupt","customtheme"),
-            consumableKeys = listOf("donate0","donate1","donate2","donate3","donate4"),
-            subscriptionKeys = listOf(),
-            key = packageManager.getApplicationInfo(this.packageName, PackageManager.GET_META_DATA).metaData["LICENSE_KEY"] as String, // pass your app's license key
-            enableLogging = false
-        )
-        iapConnector.addBillingClientConnectionListener(object : BillingClientConnectionListener {
-            override fun onConnected(status: Boolean, billingResponseCode: Int) {
-                if (status && purchasePostInitialization && purchaseRetryCount>0) {
-                    initializeProductPurchase(skuId, purchaseRetryCount-1)
-                }
+    private fun getBillingClientReady() {
+        try {
+            if (!billingClient.isReady) {
+                billingClient.endConnection()
+                billingClient = BillingClient.newBuilder(this)
+                    .setListener(purchasesUpdatedListener)
+                    .enablePendingPurchases()
+                    .build()
             }
-
-        })
-        iapConnector.addPurchaseListener(object : PurchaseServiceListener {
-            override fun onPricesUpdated(iapKeyPrices: Map<String, List<DataWrappers.ProductDetails>>) {
-                // list of available products will be received here, so you can update UI with prices if needed
-            }
-
-            override fun onProductPurchased(purchaseInfo: DataWrappers.PurchaseInfo) {
-                app.preferenceObject.edit().putBoolean(purchaseInfo.sku+"___purchased", true).apply()
-                runOnUiThread {
-                    toast(baseContext, "Purchase successful")
-                    primaryTerminal.output("[+] Purchase successful. Thank you for your support!", primaryTerminal.theme.successTextColor, null)
-                }
-            }
-
-            override fun onProductRestored(purchaseInfo: DataWrappers.PurchaseInfo) {
-                app.preferenceObject.edit().putBoolean(purchaseInfo.sku+"___purchased", true).apply()
-            }
-
-            override fun onPurchaseFailed(purchaseInfo: DataWrappers.PurchaseInfo?, billingResponseCode: Int?) {
-                // avoiding setting purchased to false here, because not sure if it's a purchase failure (onPurchaseFailed is a relatively new function)
-                runOnUiThread {
-                    toast(baseContext, "Purchase failed")
-                    primaryTerminal.output("[-] Purchase failed. Please try again.", primaryTerminal.theme.errorTextColor, null)
-                }
-            }
-        })
+        }
+        catch (e: UninitializedPropertyAccessException) {
+            billingClient = BillingClient.newBuilder(this)
+                .setListener(purchasesUpdatedListener)
+                .enablePendingPurchases()
+                .build()
+        }
     }
-    fun initializeProductPurchase(skuId: String, retryCount: Int = 5) {
+    fun initializeProductPurchase(skuId: String) {
         primaryTerminal.output("Initializing purchase...Please wait.",primaryTerminal.theme.resultTextColor, null)
         // check internet connection
         if (!isNetworkAvailable(this@MainActivity)) {
             primaryTerminal.output("No internet connection. Please connect to the internet and try again.",primaryTerminal.theme.errorTextColor, null)
             return
         }
-        try {
-            iapConnector.purchase(this, skuId)
-        } catch (e: Exception) {
-            if (retryCount > 0) {
-                initializeIAP(purchasePostInitialization = true, skuId = skuId, purchaseRetryCount = retryCount)
+        getBillingClientReady()
+
+        billingClient.startConnection(object : BillingClientStateListener {
+            override fun onBillingSetupFinished(billingResult: BillingResult) {
+                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                    // Billing client is ready, query SKU details and launch purchase flow
+                    val skuList = listOf(
+                        QueryProductDetailsParams.Product.newBuilder()
+                            .setProductId(skuId)
+                            .setProductType(BillingClient.ProductType.INAPP)
+                            .build())
+                    val params = QueryProductDetailsParams.newBuilder()
+                        .setProductList(skuList)
+                        .build()
+
+                    billingClient.queryProductDetailsAsync(params) { billingResult1, skuDetailsList ->
+                        if (billingResult1.responseCode == BillingClient.BillingResponseCode.OK) {
+                            // Handle retrieved SkuDetails objects here
+                            val skuDetails = listOf(
+                                BillingFlowParams.ProductDetailsParams.newBuilder()
+                                    .setProductDetails(skuDetailsList[0])
+                                    .build()
+                            )
+                            val flowParams = BillingFlowParams.newBuilder()
+                                .setProductDetailsParamsList(skuDetails)
+                                .build()
+
+                            billingClient.launchBillingFlow(this@MainActivity, flowParams)
+                        }
+                    }
+                }
             }
+
+            override fun onBillingServiceDisconnected() {
+                // Try to reconnect to the billing service
+                billingClient.startConnection(this)
+            }
+        })
+    }
+
+    private fun handlePurchase(purchase: Purchase) {
+        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
+            val isVerified = verifyValidSignature(purchase.originalJson, purchase.signature, baseContext, packageManager)
+            if (!isVerified) {
+                toast(baseContext, "Error : Invalid Purchase")
+                return
+            }
+            if (!purchase.isAcknowledged) {
+                val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
+                    .setPurchaseToken(purchase.purchaseToken)
+                    .build()
+                billingClient.acknowledgePurchase(acknowledgePurchaseParams) {
+                    if (it.responseCode == BillingClient.BillingResponseCode.OK) {
+                        app.preferenceObject.edit().putBoolean(JSONObject(purchase.originalJson).optString("productId")+"___purchased", true).apply()
+                        runOnUiThread {
+                            toast(baseContext, "Purchase successful")
+                            primaryTerminal.output("[+] Purchase successful. Thank you for your support!", primaryTerminal.theme.successTextColor, null)
+                        }
+                    }
+                }
+            }
+            // else already purchased and acknowledged
             else {
-                primaryTerminal.output("Error initializing purchase. Please try again.",primaryTerminal.theme.errorTextColor, null)
+                // grant entitlement to the user
+                app.preferenceObject.edit().putBoolean(JSONObject(purchase.originalJson).optString("productId")+"___purchased", true).apply()
+            }
+        }
+        else if (purchase.purchaseState == Purchase.PurchaseState.PENDING) {
+            toast(baseContext, "Purchase is Pending. Please complete Transaction")
+            primaryTerminal.output("Purchase is Pending. Please complete Transaction", primaryTerminal.theme.warningTextColor, null)
+        }
+        else if (purchase.purchaseState == Purchase.PurchaseState.UNSPECIFIED_STATE) {
+            //if purchase is refunded or unknown
+            app.preferenceObject.edit().putBoolean(JSONObject(purchase.originalJson).optString("productId")+"___purchased", false).apply()
+            toast(baseContext, "Purchase failed")
+            primaryTerminal.output("[-] Purchase failed. Please try again.", primaryTerminal.theme.errorTextColor, null)
+        }
+    }
+    private fun restoreAllPurchases() {
+        val qpm = QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.INAPP).build()
+        billingClient.queryPurchasesAsync(qpm) { _, p1 ->
+            if (p1.isNotEmpty()) {
+                for (purchase in p1) {
+                    handlePurchase(purchase)
+                }
             }
         }
     }
+
+
+
+    private val purchasesUpdatedListener =
+        PurchasesUpdatedListener { billingResult, purchases ->
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    for (purchase in purchases) {
+                        handlePurchase(purchase)
+                    }
+                }
+            } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
+                toast(baseContext, "Purchase cancelled")
+                primaryTerminal.output("[-] Purchase cancelled", primaryTerminal.theme.warningTextColor, null)
+            } else if (billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
+                restoreAllPurchases()
+                toast(baseContext, "Already purchased")
+                primaryTerminal.output("[+] This item is already purchased. Please try again.", primaryTerminal.theme.warningTextColor, null)
+            } else {
+                toast(baseContext, "Purchase failed")
+                primaryTerminal.output("[-] Purchase failed. Please try again.", primaryTerminal.theme.errorTextColor, null)
+            }
+            billingClient.endConnection()
+        }
 
     // Registers a photo picker activity launcher in single-select mode.
     val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
