@@ -1,4 +1,4 @@
-package com.coderGtm.yantra.commands.file
+package com.coderGtm.yantra.commands.open
 
 import android.os.Environment
 import com.coderGtm.yantra.blueprints.BaseCommand
@@ -8,9 +8,9 @@ import java.io.File
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
-        name = "file",
-        helpTitle = "file [file name]",
-        description = "Opens specified file. Example: 'file certificate.pdf'"
+        name = "open",
+        helpTitle = "open [file name]",
+        description = "Opens specified file. Example: 'open certificate.pdf'"
     )
     override fun execute(command: String) {
         val args = command.split(" ")

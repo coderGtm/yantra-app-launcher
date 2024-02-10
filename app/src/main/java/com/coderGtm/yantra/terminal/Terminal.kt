@@ -84,7 +84,7 @@ class Terminal(
         "pwd" to com.coderGtm.yantra.commands.pwd.Command::class.java,
         "cd" to com.coderGtm.yantra.commands.cd.Command::class.java,
         "ls" to com.coderGtm.yantra.commands.ls.Command::class.java,
-        "file" to com.coderGtm.yantra.commands.file.Command::class.java,
+        "open" to com.coderGtm.yantra.commands.open.Command::class.java,
         "search" to com.coderGtm.yantra.commands.search.Command::class.java,
         "web" to com.coderGtm.yantra.commands.web.Command::class.java,
         "gupt" to com.coderGtm.yantra.commands.gupt.Command::class.java,

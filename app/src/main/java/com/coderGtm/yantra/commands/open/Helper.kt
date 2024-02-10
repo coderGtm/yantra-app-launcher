@@ -1,4 +1,4 @@
-package com.coderGtm.yantra.commands.file
+package com.coderGtm.yantra.commands.open
 
 import android.content.Intent
 import android.net.Uri
