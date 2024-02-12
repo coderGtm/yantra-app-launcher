@@ -18,7 +18,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output("Please specify a file to open.", terminal.theme.errorTextColor)
             return
         }
-        val name = command.removePrefix(args[0]).trim().lowercase()
+        val name = command.removePrefix(args[0]).trim()
 
         val fullPath = Environment.getExternalStorageDirectory().absolutePath + "${terminal.workingDir}/$name"
         val file = File(fullPath)

@@ -93,7 +93,7 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
-            else if (effectivePrimaryCmd == "file") {
+            else if (effectivePrimaryCmd == "open") {
                 if (args.size>1) {
                     //search using regex
                     overrideLastWord = true
