@@ -18,7 +18,6 @@ import com.coderGtm.yantra.commands.todo.getToDo
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.models.Alias
-import com.coderGtm.yantra.models.DirectoryContents
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.setSystemWallpaper
