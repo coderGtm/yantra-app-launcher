@@ -93,7 +93,7 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
-            else if (effectivePrimaryCmd == "file") {
+            else if (effectivePrimaryCmd == "open") {
                 if (args.size>1) {
                     //search using regex
                     overrideLastWord = true
@@ -110,6 +110,30 @@ fun showSuggestions(
                 }
                 else {
                     for (file in getFiles(terminal)) {
+                        if (!suggestions.contains(file)) {
+                            suggestions.add(file)
+                        }
+                    }
+                }
+                isPrimary = false
+            }
+            else if (effectivePrimaryCmd == "cd") {
+                if (args.size>1) {
+                    //search using regex
+                    overrideLastWord = true
+                    val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                    for (file in getFolders(terminal)) {
+                        if (regex.containsMatchIn(file) && !suggestions.contains(file)) {
+                            if (file.substring(0, reg.length).lowercase() == reg && reg.isNotEmpty()){
+                                suggestions.add(0, file)
+                                continue
+                            }
+                            suggestions.add(file)
+                        }
+                    }
+                }
+                else {
+                    for (file in getFolders(terminal)) {
                         if (!suggestions.contains(file)) {
                             suggestions.add(file)
                         }
@@ -490,6 +514,25 @@ fun showSuggestions(
             }
         }
     }.start()
+}
+
+fun getFolders(terminal: Terminal): List<String> {
+    val files = File(Environment.getExternalStorageDirectory().absolutePath + terminal.workingDir).listFiles()
+
+    if (files == null) {
+        return listOf()
+    }
+
+    val fullList = mutableListOf<String>()
+
+    for (file in files) {
+        if (file.isDirectory && !file.isHidden) {
+            fullList.add(file.name)
+        }
+    }
+
+    fullList.sort()
+    return fullList
 }
 
 fun getFiles(terminal: Terminal): List<String> {
