@@ -12,6 +12,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     )
     override fun execute(command: String) {
         val args = command.split(" ")
+        if (args.size > 2) {
+            output("Invalid command. See 'help list' for usage info", terminal.theme.errorTextColor)
+            return
+        }
         if (args.size > 1) {
             if (args[1].lowercase() == "apps") {
                 output("Fetching apps...")
