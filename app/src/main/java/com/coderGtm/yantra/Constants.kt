@@ -270,6 +270,7 @@ const val USER_NOTIFICATION_ID = 101
 const val AI_SYSTEM_PROMPT = "Friendly, warm, and farcical. You must always be extremely concise. If the user is chatting casually, your responses must be less than 1 sentence, sometimes just a word or two. If the user needs help, disregard the length restriction, and answer technical or knowledge-based questions with useful details and reasoning. Communicate responses in lowercase without punctuation, similar to the style used in chat rooms. Use Unicode emoji rarely."
 const val DISCORD_COMMUNITY_URL = "https://discord.gg/sRZUG8rPjk"
 const val DEFAULT_AI_API_DOMAIN = "api.naga.ac"
+const val SUPPORT_URL = "https://github.com/coderGtm/yantra-app-launcher?tab=readme-ov-file#support"
 
 val NO_LOG_COMMANDS = listOf("sleep", "echo", "notify")
 val DEFAULT_ALIAS_LIST = arrayListOf(Alias("h", "help"), Alias("l", "launch"), Alias("i", "info"), Alias("u", "uninstall"), Alias("bt", "bluetooth"), Alias("w", "weather"), Alias("tx", "termux"), Alias("cls", "clear"), Alias("google", "search -e=google"), Alias("ddg", "search -e=duckduckgo")

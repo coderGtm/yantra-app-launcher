@@ -146,9 +146,6 @@
         <meta-data
             android:name="OPEN_WEATHER_API_KEY"
             android:value="${openWeatherAPIkey}" />
-        <meta-data
-            android:name="LICENSE_KEY"
-            android:value="${licenseKey}" />
     </application>
 
 </manifest>
