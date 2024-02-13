@@ -155,6 +155,7 @@ class Terminal(
         setTextChangedListener()
         createTouchListeners()
         aliasList = getAliases()
+        checkAliasNames()
         setInputListener()
         setLauncherAppsListener(this@Terminal)
         appList = getAppsList(this@Terminal)
@@ -314,6 +315,14 @@ class Terminal(
             aliasList2.add(Alias(aliasList[i].split("=")[0],aliasList[i].split("=").drop(1).joinToString("=")))
         }
         return aliasList2
+    }
+    private fun checkAliasNames() {
+        val commandNames = commands.keys
+        for (i in aliasList.indices) {
+            if (commandNames.contains(aliasList[i].key)) {
+                output("--> Alias name cannot be an existing command name. Hence, alias '${aliasList[i].key}' needs to be unaliased to use the '${aliasList[i].key}' command.", theme.warningTextColor, null)
+            }
+        }
     }
     private fun incrementNumOfCommandsEntered(
         preferenceObject: SharedPreferences,
