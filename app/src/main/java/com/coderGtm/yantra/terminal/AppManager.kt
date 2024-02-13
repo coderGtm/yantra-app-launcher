@@ -2,6 +2,7 @@ package com.coderGtm.yantra.terminal
 
 import android.content.Context
 import android.content.pm.LauncherApps
+import android.os.Build
 import android.os.UserManager
 import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.models.AppBlock
@@ -19,10 +20,16 @@ fun getAppsList(terminal: Terminal): ArrayList<AppBlock> {
     try {
         for (profile in userManager.userProfiles) {
             for (app in launcherApps.getActivityList(null, profile)) {
+                val category = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    app.applicationInfo.category
+                } else {
+                    -1
+                }
                 val appBlock = AppBlock(
                     app.label.toString(),
                     app.applicationInfo.packageName,
-                    profile
+                    profile,
+                    category
                 )
                 if (!terminal.appList.contains(appBlock)) {
                     terminal.appList.add(appBlock)
