@@ -2,11 +2,10 @@ package com.coderGtm.yantra.terminal
 
 import android.content.Context
 import android.content.pm.LauncherApps
-import android.os.Build
 import android.os.UserManager
 import com.coderGtm.yantra.AppSortMode
-import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.listeners.launcherAppsCallback
+import com.coderGtm.yantra.models.AppBlock
 
 fun getAppsList(terminal: Terminal): ArrayList<AppBlock> {
     val alreadyFetched = terminal.appListFetched

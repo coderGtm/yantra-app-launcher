@@ -1,7 +1,6 @@
 package com.coderGtm.yantra.commands.username
 
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
 

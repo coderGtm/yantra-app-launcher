@@ -2,7 +2,6 @@ package com.coderGtm.yantra.commands.support
 
 import android.graphics.Typeface
 import com.coderGtm.yantra.SUPPORT_URL
-import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.openURL
