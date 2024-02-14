@@ -20,16 +20,10 @@ fun getAppsList(terminal: Terminal): ArrayList<AppBlock> {
     try {
         for (profile in userManager.userProfiles) {
             for (app in launcherApps.getActivityList(null, profile)) {
-                val category = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    app.applicationInfo.category
-                } else {
-                    -1
-                }
                 val appBlock = AppBlock(
                     app.label.toString(),
                     app.applicationInfo.packageName,
-                    profile,
-                    category
+                    profile
                 )
                 if (!terminal.appList.contains(appBlock)) {
                     terminal.appList.add(appBlock)
