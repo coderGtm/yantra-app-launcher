@@ -24,8 +24,7 @@ Now you should be good to go 🚀...
 - If in dilemma, don't hesitate to reach out to the community via issues, discussions, or the Discord Community!
 
 ## Support
-Yantra Launcher is completely Open Source and free to use. It takes an immense amount of time, efforts and valuable resources to create, maintain and keep improving this application. If you'd like to support me, consider gifting me something from my Amazon Wishlist: [Amazon Wishlist](https://www.amazon.in/hz/wishlist/ls/1B3V8DQ9RLYJJ?ref_=wl_share)
-Thanks :heart:
+See the [Support Page](/support.md) if you'd like to support the project.
 
 ***LIVE THE CLI EXPERIENCE :heart_eyes:***
 
