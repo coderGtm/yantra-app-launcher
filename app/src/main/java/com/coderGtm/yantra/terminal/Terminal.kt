@@ -425,9 +425,9 @@ class Terminal(
             commandQueue.add(command)
             return
         }
-        val commandName = command.trim().split(" ").firstOrNull()?.lowercase()
+        val commandName = command.trim().split(" ").firstOrNull()
         if (!isAlias) {
-            if (logCmd && !NO_LOG_COMMANDS.contains(commandName)) {
+            if (logCmd && !NO_LOG_COMMANDS.contains(commandName?.lowercase())) {
                 output(getUserNamePrefix(preferenceObject)+getUserName(preferenceObject)+"> $command", theme.commandColor, null)
             }
             if (command.trim()!="") {
@@ -444,7 +444,7 @@ class Terminal(
                 return@handleCommand
             }
         }
-        val commandInstance = getCommandInstance(commandName.toString())
+        val commandInstance = getCommandInstance(commandName.toString().lowercase())
         if (commandInstance != null) {
             commandInstance.execute(command.trim())
         }
