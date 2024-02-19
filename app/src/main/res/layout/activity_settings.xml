@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Username prefix" />
+                    android:text="@string/username_prefix" />
 
                 <TextView
                     android:id="@+id/usernamePrefix"
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Primary Suggestions" />
+                    android:text="@string/primary_suggestions" />
             </LinearLayout>
 
             <View
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Secondary Suggestions" />
+                    android:text="@string/secondary_suggestions" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Fullscreen Launcher" />
+                    android:text="@string/fullscreen_launcher" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Vibrate on Error" />
+                    android:text="@string/vibrate_on_error" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -137,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Show Arrow Keys" />
+                    android:text="@string/show_arrow_keys" />
             </LinearLayout>
 
             <View
@@ -157,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Show Current Folder in Prompt" />
+                    android:text="@string/show_current_folder_in_prompt" />
             </LinearLayout>
 
             <View
@@ -177,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Tap anywhere to open Keyboard" />
+                    android:text="@string/tap_anywhere_to_open_keyboard" />
             </LinearLayout>
 
             <View
@@ -197,7 +197,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Hide Keyboard on Command Enter" />
+                    android:text="@string/hide_keyboard_on_command_enter" />
             </LinearLayout>
 
             <View
@@ -217,7 +217,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Auto Execute command when Secondary Suggestion is Selected" />
+                    android:text="@string/auto_execute_command_when_secondary_suggestion_is_selected" />
             </LinearLayout>
 
             <View
@@ -237,7 +237,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Log commands in the 'init' script" />
+                    android:text="@string/log_commands_in_the_init_script" />
             </LinearLayout>
 
             <View
@@ -257,7 +257,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Change Double-Tap Command" />
+                    android:text="@string/change_double_tap_command" />
 
             </LinearLayout>
 
@@ -278,7 +278,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Change Right Swipe Command" />
+                    android:text="@string/change_right_swipe_command" />
 
             </LinearLayout>
 
@@ -299,7 +299,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Change Left Swipe Command" />
+                    android:text="@string/change_left_swipe_command" />
 
             </LinearLayout>
 
@@ -320,7 +320,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Change News Website" />
+                    android:text="@string/change_news_website" />
 
             </LinearLayout>
 
@@ -340,7 +340,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Terminal Font Size" />
+                    android:text="@string/terminal_font_size" />
 
                 <Button
                     android:id="@+id/fontSizeBtn"
@@ -365,7 +365,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Arrow Keys Size" />
+                    android:text="@string/arrow_keys_size" />
 
                 <Button
                     android:id="@+id/arrowSizeBtn"
@@ -391,7 +391,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Orientation" />
+                    android:text="@string/orientation" />
 
                 <TextView
                     android:id="@+id/tvOrientation"
@@ -418,7 +418,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="App Suggestions Order" />
+                    android:text="@string/app_suggestions_order" />
 
                 <TextView
                     android:id="@+id/tvAppSugOrder"
@@ -445,7 +445,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Terminal Font" />
+                    android:text="@string/terminal_font" />
 
                 <TextView
                     android:id="@+id/tvFontName"
@@ -472,7 +472,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Termux Command Path" />
+                    android:text="@string/termux_command_path" />
 
             </LinearLayout>
 
@@ -493,7 +493,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Termux command Working directory" />
+                    android:text="@string/termux_command_working_directory" />
 
             </LinearLayout>
 
@@ -514,7 +514,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Termux command Session Action" />
+                    android:text="@string/termux_command_session_action" />
 
             </LinearLayout>
 
@@ -535,7 +535,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Change AI API Provider" />
+                    android:text="@string/change_ai_api_provider" />
 
             </LinearLayout>
 
@@ -556,7 +556,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Change AI API Key" />
+                    android:text="@string/change_ai_api_key" />
 
             </LinearLayout>
 
@@ -577,7 +577,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Change AI 'system' Prompt" />
+                    android:text="@string/change_ai_system_prompt" />
 
             </LinearLayout>
 
