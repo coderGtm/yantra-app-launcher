@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Yantra Launcher</string>
+    <string name="accessibility_service_description">This permission is required for and used only for applying Screen Lock from Yantra Launcher.</string>
+    <string name="username_prefix">Username prefix</string>
+    <string name="primary_suggestions">Primary Suggestions</string>
+    <string name="secondary_suggestions">Secondary Suggestions</string>
+    <string name="fullscreen_launcher">Fullscreen Launcher</string>
+    <string name="vibrate_on_error">Vibrate on Error</string>
+    <string name="show_arrow_keys">Show Arrow Keys</string>
+    <string name="show_current_folder_in_prompt">Show Current Folder in Prompt</string>
+    <string name="tap_anywhere_to_open_keyboard">Tap anywhere to open Keyboard</string>
+    <string name="hide_keyboard_on_command_enter">Hide Keyboard on Command Enter</string>
+    <string name="auto_execute_command_when_secondary_suggestion_is_selected">Auto Execute command when Secondary Suggestion is Selected</string>
+    <string name="log_commands_in_the_init_script">Log commands in the \'init\' script</string>
+    <string name="change_double_tap_command">Change Double-Tap Command</string>
+    <string name="change_right_swipe_command">Change Right Swipe Command</string>
+    <string name="change_left_swipe_command">Change Left Swipe Command</string>
+    <string name="change_news_website">Change News Website</string>
+    <string name="terminal_font_size">Terminal Font Size</string>
+    <string name="arrow_keys_size">Arrow Keys Size</string>
+    <string name="orientation">Orientation</string>
+    <string name="app_suggestions_order">App Suggestions Order</string>
+    <string name="terminal_font">Terminal Font</string>
+    <string name="termux_command_path">Termux Command Path</string>
+    <string name="termux_command_working_directory">Termux command Working directory</string>
+    <string name="termux_command_session_action">Termux command Session Action</string>
+    <string name="change_ai_api_provider">Change AI API Provider</string>
+    <string name="change_ai_api_key">Change AI API Key</string>
+    <string name="change_ai_system_prompt">Change AI \'system\' Prompt</string>
+</resources>
