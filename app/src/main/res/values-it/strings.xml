@@ -34,6 +34,7 @@
     <string name="cancel">Cancel</string>
     <string name="double_tap_command_description">Enter a command to be executed when you double tap the terminal.</string>
     <string name="double_tap_command_updated">Double-tap command updated!</string>
+    <string name="right_swipe_command_description">Enter a command to be executed when you swipe right on the terminal.</string>
     <string name="swipe_right_command_updated">Swipe right command updated!</string>
     <string name="left_swipe_command_description">Enter a command to be executed when you swipe left on the terminal.</string>
     <string name="swipe_left_command_updated">Swipe left command updated!</string>
