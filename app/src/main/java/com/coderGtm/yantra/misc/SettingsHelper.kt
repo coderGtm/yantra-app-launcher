@@ -59,17 +59,18 @@ fun changedSettingsCallback(activity: Activity) {
 
 fun openUsernamePrefixSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val usernamePrefixBuilder = MaterialAlertDialogBuilder(activity)
-        .setTitle("Username Prefix")
-        .setMessage("Enter a prefix for your username. This will be displayed before your username in the terminal.")
+        .setTitle(activity.getString(R.string.username_prefix))
+        .setMessage(activity.getString(R.string.username_prefix_description))
         .setView(R.layout.username_prefix_dialog)
-        .setPositiveButton("Save") { dialog, _ ->
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val prefix = (dialog as AlertDialog).findViewById<EditText>(R.id.usernameET)?.text.toString()
             setUserNamePrefix(prefix, preferenceEditObject)
             binding.usernamePrefix.text = getUserNamePrefix(preferenceObject)
-            Toast.makeText(activity, "Username Prefix updated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.username_prefix_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
-        .setNegativeButton("Cancel") { dialog, _ ->
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         .show()
@@ -78,16 +79,17 @@ fun openUsernamePrefixSetter(activity: Activity, binding: ActivitySettingsBindin
 
 fun openDoubleTapActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val doubleTapActionBuilder = MaterialAlertDialogBuilder(activity)
-        .setTitle("Double Tap Command")
-        .setMessage("Enter a command to be executed when you double tap the terminal.")
+        .setTitle(activity.getString(R.string.change_double_tap_command))
+        .setMessage(activity.getString(R.string.double_tap_command_description))
         .setView(R.layout.dialog_singleline_input)
-        .setPositiveButton("Save") { dialog, _ ->
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val command = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             preferenceEditObject.putString("doubleTapCommand",command.trim()).apply()
-            Toast.makeText(activity, "Double-tap command updated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.double_tap_command_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
-        .setNegativeButton("Cancel") { dialog, _ ->
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         .show()
@@ -96,16 +98,17 @@ fun openDoubleTapActionSetter(activity: Activity, preferenceObject: SharedPrefer
 
 fun openSwipeRightActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val swipeRightActionBuilder = MaterialAlertDialogBuilder(activity)
-        .setTitle("Swipe Right Command")
-        .setMessage("Enter a command to be executed when you swipe right on the terminal.")
+        .setTitle(activity.getString(R.string.change_right_swipe_command))
+        .setMessage(activity.getString(R.string.right_swipe_command_description))
         .setView(R.layout.dialog_singleline_input)
-        .setPositiveButton("Save") { dialog, _ ->
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val command = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             preferenceEditObject.putString("swipeRightCommand",command.trim()).apply()
-            Toast.makeText(activity, "Swipe right command updated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.swipe_right_command_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
-        .setNegativeButton("Cancel") { dialog, _ ->
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         .show()
@@ -114,16 +117,17 @@ fun openSwipeRightActionSetter(activity: Activity, preferenceObject: SharedPrefe
 
 fun openSwipeLeftActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val swipeLeftActionBuilder = MaterialAlertDialogBuilder(activity)
-        .setTitle("Swipe Left Command")
-        .setMessage("Enter a command to be executed when you swipe left on the terminal.")
+        .setTitle(activity.getString(R.string.change_left_swipe_command))
+        .setMessage(activity.getString(R.string.left_swipe_command_description))
         .setView(R.layout.dialog_singleline_input)
-        .setPositiveButton("Save") { dialog, _ ->
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val command = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             preferenceEditObject.putString("swipeLeftCommand",command.trim()).apply()
-            Toast.makeText(activity, "Swipe left command updated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.swipe_left_command_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
-        .setNegativeButton("Cancel") { dialog, _ ->
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         .show()
@@ -132,16 +136,17 @@ fun openSwipeLeftActionSetter(activity: Activity, preferenceObject: SharedPrefer
 
 fun openNewsWebsiteSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val newsWebsiteBuilder = MaterialAlertDialogBuilder(activity)
-        .setTitle("Change News Website")
-        .setMessage("Enter a website URL to be opened when you enter the \"news\" command.")
+        .setTitle(activity.getString(R.string.change_news_website))
+        .setMessage(activity.getString(R.string.news_description))
         .setView(R.layout.dialog_singleline_input)
-        .setPositiveButton("Save") { dialog, _ ->
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val website = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             preferenceEditObject.putString("newsWebsite",website.trim()).apply()
-            Toast.makeText(activity, "News website changed!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.news_website_changed), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
-        .setNegativeButton("Cancel") { dialog, _ ->
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         .show()
@@ -150,21 +155,23 @@ fun openNewsWebsiteSetter(activity: Activity, preferenceObject: SharedPreference
 
 fun openFontSizeSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val fontSizeBuilder = MaterialAlertDialogBuilder(activity)
-        .setTitle("Font Size")
-        .setMessage("Enter a font size for the terminal:")
+        .setTitle(activity.getString(R.string.terminal_font_size))
+        .setMessage(activity.getString(R.string.font_size_description))
         .setView(R.layout.dialog_singleline_input)
-        .setPositiveButton("Save") { dialog, _ ->
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val size = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             if (size.toIntOrNull() == null || size.toInt() <= 0 ) {
-                Toast.makeText(activity, "Invalid font size!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity,
+                    activity.getString(R.string.invalid_font_size), Toast.LENGTH_SHORT).show()
                 return@setPositiveButton
             }
             preferenceEditObject.putInt("fontSize",size.toInt()).apply()
             binding.fontSizeBtn.text = size
-            Toast.makeText(activity, "Font size updated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.font_size_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
-        .setNegativeButton("Cancel") { dialog, _ ->
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         .show()
@@ -177,7 +184,7 @@ fun openArrowSizeSetter(activity: Activity, binding: ActivitySettingsBinding, pr
         .setTitle("Arrow Size")
         .setMessage("Enter a size for the terminal Arrow Keys:")
         .setView(R.layout.dialog_singleline_input)
-        .setPositiveButton("Save") { dialog, _ ->
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val size = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             if (size.toIntOrNull() == null || size.toInt() <= 0 ) {
                 Toast.makeText(activity, "Invalid Arrow size!", Toast.LENGTH_SHORT).show()
@@ -188,7 +195,7 @@ fun openArrowSizeSetter(activity: Activity, binding: ActivitySettingsBinding, pr
             Toast.makeText(activity, "Arrow size updated!", Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
-        .setNegativeButton("Cancel") { dialog, _ ->
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         .show()
@@ -264,13 +271,13 @@ fun openTermuxCmdPathSelector(activity: Activity, preferenceObject: SharedPrefer
         .setTitle("Termux Command Path")
         .setMessage("Enter the path to the directory where the Termux command is located.")
         .setView(R.layout.dialog_singleline_input)
-        .setPositiveButton("Save") { dialog, _ ->
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val path = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             preferenceEditObject.putString("termuxCmdPath",path.trim()).apply()
             Toast.makeText(activity, "Termux command path updated!", Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
-        .setNegativeButton("Cancel") { dialog, _ ->
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         .show()
@@ -282,13 +289,13 @@ fun openTermuxCmdWorkingDirSelector(activity: Activity, preferenceObject: Shared
         .setTitle("Termux Command Working Directory")
         .setMessage("Enter the path to the directory where the Termux command will be executed.")
         .setView(R.layout.dialog_singleline_input)
-        .setPositiveButton("Save") { dialog, _ ->
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val path = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             preferenceEditObject.putString("termuxCmdWorkDir",path.trim()).apply()
             Toast.makeText(activity, "Termux command working directory updated!", Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
-        .setNegativeButton("Cancel") { dialog, _ ->
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         .show()
@@ -300,7 +307,7 @@ fun openTermuxCmdSessionActionSelector(activity: Activity, preferenceObject: Sha
         .setTitle("Termux Command Session Action")
         .setMessage("Enter integer for Termux Session Action. Available : 0,1,2,3. See TermuxConstants.java on GitHub for more info.")
         .setView(R.layout.dialog_singleline_input)
-        .setPositiveButton("Save") { dialog, _ ->
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val action = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString().toIntOrNull()
             if (action == null || action !in 0..3) {
                 Toast.makeText(activity, "Invalid action!", Toast.LENGTH_SHORT).show()
@@ -310,7 +317,7 @@ fun openTermuxCmdSessionActionSelector(activity: Activity, preferenceObject: Sha
             Toast.makeText(activity, "Termux command session action updated!", Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
-        .setNegativeButton("Cancel") { dialog, _ ->
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         .setNeutralButton("TermuxConstants.java") { _, _ ->
@@ -325,13 +332,13 @@ fun openAiApiProviderSetter(activity: Activity, preferenceObject: SharedPreferen
         .setTitle("AI API Provider")
         .setMessage("Enter your AI provider's domain for use in the 'ai' command. Do not provide the entire URL, just the domain is required (For example: api.openai.com")
         .setView(R.layout.dialog_singleline_input)
-        .setPositiveButton("Save") { dialog, _ ->
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val domain = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             preferenceEditObject.putString("aiApiDomain",domain.trim()).apply()
             Toast.makeText(activity, "AI API Provider updated! Make sure you use the corresponding API Key", Toast.LENGTH_LONG).show()
             changedSettingsCallback(activity)
         }
-        .setNegativeButton("Cancel") { dialog, _ ->
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         .show()
@@ -344,13 +351,13 @@ fun openAiApiKeySetter(activity: Activity, preferenceObject: SharedPreferences, 
         .setTitle("AI API Key")
         .setMessage("Enter your API Key for use in the 'ai' command, corresponding to your AI provider.")
         .setView(R.layout.dialog_singleline_input)
-        .setPositiveButton("Save") { dialog, _ ->
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val key = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             preferenceEditObject.putString("aiApiKey",key.trim()).apply()
             Toast.makeText(activity, "AI API Key updated!", Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
-        .setNegativeButton("Cancel") { dialog, _ ->
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         .show()
@@ -362,13 +369,13 @@ fun openAiSystemPromptSetter(activity: Activity, preferenceObject: SharedPrefere
         .setTitle("System Prompt")
         .setMessage("Enter The 'system' prompt for use in the 'ai' command. It dictates the behaviour of the model.")
         .setView(R.layout.dialog_multiline_input)
-        .setPositiveButton("Save") { dialog, _ ->
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val prompt = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             preferenceEditObject.putString("aiSystemPrompt",prompt.trim()).apply()
             Toast.makeText(activity, "AI System Prompt updated!", Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
-        .setNegativeButton("Cancel") { dialog, _ ->
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
             dialog.dismiss()
         }
         .show()

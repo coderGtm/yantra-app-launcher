@@ -10,7 +10,7 @@
     <string name="show_arrow_keys">Mostra Tasti Freccia</string>
     <string name="show_current_folder_in_prompt">Mostra la Cartella Corrente nel Prompt</string>
     <string name="tap_anywhere_to_open_keyboard">Tocca ovunque per aprire la Tastiera</string>
-    <string name="hide_keyboard_on_command_enter">Nascondi la Tastiera all'Inserimento del Comando</string>
+    <string name="hide_keyboard_on_command_enter">Nascondi la Tastiera all\'Inserimento del Comando</string>
     <string name="auto_execute_command_when_secondary_suggestion_is_selected">Esegui automaticamente il comando quando viene selezionato un Suggerimento Secondario</string>
     <string name="log_commands_in_the_init_script">Registra i comandi nello script \'init\'</string>
     <string name="change_double_tap_command">Modifica il Comando del Doppio Tocco</string>
@@ -28,4 +28,19 @@
     <string name="change_ai_api_provider">Cambia Fornitore API dell\'AI</string>
     <string name="change_ai_api_key">Cambia Chiave API dell\'AI</string>
     <string name="change_ai_system_prompt">Cambia Prompt \'system\' dell\'AI</string>
+    <string name="username_prefix_description">Enter a prefix for your username. This will be displayed before your username in the terminal.</string>
+    <string name="save">Save</string>
+    <string name="username_prefix_updated">Username Prefix updated!</string>
+    <string name="cancel">Cancel</string>
+    <string name="double_tap_command_description">Enter a command to be executed when you double tap the terminal.</string>
+    <string name="double_tap_command_updated">Double-tap command updated!</string>
+    <string name="right_swipe_command_description">Enter a command to be executed when you swipe right on the terminal.</string>
+    <string name="swipe_right_command_updated">Swipe right command updated!</string>
+    <string name="left_swipe_command_description">Enter a command to be executed when you swipe left on the terminal.</string>
+    <string name="swipe_left_command_updated">Swipe left command updated!</string>
+    <string name="news_description">Enter a website URL to be opened when you enter the \"news\" command.</string>
+    <string name="news_website_changed">News website changed!</string>
+    <string name="font_size_description">Enter a font size for the terminal:</string>
+    <string name="invalid_font_size">Invalid font size!</string>
+    <string name="font_size_updated">Font size updated!</string>
 </resources>
