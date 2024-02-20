@@ -181,18 +181,20 @@ fun openFontSizeSetter(activity: Activity, binding: ActivitySettingsBinding, pre
 
 fun openArrowSizeSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val arrowSizeBuilder = MaterialAlertDialogBuilder(activity)
-        .setTitle("Arrow Size")
-        .setMessage("Enter a size for the terminal Arrow Keys:")
+        .setTitle(activity.getString(R.string.arrow_keys_size))
+        .setMessage(activity.getString(R.string.arrow_size_description))
         .setView(R.layout.dialog_singleline_input)
         .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val size = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             if (size.toIntOrNull() == null || size.toInt() <= 0 ) {
-                Toast.makeText(activity, "Invalid Arrow size!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity,
+                    activity.getString(R.string.invalid_arrow_size), Toast.LENGTH_SHORT).show()
                 return@setPositiveButton
             }
             preferenceEditObject.putInt("arrowSize",size.toInt()).apply()
             binding.arrowSizeBtn.text = size
-            Toast.makeText(activity, "Arrow size updated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.arrow_size_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
         .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
@@ -205,15 +207,17 @@ fun openArrowSizeSetter(activity: Activity, binding: ActivitySettingsBinding, pr
 
 fun openOrientationSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceEditObject: SharedPreferences.Editor) {
     MaterialAlertDialogBuilder(activity)
-        .setTitle("Set Terminal Orientation")
-        .setItems(arrayOf("Portrait", "Landscape", "System", "Full Sensor")) { dialog, which ->
+        .setTitle(activity.getString(R.string.orientation))
+        .setItems(arrayOf(activity.getString(R.string.portrait),
+            activity.getString(R.string.landscape),
+            activity.getString(R.string.system), activity.getString(R.string.full_sensor))) { dialog, which ->
             when (which) {
                 0 -> {
                     preferenceEditObject.putInt(
                         "orientation",
                         ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                     ).apply()
-                    binding.tvOrientation.text = "Portrait"
+                    binding.tvOrientation.text = activity.getString(R.string.portrait)
                 }
 
                 1 -> {
@@ -221,7 +225,7 @@ fun openOrientationSetter(activity: Activity, binding: ActivitySettingsBinding, 
                         "orientation",
                         ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
                     ).apply()
-                    binding.tvOrientation.text = "Landscape"
+                    binding.tvOrientation.text = activity.getString(R.string.landscape)
                 }
 
                 2 -> {
@@ -229,7 +233,7 @@ fun openOrientationSetter(activity: Activity, binding: ActivitySettingsBinding, 
                         "orientation",
                         ActivityInfo.SCREEN_ORIENTATION_USER
                     ).apply()
-                    binding.tvOrientation.text = "System"
+                    binding.tvOrientation.text = activity.getString(R.string.system)
                 }
 
                 3 -> {
@@ -237,10 +241,11 @@ fun openOrientationSetter(activity: Activity, binding: ActivitySettingsBinding, 
                         "orientation",
                         ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
                     ).apply()
-                    binding.tvOrientation.text = "Full Sensor"
+                    binding.tvOrientation.text = activity.getString(R.string.full_sensor)
                 }
             }
-            Toast.makeText(activity, "Orientation updated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.orientation_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
         .show()
@@ -248,19 +253,21 @@ fun openOrientationSetter(activity: Activity, binding: ActivitySettingsBinding, 
 
 fun openAppSugOrderingSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceEditObject: SharedPreferences.Editor) {
     MaterialAlertDialogBuilder(activity)
-        .setTitle("App Suggestions Ordering")
-        .setItems(arrayOf("Alphabetically", "Recency")) { dialog, which ->
+        .setTitle(activity.getString(R.string.app_suggestions_order))
+        .setItems(arrayOf(activity.getString(R.string.alphabetically),
+            activity.getString(R.string.recency))) { dialog, which ->
             when (which) {
                 0 -> {
                     preferenceEditObject.putInt("appSortMode", AppSortMode.A_TO_Z.value).apply()
-                    binding.tvAppSugOrder.text = "Alphabetically"
+                    binding.tvAppSugOrder.text = activity.getString(R.string.alphabetically)
                 }
                 1 -> {
                     preferenceEditObject.putInt("appSortMode", AppSortMode.RECENT.value).apply()
-                    binding.tvAppSugOrder.text = "Recency"
+                    binding.tvAppSugOrder.text = activity.getString(R.string.recency)
                 }
             }
-            Toast.makeText(activity, "App Suggestions Ordering updated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.app_suggestions_ordering_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
         .show()
@@ -268,13 +275,14 @@ fun openAppSugOrderingSetter(activity: Activity, binding: ActivitySettingsBindin
 
 fun openTermuxCmdPathSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val termuxCmdPathBuilder = MaterialAlertDialogBuilder(activity)
-        .setTitle("Termux Command Path")
-        .setMessage("Enter the path to the directory where the Termux command is located.")
+        .setTitle(activity.getString(R.string.termux_command_path))
+        .setMessage(activity.getString(R.string.termux_cmd_path_description))
         .setView(R.layout.dialog_singleline_input)
         .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val path = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             preferenceEditObject.putString("termuxCmdPath",path.trim()).apply()
-            Toast.makeText(activity, "Termux command path updated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.termux_command_path_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
         .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
@@ -286,13 +294,14 @@ fun openTermuxCmdPathSelector(activity: Activity, preferenceObject: SharedPrefer
 
 fun openTermuxCmdWorkingDirSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val termuxCmdWorkDirBuilder = MaterialAlertDialogBuilder(activity)
-        .setTitle("Termux Command Working Directory")
-        .setMessage("Enter the path to the directory where the Termux command will be executed.")
+        .setTitle(activity.getString(R.string.termux_command_working_directory))
+        .setMessage(activity.getString(R.string.termux_cmd_working_dir_description))
         .setView(R.layout.dialog_singleline_input)
         .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val path = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             preferenceEditObject.putString("termuxCmdWorkDir",path.trim()).apply()
-            Toast.makeText(activity, "Termux command working directory updated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.termux_command_working_directory_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
         .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
@@ -304,17 +313,19 @@ fun openTermuxCmdWorkingDirSelector(activity: Activity, preferenceObject: Shared
 
 fun openTermuxCmdSessionActionSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val termuxCmdSessionActionBuilder = MaterialAlertDialogBuilder(activity)
-        .setTitle("Termux Command Session Action")
-        .setMessage("Enter integer for Termux Session Action. Available : 0,1,2,3. See TermuxConstants.java on GitHub for more info.")
+        .setTitle(activity.getString(R.string.termux_command_session_action))
+        .setMessage(activity.getString(R.string.termux_command_session_action_description))
         .setView(R.layout.dialog_singleline_input)
         .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val action = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString().toIntOrNull()
             if (action == null || action !in 0..3) {
-                Toast.makeText(activity, "Invalid action!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity,
+                    activity.getString(R.string.invalid_action), Toast.LENGTH_SHORT).show()
                 return@setPositiveButton
             }
             preferenceEditObject.putInt("termuxCmdSessionAction",action).apply()
-            Toast.makeText(activity, "Termux command session action updated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.termux_command_session_action_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
         .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
@@ -329,13 +340,14 @@ fun openTermuxCmdSessionActionSelector(activity: Activity, preferenceObject: Sha
 
 fun openAiApiProviderSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val aiApiProviderBuilder = MaterialAlertDialogBuilder(activity)
-        .setTitle("AI API Provider")
-        .setMessage("Enter your AI provider's domain for use in the 'ai' command. Do not provide the entire URL, just the domain is required (For example: api.openai.com")
+        .setTitle(activity.getString(R.string.change_ai_api_provider))
+        .setMessage(activity.getString(R.string.ai_api_provider_description))
         .setView(R.layout.dialog_singleline_input)
         .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val domain = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             preferenceEditObject.putString("aiApiDomain",domain.trim()).apply()
-            Toast.makeText(activity, "AI API Provider updated! Make sure you use the corresponding API Key", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.ai_api_provider_updated), Toast.LENGTH_LONG).show()
             changedSettingsCallback(activity)
         }
         .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
@@ -348,13 +360,14 @@ fun openAiApiProviderSetter(activity: Activity, preferenceObject: SharedPreferen
 
 fun openAiApiKeySetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val aiApiKeyBuilder = MaterialAlertDialogBuilder(activity)
-        .setTitle("AI API Key")
-        .setMessage("Enter your API Key for use in the 'ai' command, corresponding to your AI provider.")
+        .setTitle(activity.getString(R.string.change_ai_api_key))
+        .setMessage(activity.getString(R.string.ai_api_key_description))
         .setView(R.layout.dialog_singleline_input)
         .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val key = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             preferenceEditObject.putString("aiApiKey",key.trim()).apply()
-            Toast.makeText(activity, "AI API Key updated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.ai_api_key_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
         .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
@@ -366,13 +379,14 @@ fun openAiApiKeySetter(activity: Activity, preferenceObject: SharedPreferences, 
 
 fun openAiSystemPromptSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val aiSystemPromptBuilder = MaterialAlertDialogBuilder(activity)
-        .setTitle("System Prompt")
-        .setMessage("Enter The 'system' prompt for use in the 'ai' command. It dictates the behaviour of the model.")
+        .setTitle(activity.getString(R.string.change_ai_system_prompt))
+        .setMessage(activity.getString(R.string.ai_system_prompt_description))
         .setView(R.layout.dialog_multiline_input)
         .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
             val prompt = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
             preferenceEditObject.putString("aiSystemPrompt",prompt.trim()).apply()
-            Toast.makeText(activity, "AI System Prompt updated!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,
+                activity.getString(R.string.ai_system_prompt_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
         .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->

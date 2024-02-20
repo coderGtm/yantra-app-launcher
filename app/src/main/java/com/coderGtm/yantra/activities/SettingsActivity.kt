@@ -115,7 +115,7 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.fontLay.setOnClickListener {
             if (preferenceObject.getBoolean("fontpack___purchased",false)) {
-                Toast.makeText(this, "Loading Fonts...", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.loading_fonts), Toast.LENGTH_SHORT).show()
                 val url = "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBFFPy6DsYRRQVlADHdCgKk5qd62CJxjqo"
                 val queue = Volley.newRequestQueue(this)
                 val stringRequest = StringRequest(
@@ -127,7 +127,7 @@ class SettingsActivity : AppCompatActivity() {
                             names.add(jsonArray.getJSONObject(i).getString("family"))
                         }
                         MaterialAlertDialogBuilder(this)
-                            .setTitle("Select a Font")
+                            .setTitle(getString(R.string.select_a_font))
                             .setItems(names.toTypedArray()) { dialog, which ->
                                 downloadFont(names[which])
                             }
@@ -135,19 +135,21 @@ class SettingsActivity : AppCompatActivity() {
                     },
                     { error ->
                         if (error is NoConnectionError) {
-                            Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this,
+                                getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show()
                         }
                         else {
-                            Toast.makeText(this, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this,
+                                getString(R.string.an_error_occurred_please_try_again), Toast.LENGTH_SHORT).show()
                         }
                     })
                 queue.add(stringRequest)
             }
             else {
                 MaterialAlertDialogBuilder(this)
-                    .setTitle("Font Pack is not purchased!")
-                    .setMessage("You need to purchase Font Pack to access this setting.\n\nFont Pack is an add-on for Yantra Launcher that lets you use any font from the entire collection of Google Fonts of more than 1550 fonts for your Yantra Launcher Terminal.\n\nYou can purchase Font Pack using the 'fontpack' command.")
-                    .setPositiveButton("Cool") { dialog, _ ->
+                    .setTitle(getString(R.string.font_pack_is_not_purchased))
+                    .setMessage(getString(R.string.font_pack_not_purchased_description))
+                    .setPositiveButton(getString(R.string.cool)) { dialog, _ ->
                         dialog.dismiss()
                     }
                     .show()
@@ -229,13 +231,15 @@ class SettingsActivity : AppCompatActivity() {
                 // font downloaded
                 preferenceEditObject.putString("font",name).apply()
                 binding.tvFontName.text = name
-                Toast.makeText(this@SettingsActivity, "Terminal Font updated to $name!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SettingsActivity,
+                    getString(R.string.terminal_font_updated_to, name), Toast.LENGTH_SHORT).show()
                 changedSettingsCallback(this@SettingsActivity)
             }
 
             override fun onTypefaceRequestFailed(reason: Int) {
                 //error. not yet downloaded
-                Toast.makeText(this@SettingsActivity, "Error Downloading Font! Please check you internet connection and try again.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@SettingsActivity,
+                    getString(R.string.error_downloading_font), Toast.LENGTH_LONG).show()
             }
         }
         //make handler to fetch font in background
