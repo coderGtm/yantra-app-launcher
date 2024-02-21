@@ -14,8 +14,8 @@ import com.google.android.material.button.MaterialButton
 
 
 class WebViewActivity : AppCompatActivity() {
-    lateinit var webView: WebView
-    lateinit var titleBar: TextView
+    private lateinit var webView: WebView
+    private lateinit var titleBar: TextView
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +83,7 @@ class WebViewActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         if (webView.canGoBack()) {
             val bfList = webView.copyBackForwardList()
             val bfItem = bfList.getItemAtIndex(bfList.currentIndex - 1)

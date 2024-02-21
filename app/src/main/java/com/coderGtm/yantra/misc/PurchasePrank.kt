@@ -22,6 +22,7 @@ fun purchasePrank(primaryTerminal: Terminal, skuId: String) {
                                         primaryTerminal.output("But if you want to support the developer, you can see here: $SUPPORT_URL",primaryTerminal.theme.resultTextColor, null)
                                         Timer().schedule(2000) {
                                             runOnUiThread {
+                                                primaryTerminal.output("-------------------------", primaryTerminal.theme.warningTextColor, null)
                                                 primaryTerminal.output("Granting you access to $skuId...",primaryTerminal.theme.resultTextColor, null)
                                                 Timer().schedule(1000) {
                                                     primaryTerminal.preferenceObject.edit().putBoolean(skuId+"___purchased", true).apply()
