@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     }
 
     override fun onSwipeRight() {
-        val cmdToExecute = app.preferenceObject.getString("swipeRightCommand", "echo Right Swipe detected! You can change the command in settings.")
+        val cmdToExecute = app.preferenceObject.getString("swipeRightCommand", getString(R.string.default_right_swipe_text))
         if (cmdToExecute != "") {
             //execute command
             primaryTerminal.handleCommand(cmdToExecute!!)
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     }
 
     override fun onSwipeLeft() {
-        val cmdToExecute = app.preferenceObject.getString("swipeLeftCommand", "echo Left Swipe detected! You can change the command in settings.")
+        val cmdToExecute = app.preferenceObject.getString("swipeLeftCommand", getString(R.string.default_left_swipe_text))
         if (cmdToExecute != "") {
             //execute command
             primaryTerminal.handleCommand(cmdToExecute!!)
@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             val result = tts!!.setLanguage(Locale.getDefault())
 
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                primaryTerminal.output("Error: TTS language not supported!", primaryTerminal.theme.errorTextColor, null)
+                primaryTerminal.output(getString(R.string.error_tts_language_not_supported), primaryTerminal.theme.errorTextColor, null)
             } else {
                 tts!!.setSpeechRate(.7f)
                 tts!!.speak(ttsTxt, TextToSpeech.QUEUE_FLUSH, null,"")
@@ -123,26 +123,26 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         }
         tts?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String) {
-                primaryTerminal.output("TTS synthesized! Playing now...", primaryTerminal.theme.successTextColor, null)
+                primaryTerminal.output(getString(R.string.tts_synthesized_playing_now), primaryTerminal.theme.successTextColor, null)
             }
             override fun onDone(utteranceId: String) {
-                primaryTerminal.output("Shutting down TTS engine...", primaryTerminal.theme.resultTextColor, null)
+                primaryTerminal.output(getString(R.string.shutting_down_tts_engine), primaryTerminal.theme.resultTextColor, null)
 
                 if (tts != null) {
                     tts!!.stop()
                     tts!!.shutdown()
                 }
-                primaryTerminal.output("TTS engine shutdown.", primaryTerminal.theme.resultTextColor, null)
+                primaryTerminal.output(getString(R.string.tts_engine_shutdown), primaryTerminal.theme.resultTextColor, null)
             }
             override fun onError(utteranceId: String) {
-                primaryTerminal.output("TTS error!!", primaryTerminal.theme.errorTextColor, null)
-                primaryTerminal.output("Shutting down TTS engine...", primaryTerminal.theme.resultTextColor, null)
+                primaryTerminal.output(getString(R.string.tts_error), primaryTerminal.theme.errorTextColor, null)
+                primaryTerminal.output(getString(R.string.shutting_down_tts_engine), primaryTerminal.theme.resultTextColor, null)
 
                 if (tts != null) {
                     tts!!.stop()
                     tts!!.shutdown()
                 }
-                primaryTerminal.output("TTS engine shutdown.", primaryTerminal.theme.resultTextColor, null)
+                primaryTerminal.output(getString(R.string.tts_engine_shutdown), primaryTerminal.theme.resultTextColor, null)
 
             }
         })
@@ -163,9 +163,9 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-            primaryTerminal.output("Permission denied!", primaryTerminal.theme.errorTextColor, null)
+            primaryTerminal.output(getString(R.string.permission_denied), primaryTerminal.theme.errorTextColor, null)
         } else {
-            primaryTerminal.output("Permission Granted", primaryTerminal.theme.successTextColor, null)
+            primaryTerminal.output(getString(R.string.permission_granted), primaryTerminal.theme.successTextColor, null)
         }
     }
 
@@ -181,9 +181,9 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         // photo picker.
         if (uri != null) {
             setWallpaperFromUri(uri, this, primaryTerminal.theme.bgColor, app.preferenceObject)
-            primaryTerminal.output("Selected Wallpaper applied!", primaryTerminal.theme.successTextColor, null)
+            primaryTerminal.output(getString(R.string.selected_wallpaper_applied), primaryTerminal.theme.successTextColor, null)
         } else {
-            primaryTerminal.output("No Image selected!", primaryTerminal.theme.resultTextColor, Typeface.ITALIC)
+            primaryTerminal.output(getString(R.string.no_image_selected), primaryTerminal.theme.resultTextColor, Typeface.ITALIC)
         }
     }
     var yantraSettingsLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

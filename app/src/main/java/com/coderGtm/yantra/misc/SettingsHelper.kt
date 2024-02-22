@@ -112,7 +112,7 @@ fun openSwipeRightActionSetter(activity: Activity, preferenceObject: SharedPrefe
             dialog.dismiss()
         }
         .show()
-    swipeRightActionBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("swipeRightCommand","echo Right Swipe detected! You can change the command in settings.")!!)
+    swipeRightActionBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("swipeRightCommand",activity.getString(R.string.default_right_swipe_text))!!)
 }
 
 fun openSwipeLeftActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
@@ -131,7 +131,7 @@ fun openSwipeLeftActionSetter(activity: Activity, preferenceObject: SharedPrefer
             dialog.dismiss()
         }
         .show()
-    swipeLeftActionBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("swipeLeftCommand","echo Left Swipe detected! You can change the command in settings.")!!)
+    swipeLeftActionBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("swipeLeftCommand",activity.getString(R.string.default_left_swipe_text))!!)
 }
 
 fun openNewsWebsiteSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {

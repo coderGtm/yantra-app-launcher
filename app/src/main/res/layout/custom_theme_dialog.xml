@@ -29,14 +29,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="25dp"
-                    android:text="Background Color" />
+                    android:text="@string/background_color" />
 
                 <ImageButton
                     android:id="@+id/bgColorBtn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     app:srcCompat="@android:drawable/gallery_thumb"
-                    android:contentDescription="Pick Color" />
+                    android:contentDescription="@string/pick_color" />
 
             </LinearLayout>
 
@@ -51,14 +51,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Input Color"
+                    android:text="@string/input_color"
                     android:textSize="25dp" />
 
                 <ImageButton
                     android:id="@+id/inputAndBtnsColorBtn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:contentDescription="Pick Color"
+                    android:contentDescription="@string/pick_color"
                     app:srcCompat="@android:drawable/gallery_thumb" />
 
             </LinearLayout>
@@ -75,14 +75,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="25dp"
-                    android:text="Command Color" />
+                    android:text="@string/command_color" />
 
                 <ImageButton
                     android:id="@+id/cmdColorBtn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     app:srcCompat="@android:drawable/gallery_thumb"
-                    android:contentDescription="Pick Color" />
+                    android:contentDescription="@string/pick_color" />
 
             </LinearLayout>
 
@@ -97,14 +97,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Normal Text and Arrow Color"
+                    android:text="@string/normal_text_and_arrow_color"
                     android:textSize="25dp" />
 
                 <ImageButton
                     android:id="@+id/resultColorBtn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:contentDescription="Pick Color"
+                    android:contentDescription="@string/pick_color"
                     app:srcCompat="@android:drawable/gallery_thumb" />
 
             </LinearLayout>
@@ -121,14 +121,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="25dp"
-                    android:text="Error Text Color" />
+                    android:text="@string/error_text_color" />
 
                 <ImageButton
                     android:id="@+id/errorColorBtn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     app:srcCompat="@android:drawable/gallery_thumb"
-                    android:contentDescription="Pick Color" />
+                    android:contentDescription="@string/pick_color" />
 
             </LinearLayout>
             <LinearLayout
@@ -143,14 +143,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="25dp"
-                    android:text="Positive Text Color" />
+                    android:text="@string/positive_text_color" />
 
                 <ImageButton
                     android:id="@+id/successColorBtn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     app:srcCompat="@android:drawable/gallery_thumb"
-                    android:contentDescription="Pick Color" />
+                    android:contentDescription="@string/pick_color" />
 
             </LinearLayout>
             <LinearLayout
@@ -165,14 +165,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="25dp"
-                    android:text="Warning Text Color" />
+                    android:text="@string/warning_text_color" />
 
                 <ImageButton
                     android:id="@+id/warnColorBtn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     app:srcCompat="@android:drawable/gallery_thumb"
-                    android:contentDescription="Pick Color" />
+                    android:contentDescription="@string/pick_color" />
 
             </LinearLayout>
 
@@ -187,14 +187,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Suggestions Color"
+                    android:text="@string/suggestions_color"
                     android:textSize="25dp" />
 
                 <ImageButton
                     android:id="@+id/suggestionsColorBtn"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:contentDescription="Pick Color"
+                    android:contentDescription="@string/pick_color"
                     app:srcCompat="@android:drawable/gallery_thumb" />
 
             </LinearLayout>

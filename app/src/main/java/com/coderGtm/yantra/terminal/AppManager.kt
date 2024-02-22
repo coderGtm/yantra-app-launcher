@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.pm.LauncherApps
 import android.os.UserManager
 import com.coderGtm.yantra.AppSortMode
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.listeners.launcherAppsCallback
 import com.coderGtm.yantra.models.AppBlock
 
@@ -33,7 +34,7 @@ fun getAppsList(terminal: Terminal): ArrayList<AppBlock> {
             terminal.appList.sortBy { it.appName }
         }
     } catch (e: Exception) {
-        terminal.output("An error occurred while fetching apps list", terminal.theme.errorTextColor, null)
+        terminal.output(terminal.activity.getString(R.string.app_list_fetch_error), terminal.theme.errorTextColor, null)
     }
 
     terminal.appListFetched = true

@@ -25,15 +25,15 @@ class YantraLauncher : Application() {
 
             dialog {
                 //required
-                text = "Sorry, Yantra Launcher seems to have crashed! Please send a report to the developer to help debug the crash. Pressing Ok will take yo to your email client."
+                text = getString(R.string.crash_message)
                 //optional, enables the dialog title
-                title = "An unexpected error has occurred!"
+                title = getString(R.string.crash_title)
                 //defaults to android.R.string.ok
-                positiveButtonText = "Ok"
+                positiveButtonText = getString(R.string.ok)
                 //defaults to android.R.string.cancel
-                negativeButtonText = "Cancel"
+                negativeButtonText = getString(R.string.cancel)
                 //optional, enables the comment input
-                commentPrompt = "You can add an optional comment here to describe the crash:"
+                commentPrompt = getString(R.string.crash_comment_prompt)
                 //optional, enables the email input
                 //emailPrompt = getString(R.string.dialog_email)
                 //defaults to android.R.drawable.ic_dialog_alert

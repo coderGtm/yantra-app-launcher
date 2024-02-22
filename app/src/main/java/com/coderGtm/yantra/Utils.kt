@@ -109,13 +109,13 @@ fun contactsManager(terminal: Terminal, callingIntent: Boolean = false, callTo: 
             }
         }
     } else {
-        terminal.output("No contacts found!", terminal.theme.errorTextColor, null)
+        terminal.output(terminal.activity.getString(R.string.no_contacts_found), terminal.theme.errorTextColor, null)
     }
     cursor.close()
     if (callingIntent) {
         if (callingCandidates.isEmpty()) {
-            terminal.output("Contact name not found! Attempting to parse as phone number...", terminal.theme.resultTextColor, null)
-            terminal.output("Calling $callTo...", terminal.theme.successTextColor, null)
+            terminal.output(terminal.activity.getString(R.string.contact_not_found_attempt_number), terminal.theme.resultTextColor, null)
+            terminal.output(terminal.activity.getString(R.string.calling, callTo), terminal.theme.successTextColor, null)
             val intent = Intent(
                 Intent.ACTION_CALL,
                 Uri.parse("tel:${Uri.encode(callTo)}")
@@ -123,7 +123,7 @@ fun contactsManager(terminal: Terminal, callingIntent: Boolean = false, callTo: 
             terminal.activity.startActivity(intent)
         }
         else if (callingCandidates.size == 1) {
-            terminal.output("Calling $callTo...", terminal.theme.successTextColor, null)
+            terminal.output(terminal.activity.getString(R.string.calling, callTo), terminal.theme.successTextColor, null)
             val intent = Intent(
                 Intent.ACTION_CALL,
                 Uri.parse("tel:${Uri.encode(callingCandidates.first())}")
@@ -134,18 +134,22 @@ fun contactsManager(terminal: Terminal, callingIntent: Boolean = false, callTo: 
             val dialog = MaterialAlertDialogBuilder(terminal.activity,
                 R.style.Theme_AlertDialog
             )
-                .setTitle("Multiple Phone Numbers found")
-                .setMessage("Multiple Phone numbers with the name `$callTo` were found. Which one do you want to call?")
+                .setTitle(terminal.activity.getString(R.string.multiple_phone_numbers_found))
+                .setMessage(
+                    terminal.activity.getString(
+                        R.string.multiple_contacts_description,
+                        callTo
+                    ))
                 .setCancelable(false)
-                .setPositiveButton("Select") { dialogInterface, _ ->
+                .setPositiveButton(terminal.activity.getString(R.string.select)) { dialogInterface, _ ->
                     dialogInterface.dismiss()
                     val dialog2 = MaterialAlertDialogBuilder(terminal.activity,
                         R.style.Theme_AlertDialog
                     )
-                        .setTitle("Select Phone Number")
+                        .setTitle(terminal.activity.getString(R.string.select_phone_number))
                         .setCancelable(false)
                         .setItems(callingCandidates.toTypedArray()) { dialogInterface2, i ->
-                            terminal.output("Calling $callTo...", terminal.theme.successTextColor, null)
+                            terminal.output(terminal.activity.getString(R.string.calling, callTo), terminal.theme.successTextColor, null)
                             val intent = Intent(
                                 Intent.ACTION_CALL,
                                 Uri.parse("tel:${Uri.encode(callingCandidates[i])}")
@@ -153,14 +157,14 @@ fun contactsManager(terminal: Terminal, callingIntent: Boolean = false, callTo: 
                             terminal.activity.startActivity(intent)
                             dialogInterface2.dismiss()
                         }
-                        .setNegativeButton("Cancel") { dialogInterface2, _ ->
-                            terminal.output("Cancelled...", terminal.theme.errorTextColor, null)
+                        .setNegativeButton(terminal.activity.getString(R.string.cancel)) { dialogInterface2, _ ->
+                            terminal.output(terminal.activity.getString(R.string.cancelled), terminal.theme.errorTextColor, null)
                             dialogInterface2.dismiss()
                         }
                     terminal.activity.runOnUiThread { dialog2.show() }
                 }
-                .setNegativeButton("Cancel") { dialogInterface, _ ->
-                    terminal.output("Cancelled...", terminal.theme.errorTextColor, null)
+                .setNegativeButton(terminal.activity.getString(R.string.cancel)) { dialogInterface, _ ->
+                    terminal.output(terminal.activity.getString(R.string.cancelled), terminal.theme.errorTextColor, null)
                     dialogInterface.dismiss()
                 }
             terminal.activity.runOnUiThread { dialog.show() }
@@ -180,13 +184,13 @@ fun requestUpdateIfAvailable(preferenceObject: SharedPreferences, activity: Acti
         if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
             val builder = MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog)
                 .setCancelable(false)
-                .setTitle("Update Available")
-                .setMessage("A new version of Yantra Launcher is available on the Play Store.")
-                .setPositiveButton("Update") { dialogInterface, _ ->
+                .setTitle(activity.getString(R.string.update_available))
+                .setMessage(activity.getString(R.string.update_available_description))
+                .setPositiveButton(activity.getString(R.string.update)) { dialogInterface, _ ->
                     dialogInterface.dismiss()
-                    activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.coderGtm.yantra")))
+                    activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PLAY_STORE_URL)))
                 }
-                .setNegativeButton("Not now") {dialogInterface,_ ->
+                .setNegativeButton(activity.getString(R.string.not_now)) { dialogInterface, _ ->
                     dialogInterface.dismiss()
                 }
             activity.runOnUiThread { builder.show() }
@@ -199,35 +203,35 @@ private fun askRating(preferenceObject: SharedPreferences, preferenceEditObject:
         return
     }
     MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog)
-        .setTitle("Rate app")
-        .setMessage("If you like this app, please consider rating it and giving a feedback. You can also request features or report bugs. It helps me in improving the app. Thanks :)")
+        .setTitle(activity.getString(R.string.rate_app))
+        .setMessage(activity.getString(R.string.rate_app_description))
         .setPositiveButton("Rate") { dialogInterface, _ ->
             dialogInterface.dismiss()
-            openURL("https://play.google.com/store/apps/details?id=com.coderGtm.yantra", activity)
+            openURL(PLAY_STORE_URL, activity)
             preferenceEditObject.putBoolean("ratePrompt",false).apply()
         }
-        .setNegativeButton("Maybe Later") {dialogInterface,_ ->
+        .setNegativeButton(activity.getString(R.string.maybe_later)) { dialogInterface, _ ->
             dialogInterface.dismiss()
-            toast(activity.baseContext, "Ok ⊙﹏⊙∥")
+            toast(activity.baseContext, activity.getString(R.string.ok_with_face))
         }
-        .setNeutralButton("Don't ask again") {dialogInterface,_ ->
+        .setNeutralButton(activity.getString(R.string.don_t_ask_again)) { dialogInterface, _ ->
             dialogInterface.dismiss()
             preferenceEditObject.putBoolean("ratePrompt",false).apply()
-            toast(activity.baseContext, "Done (￣┰￣*) Will never ask again!!")
+            toast(activity.baseContext, activity.getString(R.string.done_will_never_ask_again))
         }
         .setCancelable(false)
         .show()
 }
 private fun showCommunityPopup(preferenceEditObject: SharedPreferences.Editor, activity: Activity) {
-    MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog).setTitle("Join the community!")
-        .setMessage("Join the community to get the latest updates about Yantra Launcher, ask questions, get help, discuss new features, and more!\n\nEveryone out there are CLI enthusiasts\uD83D\uDE0E like you, so join the community and have fun!")
-        .setPositiveButton("Take me there") { dialog, _ ->
-            openURL("https://discord.gg/sRZUG8rPjk", activity)
+    MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog).setTitle(activity.getString(R.string.join_the_community))
+        .setMessage(activity.getString(R.string.community_description))
+        .setPositiveButton(activity.getString(R.string.take_me_there)) { dialog, _ ->
+            openURL(DISCORD_COMMUNITY_URL, activity)
             dialog.dismiss()
         }
-        .setNegativeButton("No thanks") { dialog, _ ->
+        .setNegativeButton(activity.getString(R.string.no_thanks)) { dialog, _ ->
             dialog.dismiss()
-            toast(activity.baseContext, "We'd miss you!\n༼☯﹏☯༽")
+            toast(activity.baseContext, activity.getString(R.string.we_d_miss_you))
         }
         .setCancelable(false)
         .show()

@@ -245,7 +245,7 @@ fun showSuggestions(
                         terminal.binding.suggestionsTab.removeAllViews()
                     }
                     val tv = TextView(terminal.activity)
-                    tv.text = "   Contacts not yet fetched! Use 'list contacts' command to fetch contacts first to get suggestions.   "
+                    tv.text = terminal.activity.getString(R.string.contacts_not_fetched_yet)
                     tv.setTextColor(terminal.theme.suggestionTextColor)
                     //italics
                     tv.setTypeface(terminal.typeface, Typeface.BOLD_ITALIC)
@@ -499,7 +499,7 @@ fun showSuggestions(
                             MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
                                 .setTitle(cmdMetadata.helpTitle)
                                 .setMessage(cmdMetadata.description)
-                                .setPositiveButton("Ok") { helpDialog, _ ->
+                                .setPositiveButton(terminal.activity.getString(R.string.ok)) { helpDialog, _ ->
                                     helpDialog.dismiss()
                                 }
                                     .show()

@@ -271,6 +271,7 @@ const val AI_SYSTEM_PROMPT = "Friendly, warm, and farcical. You must always be e
 const val DISCORD_COMMUNITY_URL = "https://discord.gg/sRZUG8rPjk"
 const val DEFAULT_AI_API_DOMAIN = "api.naga.ac"
 const val SUPPORT_URL = "https://github.com/coderGtm/yantra-app-launcher/blob/main/support.md"
+const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.coderGtm.yantra"
 
 val NO_LOG_COMMANDS = listOf("sleep", "echo", "notify")
 val DEFAULT_ALIAS_LIST = arrayListOf(Alias("h", "help"), Alias("l", "launch"), Alias("i", "info"), Alias("u", "uninstall"), Alias("bt", "bluetooth"), Alias("w", "weather"), Alias("tx", "termux"), Alias("cls", "clear"), Alias("google", "search -e=google"), Alias("ddg", "search -e=duckduckgo")
