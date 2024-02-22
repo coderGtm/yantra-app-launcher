@@ -128,4 +128,14 @@
     <string name="suggestions_color">Suggestions Color</string>
     <string name="internet_speed_test">Internet Speed Test</string>
     <string name="loading_please_wait">Loading...Please Wait.</string>
+    <string name="cmd_ai_title">ai [message]</string>
+    <string name="cmd_ai_help">A simple tool to access chatGPT from the terminal. Based on OpenAI\'s gpt-3.5-turbo, you can chat with your own AI assistant. An API key is required to be entered in \'settings\'. This command does not remember context, so the model will be unaware of your previous conversation.</string>
+    <string name="ai_msg_missing">Please specify the message to send to AI.</string>
+    <string name="no_ai_api_key_found">You probably forgot to provide an API key. Please enter it in \'settings\'.</string>
+    <string name="communicating_with_ai">Communicating with AI...</string>
+    <string name="no_reply_in_response">No reply found in the response</string>
+    <string name="no_reply_from_server">The server did not send a chat reply! Try again.</string>
+    <string name="ai_timeout">I lost my patience! Try again or try a request with a shorter expected output.</string>
+    <string name="ai_auth_failed">Authentication Failed. Make sure you used the correct API key in \'settings\'</string>
+    <string name="ai_error">An error occurred: %1$d</string>
 </resources>
