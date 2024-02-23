@@ -116,7 +116,7 @@
     <string name="we_d_miss_you">Ci mancherai!\n༼☯﹏☯༽</string>
     <string name="crash_title">Si è verificato un errore inaspettato!</string>
     <string name="crash_message">Spiacente, Yantra Launcher sembra essere crashato! Invia un report allo sviluppatore per aiutare a debuggare il crash. Premendo Ok verrai indirizzato al tuo client email.</string>
-    <string name="crash_comment_prompt">Puoi aggiungere un commento opzionale qui per descrivere il crash:</string>
+    <string name="crash_comment_prompt">Puoi aggiungere un commento opzionale qui per descrivere il crash (preferibilmente in Inglese):</string>
     <string name="background_color">Colore di Sfondo</string>
     <string name="pick_color">Scegli Colore</string>
     <string name="input_color">Colore Input</string>
@@ -129,13 +129,13 @@
     <string name="internet_speed_test">Test Velocità Internet</string>
     <string name="loading_please_wait">Caricamento... Attendere Prego.</string>
     <string name="cmd_ai_title">ai [messaggio]</string>
-    <string name="cmd_ai_help">Uno strumento semplice per accedere a chatGPT dal terminale. Basato su gpt-3.5-turbo di OpenAI, puoi chattare con il tuo assistente AI personale. È richiesta l'inserimento di una chiave API in 'impostazioni'. Questo comando non ricorda il contesto, quindi il modello non sarà a conoscenza della tua conversazione precedente.</string>
+    <string name="cmd_ai_help">Uno strumento semplice per accedere a chatGPT dal terminale. Basato su gpt-3.5-turbo di OpenAI, puoi chattare con il tuo assistente AI personale. È richiesta l'inserimento di una chiave API in 'settings'. Questo comando non ricorda il contesto, quindi il modello non sarà a conoscenza della tua conversazione precedente.</string>
     <string name="ai_msg_missing">Si prega di specificare il messaggio da inviare all'AI.</string>
-    <string name="no_ai_api_key_found">Probabilmente hai dimenticato di fornire una chiave API. Inseriscila in 'impostazioni'.</string>
+    <string name="no_ai_api_key_found">Probabilmente hai dimenticato di fornire una chiave API. Inseriscila in 'settings'.</string>
     <string name="communicating_with_ai">Comunicazione con AI...</string>
     <string name="no_reply_in_response">Nessun output ricevuto nella risposta</string>
     <string name="no_reply_from_server">Il server non ha inviato una risposta alla chat! Riprova.</string>
     <string name="ai_timeout">Ho perso la pazienza! Riprova o prova una richiesta con un output atteso più breve.</string>
-    <string name="ai_auth_failed">Autenticazione Fallita. Assicurati di aver usato la chiave API corretta in 'impostazioni'</string>
+    <string name="ai_auth_failed">Autenticazione Fallita. Assicurati di aver usato la chiave API corretta in 'settings'</string>
     <string name="ai_error">Si è verificato un errore: %1$d</string>
 </resources>
