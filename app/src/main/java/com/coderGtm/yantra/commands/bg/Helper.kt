@@ -13,6 +13,7 @@ import com.android.volley.NoConnectionError
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.setSystemWallpaper
 import java.io.IOException
 import java.net.URL
@@ -34,28 +35,28 @@ fun getRandomWallpaper(query: String = "", command: Command) {
                     command.terminal.activity.runOnUiThread {
                         setSystemWallpaper(wallpaperManager, tintedBitmap)
                         command.terminal.preferenceObject.edit().putBoolean("defaultWallpaper",false).apply()
-                        command.output("Random Wallpaper applied!", command.terminal.theme.successTextColor)
+                        command.output(command.terminal.activity.getString(R.string.random_wallpaper_applied), command.terminal.theme.successTextColor)
                     }
                 }
                 catch (e: Exception) {
                     if (e is IOException) {
-                        command.output("No internet connection", command.terminal.theme.errorTextColor)
+                        command.output(command.terminal.activity.getString(R.string.no_internet_connection), command.terminal.theme.errorTextColor)
                     }
                     else {
-                        command.output("An error occurred.",command.terminal.theme.errorTextColor)
+                        command.output(command.terminal.activity.getString(R.string.an_error_occurred_please_try_again),command.terminal.theme.errorTextColor)
                     }
                 }
             }.start()
         },
         { error ->
             if (error is NoConnectionError) {
-                command.output("No internet connection", command.terminal.theme.errorTextColor)
+                command.output(command.terminal.activity.getString(R.string.no_internet_connection), command.terminal.theme.errorTextColor)
             } else {
-                command.output("An error occurred.", command.terminal.theme.errorTextColor)
+                command.output(command.terminal.activity.getString(R.string.an_error_occurred_please_try_again), command.terminal.theme.errorTextColor)
             }
         })
     queue.add(stringRequest)
-    command.output("Fetching random wallpaper...")
+    command.output(command.terminal.activity.getString(R.string.fetching_random_wallpaper))
 }
 fun tintBitMap(bm: Bitmap, targetColor: Int): Bitmap {
     val mutableBitmap = bm.copy(Bitmap.Config.ARGB_8888, true);

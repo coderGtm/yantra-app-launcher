@@ -4,6 +4,7 @@ import android.graphics.Typeface
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -11,14 +12,14 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "dict",
-        helpTitle = "dict [word]",
-        description = "Search for the meaning of a word in an online dictionary (freeDictionaryAPI)"
+        helpTitle = terminal.activity.getString(R.string.cmd_dict_title),
+        description = terminal.activity.getString(R.string.cmd_dict_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size <= 1) {
-            output("Please specify the word to search for.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.please_specify_word_to_search), terminal.theme.errorTextColor)
             return
         }
         val word = command.removePrefix(args[0]).trim()
@@ -49,6 +50,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
         val requestQueue = Volley.newRequestQueue(terminal.activity)
         requestQueue.add(request)
-        output("Looking up '$word' in the dictionary...", terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
+        output(terminal.activity.getString(R.string.looking_up_in_the_dictionary, word), terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
     }
 }

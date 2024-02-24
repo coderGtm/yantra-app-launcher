@@ -54,7 +54,7 @@ fun handleError(error: VolleyError, command: Command) {
         }
 
         is TimeoutError -> {
-            command.output(command.terminal.activity.getString(R.string.ai_timeout), command.terminal.theme.errorTextColor)
+            command.output(command.terminal.activity.getString(R.string.timeout_error), command.terminal.theme.errorTextColor)
         }
 
         is AuthFailureError -> {
