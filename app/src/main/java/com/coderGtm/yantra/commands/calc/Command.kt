@@ -20,7 +20,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         val expression = command.removePrefix(args[0]).trim()
         try {
-            val result = eval(expression)
+            val result = eval(expression, terminal.activity.baseContext)
             output(result.toString())
         }
         catch (e: RuntimeException) {
