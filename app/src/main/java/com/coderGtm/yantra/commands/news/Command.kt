@@ -1,5 +1,6 @@
 package com.coderGtm.yantra.commands.news
 
+import android.content.ActivityNotFoundException
 import android.graphics.Typeface
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
@@ -20,6 +21,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
         output("Opening News...", terminal.theme.resultTextColor, Typeface.ITALIC)
-        openURL(terminal.preferenceObject.getString("newsWebsite","https://news.google.com/")!!, terminal.activity)
+        try {
+            openURL(terminal.preferenceObject.getString("newsWebsite","https://news.google.com/")!!, terminal.activity)
+        } catch (e: ActivityNotFoundException) {
+            output("Could not open the news website. Please check the URL in settings.", terminal.theme.errorTextColor)
+        }
     }
 }
