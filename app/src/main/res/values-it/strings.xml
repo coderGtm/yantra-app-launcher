@@ -88,7 +88,7 @@
     <string name="selected_wallpaper_applied">Sfondo selezionato applicato!</string>
     <string name="no_image_selected">Nessuna immagine selezionata!</string>
     <string name="app_list_fetch_error">Si è verificato un errore durante il recupero dell\'elenco delle app</string>
-    <string name="contacts_not_fetched_yet">"   Contatti non ancora recuperati! Utilizza il comando 'list contacts' per recuperare prima i contatti per ottenere suggerimenti.   "</string>
+    <string name="contacts_not_fetched_yet">"   Contatti non ancora recuperati! Utilizza il comando \'list contacts\' per recuperare prima i contatti per ottenere suggerimenti.   "</string>
     <string name="ok">Ok</string>
     <string name="no_contacts_found">Nessun contatto trovato!</string>
     <string name="contact_not_found_attempt_number">Nome del contatto non trovato! Tentativo di interpretazione come numero di telefono...</string>
@@ -138,25 +138,25 @@
     <string name="ai_auth_failed">Autenticazione Fallita. Assicurati di aver usato la chiave API corretta in \'settings\'</string>
     <string name="ai_error">Si è verificato un errore: %1$d</string>
     <string name="cmd_alarm_title">alarm [ora] [messaggio]</string>
-    <string name="cmd_alarm_help">Imposta l'allarme utilizzando un'app di Sveglia supportata sul tuo dispositivo. Usare senza argomenti per aprire l'elenco delle sveglie nell'app predefinita del tuo dispositivo. L'orario deve essere in formato 24 ore. Può essere seguito opzionalmente da una stringa di messaggio da visualizzare nell'allarme.\nEsempi:\n\'alarm 14:30\' imposta l'allarme per le 14:30\n\'alarm 0:15 Augura buonanotte a ***\' imposta l'allarme per le 00:15 con un messaggio da visualizzare.</string>
-    <string name="no_time_provided_launch_app">Nessun orario fornito. Avvio dell'app della sveglia.</string>
-    <string name="parsing_time_string">:: Analizzando la stringa dell'orario...</string>
-    <string name="invalid_time_string">Stringa dell'orario fornita non valida. Deve essere nel formato hh:mm e deve essere in formato 24 ore.</string>
+    <string name="cmd_alarm_help">Imposta l\'allarme utilizzando un\'app di Sveglia supportata sul tuo dispositivo. Usare senza argomenti per aprire l\'elenco delle sveglie nell\'app predefinita del tuo dispositivo. L\'orario deve essere in formato 24 ore. Può essere seguito opzionalmente da una stringa di messaggio da visualizzare nella sveglia.\nEsempi:\n\'alarm 14:30\' imposta la sveglia per le 14:30\n\'alarm 0:15 Augura buonanotte a ***\' imposta la sveglia per le 00:15 con un messaggio da visualizzare.</string>
+    <string name="no_time_provided_launch_app">Nessun orario fornito. Avvio dell\'app della sveglia.</string>
+    <string name="parsing_time_string">:: Analizzando la stringa dell\'orario...</string>
+    <string name="invalid_time_string">Stringa dell\'orario fornita non valida. Deve essere nel formato hh:mm e deve essere in formato 24 ore.</string>
     <string name="parsing_message_string">:: Analizzando la stringa del messaggio...</string>
     <string name="setting_alarm"><![CDATA[=> Impostazione della sveglia...]]></string>
     <string name="alarm_set">Sveglia impostata con successo.</string>
     <string name="no_alarm_app">Nessuna app di sveglia supportata trovata sul tuo dispositivo.</string>
-    <string name="cmd_alias_help">Sistema di alias simile a Unix per impostare comandi abbreviati per i comandi disponibili. Nota che Yantra Launcher salva tutti gli alias in memoria e viene mantenuto anche dopo il riavvio della sessione del Launcher. Non è possibile creare alias di comandi predefiniti.\nUso (per impostare o aggiornare un alias): \'alias nome_alias = comando_alias\'\nEsempio: \'alias h = help\'\nUsa \'alias nome_alias\' per ottenere il valore dell'alias. Usa \'alias\' per ottenere l'elenco di tutti gli alias correnti. Usa \'alias -1\' per reimpostare agli alias predefiniti.</string>
+    <string name="cmd_alias_help">Sistema di alias simile a Unix per impostare comandi abbreviati per i comandi disponibili. Nota che Yantra Launcher salva tutti gli alias in memoria e viene mantenuto anche dopo il riavvio della sessione del Launcher. Non è possibile creare alias di comandi predefiniti.\nUso (per impostare o aggiornare un alias): \'alias nome_alias = comando_alias\'\nEsempio: \'alias h = help\'\nUsa \'alias nome_alias\' per ottenere il valore dell\'alias. Usa \'alias\' per ottenere l\'elenco di tutti gli alias correnti. Usa \'alias -1\' per reimpostare agli alias predefiniti.</string>
     <string name="no_alias_found">Nessun alias trovato.</string>
-    <string name="alias_invalid_cmd">Comando non valido. Usa \'alias\' per ottenere l'elenco degli alias.</string>
-    <string name="alias_invalid_cmd_see_help">Comando non valido. Vedi \'help alias\' per informazioni sull'uso</string>
+    <string name="alias_invalid_cmd">Comando non valido. Usa \'alias\' per ottenere l\'elenco degli alias.</string>
+    <string name="alias_invalid_cmd_see_help">Comando non valido. Vedi \'help alias\' per informazioni sull\'uso</string>
     <string name="alias_list_set_to_default">Elenco degli alias reimpostato ai valori predefiniti</string>
     <string name="no_alias_found_for">Nessun alias trovato per \'%1$s\'</string>
-    <string name="alias_name_cmd_name">Il nome dell'alias non può essere un nome di un comando esistente.</string>
-    <string name="alias_name_invalid">Il nome dell'alias deve contenere solo caratteri alfanumerici e deve iniziare con una lettera</string>
+    <string name="alias_name_cmd_name">Il nome dell\'alias non può essere un nome di un comando esistente.</string>
+    <string name="alias_name_invalid">Il nome dell\'alias deve contenere solo caratteri alfanumerici e deve iniziare con una lettera</string>
     <string name="alias_updated">Alias \'%1$s\' aggiornato.</string>
     <string name="alias_added">Alias \'%1$s\' aggiunto.</string>
-    <string name="cmd_battery_help">Mostra il Livello attuale della Batteria. Usa l'argomento opzionale \'-bar\' per mostrare solo la percentuale della batteria e lo stato di carica in forma visiva.</string>
+    <string name="cmd_battery_help">Mostra il Livello attuale della Batteria. Usa l\'argomento opzionale \'-bar\' per mostrare solo la percentuale della batteria e lo stato di carica in forma visiva.</string>
     <string name="cold">Freddo</string>
     <string name="dead">Scarico</string>
     <string name="good">Buono</string>
@@ -169,7 +169,7 @@
     <string name="charging"><![CDATA[-> In carica: %1$b]]></string>
     <string name="health"><![CDATA[-> Salute: %1$s]]></string>
     <string name="temperature_c_f"><![CDATA[-> Temperatura: %1$s°C (%2$s°F)]]></string>
-    <string name="battery_invalid_Args">Argomenti non validi forniti. Vedere \"help battery\" per informazioni sull'uso</string>
+    <string name="battery_invalid_Args">Argomenti non validi forniti. Vedere \"help battery\" per informazioni sull\'uso</string>
     <string name="cmd_bg_title">bg | bg random | bg random [query]</string>
     <string name="cmd_bg_help">\'bg\' è usato per impostare un Sfondo personalizzato dagli Album. Usare \'bg -1\' per rimuovere lo Sfondo personalizzato e impostare uno sfondo solido del tema. Usare \'bg random\' per ottenere uno Sfondo casuale da Internet. Può essere specificata una [query] opzionale con il comando random, come \'bg random montagne\' o \'bg random texture,scuro\' per ottenere uno Sfondo correlato. Notare che questo comando cambia solo lo sfondo della schermata Home, non quello della schermata di blocco.</string>
     <string name="bg_too_many_args">Troppi argomenti. Usare \'bg -1\' per rimuovere lo Sfondo personalizzato</string>
@@ -190,16 +190,16 @@
     <string name="min_android6_reqd">Questa funzione richiede Android 6 o superiore</string>
     <string name="cmd_bored_help">Ti aiuta a trovare cose da fare quando sei annoiato! (utilizzando Bored API)</string>
     <string name="bored_no_args">Il comando \'bored\' non accetta parametri</string>
-    <string name="fetching_random_activity">Recupero di un'attività casuale in corso...</string>
+    <string name="fetching_random_activity">Recupero di un\'attività casuale in corso...</string>
     <string name="random_activity">Attività Casuale</string>
     <string name="activity_type"><![CDATA[=> Tipo: %1$s]]></string>
     <string name="activity_participants"><![CDATA[=> Partecipanti: %1$s]]></string>
     <string name="cmd_calc_title">calc [espressione]</string>
     <string name="cmd_calc_help">Una calcolatrice incorporata per calcolare espressioni aritmetiche. Esegue addizioni, sottrazioni, moltiplicazioni, divisioni, esponenziazioni (usando il simbolo ^), e alcune funzioni di base come sqrt, sin, cos e tan. Supporta il raggruppamento usando (...), e rispetta le regole di precedenza e associatività degli operatori.\n\nEsempio: \'calc ((4 - 2^3 + 1) * -sqrt(3*3+4*4)) / 2\' dà 7.5</string>
-    <string name="clac_no_expression">Si prega di specificare un'espressione da calcolare.</string>
+    <string name="clac_no_expression">Si prega di specificare un\'espressione da calcolare.</string>
     <string name="unexpected_char">"Inaspettato: "</string>
     <string name="missing_parenthesis">Manca \')\'</string>
-    <string name="missing_parenthesis_after_arg">Manca \')\' dopo l'argomento a %1$s</string>
+    <string name="missing_parenthesis_after_arg">Manca \')\' dopo l\'argomento a %1$s</string>
     <string name="clac_unknown_function">Funzione sconosciuta: %1$s</string>
     <string name="cmd_call_title">call [nome | numero]</string>
     <string name="cmd_call_help">Chiama il nome del contatto specificato. Se il nome del contatto non viene trovato, l\'input (considerato come numero di telefono) viene chiamato.</string>
@@ -216,7 +216,7 @@
     <string name="clear_takes__no_args">Il comando \'clear\' non accetta parametri.</string>
     <string name="cmd_cmdrequest_help">Nel caso in cui desideri che vengano aggiunti nuovi comandi a Yantra Launcher, esegui questo comando per aprire un modello di email per la richiesta di comandi. Da notare che non è garantito che la richiesta di comando sarà accettata, ma farò del mio meglio per vedere se posso includerla nelle prossime versioni di Yantra Launcher, se appropriato.</string>
     <string name="cmdrequest_no_args">Il comando \'cmdrequest\' non accetta parametri.</string>
-    <string name="cmdreq_send_manual_mail">Impossibile avviare un'app di posta elettronica. Si prega di inviare la mail a coderGtm@gmail.com con titolo \'Richiesta di comando per Yantra Launcher\'</string>
+    <string name="cmdreq_send_manual_mail">Impossibile avviare un\'app di posta elettronica. Si prega di inviare la mail a coderGtm@gmail.com con titolo \'Richiesta di comando per Yantra Launcher\'</string>
     <string name="oops">Oops!</string>
     <string name="command_request_for_yantra_launcher">Richiesta di comando per Yantra Launcher</string>
     <string name="copied_title_to_clipboard">Titolo copiato negli appunti</string>
@@ -240,9 +240,9 @@
     <string name="cmd_email_title"><![CDATA[email <email-id>]]></string>
     <string name="please_specify_an_email_address">Perfavore specifica un indirizzo email.</string>
     <string name="launched_email_app">App email avviata...</string>
-    <string name="could_not_launch_an_email_app">Impossibile avviare un'app email.</string>
+    <string name="could_not_launch_an_email_app">Impossibile avviare un\'app email.</string>
     <string name="dict_word_not_found">Spiacente amico, non siamo riusciti a trovare definizioni per la parola che cercavi.</string>
     <string name="cmd_exit_help">Esci dal Launcher. Nota: il Launcher si riavvierà se impostato come Launcher predefinito</string>
     <string name="exit_no_args">Il comando \'exit\' non accetta parametri.</string>
-    <string name="exiting_app">Uscita dall'app...</string>
+    <string name="exiting_app">Uscita dall\'app...</string>
 </resources>
