@@ -459,7 +459,7 @@ fun showSuggestions(
             val btn = Button(terminal.activity)
             btn.text = sug
             btn.setTextColor(terminal.theme.suggestionTextColor)
-            if (terminal.preferenceObject.getBoolean("fontpack___purchased",false)) {
+            if (terminal.preferenceObject.getBoolean("fontpack___purchased",true)) {
                 btn.setTypeface(terminal.typeface, Typeface.BOLD)
             }
             else {

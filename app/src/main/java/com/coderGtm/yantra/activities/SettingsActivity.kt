@@ -114,7 +114,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.aiSystemPromptLayout.setOnClickListener { openAiSystemPromptSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
 
         binding.fontLay.setOnClickListener {
-            if (preferenceObject.getBoolean("fontpack___purchased",false)) {
+            if (preferenceObject.getBoolean("fontpack___purchased",true)) {
                 Toast.makeText(this, getString(R.string.loading_fonts), Toast.LENGTH_SHORT).show()
                 val url = "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBFFPy6DsYRRQVlADHdCgKk5qd62CJxjqo"
                 val queue = Volley.newRequestQueue(this)

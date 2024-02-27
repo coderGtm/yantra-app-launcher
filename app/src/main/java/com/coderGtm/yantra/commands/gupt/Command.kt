@@ -17,7 +17,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
     override fun execute(command: String) {
         output("Initializing G.U.P.T...",terminal.theme.warningTextColor)
-        if (!terminal.preferenceObject.getBoolean("gupt___purchased",false)) {
+        if (!terminal.preferenceObject.getBoolean("gupt___purchased",true)) {
             output("[-] G.U.P.T is a paid add-on feature. Consider buying it to enable it.",terminal.theme.errorTextColor)
             output("Salient features of G.U.P.T:",terminal.theme.warningTextColor, Typeface.BOLD)
             output("--------------------------",terminal.theme.warningTextColor)
