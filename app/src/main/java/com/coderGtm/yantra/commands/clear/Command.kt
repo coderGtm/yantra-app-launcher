@@ -15,7 +15,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size > 1) {
-            output(terminal.activity.getString(R.string.clear_takes__no_args), terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.cmd_takes_no_params, metadata.name), terminal.theme.errorTextColor)
             return
         }
         terminal.binding.terminalOutput.removeAllViews()

@@ -27,7 +27,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
         if (args.size > 2) {
-            output(terminal.activity.getString(R.string.bt_takes_one_arg), terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.command_takes_one_param, metadata.name), terminal.theme.errorTextColor)
             return
         }
         val stateInput = args[1].trim()
@@ -39,7 +39,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 false
             }
             else -> {
-                output(terminal.activity.getString(R.string.bt_state_unrecognized), terminal.theme.warningTextColor)
+                output(terminal.activity.getString(R.string.state_unrecognized), terminal.theme.warningTextColor)
                 return
             }
         }
@@ -48,21 +48,21 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             val bluetoothManager: BluetoothManager = terminal.activity.getSystemService(BluetoothManager::class.java)
             val bluetoothAdapter: BluetoothAdapter? = bluetoothManager.adapter
             if (bluetoothAdapter == null) {
-                toast(terminal.activity.baseContext, terminal.activity.getString(R.string.bt_not_supported))
+                toast(terminal.activity.baseContext, terminal.activity.getString(R.string.cmd_not_supported, metadata.name))
             }
             if (ActivityCompat.checkSelfPermission(terminal.activity, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                output(terminal.activity.getString(R.string.bt_permission_missing), terminal.theme.warningTextColor)
+                output(terminal.activity.getString(R.string.feature_permission_missing, metadata.name), terminal.theme.warningTextColor)
                 ActivityCompat.requestPermissions(terminal.activity, arrayOf(Manifest.permission.BLUETOOTH_CONNECT), PermissionRequestCodes.BLUETOOTH.code)
                 return
             }
             else {
                 if (state) {
                     bluetoothAdapter?.enable()
-                    output(terminal.activity.getString(R.string.bt_turned_on), terminal.theme.successTextColor)
+                    output(terminal.activity.getString(R.string.toggleable_turned_on), terminal.theme.successTextColor)
                 }
                 else {
                     bluetoothAdapter?.disable()
-                    output(terminal.activity.getString(R.string.bt_turned_off), terminal.theme.successTextColor)
+                    output(terminal.activity.getString(R.string.toggleable_turned_off, metadata.name.replaceFirstChar { it.titlecase() }), terminal.theme.successTextColor)
                 }
             }
         }
@@ -70,17 +70,17 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             val bluetoothManager: BluetoothManager = terminal.activity.getSystemService(BluetoothManager::class.java)
             val bluetoothAdapter: BluetoothAdapter? = bluetoothManager.adapter
             if (bluetoothAdapter == null) {
-                toast(terminal.activity.baseContext, terminal.activity.getString(R.string.bt_not_supported))
+                toast(terminal.activity.baseContext, terminal.activity.getString(R.string.cmd_not_supported, metadata.name))
             }
             else {
 
                 if (state) {
                     bluetoothAdapter.enable()
-                    output(terminal.activity.getString(R.string.bt_turned_on), terminal.theme.successTextColor)
+                    output(terminal.activity.getString(R.string.toggleable_turned_on, metadata.name.replaceFirstChar { it.titlecase() }), terminal.theme.successTextColor)
                 }
                 else {
                     bluetoothAdapter.disable()
-                    output(terminal.activity.getString(R.string.bt_turned_off), terminal.theme.successTextColor)
+                    output(terminal.activity.getString(R.string.toggleable_turned_off, metadata.name.replaceFirstChar { it.titlecase() }), terminal.theme.successTextColor)
                 }
             }
         } else {

@@ -3,6 +3,7 @@ package com.coderGtm.yantra.commands.flash
 import android.content.Context
 import android.hardware.camera2.CameraManager
 import android.os.Build
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -10,8 +11,8 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "flash",
-        helpTitle = "flash [state]",
-        description = "Toggles flashlight on/off. Example: 'flash on' or 'flash 0'. Use without any args to toggle the state."
+        helpTitle = terminal.activity.getString(R.string.cmd_flash_title),
+        description = terminal.activity.getString(R.string.cmd_flash_help)
     )
 
     override fun execute(command: String) {
@@ -27,17 +28,17 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                         if (enabled) {
                             cameraM.unregisterTorchCallback(this)
                             cameraM.setTorchMode(cameraListId, false)
-                            output("Flashlight turned off", terminal.theme.successTextColor)
+                            output(terminal.activity.getString(R.string.toggleable_turned_off, metadata.name.replaceFirstChar { it.titlecase() }), terminal.theme.successTextColor)
                         } else {
                             cameraM.unregisterTorchCallback(this)
                             cameraM.setTorchMode(cameraListId, true)
-                            output("Flashlight turned on", terminal.theme.successTextColor)
+                            output(terminal.activity.getString(R.string.toggleable_turned_on, metadata.name.replaceFirstChar { it.titlecase() }), terminal.theme.successTextColor)
                         }
                     }
                 }, null)
             }
             else {
-                output("Flashlight not supported on this device", terminal.theme.warningTextColor)
+                output(terminal.activity.getString(R.string.cmd_not_supported, metadata.name), terminal.theme.warningTextColor)
             }
         }
         else if (args.size == 2) {
@@ -50,7 +51,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     false
                 }
                 else -> {
-                    output("Toggle state not recognized. Try using 'on' | 'off' or 0 | 1.", terminal.theme.warningTextColor)
+                    output(terminal.activity.getString(R.string.state_unrecognized), terminal.theme.warningTextColor)
                     return
                 }
             }
@@ -59,19 +60,19 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 val cameraListId = cameraM.cameraIdList[0]
                 if (state) {
                     cameraM.setTorchMode(cameraListId, true)
-                    output("Flashlight turned on", terminal.theme.successTextColor)
+                    output(terminal.activity.getString(R.string.toggleable_turned_on, metadata.name.replaceFirstChar { it.titlecase() }), terminal.theme.successTextColor)
                 }
                 else {
                     cameraM.setTorchMode(cameraListId, false)
-                    output("Flashlight turned off", terminal.theme.successTextColor)
+                    output(terminal.activity.getString(R.string.toggleable_turned_off, metadata.name.replaceFirstChar { it.titlecase() }), terminal.theme.successTextColor)
                 }
             }
             else {
-                output("Flashlight not supported on this device", terminal.theme.warningTextColor)
+                output(terminal.activity.getString(R.string.cmd_not_supported, metadata.name), terminal.theme.warningTextColor)
             }
         }
         else {
-            output("'flash' command takes only one argument.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.command_takes_one_param, metadata.name), terminal.theme.errorTextColor)
         }
     }
 }

@@ -28,7 +28,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
 
         if (!checkPermission(this@Command)) {
-            output(terminal.activity.getString(R.string.file_permission_missing), terminal.theme.warningTextColor)
+            output(terminal.activity.getString(R.string.feature_permission_missing, terminal.activity.getString(R.string.file)), terminal.theme.warningTextColor)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)

@@ -27,14 +27,14 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val name = command.removePrefix(args[0]).trim()
         if (ContextCompat.checkSelfPermission(terminal.activity.baseContext,
                 Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            output(terminal.activity.getString(R.string.contacts_permission_missing),terminal.theme.warningTextColor)
+            output(terminal.activity.getString(R.string.feature_permission_missing, terminal.activity.getString(R.string.contacts)), terminal.theme.warningTextColor)
             ActivityCompat.requestPermissions(terminal.activity,
                 arrayOf(Manifest.permission.READ_CONTACTS),
                 PermissionRequestCodes.CONTACTS.code)
         }
         if (ContextCompat.checkSelfPermission(terminal.activity.baseContext,
                 Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            output(terminal.activity.getString(R.string.call_permission_missing),terminal.theme.warningTextColor)
+            output(terminal.activity.getString(R.string.feature_permission_missing, terminal.activity.getString(R.string.call)), terminal.theme.warningTextColor)
             ActivityCompat.requestPermissions(terminal.activity,
                 arrayOf(Manifest.permission.CALL_PHONE),
                 PermissionRequestCodes.CALL.code)

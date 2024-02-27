@@ -36,7 +36,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         } else {
             MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
                 .setTitle(terminal.activity.getString(R.string.oops))
-                .setMessage(terminal.activity.getString(R.string.cmdreq_send_manual_mail))
+                .setMessage(terminal.activity.getString(R.string.send_manual_mail_with_title, "Command request for Yantra Launcher"))
                 .setPositiveButton(terminal.activity.getString(R.string.ok)) { dialog, _ ->
                     //copy title to clipboard
                     val clipboard = terminal.activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
