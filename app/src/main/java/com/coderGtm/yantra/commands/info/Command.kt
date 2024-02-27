@@ -11,36 +11,36 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "info",
-        helpTitle = "info [appName]",
-        description = "Launches app settings page for specified app. Example: 'info Big Battery Display' or 'i Farty Orbit'"
+        helpTitle = terminal.activity.getString(R.string.cmd_info_title),
+        description = terminal.activity.getString(R.string.cmd_info_help)
     )
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size < 2) {
-            output("Please specify an app name.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.specify_app_name), terminal.theme.errorTextColor)
             return
         }
         val name = command.removePrefix(args[0]).trim().lowercase()
 
-        output("Locating '$name'...", terminal.theme.resultTextColor, Typeface.ITALIC)
+        output(terminal.activity.getString(R.string.locating_app, name), terminal.theme.resultTextColor, Typeface.ITALIC)
 
         val candidates = mutableListOf<AppBlock>()
         for (app in terminal.appList) {
             if (app.appName.lowercase() == name) {
-                output("+ Found ${app.packageName}")
+                output(terminal.activity.getString(R.string.found_app, app.packageName))
                 candidates.add(app)
             }
         }
         if (candidates.size == 1) {
-            output("Launching settings for ${candidates[0].appName} (${candidates[0].packageName})", terminal.theme.successTextColor)
+            output(terminal.activity.getString(R.string.launching_settings_for, candidates[0].appName, candidates[0].packageName), terminal.theme.successTextColor)
             launchAppInfo(this@Command, candidates[0])
         }
         else if (candidates.size > 1) {
-            output("Multiple entries found for'$name'. Opening selection dialog.", terminal.theme.warningTextColor)
+            output(terminal.activity.getString(R.string.multiple_entries_found_for_opening_selection_dialog, name), terminal.theme.warningTextColor)
             val b1 = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                .setTitle("Multiple apps found")
-                .setMessage("Multiple apps found with name '$name'. Please select one.")
-                .setPositiveButton("OK") { _, _ ->
+                .setTitle(terminal.activity.getString(R.string.multiple_apps_found))
+                .setMessage(terminal.activity.getString(R.string.multiple_apps_found_with_name_please_select_one, name))
+                .setPositiveButton(terminal.activity.getString(R.string.ok)) { _, _ ->
                     val items = mutableListOf<String>()
                     for (app in candidates) {
                         items.add(app.packageName)
@@ -62,9 +62,9 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                         }
                     }
                     val b2 = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                        .setTitle("Select Package Name")
+                        .setTitle(terminal.activity.getString(R.string.select_package_name))
                         .setItems(items.toTypedArray()) { _, which ->
-                            output("Launching settings for ${candidates[which].appName} (${candidates[which].packageName})", terminal.theme.successTextColor)
+                            output(terminal.activity.getString(R.string.launching_settings_for, candidates[which].appName, candidates[which].packageName), terminal.theme.successTextColor)
                             launchAppInfo(this@Command, candidates[which])
                         }
                     terminal.activity.runOnUiThread { b2.show() }
@@ -72,7 +72,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             terminal.activity.runOnUiThread { b1.show() }
         }
         else {
-            output("'$name' app not found. Try using 'list apps' to get list of all app names.", terminal.theme.warningTextColor)
+            output(terminal.activity.getString(R.string.app_not_found, name), terminal.theme.warningTextColor)
         }
     }
 }

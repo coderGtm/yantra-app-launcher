@@ -1,6 +1,7 @@
 package com.coderGtm.yantra.commands.help
 
 import android.graphics.Typeface
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -8,15 +9,15 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "help",
-        helpTitle = "help | help [command_name]",
-        description = "Documentation/Manual for all commands of Yantra Launcher. Use 'help cmd_name' to get documentation for specific command."
+        helpTitle = terminal.activity.getString(R.string.cmd_help_title),
+        description = terminal.activity.getString(R.string.cmd_help_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
         when (args.size) {
             1 -> {
-                output("---Yantra Launcher Help---",terminal.theme.successTextColor, Typeface.BOLD_ITALIC)
+                output(terminal.activity.getString(R.string.yantra_launcher_help),terminal.theme.successTextColor, Typeface.BOLD_ITALIC)
                 output("-------------------------",terminal.theme.resultTextColor)
                 for (commandClass in terminal.commands.values) {
                         val cmdMetadata = commandClass.getDeclaredConstructor(Terminal::class.java)
@@ -26,7 +27,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     output("-------------------------")
                 }
                 output("-------------------------",terminal.theme.resultTextColor)
-                output("Enjoy ㄟ( ▔, ▔ )ㄏ",terminal.theme.successTextColor, Typeface.BOLD_ITALIC)
+                output(terminal.activity.getString(R.string.enjoy_with_face),terminal.theme.successTextColor, Typeface.BOLD_ITALIC)
             }
             2 -> {
                 val cmd = args[1].trim().lowercase()
@@ -40,10 +41,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     output("-------------------------")
                     return
                 }
-                output("Command not found. Use 'help' to get list of available commands.", terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.cmd_not_found), terminal.theme.errorTextColor)
             }
             else -> {
-                output("Invalid command usage. See 'help' for usage info", terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.invalid_help_cmd), terminal.theme.errorTextColor)
             }
         }
     }
