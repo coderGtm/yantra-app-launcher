@@ -309,7 +309,7 @@
     <string name="fetching_contacts">Fetching Contacts...</string>
     <string name="list_unknow_param">%1$s is not a recognized parameter. Try using \'apps\'.</string>
     <string name="list_no_param">Please specify a list parameter</string>
-    <string name="found_apps">Found %1$s apps</string>
+    <string name="found_apps">Found %1$d apps</string>
     <string name="found_contacts">Found %1$d Contacts</string>
     <string name="available_themes">Available themes:</string>
     <string name="cmd_lock_help">Applies Screen Lock to your Yantra (device). Note: Appropriate permissions are required.</string>
