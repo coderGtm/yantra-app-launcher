@@ -28,13 +28,13 @@ fun lockDeviceByAccessibilityService(activity: Activity, binding: ActivityMainBi
         binding.lockView.performClick()
     }
     else {
-        MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog).setTitle("Enable Locking Device")
-            .setMessage("Please turn on Accessibility Service for Yantra Launcher for 'lock' command to work.")
-            .setPositiveButton("Launch Settings") { dialog, _ ->
+        MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog).setTitle(activity.getString(R.string.enable_locking_device))
+            .setMessage(activity.getString(R.string.lock_by_accessibility_explainer))
+            .setPositiveButton(activity.getString(R.string.launch_settings)) { dialog, _ ->
                 activity.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -48,9 +48,9 @@ fun lockDeviceByAdmin(activity: Activity) {
         try {
             policy.lockNow()
         } catch (ex: SecurityException) {
-            MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog).setTitle("Enable Locking Device")
-                .setMessage("Please enable device administrator for Yantra Launcher for Lock command to work.\n\nNote that for Android 8 and below, using lock from Yantra Launcher may prevent Biometric Authentication and use only PIN or Password for the next time you unlock your Device, due to Android API limitations.")
-                .setPositiveButton("Launch Settings") { dialog, _ ->
+            MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog).setTitle(activity.getString(R.string.enable_locking_device))
+                .setMessage(activity.getString(R.string.lock_by_device_admin_explainer))
+                .setPositiveButton(activity.getString(R.string.launch_settings)) { dialog, _ ->
                     val admin = ComponentName(activity.baseContext, AdminReceiver::class.java)
                     val intent: Intent = Intent(
                         DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN
@@ -60,7 +60,7 @@ fun lockDeviceByAdmin(activity: Activity) {
                     activity.startActivity(intent)
                     dialog.dismiss()
                 }
-                .setNegativeButton("Cancel") { dialog, _ ->
+                .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .show()

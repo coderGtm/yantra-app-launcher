@@ -17,14 +17,14 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "notify",
-        helpTitle = "notify <message>",
-        description = "Fire a notification with the given message.\nExample: notify Opened work apps"
+        helpTitle = terminal.activity.getString(R.string.cmd_notify_title),
+        description = terminal.activity.getString(R.string.cmd_notify_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size < 2) {
-            output("Please specify the message to fire the notification.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.notify_specify_msg), terminal.theme.errorTextColor)
             return
         }
         val message = command.removePrefix(args[0]).trim()
@@ -37,11 +37,11 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
         if (ActivityCompat.checkSelfPermission(terminal.activity.baseContext, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            output("Notifications permission missing!", terminal.theme.warningTextColor)
+            output(terminal.activity.getString(R.string.feature_permission_missing, terminal.activity.getString(R.string.notifications)), terminal.theme.warningTextColor)
             ActivityCompat.requestPermissions(terminal.activity, arrayOf(Manifest.permission.POST_NOTIFICATIONS), PermissionRequestCodes.NOTIFICATIONS.code)
             return
         }
         NotificationManagerCompat.from(terminal.activity.baseContext).notify(USER_NOTIFICATION_ID, builder.build())
-        output("Notification Fired!",terminal.theme.successTextColor)
+        output(terminal.activity.getString(R.string.notification_fired),terminal.theme.successTextColor)
     }
 }
