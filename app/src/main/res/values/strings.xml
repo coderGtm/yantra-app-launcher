@@ -78,6 +78,7 @@
     <string name="close">Close</string>
     <string name="default_right_swipe_text">echo Right Swipe detected! You can change the command in settings.</string>
     <string name="default_left_swipe_text">echo Left Swipe detected! You can change the command in settings.</string>
+    <string name="intro_help_or_community">Type \'help\' or \'community\' for more information.</string>
     <string name="error_tts_language_not_supported">Error: TTS language not supported!</string>
     <string name="tts_synthesized_playing_now">TTS synthesized! Playing now...</string>
     <string name="shutting_down_tts_engine">Shutting down TTS engine...</string>
@@ -329,4 +330,10 @@
     <string name="notify_specify_msg">Please specify the message to fire the notification.</string>
     <string name="notifications">Notifications</string>
     <string name="notification_fired">Notification Fired!</string>
+    <string name="app_language">Language</string>
+    <string name="select_a_language">Select a Language for your Yantra Launcher</string>
+    <string name="changed_app_language_to">Changed app language to %1$s</string>
+    <string name="attention">Attention</string>
+    <string name="language_change_disclaimer">Yantra Launcher is committed to present itself in various locales! Note that translations of Yantra Launcher are done by volunteers and may have some discrepancies in them. If you find any, please report them by opening an issue on the GitHub repository of Yantra Launcher so volunteers can fix them. Always check out the English version for any clarification!\n\nAlso, if you want to translate Yantra Launcher into your language, please open an issue on the GitHub repository of Yantra Launcher.</string>
+    <string name="i_understand">I understand</string>
 </resources>
