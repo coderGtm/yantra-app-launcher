@@ -2,6 +2,7 @@ package com.coderGtm.yantra.commands.sleep
 
 import android.view.ViewGroup
 import androidx.core.view.updateLayoutParams
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -12,22 +13,22 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "sleep",
         helpTitle = "sleep <millis>",
-        description = "Pauses Yantra Launcher for specified milliseconds.\nUsage: 'sleep numOfMilliseconds'\nExample: 'sleep 5000'"
+        description = terminal.activity.getString(R.string.cmd_sleep_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size < 2) {
-            output("Please specify sleep duration in milliseconds.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.specify_sleep_in_ms), terminal.theme.errorTextColor)
             return
         }
         if (args.size > 3) {
-            output("'sleep' command takes only 1 parameter: sleep duration in milliseconds.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.sleep_1_param), terminal.theme.errorTextColor)
             return
         }
         val milliseconds = args[1].toLongOrNull()
         if (milliseconds == null) {
-            output("Invalid usage. 'sleep' command takes only 1 argument: time to sleep in milliseconds.",terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.sleep_1_param),terminal.theme.errorTextColor)
             return
         }
         terminal.isSleeping = true

@@ -3,6 +3,7 @@ package com.coderGtm.yantra.commands.translate
 import android.graphics.Typeface
 import com.android.volley.NoConnectionError
 import com.android.volley.VolleyError
+import com.coderGtm.yantra.R
 import org.json.JSONArray
 import org.json.JSONException
 
@@ -25,7 +26,7 @@ fun handleResponse(response: JSONArray, command: Command) {
         )
     } catch (e: JSONException) {
         command.output(
-            "Error, please try again.",
+            command.terminal.activity.getString(R.string.error_please_try_again),
             command.terminal.theme.errorTextColor
         )
     }
@@ -34,11 +35,11 @@ fun handleResponse(response: JSONArray, command: Command) {
 fun handleError(error: VolleyError, command: Command) {
     when (error) {
         is NoConnectionError -> {
-            command.output("No internet connection", command.terminal.theme.errorTextColor)
+            command.output(command.terminal.activity.getString(R.string.no_internet_connection), command.terminal.theme.errorTextColor)
         }
 
         else -> {
-            command.output("An error occurred: ${error.networkResponse}",command.terminal.theme.errorTextColor)
+            command.output(command.terminal.activity.getString(R.string.an_error_occurred, error.networkResponse),command.terminal.theme.errorTextColor)
         }
     }
 }

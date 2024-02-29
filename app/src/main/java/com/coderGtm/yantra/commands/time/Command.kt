@@ -1,5 +1,6 @@
 package com.coderGtm.yantra.commands.time
 
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -10,15 +11,15 @@ import java.util.Locale
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "time",
-        helpTitle = "time [utc] [GMT]",
-        description = "Shows current local Date and Time. Use the utc arg to get UTC time. An optional time difference parameter can add or subtract that from UTC time. Example:\ntime\ntime utc\ntime utc +5:30"
+        helpTitle = terminal.activity.getString(R.string.cmd_time_title),
+        description = terminal.activity.getString(R.string.cmd_time_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
 
         if (args.size >= 2 && args[1] != "utc") {
-            output("Invalid parameter provided. See 'help time' for usage info.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.time_invalid_param), terminal.theme.errorTextColor)
             return
         } else if (args.size == 2) {
             output(currentTimeWithOffset(0))
@@ -27,7 +28,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             val time = command.substringAfter(args[1]).trim()
 
             if (!isValidString(time)) {
-                output("Invalid time difference provided. Please provide a correct parameter. Refer 'help time' for usage info.", terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.time_invalid_diff), terminal.theme.errorTextColor)
                 return
             }
 

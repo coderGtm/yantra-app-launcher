@@ -13,40 +13,40 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "scripts",
         helpTitle = "scripts",
-        description = "Opens dialog for creating, modifying and deleting custom scripts for Yantra Launcher, to execute multiple commands at once. Also see the 'run' command."
+        description = terminal.activity.getString(R.string.cmd_scripts_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size > 1) {
-            output("'scripts' command does not take any parameters", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.command_takes_one_param, metadata.name), terminal.theme.errorTextColor)
             return
         }
         // for user-defined scripts
-        output("Opening Yantra Scripts...")
+        output(terminal.activity.getString(R.string.opening_yantra_scripts))
         val scripts = getScripts(terminal.preferenceObject)
         val scriptsMainDialog = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-            .setTitle("Yantra Scripts")
+            .setTitle(terminal.activity.getString(R.string.yantra_scripts))
         if (scripts.isNotEmpty()) {
             scriptsMainDialog.setItems(scripts.toTypedArray()) { _, which ->
                 val scriptName = scripts.elementAt(which)
                 val scriptEditor = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
                     .setTitle(scriptName)
-                    .setMessage("View, Edit or Delete this script. Note: Enter 1 command per line, just as you normally enter in the Yantra terminal.")
+                    .setMessage(terminal.activity.getString(R.string.scripts_disclaimer))
                     .setView(R.layout.dialog_multiline_input)
                     .setCancelable(false)
-                    .setPositiveButton("Save") { dialog, _ ->
+                    .setPositiveButton(terminal.activity.getString(R.string.save)) { dialog, _ ->
                         val scriptBody = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
                         terminal.preferenceObject.edit().putString("script_$scriptName", scriptBody).apply()
-                        output("Script $scriptName saved successfully!",terminal.theme.successTextColor)
+                        output(terminal.activity.getString(R.string.script_saved_successfully, scriptName),terminal.theme.successTextColor)
                     }
-                    .setNegativeButton("Delete") { _, _ ->
+                    .setNegativeButton(terminal.activity.getString(R.string.delete)) { _, _ ->
                         terminal.preferenceObject.edit().remove("script_$scriptName").apply()
                         scripts.remove(scriptName)
                         terminal.preferenceObject.edit().putString("scripts",scripts.joinToString(";")).apply()
-                        output("Script '$scriptName' deleted.",terminal.theme.successTextColor)
+                        output(terminal.activity.getString(R.string.script_deleted, scriptName),terminal.theme.successTextColor)
                     }
-                    .setNeutralButton("Cancel") { dialog, _ ->
+                    .setNeutralButton(terminal.activity.getString(R.string.cancel)) { dialog, _ ->
                         dialog.dismiss()
                     }
                     .show()
@@ -54,37 +54,37 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             }
         }
         else {
-            scriptsMainDialog.setMessage("No Scripts found! Try creating one.")
+            scriptsMainDialog.setMessage(terminal.activity.getString(R.string.no_scripts_found))
         }
-        scriptsMainDialog.setPositiveButton("Add") { _, _ ->
+        scriptsMainDialog.setPositiveButton(terminal.activity.getString(R.string.add)) { _, _ ->
             MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                .setTitle("New Script")
-                .setMessage("Enter Script name")
+                .setTitle(terminal.activity.getString(R.string.new_script))
+                .setMessage(terminal.activity.getString(R.string.enter_script_name))
                 .setView(R.layout.dialog_singleline_input)
-                .setPositiveButton("Create") { dialog, _ ->
+                .setPositiveButton(terminal.activity.getString(R.string.create)) { dialog, _ ->
                     val name = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString().trim()
                     if (name.contains(";") || name == "") {
-                        output("Script name cannot contain ';' or be empty.", terminal.theme.errorTextColor)
+                        output(terminal.activity.getString(R.string.script_name_validation), terminal.theme.errorTextColor)
                     }
                     else if (!name[0].isLetter() || name.contains(' ')) {
-                        output("Script name must start with a letter and cannot contain any spaces",terminal.theme.errorTextColor)
+                        output(terminal.activity.getString(R.string.script_name_another_validation),terminal.theme.errorTextColor)
                     }
                     else if (scripts.contains(name)) {
-                        output("This Name is already taken",terminal.theme.warningTextColor)
+                        output(terminal.activity.getString(R.string.name_already_taken),terminal.theme.warningTextColor)
                     }
                     else {
                         scripts.add(name)
                         terminal.preferenceObject.edit().putString("scripts",scripts.joinToString(";")).apply()
-                        output("Script '$name' created successfully! You can now edit it.",terminal.theme.successTextColor)
+                        output(terminal.activity.getString(R.string.script_created, name),terminal.theme.successTextColor)
                         dialog.dismiss()
                     }
                 }
-                .setNeutralButton("Cancel") { dialog, _ ->
+                .setNeutralButton(terminal.activity.getString(R.string.cancel)) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .show()
         }
-            .setNeutralButton("Cancel") { dialog, _ ->
+            .setNeutralButton(terminal.activity.getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()

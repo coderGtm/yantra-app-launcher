@@ -1,6 +1,7 @@
 package com.coderGtm.yantra.commands.todo
 
 import android.graphics.Typeface
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -9,7 +10,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "todo",
         helpTitle = "todo",
-        description = "A simple TODO utility. Use 'todo' to get list of tasks with their indexes and progress. Add a task like 'todo Go for a brisk walk'. Mark tasks as done using their index returned from 'todo' command, like 'todo 2' marks the 3rd task as done. Use 'todo -1' to clear list.\n\nUse the -p argument to mark optional progress for any task, like 'todo -p 1 30' marks the 2nd task as 30% done (Syntax: todo -p taskIndex progress). Use 'todo -p -1' to reset progress for all tasks."
+        description = terminal.activity.getString(R.string.cmd_todo_help)
     )
 
     override fun execute(command: String) {
@@ -19,12 +20,12 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
         if (args.size == 1) {
             if (todolist.size == 0) {
-                output("Enjoy! Nothing to do. ¯\\_(ツ)_/¯",terminal.theme.warningTextColor)
-                output("Try adding an item like: todo Finish Game server config")
+                output(terminal.activity.getString(R.string.enjoy_nothing_to_do),terminal.theme.warningTextColor)
+                output(terminal.activity.getString(R.string.try_adding_an_item))
             }
             else {
                 output("-------------------------")
-                output("TODO List:", terminal.theme.warningTextColor, Typeface.BOLD)
+                output(terminal.activity.getString(R.string.todo_list), terminal.theme.warningTextColor, Typeface.BOLD)
                 output("-------------------------")
                 for ((i, item) in todolist.withIndex()) {
                     val progress = todoProgressList[i]
@@ -39,16 +40,16 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         else if (args[1].trim() == "-1") {
             setToDo(mutableSetOf(), terminal.preferenceObject.edit())
             setToDoProgress(arrayListOf(), terminal.preferenceObject.edit())
-            output("Todo list cleared", terminal.theme.successTextColor)
+            output(terminal.activity.getString(R.string.todo_list_cleared), terminal.theme.successTextColor)
         }
         else if (args[1].trim().toIntOrNull() !== null && args.size == 2) {
             val index = args[1].trim().toInt()
             if (index >= todolist.size) {
-                output("TODO List index out of range. Try a number less than ${todolist.size}.",terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.todo_list_index_out_of_range, todolist.size),terminal.theme.errorTextColor)
                 return
             }
             else if (index < -1) {
-                output("Invalid index provided. Use index of -1 to clear the list.",terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.todo_invalid_index_provided),terminal.theme.errorTextColor)
                 return
             }
             val toRemove = todolist.elementAt(index)
@@ -56,7 +57,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             todoProgressList.removeAt(index)
             setToDo(todolist, terminal.preferenceObject.edit())
             setToDoProgress(todoProgressList, terminal.preferenceObject.edit())
-            output("Marked '$toRemove' as completed!",terminal.theme.successTextColor)
+            output(terminal.activity.getString(R.string.marked_as_completed, toRemove),terminal.theme.successTextColor)
         }
         else if (args.size == 3 && args[1].trim() == "-p" && args[2].trim() == "-1") {
             // set all % to 0
@@ -64,22 +65,22 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 todoProgressList[i] = 0
             }
             setToDoProgress(todoProgressList, terminal.preferenceObject.edit())
-            output("Progress reset for all tasks!")
+            output(terminal.activity.getString(R.string.progress_reset_for_all_tasks))
             return
         }
         else if (args.size == 4 && args[1].trim() == "-p" && args[2].trim().toIntOrNull() != null && args[3].trim().toIntOrNull() != null) {
             val index = args[2].trim().toInt()
             val percent = args[3].trim().toInt()
             if (index >= todolist.size) {
-                output("TODO List index out of range. Try a number less than ${todolist.size}.",terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.todo_list_index_out_of_range, todolist.size),terminal.theme.errorTextColor)
                 return
             }
             if (index < 0) {
-                output("Invalid command usage. Use 'todo -p -1' to reset progress for all tasks.", terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.todo_p_invalid), terminal.theme.errorTextColor)
                 return
             }
             if (percent < 0 || percent > 100) {
-                output("Invalid progress value. Use a value from 0 to 100.", terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.invalid_progress_value), terminal.theme.errorTextColor)
                 return
             }
             if (percent == 100) {
@@ -88,13 +89,13 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 todoProgressList.removeAt(index)
                 setToDo(todolist, terminal.preferenceObject.edit())
                 setToDoProgress(todoProgressList, terminal.preferenceObject.edit())
-                output("Marked '$toRemove' as completed!",terminal.theme.successTextColor)
+                output(terminal.activity.getString(R.string.marked_as_completed, toRemove),terminal.theme.successTextColor)
                 return
             }
             val toUpdate = todolist.elementAt(index)
             todoProgressList[index] = percent
             setToDoProgress(todoProgressList, terminal.preferenceObject.edit())
-            output("Marked '$toUpdate' as $percent% done!")
+            output(terminal.activity.getString(R.string.marked_as_pct_done, toUpdate, percent))
             return
         }
         else {
@@ -103,10 +104,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 todoProgressList.add(0)
                 setToDo(todolist, terminal.preferenceObject.edit())
                 setToDoProgress(todoProgressList, terminal.preferenceObject.edit())
-                output("Added '$toAdd' to TODO List")
+                output(terminal.activity.getString(R.string.added_to_todo_list, toAdd))
             }
             else {
-                output("Item already present in todo list", terminal.theme.warningTextColor)
+                output(terminal.activity.getString(R.string.item_already_present_in_todo), terminal.theme.warningTextColor)
             }
         }
     }

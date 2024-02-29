@@ -5,6 +5,7 @@ import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -12,8 +13,8 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "translate",
-        helpTitle = "translate [-language] <text>",
-        description = "Translator based on Google Translate. Provide a valid language code flag and the text to translate. The source language is automatically detected. Example:\n translate -fr Hello"
+        helpTitle = terminal.activity.getString(R.string.cmd_translate_title),
+        description = terminal.activity.getString(R.string.cmd_translate_help)
     )
 
     override fun execute(command: String) {
@@ -22,7 +23,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
         // Check for insufficient arguments.
         if (args.size < 3) {
-            output("Please provide the language code flag and the text to translate.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.translate_give_lang_code), terminal.theme.errorTextColor)
             return
         }
 
@@ -32,7 +33,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
         // Check for incorrect language.
         if (incorrectLanguage(language)) {
-            output("Language code not found. Please provide a valid language code.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.language_code_not_found), terminal.theme.errorTextColor)
             return
         }
 
@@ -72,6 +73,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         requestQueue.add(request)
 
         // Display a message indicating that translation is in progress.
-        output(":: Translating...", terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
+        output(terminal.activity.getString(R.string.translating), terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
     }
 }

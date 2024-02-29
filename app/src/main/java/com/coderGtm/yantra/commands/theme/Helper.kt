@@ -29,7 +29,7 @@ fun printCustomThemeFeatures(command: Command) {
 }
 fun openCustomThemeDesigner(terminal: Terminal) {
     val dialog = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-        .setTitle("Customize Your Theme")
+        .setTitle(terminal.activity.getString(R.string.customize_your_theme))
         .setView(R.layout.custom_theme_dialog)
     val dialogView = LayoutInflater.from(terminal.activity).inflate(R.layout.custom_theme_dialog, null)
     val bgColorBtn = dialogView?.findViewById<ImageButton>(R.id.bgColorBtn)
@@ -47,17 +47,17 @@ fun openCustomThemeDesigner(terminal: Terminal) {
         imgBtn?.tag = customThemeColors[i]
         imgBtn?.setOnClickListener {
             MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                .setItems(arrayOf("Color Picker", "Hex Code")) { _, which ->
+                .setItems(arrayOf(terminal.activity.getString(R.string.color_picker), terminal.activity.getString(R.string.hex_code))) { _, which ->
                     when (which) {
                         0 -> {
                             val colorDialogBuilder = ColorPickerDialog.Builder(terminal.activity, R.style.Theme_AlertDialog)
-                                .setTitle("Select Color")
-                                .setPositiveButton("Set", ColorEnvelopeListener { envelope, _->
+                                .setTitle(terminal.activity.getString(R.string.select_color))
+                                .setPositiveButton(terminal.activity.getString(R.string.set), ColorEnvelopeListener { envelope, _->
                                     toast(terminal.activity.baseContext, envelope.hexCode.drop(2).prependIndent("#"))
                                     imgBtn.setImageDrawable(ColorDrawable(Color.parseColor(envelope.hexCode.drop(2).prependIndent("#"))))
                                     imgBtn.tag = envelope.hexCode.drop(2).prependIndent("#")
                                 })
-                                .setNegativeButton("Cancel") { dialogInterface, i ->
+                                .setNegativeButton(terminal.activity.getString(R.string.cancel)) { dialogInterface, i ->
                                     dialogInterface.dismiss()
                                 }
                                 .attachAlphaSlideBar(false) // the default value is true.
@@ -74,18 +74,18 @@ fun openCustomThemeDesigner(terminal: Terminal) {
                         1 -> {
                             terminal.activity.runOnUiThread {
                                 val hexDialog = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                                    .setTitle("Enter 6-digit Hex Code (without the #)")
+                                    .setTitle(terminal.activity.getString(R.string.enter_6_digit_hex_code_without_hash))
                                     .setView(R.layout.dialog_singleline_input)
-                                    .setPositiveButton("Set") { dialog, _ ->
+                                    .setPositiveButton(terminal.activity.getString(R.string.set)) { dialog, _ ->
                                         val hexCode = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString().trim()
                                         if (!isValidHexCode(hexCode)) {
-                                            toast(terminal.activity.baseContext, "Invalid Hex Code")
+                                            toast(terminal.activity.baseContext, terminal.activity.getString(R.string.invalid_hex_code))
                                             return@setPositiveButton
                                         }
                                         imgBtn.setImageDrawable(ColorDrawable(Color.parseColor("#$hexCode")))
                                         imgBtn.tag = "#$hexCode"
                                     }
-                                    .setNegativeButton("Cancel") { dialogInterface, i ->
+                                    .setNegativeButton(terminal.activity.getString(R.string.cancel)) { dialogInterface, i ->
                                         dialogInterface.dismiss()
                                     }
                                     .show()
@@ -100,7 +100,7 @@ fun openCustomThemeDesigner(terminal: Terminal) {
         i++
     }
     dialog.setView(dialogView)
-    dialog.setPositiveButton("Apply") { _, _ ->
+    dialog.setPositiveButton(terminal.activity.getString(R.string.apply)) { _, _ ->
         //get all colors in hex format
         val bgColor = bgColorBtn?.tag.toString()
         val cmdColor = cmdColorBtn?.tag.toString()
@@ -115,7 +115,7 @@ fun openCustomThemeDesigner(terminal: Terminal) {
         //return@setPositiveButton
         terminal.preferenceObject.edit().putString("customThemeClrs", customTheme.toString().drop(1).dropLast(1).replace(" ","")).commit()
         terminal.preferenceObject.edit().putInt("theme",-1).apply()
-        toast(terminal.activity.baseContext, "Setting theme to Custom")
+        toast(terminal.activity.baseContext, terminal.activity.getString(R.string.setting_theme_to, "Custom"))
         terminal.activity.recreate()
     }
     terminal.activity.runOnUiThread { dialog.show() }

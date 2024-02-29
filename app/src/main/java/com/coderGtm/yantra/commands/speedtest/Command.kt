@@ -15,17 +15,17 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "speedtest",
         helpTitle = "speedtest",
-        description = "Opens a small GUI speedtest utility to check your internet speed, powered by openspeedtest.com."
+        description = terminal.activity.getString(R.string.cmd_speedtest_help)
     )
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size > 1) {
-            output("'speedtest' command does not take any parameters", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.cmd_takes_no_params, metadata.name), terminal.theme.errorTextColor)
             return
         }
-        output("Loading Speedtest utility...", terminal.theme.successTextColor)
+        output(terminal.activity.getString(R.string.loading_speedtest_utility), terminal.theme.successTextColor)
         val view = LayoutInflater.from(terminal.activity).inflate(R.layout.dialog_speedtest , null)
         val dialog = MaterialAlertDialogBuilder(terminal.activity)
             .setView(view)

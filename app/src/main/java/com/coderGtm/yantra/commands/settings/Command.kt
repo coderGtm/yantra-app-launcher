@@ -1,6 +1,7 @@
 package com.coderGtm.yantra.commands.settings
 
 import android.content.Intent
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.activities.SettingsActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
@@ -11,13 +12,13 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "settings",
         helpTitle = "settings",
-        description = "Launches Settings for Yantra Launcher."
+        description = terminal.activity.getString(R.string.cmd_settings_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size > 1) {
-            output("'settings' command does not take any parameters", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.cmd_takes_no_params, metadata.name), terminal.theme.errorTextColor)
             return
         }
         val mainAct = terminal.activity as MainActivity

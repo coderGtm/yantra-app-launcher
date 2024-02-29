@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import com.coderGtm.yantra.PermissionRequestCodes
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -11,15 +12,15 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "termux",
-        helpTitle = "termux [cmd] [args]",
-        description = "Runs given command in termux if it is installed. Note that the 'allow-external-apps' property must be set to true in ~/.termux/termux.properties in Termux app and RUN_COMMAND permission must be given from Yantra Launcher's settings page. Also, termux session is closed as soon as command is terminated due to API restrictions.\nUsage: termux cmd_name [args]\nExample: 'termux top -n 5\nTo resolve any issues still occurring, ask in Discord Community or mail me at coderGtm@gmail.com."
+        helpTitle = terminal.activity.getString(R.string.cmd_termux_title),
+        description = terminal.activity.getString(R.string.cmd_termux_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
         val cmd = command.trim().removePrefix(args[0]).trim()
         if (cmd == "") {
-            output("Invalid command. See 'help termux' for usage info", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.termux_invalid_cmd), terminal.theme.errorTextColor)
             return
         }
         // check if termux is installed
@@ -27,7 +28,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             if (app.packageName == "com.termux") {
                 // termux is installed
                 if (ActivityCompat.checkSelfPermission(terminal.activity, "com.termux.permission.RUN_COMMAND") != PackageManager.PERMISSION_GRANTED) {
-                    output("You need to grant the Termux Run Command Permission to Yantra Launcher for this command to work!", terminal.theme.warningTextColor)
+                    output(terminal.activity.getString(R.string.grant_termux_permission), terminal.theme.warningTextColor)
                     ActivityCompat.requestPermissions(terminal.activity, arrayOf("com.termux.permission.RUN_COMMAND"), PermissionRequestCodes.TERMUX_RUN_COMMAND.code)
                     return
                 }
@@ -49,20 +50,20 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     putExtra("com.termux.RUN_COMMAND_SESSION_ACTION", cmdSessionAction)
                 }
                 if (intent.resolveActivity(terminal.activity.packageManager) != null) {
-                    output("Running command in Termux...",terminal.theme.successTextColor)
+                    output(terminal.activity.getString(R.string.running_command_in_termux),terminal.theme.successTextColor)
                     try {
                         terminal.activity.startService(intent)
                     }
                     catch (e: Exception) {
-                        output("Could not run command in Termux. Error: ${e.message}",terminal.theme.errorTextColor)
+                        output(terminal.activity.getString(R.string.termux_cmd_error, e.message),terminal.theme.errorTextColor)
                     }
                 }
                 else {
-                    output("Could not run command in Termux.",terminal.theme.errorTextColor)
+                    output(terminal.activity.getString(R.string.termux_cmd_error, terminal.activity.getString(R.string.termux_not_installed)),terminal.theme.errorTextColor)
                 }
                 return
             }
         }
-        output("Termux is not installed.",terminal.theme.errorTextColor)
+        output(terminal.activity.getString(R.string.termux_not_installed), terminal.theme.errorTextColor)
     }
 }
