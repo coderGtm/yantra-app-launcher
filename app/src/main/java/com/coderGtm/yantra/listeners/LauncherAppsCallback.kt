@@ -1,7 +1,9 @@
 package com.coderGtm.yantra.listeners
 
 import android.content.pm.LauncherApps
+import android.graphics.Typeface
 import android.os.UserHandle
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.terminal.getAppsList
 
@@ -13,6 +15,7 @@ fun launcherAppsCallback(terminal: Terminal): LauncherApps.Callback {
             }
             if (indexToRemove == -1) return
             terminal.appList.removeAt(indexToRemove)
+            terminal.output(terminal.activity.getString(R.string.package_removed, packageName), terminal.theme.errorTextColor, Typeface.BOLD)
         }
 
         override fun onPackageAdded(p0: String?, p1: UserHandle?) {

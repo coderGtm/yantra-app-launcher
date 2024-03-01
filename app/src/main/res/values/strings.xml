@@ -494,4 +494,5 @@
     <string name="weather_max_c_f"><![CDATA[=> Max: %1$d°C (%2$d°F)]]></string>
     <string name="weather_humidity"><![CDATA[=> Humidity: %1$s\%]]></string>
     <string name="weather_wind_kmph"><![CDATA[=> Wind: %1$d kmph]]></string>
+    <string name="package_removed"><![CDATA[==> Package removed: %1$s]]></string>
 </resources>
