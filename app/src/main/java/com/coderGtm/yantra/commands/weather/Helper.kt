@@ -19,11 +19,11 @@ fun handleResponse(response: String, command: Command, location: String) {
     val windSpeed = json.getJSONObject("wind").getString("speed").toFloat()
     val tempC = temp.toFloat().roundToInt() - 273
     command.output("=> $weather")
-    command.output("=> Temperature: $tempC°C (${tempC*9/5 +32}°F)")
-    command.output("=> Min: ${minTemp.toFloat().roundToInt() - 273}°C (${minTemp.toFloat().roundToInt().minus(273) * 9/5 +32}°F)")
-    command.output("=> Max: ${maxTemp.toFloat().roundToInt() - 273}°C (${maxTemp.toFloat().roundToInt().minus(273 ) * 9/5 +32}°F)")
-    command.output("=> Humidity: $humidity%")
-    command.output("=> Wind: ${(windSpeed * 3.6).roundToInt()} kmph")
+    command.output(command.terminal.activity.getString(R.string.weather_temperature_c_f, tempC, tempC*9/5 +32))
+    command.output(command.terminal.activity.getString(R.string.weather_min_c_f, minTemp.toFloat().roundToInt() - 273, minTemp.toFloat().roundToInt().minus(273) * 9/5 +32))
+    command.output(command.terminal.activity.getString(R.string.weather_max_c_f, maxTemp.toFloat().roundToInt() - 273, maxTemp.toFloat().roundToInt().minus(273 ) * 9/5 +32))
+    command.output(command.terminal.activity.getString(R.string.weather_humidity, humidity))
+    command.output(command.terminal.activity.getString(R.string.weather_wind_kmph, (windSpeed * 3.6).roundToInt()))
     command.output("-------------------------")
 }
 

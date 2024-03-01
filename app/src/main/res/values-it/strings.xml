@@ -489,4 +489,9 @@
     <string name="you_would_need_a_web_browser_to_open_this_url">You would need a web browser to open this URL, which I couldn\'t find on your device :|</string>
     <string name="web_tip">TIP: If you don\'t want to install a full-fledged web browser, you can use the \'gupt\' command to open the URL in a private browsing session, built into Yantra Launcher.</string>
     <string name="something_went_wrong_while_opening_the_url">Something went wrong while opening the URL :(</string>
+    <string name="weather_temperature_c_f"><![CDATA[=> Temperature: %1$d°C (%2$d°F)]]></string>
+    <string name="weather_min_c_f"><![CDATA[=> Min: %1$d°C (%2$d°F)]]></string>
+    <string name="weather_max_c_f"><![CDATA[=> Max: %1$d°C (%2$d°F)]]></string>
+    <string name="weather_humidity"><![CDATA[=> Humidity: %1$s\%]]></string>
+    <string name="weather_wind_kmph"><![CDATA[=> Wind: %1$d kmph]]></string>
 </resources>
