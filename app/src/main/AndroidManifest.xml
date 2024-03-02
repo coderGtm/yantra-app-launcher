@@ -62,6 +62,10 @@
         android:theme="@style/Theme.YantraLauncher">
 
         <activity
+            android:name="com.canhub.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
+        <activity
             android:name=".activities.SettingsActivity"
             android:exported="false"
             android:excludeFromRecents="true"

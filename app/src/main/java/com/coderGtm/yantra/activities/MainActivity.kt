@@ -13,6 +13,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
+import com.canhub.cropper.CropImageView
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
@@ -175,13 +179,27 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         return
     }
 
+    private val cropImage = registerForActivityResult(CropImageContract()) { result ->
+        if (result.isSuccessful) {
+            // Use the returned uri.
+            val uriContent = result.uriContent
+            setWallpaperFromUri(uriContent, this, primaryTerminal.theme.bgColor, app.preferenceObject)
+            primaryTerminal.output(getString(R.string.selected_wallpaper_applied), primaryTerminal.theme.successTextColor, null)
+        } else {
+            primaryTerminal.output(getString(R.string.no_image_selected), primaryTerminal.theme.resultTextColor, Typeface.ITALIC)
+        }
+    }
+
     // Registers a photo picker activity launcher in single-select mode.
     val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         // Callback is invoked after the user selects a media item or closes the
         // photo picker.
         if (uri != null) {
-            setWallpaperFromUri(uri, this, primaryTerminal.theme.bgColor, app.preferenceObject)
-            primaryTerminal.output(getString(R.string.selected_wallpaper_applied), primaryTerminal.theme.successTextColor, null)
+            cropImage.launch(
+                CropImageContractOptions(uri = uri, CropImageOptions(
+                    guidelines = CropImageView.Guidelines.ON
+                ))
+            )
         } else {
             primaryTerminal.output(getString(R.string.no_image_selected), primaryTerminal.theme.resultTextColor, Typeface.ITALIC)
         }
