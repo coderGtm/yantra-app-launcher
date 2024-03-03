@@ -480,7 +480,7 @@ fun showSuggestions(
                 else {
                     terminal.binding.cmdInput.setText("$input $sug ")
                 }
-                terminal.binding.cmdInput.setSelection(terminal.binding.cmdInput.text.length)
+                terminal.binding.cmdInput.setSelection(terminal.binding.cmdInput.text!!.length)
                 requestCmdInputFocusAndShowKeyboard(terminal.activity, terminal.binding)
                 terminal.binding.suggestionsTab.removeView(it)
 

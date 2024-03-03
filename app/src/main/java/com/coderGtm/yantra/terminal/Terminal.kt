@@ -406,7 +406,7 @@ class Terminal(
         if (cmdHistoryCursor<(cmdHistory.size-1)) {
             cmdHistoryCursor++
             binding.cmdInput.setText(cmdHistory[cmdHistoryCursor])
-            binding.cmdInput.setSelection(binding.cmdInput.text.length)
+            binding.cmdInput.setSelection(binding.cmdInput.text!!.length)
             requestCmdInputFocusAndShowKeyboard(activity, binding)
         }
     }
@@ -415,7 +415,7 @@ class Terminal(
         if (cmdHistoryCursor>0) {
             cmdHistoryCursor--
             binding.cmdInput.setText(cmdHistory[cmdHistoryCursor])
-            binding.cmdInput.setSelection(binding.cmdInput.text.length)
+            binding.cmdInput.setSelection(binding.cmdInput.text!!.length)
             requestCmdInputFocusAndShowKeyboard(activity, binding)
         }
     }
