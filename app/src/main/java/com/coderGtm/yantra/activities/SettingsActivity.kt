@@ -136,12 +136,14 @@ class SettingsActivity : AppCompatActivity() {
                         for (i in 0 until jsonArray.length()) {
                             names.add(jsonArray.getJSONObject(i).getString("family"))
                         }
-                        MaterialAlertDialogBuilder(this)
+                        val fontSelector = MaterialAlertDialogBuilder(this)
                             .setTitle(getString(R.string.select_a_font))
                             .setItems(names.toTypedArray()) { dialog, which ->
                                 downloadFont(names[which])
                             }
-                            .show()
+                        if (!this@SettingsActivity.isFinishing) {
+                            fontSelector.show()
+                        }
                     },
                     { error ->
                         if (error is NoConnectionError) {

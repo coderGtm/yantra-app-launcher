@@ -161,13 +161,17 @@ fun contactsManager(terminal: Terminal, callingIntent: Boolean = false, callTo: 
                             terminal.output(terminal.activity.getString(R.string.cancelled), terminal.theme.errorTextColor, null)
                             dialogInterface2.dismiss()
                         }
-                    terminal.activity.runOnUiThread { dialog2.show() }
+                    if (!terminal.activity.isFinishing) {
+                        terminal.activity.runOnUiThread { dialog2.show() }
+                    }
                 }
                 .setNegativeButton(terminal.activity.getString(R.string.cancel)) { dialogInterface, _ ->
                     terminal.output(terminal.activity.getString(R.string.cancelled), terminal.theme.errorTextColor, null)
                     dialogInterface.dismiss()
                 }
-            terminal.activity.runOnUiThread { dialog.show() }
+            if (!terminal.activity.isFinishing) {
+                terminal.activity.runOnUiThread { dialog.show() }
+            }
         }
     }
     terminal.contactsFetched = true
@@ -193,7 +197,9 @@ fun requestUpdateIfAvailable(preferenceObject: SharedPreferences, activity: Acti
                 .setNegativeButton(activity.getString(R.string.not_now)) { dialogInterface, _ ->
                     dialogInterface.dismiss()
                 }
-            activity.runOnUiThread { builder.show() }
+            if (!activity.isFinishing) {
+                activity.runOnUiThread { builder.show() }
+            }
         }
         preferenceObject.edit().putLong("lastUpdateCheck", System.currentTimeMillis()/60000).apply()
     }
@@ -223,7 +229,7 @@ private fun askRating(preferenceObject: SharedPreferences, preferenceEditObject:
         .show()
 }
 private fun showCommunityPopup(preferenceEditObject: SharedPreferences.Editor, activity: Activity) {
-    MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog).setTitle(activity.getString(R.string.join_the_community))
+    val communityPopup = MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog).setTitle(activity.getString(R.string.join_the_community))
         .setMessage(activity.getString(R.string.community_description))
         .setPositiveButton(activity.getString(R.string.take_me_there)) { dialog, _ ->
             openURL(DISCORD_COMMUNITY_URL, activity)
@@ -234,7 +240,11 @@ private fun showCommunityPopup(preferenceEditObject: SharedPreferences.Editor, a
             toast(activity.baseContext, activity.getString(R.string.we_d_miss_you))
         }
         .setCancelable(false)
-        .show()
+
+    if (!activity.isFinishing) {
+        communityPopup.show()
+    }
+
     preferenceEditObject.putBoolean("communityPopupShown",true).apply()
 }
 fun showRatingAndCommandPopups(preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor, activity: Activity) {
