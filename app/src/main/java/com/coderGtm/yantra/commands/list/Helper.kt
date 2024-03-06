@@ -13,7 +13,7 @@ fun listApps(command: Command) {
     command.output(command.terminal.activity.getString(R.string.found_apps, command.terminal.appList.size))
     command.output("-------------------------")
     for (app in command.terminal.appList) {
-        command.output("""- ${app.appName}""")
+        command.output("""- ${app.appName} (${app.packageName})""")
     }
 }
 

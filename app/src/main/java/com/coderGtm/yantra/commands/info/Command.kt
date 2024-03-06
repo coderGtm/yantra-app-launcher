@@ -20,6 +20,26 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output(terminal.activity.getString(R.string.specify_app_name), terminal.theme.errorTextColor)
             return
         }
+
+        if (args[1].trim() == "-p") {
+            val packageName = command.trim().removePrefix(args[0]).trim().removePrefix(args[1]).trim()
+            if (packageName.isEmpty()) {
+                output(terminal.activity.getString(R.string.specify_a_package_name), terminal.theme.errorTextColor)
+                return
+            }
+            val app = terminal.appList.find {
+                it.packageName == packageName
+            }
+            if (app != null) {
+                output(terminal.activity.getString(R.string.launching_settings_for, app.appName, app.packageName), terminal.theme.successTextColor)
+                launchAppInfo(this@Command, app)
+            }
+            else {
+                output(terminal.activity.getString(R.string.app_not_found, packageName), terminal.theme.warningTextColor)
+            }
+            return
+        }
+
         val name = command.removePrefix(args[0]).trim().lowercase()
 
         output(terminal.activity.getString(R.string.locating_app, name), terminal.theme.resultTextColor, Typeface.ITALIC)

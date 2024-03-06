@@ -267,8 +267,8 @@
     <string name="enjoy_with_face">Enjoy ㄟ( ▔, ▔ )ㄏ</string>
     <string name="cmd_not_found">Command not found. Use \'help\' to get list of available commands.</string>
     <string name="invalid_help_cmd">Invalid command usage. See \'help\' for usage info</string>
-    <string name="cmd_info_title">info [appName]</string>
-    <string name="cmd_info_help">Launches app settings page for specified app. Example: \'info Big Battery Display\' or \'i Farty Orbit\'</string>
+    <string name="cmd_info_title">info [-p] [app/package name]</string>
+    <string name="cmd_info_help">Launches app settings page for specified app. Example: \'info Big Battery Display\' or \'i Farty Orbit\'. Use the optional \'-p\' flag to launch app settings by package name. Example: \'info com.android.chrome\'</string>
     <string name="specify_app_name">Please specify an app name.</string>
     <string name="locating_app">Locating \'%1$s\'...</string>
     <string name="found_app">+ Found %1$s</string>
@@ -294,8 +294,8 @@
     <string name="init_list_cleared">Init List cleared</string>
     <string name="cmd_internet_help">Opens a panel containing settings to enable internet connection.</string>
     <string name="android10_reqd_for_cmd">Uh oh! I am sorry but it\'s time to upgrade to Android 10 at least to use this command :(</string>
-    <string name="cmd_launch_title">launch [app name]</string>
-    <string name="cmd_launch_help">Launches specified app. Example: \'launch Chrome\'</string>
+    <string name="cmd_launch_title">launch [-p] [app/package name]</string>
+    <string name="cmd_launch_help">Launches specified app. Example: \'launch Chrome\'. Use the optional \'-p\' flag to launch app by package name. Example: \'launch com.android.chrome\'</string>
     <string name="specify_an_app_to_launch">Please specify an app to launch.</string>
     <string name="excluding_app">- Excluding %1$s</string>
     <string name="launching_app">Launching %1$s (%2$s)</string>
@@ -495,4 +495,5 @@
     <string name="weather_humidity"><![CDATA[=> Humidity: %1$s\%]]></string>
     <string name="weather_wind_kmph"><![CDATA[=> Wind: %1$d kmph]]></string>
     <string name="package_removed"><![CDATA[==> Package removed: %1$s]]></string>
+    <string name="specify_a_package_name">Please specify an app package name!</string>
 </resources>

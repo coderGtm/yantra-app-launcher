@@ -21,6 +21,30 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output(terminal.activity.getString(R.string.specify_an_app_to_launch), terminal.theme.errorTextColor)
             return
         }
+
+        if (args[1].trim() == "-p") {
+            val packageName = command.trim().removePrefix(args[0]).trim().removePrefix(args[1]).trim()
+            if (packageName.isEmpty()) {
+                output(terminal.activity.getString(R.string.specify_a_package_name), terminal.theme.errorTextColor)
+                return
+            }
+            val app = terminal.appList.find {
+                it.packageName == packageName
+            }
+            if (app != null) {
+                output(terminal.activity.getString(R.string.launching_app, app.appName, app.packageName), terminal.theme.successTextColor)
+                launchApp(this@Command, app)
+                if (terminal.preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value) == AppSortMode.RECENT.value) {
+                    terminal.appList.remove(app)
+                    terminal.appList.add(0, app)
+                }
+            }
+            else {
+                output(terminal.activity.getString(R.string.app_not_found, packageName), terminal.theme.warningTextColor)
+            }
+            return
+        }
+
         val name = command.removePrefix(args[0]).trim().lowercase()
 
         output(terminal.activity.getString(R.string.locating_app, name), terminal.theme.resultTextColor, Typeface.ITALIC)

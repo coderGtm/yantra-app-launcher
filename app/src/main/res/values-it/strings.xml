@@ -495,4 +495,5 @@
     <string name="weather_humidity"><![CDATA[=> Umidità: %1$s\%]]></string>
     <string name="weather_wind_kmph"><![CDATA[=> Vento: %1$d km/h]]></string>
     <string name="package_removed"><![CDATA[==> Pacchetto rimosso: %1$s]]></string>
+    <string name="specify_a_package_name">Please specify an app package name!</string>
 </resources>
