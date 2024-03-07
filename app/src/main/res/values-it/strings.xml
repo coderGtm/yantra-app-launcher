@@ -295,7 +295,7 @@
     <string name="cmd_internet_help">Apre un pannello contenente le impostazioni per abilitare la connessione internet.</string>
     <string name="android10_reqd_for_cmd">Uh oh! Mi dispiace ma è ora di aggiornare almeno ad Android 10 per utilizzare questo comando :(</string>
     <string name="cmd_launch_title">launch [nome app/nome pacchetto]</string>
-    <string name="cmd_launch_help">Avvia l\'app specificata. Esempio: \'launch Chrome\'. Usa l'opzione \'-p\' per avviare l\'app tramite il nome del pacchetto. Esempio: \'launch com.android.chrome\'</string>
+    <string name="cmd_launch_help">Avvia l\'app specificata. Esempio: \'launch Chrome\'. Usa l\'opzione \'-p\' per avviare l\'app tramite il nome del pacchetto. Esempio: \'launch com.android.chrome\'</string>
     <string name="specify_an_app_to_launch">Si prega di specificare un\'app da avviare.</string>
     <string name="excluding_app">- Escludendo %1$s</string>
     <string name="launching_app">Avviando %1$s (%2$s)</string>
@@ -445,7 +445,7 @@
     <string name="progress_reset_for_all_tasks">Progresso resettato per tutti i compiti!</string>
     <string name="todo_p_invalid">Uso del comando non valido. Usa \'todo -p -1\' per resettare il progresso per tutti i compiti.</string>
     <string name="invalid_progress_value">Valore di progresso non valido. Usa un valore da 0 a 100.</string>
-    <string name="marked_as_pct_done">Contrassegnato \'%1$s\' come completato al %2$d\%!</string>
+    <string name="marked_as_pct_done">Contrassegnato \'%1$s\' come completato al %2$d%%!</string>
     <string name="added_to_todo_list">Aggiunto \'%1$s\' all\'Elenco TODO</string>
     <string name="item_already_present_in_todo">Elemento già presente nell\'elenco todo</string>
     <string name="cmd_translate_title"><![CDATA[translate <-lingua> <testo>]]></string>
@@ -492,7 +492,7 @@
     <string name="weather_temperature_c_f"><![CDATA[=> Temperatura: %1$d°C (%2$d°F)]]></string>
     <string name="weather_min_c_f"><![CDATA[=> Min: %1$d°C (%2$d°F)]]></string>
     <string name="weather_max_c_f"><![CDATA[=> Max: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_humidity"><![CDATA[=> Umidità: %1$s\%]]></string>
+    <string name="weather_humidity"><![CDATA[=> Umidità: %1$s%%]]></string>
     <string name="weather_wind_kmph"><![CDATA[=> Vento: %1$d km/h]]></string>
     <string name="package_removed"><![CDATA[==> Pacchetto rimosso: %1$s]]></string>
     <string name="specify_a_package_name">Per favore, specifica il nome del pacchetto dell\'app!</string>

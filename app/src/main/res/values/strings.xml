@@ -445,7 +445,7 @@
     <string name="progress_reset_for_all_tasks">Progress reset for all tasks!</string>
     <string name="todo_p_invalid">Invalid command usage. Use \'todo -p -1\' to reset progress for all tasks.</string>
     <string name="invalid_progress_value">Invalid progress value. Use a value from 0 to 100.</string>
-    <string name="marked_as_pct_done">Marked \'%1$s\' as %2$d\% done!</string>
+    <string name="marked_as_pct_done">Marked \'%1$s\' as %2$d%% done!</string>
     <string name="added_to_todo_list">Added \'%1$s\' to TODO List</string>
     <string name="item_already_present_in_todo">Item already present in todo list</string>
     <string name="cmd_translate_title"><![CDATA[translate <-language> <text>]]></string>
@@ -492,7 +492,7 @@
     <string name="weather_temperature_c_f"><![CDATA[=> Temperature: %1$d°C (%2$d°F)]]></string>
     <string name="weather_min_c_f"><![CDATA[=> Min: %1$d°C (%2$d°F)]]></string>
     <string name="weather_max_c_f"><![CDATA[=> Max: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_humidity"><![CDATA[=> Humidity: %1$s\%]]></string>
+    <string name="weather_humidity"><![CDATA[=> Humidity: %1$s%%]]></string>
     <string name="weather_wind_kmph"><![CDATA[=> Wind: %1$d kmph]]></string>
     <string name="package_removed"><![CDATA[==> Package removed: %1$s]]></string>
     <string name="specify_a_package_name">Please specify an app package name!</string>
