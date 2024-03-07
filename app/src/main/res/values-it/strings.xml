@@ -294,8 +294,8 @@
     <string name="init_list_cleared">Lista di inizializzazione pulita</string>
     <string name="cmd_internet_help">Apre un pannello contenente le impostazioni per abilitare la connessione internet.</string>
     <string name="android10_reqd_for_cmd">Uh oh! Mi dispiace ma è ora di aggiornare almeno ad Android 10 per utilizzare questo comando :(</string>
-    <string name="cmd_launch_title">launch [nome app]</string>
-    <string name="cmd_launch_help">Avvia l\'app specificata. Esempio: \'launch Chrome\'</string>
+    <string name="cmd_launch_title">launch [nome app/nome pacchetto]</string>
+    <string name="cmd_launch_help">Avvia l\'app specificata. Esempio: \'launch Chrome\'. Usa l'opzione \'-p\' per avviare l\'app tramite il nome del pacchetto. Esempio: \'launch com.android.chrome\'</string>
     <string name="specify_an_app_to_launch">Si prega di specificare un\'app da avviare.</string>
     <string name="excluding_app">- Escludendo %1$s</string>
     <string name="launching_app">Avviando %1$s (%2$s)</string>
@@ -495,5 +495,5 @@
     <string name="weather_humidity"><![CDATA[=> Umidità: %1$s\%]]></string>
     <string name="weather_wind_kmph"><![CDATA[=> Vento: %1$d km/h]]></string>
     <string name="package_removed"><![CDATA[==> Pacchetto rimosso: %1$s]]></string>
-    <string name="specify_a_package_name">Please specify an app package name!</string>
+    <string name="specify_a_package_name">Per favore, specifica il nome del pacchetto dell\'app!</string>
 </resources>
