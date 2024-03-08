@@ -155,7 +155,9 @@ class SettingsActivity : AppCompatActivity() {
                                 getString(R.string.an_error_occurred_please_try_again), Toast.LENGTH_SHORT).show()
                         }
                     })
-                queue.add(stringRequest)
+                Thread {
+                    queue.add(stringRequest)
+                }.start()
             }
             else {
                 MaterialAlertDialogBuilder(this)
