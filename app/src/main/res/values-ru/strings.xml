@@ -495,4 +495,5 @@
     <string name="weather_humidity"><![CDATA[=> Влажность: %1$s\%]]></string>
     <string name="weather_wind_kmph"><![CDATA[=> Ветер: %1$d км/ч]]></string>
     <string name="package_removed"><![CDATA[==> Пакет удален: %1$s]]></string>
+    <string name="specify_a_package_name">Пожалуйста, укажите имя пакета!</string>
 </resources>
