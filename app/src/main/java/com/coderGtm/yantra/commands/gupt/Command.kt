@@ -2,6 +2,7 @@ package com.coderGtm.yantra.commands.gupt
 
 import android.content.Intent
 import android.graphics.Typeface
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.activities.WebViewActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
@@ -11,13 +12,13 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "gupt",
-        helpTitle = "GUPT | GUPT [url]",
-        description = "G.U.P.T stands for Get Undercover Private Tab. Tired of going to browser everytime and opening Incognito Tab. With GUPT command, you get a built-in Private incognito Tab. Note that GUPT is a paid add-on feature. Example: 'gupt https://www.youtube.com'. Use without url to default to https://www.google.com"
+        helpTitle = terminal.activity.getString(R.string.cmd_gupt_title),
+        description = terminal.activity.getString(R.string.cmd_gupt_help)
     )
 
     override fun execute(command: String) {
-        output("Initializing G.U.P.T...",terminal.theme.warningTextColor)
-        if (!terminal.preferenceObject.getBoolean("gupt___purchased",false)) {
+        output(terminal.activity.getString(R.string.initializing_g_u_p_t),terminal.theme.warningTextColor)
+        if (!terminal.preferenceObject.getBoolean("gupt___purchased",true)) {
             output("[-] G.U.P.T is a paid add-on feature. Consider buying it to enable it.",terminal.theme.errorTextColor)
             output("Salient features of G.U.P.T:",terminal.theme.warningTextColor, Typeface.BOLD)
             output("--------------------------",terminal.theme.warningTextColor)
@@ -33,17 +34,17 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             mainAct.initializeProductPurchase("gupt")
             return
         }
-        output("Getting Undercover Private Tab...",terminal.theme.resultTextColor, Typeface.ITALIC)
+        output(terminal.activity.getString(R.string.getting_undercover_private_tab),terminal.theme.resultTextColor, Typeface.ITALIC)
         val cmdArray = command.split(" ")
         var url = "https://www.google.com"
         if (cmdArray.size > 1) {
             if (cmdArray.size > 2) {
-                output("[-] Too many parameters! Usage: 'gupt' or 'gupt [url-here]'", terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.gupt_many_params), terminal.theme.errorTextColor)
                 return
             }
             url = cmdArray[1]
         }
         terminal.activity.startActivity(Intent(terminal.activity, WebViewActivity::class.java).putExtra("url", url))
-        output("[+] Launched G.U.P.T...",terminal.theme.successTextColor)
+        output(terminal.activity.getString(R.string.launched_g_u_p_t),terminal.theme.successTextColor)
     }
 }

@@ -6,6 +6,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.coderGtm.yantra.AI_SYSTEM_PROMPT
 import com.coderGtm.yantra.DEFAULT_AI_API_DOMAIN
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -13,15 +14,15 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "ai",
-        helpTitle = "ai [message]",
-        description = "A simple tool to access chatGPT from the terminal. Based on OpenAI's gpt-3.5-turbo, you can chat with your own AI assistant. An API key is required to be entered in 'settings'. This command does not remember context, so the model will be unaware of your previous conversation."
+        helpTitle = terminal.activity.getString(R.string.cmd_ai_title),
+        description = terminal.activity.getString(R.string.cmd_ai_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
         val message = command.removePrefix(args[0])
         if (args.size < 2) {
-            output("Please specify the message to send to AI.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.ai_msg_missing), terminal.theme.errorTextColor)
             return
         }
         val apiDomain = terminal.preferenceObject.getString("aiApiDomain", DEFAULT_AI_API_DOMAIN) ?: DEFAULT_AI_API_DOMAIN
@@ -31,7 +32,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val requestBody = getRequestBody(systemPrompt, message)
 
         if (apiKey == "") {
-            output("You probably forgot to provide an API key. Please enter it in 'settings'.", terminal.theme.errorTextColor, Typeface.BOLD_ITALIC)
+            output(terminal.activity.getString(R.string.no_ai_api_key_found), terminal.theme.errorTextColor, Typeface.BOLD_ITALIC)
             return
         }
 
@@ -62,6 +63,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         // Add the request to the Volley queue for execution
         val requestQueue = Volley.newRequestQueue(terminal.activity)
         requestQueue.add(request)
-        output("Communicating with AI...", terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
+        output(terminal.activity.getString(R.string.communicating_with_ai), terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
     }
 }

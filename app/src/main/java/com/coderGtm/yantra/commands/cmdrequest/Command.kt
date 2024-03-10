@@ -16,13 +16,13 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "cmdrequest",
         helpTitle = "cmdrequest",
-        description = "In case you want any new commands to be added to Yantra Launcher, run this command to open email template for command request. Note that it is not guaranteed that the command request will be accepted but I'll try my best to see if I could accommodate it in the upcoming versions of Yantra Launcher, if suitable."
+        description = terminal.activity.getString(R.string.cmd_cmdrequest_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size > 1) {
-            output("'cmdrequest' command does not take any parameters.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.cmdrequest_no_args), terminal.theme.errorTextColor)
             return
         }
         val intent = Intent(Intent.ACTION_SENDTO).apply {
@@ -34,14 +34,15 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         if (intent.resolveActivity(terminal.activity.packageManager) != null) {
             terminal.activity.startActivity(intent)
         } else {
-            MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog).setTitle("Oops!")
-                .setMessage("Could not launch an email app. Please send the mail to coderGtm@gmail.com with title 'Command request for Yantra Launcher'")
-                .setPositiveButton("OK") { dialog, _ ->
+            MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
+                .setTitle(terminal.activity.getString(R.string.oops))
+                .setMessage(terminal.activity.getString(R.string.send_manual_mail_with_title, "Command request for Yantra Launcher"))
+                .setPositiveButton(terminal.activity.getString(R.string.ok)) { dialog, _ ->
                     //copy title to clipboard
                     val clipboard = terminal.activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                    val clip = ClipData.newPlainText("Command request for Yantra Launcher", "Command request for Yantra Launcher")
+                    val clip = ClipData.newPlainText(terminal.activity.getString(R.string.command_request_for_yantra_launcher), terminal.activity.getString(R.string.command_request_for_yantra_launcher))
                     clipboard.setPrimaryClip(clip)
-                    toast(terminal.activity.baseContext, "Copied title to clipboard")
+                    toast(terminal.activity.baseContext, terminal.activity.getString(R.string.copied_title_to_clipboard))
                     dialog.dismiss()
                 }
                 .show()

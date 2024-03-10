@@ -11,10 +11,20 @@ android {
         applicationId "com.coderGtm.yantra"
         minSdk 21
         targetSdk 34
-        versionCode 98
-        versionName "9.0.1"
+        versionCode 100
+        versionName "9.1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    androidResources {
+        generateLocaleConfig true
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
     }
 
     buildTypes {
@@ -68,7 +78,8 @@ dependencies {
     implementation "ch.acra:acra-dialog:$acraVersion"
     implementation "androidx.activity:activity-ktx:1.8.2"
     implementation "io.noties.markwon:core:4.6.2"
-    implementation("androidx.webkit:webkit:1.9.0")
+    implementation "androidx.webkit:webkit:1.9.0"
+    implementation "com.vanniktech:android-image-cropper:4.5.0"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'

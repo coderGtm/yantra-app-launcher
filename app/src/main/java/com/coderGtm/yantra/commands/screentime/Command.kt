@@ -13,8 +13,8 @@ import java.util.Calendar
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "screentime",
-        helpTitle = "screentime [app-name][-all]",
-        description = "Shows Total Screen time for the day! Give app name to get screen time for particular app, or use the '-all' flag to get screentime for all apps used today.\nExample: 'screentime Instagram' or 'screentime -all'"
+        helpTitle = terminal.activity.getString(R.string.cmd_screentime_title),
+        description = terminal.activity.getString(R.string.cmd_screentime_help)
     )
 
     override fun execute(command: String) {
@@ -30,40 +30,40 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
         if (!checkUsageStatsPermission(terminal)) {
             MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                .setTitle("Permission Required")
-                .setMessage("Please grant the 'Usage Access' permission to Yantra Launcher to access the required data for screen time.")
-                .setPositiveButton("Grant") { _, _ ->
+                .setTitle(terminal.activity.getString(R.string.permission_required))
+                .setMessage(terminal.activity.getString(R.string.screentime_permission))
+                .setPositiveButton(terminal.activity.getString(R.string.grant)) { _, _ ->
                     // Navigate the user to the permission settings
                     Intent( Settings.ACTION_USAGE_ACCESS_SETTINGS ).apply {
                         terminal.activity.startActivity( this )
                     }
                 }
-                .setNegativeButton("Cancel") { _, _ ->
-                    output("Missing Usage Access Permission", terminal.theme.errorTextColor)
+                .setNegativeButton(terminal.activity.getString(R.string.cancel)) { _, _ ->
+                    output(terminal.activity.getString(R.string.missing_usage_access_permission), terminal.theme.errorTextColor)
                 }
                 .show()
             return
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {
-            output("Ouch! Screen Time is not supported on this device. Minimum Android 5.1 is required! :(", terminal.theme.warningTextColor)
+            output(terminal.activity.getString(R.string.screentime_not_supported), terminal.theme.warningTextColor)
             return
         }
 
         if (args.size == 1) {
             // get total screen time
             val screenTime = getTotalScreenTime(terminal, startTime, endTime, terminal.appList)
-            output("Today's Screen Time: $screenTime")
+            output(terminal.activity.getString(R.string.todays_screen_time, screenTime))
         }
         else if (args[1].trim().lowercase() == "-all") {
             // get screen time for all apps
             val screenTimes = getScreenTime(terminal, startTime, endTime, terminal.appList)
             if (screenTimes.isEmpty()) {
-                output("No apps found.", terminal.theme.warningTextColor)
+                output(terminal.activity.getString(R.string.no_apps_found), terminal.theme.warningTextColor)
                 return
             }
             screenTimes.forEach { st ->
                 val appBlock = terminal.appList.find { it.packageName == st.key } ?: return@forEach
-                output("${appBlock.appName}: ${formatScreenTime(st.value!!.toLong())}")
+                output("${appBlock.appName}: ${formatScreenTime(st.value!!.toLong(), terminal.activity)}")
             }
         }
         else {
@@ -79,12 +79,12 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     }
                     screenTimes.forEach { st ->
                         val appBlock = terminal.appList.find { it.packageName == st.key } ?: return@forEach
-                        output("${appBlock.appName}: ${formatScreenTime(st.value!!.toLong())}")
+                        output("${appBlock.appName}: ${formatScreenTime(st.value!!.toLong(), terminal.activity)}")
                     }
                     return
                 }
             }
-            output("'$name' app not found. Try using 'list apps' to get list of all app names.", terminal.theme.warningTextColor)
+            output(terminal.activity.getString(R.string.app_not_found, name), terminal.theme.warningTextColor)
         }
     }
 }

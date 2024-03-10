@@ -11,6 +11,7 @@ import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.coderGtm.yantra.PermissionRequestCodes
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.models.DirectoryContents
@@ -21,7 +22,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "ls",
         helpTitle = "ls [-a]",
-        description = "Lists contents in the current directory. Optionally, pass the '-a' flag to also show hidden files/folders."
+        description = terminal.activity.getString(R.string.cmd_ls_help)
     )
 
     override fun execute(command: String) {
@@ -33,17 +34,17 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 showHidden = true
             }
             else {
-                output("Error! Invalid argument provided. 'ls' command accepts only 1 flag parameter: '-a'.", terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.ls_invalid_arg), terminal.theme.errorTextColor)
                 return
             }
         }
         if (args.size > 1) {
-            output("Error! 'ls' command accepts only 1 flag parameter: '-a'.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.ls_many_args), terminal.theme.errorTextColor)
             return
         }
 
         if (!checkPermission(this@Command)) {
-            output("File Permission Missing!", terminal.theme.warningTextColor)
+            output(terminal.activity.getString(R.string.feature_permission_missing, terminal.activity.getString(R.string.file)), terminal.theme.warningTextColor)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)

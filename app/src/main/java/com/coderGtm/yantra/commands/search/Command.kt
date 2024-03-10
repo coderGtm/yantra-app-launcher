@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Typeface
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.openURL
@@ -13,13 +14,13 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "search",
         helpTitle = "search",
-        description = "Searches the internet for the provided query. Search engine can be specified with the -e flag (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore). Default is google. You can use a custom search engine by specifying the url with the -u flag (-u=https://example.com/search?q=). The query is the only required argument that is provided at the end of the command. It is automatically URL encoded during execution of the command. Examples:\n'search Yantra Launcher'\n'search -e=duckduckgo Yantra Launcher'\n'search -u=https://example.com/search?q= Yantra Launcher'"
+        description = terminal.activity.getString(R.string.cmd_search_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ").drop(1)
         if (args.isEmpty()) {
-            output("Please provide a query.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.missing_query), terminal.theme.errorTextColor)
             return
         }
 
@@ -28,7 +29,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             val engine = args.first().trim().split("=").last().trim()
             val query = args.drop(1).joinToString(" ").trim()
             if (query.isEmpty()) {
-                output("Please provide a query.", terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.missing_query), terminal.theme.errorTextColor)
                 return
             }
             val url = when (engine) {
@@ -43,11 +44,11 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 "you" -> "https://you.com/search?q="
                 "playstore" -> "https://play.google.com/store/search?q="
                 else -> {
-                    output("Invalid search engine. See 'help search' to get info about search engine keywords.", terminal.theme.errorTextColor)
+                    output(terminal.activity.getString(R.string.invalid_search_engine), terminal.theme.errorTextColor)
                     return
                 }
             }
-            output("Searching for '$query' with $engine...", style = Typeface.ITALIC)
+            output(terminal.activity.getString(R.string.searching_for_with, query, engine), style = Typeface.ITALIC)
             // check if the device has the search engine app installed.
             // if it does, open the search engine app with the query
             // if it doesn't, open the search engine website with the query
@@ -66,19 +67,19 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             }
             val query = args.drop(1).joinToString(" ").trim()
             if (query.isEmpty()) {
-                output("Please provide a query.", terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.missing_query), terminal.theme.errorTextColor)
                 return
             }
-            output("Searching for '$query' with custom search engine...", style = Typeface.ITALIC)
+            output(terminal.activity.getString(R.string.searching_for_with_custom_search_engine, query), style = Typeface.ITALIC)
             val urlEncodedQuery = java.net.URLEncoder.encode(query, "UTF-8")
             try {
                 openURL("$url$urlEncodedQuery", terminal.activity)
             } catch (e: Exception) {
                 if (e is ActivityNotFoundException) {
-                    output("No app found to open the URL.", terminal.theme.errorTextColor)
+                    output(terminal.activity.getString(R.string.no_app_found_to_open_the_url), terminal.theme.errorTextColor)
                 }
                 else {
-                    output("An error occurred while opening the URL.", terminal.theme.errorTextColor)
+                    output(terminal.activity.getString(R.string.error_opening_url), terminal.theme.errorTextColor)
                 }
             }
             return
@@ -86,10 +87,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         else {
             val query = command.trim().removePrefix("search").trim()
             if (query.isEmpty()) {
-                output("Please provide a query.", terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.missing_query), terminal.theme.errorTextColor)
                 return
             }
-            output("Searching for '$query' with google...", style = Typeface.ITALIC)
+            output(terminal.activity.getString(R.string.searching_for_with, query, "google"), style = Typeface.ITALIC)
             val urlEncodedQuery = java.net.URLEncoder.encode(query, "UTF-8")
             //search in google app if installed
             val intent = Intent(Intent.ACTION_WEB_SEARCH)

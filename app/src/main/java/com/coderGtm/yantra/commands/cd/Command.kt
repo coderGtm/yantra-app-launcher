@@ -7,6 +7,7 @@ import android.os.Build
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
 import com.coderGtm.yantra.PermissionRequestCodes
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -14,20 +15,20 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "cd",
-        helpTitle = "cd [path]",
-        description = "Changes the current directory to the specified path.\nExample: 'cd DCIM'"
+        helpTitle = terminal.activity.getString(R.string.cmd_cd_title),
+        description = terminal.activity.getString(R.string.cmd_cd_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ").drop(1)
 
         if (args.isEmpty()) {
-            output("Please provide a path!", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.please_provide_a_path), terminal.theme.errorTextColor)
             return
         }
 
         if (!checkPermission(this@Command)) {
-            output("File Permission Missing!", terminal.theme.warningTextColor)
+            output(terminal.activity.getString(R.string.feature_permission_missing, terminal.activity.getString(R.string.file)), terminal.theme.warningTextColor)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
@@ -60,7 +61,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
 
-        output("Error! No matching directory found!", terminal.theme.errorTextColor)
+        output(terminal.activity.getString(R.string.error_no_matching_directory_found), terminal.theme.errorTextColor)
         return
     }
 }

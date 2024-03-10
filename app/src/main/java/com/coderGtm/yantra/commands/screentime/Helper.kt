@@ -7,6 +7,7 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.terminal.Terminal
 import java.util.concurrent.TimeUnit
@@ -71,11 +72,11 @@ fun getTotalScreenTime(terminal: Terminal, startTime: Long, endTime: Long, appLi
         totalScreenTime += value!!
     }
     // Format the total time (in milliseconds) into a readable format
-    val screenTime = formatScreenTime(totalScreenTime)
+    val screenTime = formatScreenTime(totalScreenTime, terminal.activity)
     return screenTime
 }
 
-fun formatScreenTime(milliseconds: Long): String {
+fun formatScreenTime(milliseconds: Long, context: Context): String {
     val hours = TimeUnit.MILLISECONDS.toHours(milliseconds)
     val minutes = TimeUnit.MILLISECONDS.toMinutes(milliseconds - TimeUnit.HOURS.toMillis(hours))
     val seconds =
@@ -90,7 +91,7 @@ fun formatScreenTime(milliseconds: Long): String {
         }
     }
     else if (hours == 0L && minutes == 0L) {
-        "Less than 1 minute"
+        context.getString(R.string.less_than_1_minute)
     }
     else {
         if (hours == 0L) {

@@ -5,6 +5,7 @@ import com.android.volley.AuthFailureError
 import com.android.volley.NoConnectionError
 import com.android.volley.TimeoutError
 import com.android.volley.VolleyError
+import com.coderGtm.yantra.R
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -38,30 +39,30 @@ fun handleResponse(response: JSONObject, command: Command) {
 
             command.output(replyContent, command.terminal.theme.resultTextColor, Typeface.ITALIC, markdown = true)
         } else {
-            command.output("No reply found in the response", command.terminal.theme.errorTextColor)
+            command.output(command.terminal.activity.getString(R.string.no_reply_in_response), command.terminal.theme.errorTextColor)
         }
     }
     else {
-        command.output("The server did not send a chat reply! Try again.", command.terminal.theme.errorTextColor)
+        command.output(command.terminal.activity.getString(R.string.no_reply_from_server), command.terminal.theme.errorTextColor)
     }
 }
 
 fun handleError(error: VolleyError, command: Command) {
     when (error) {
         is NoConnectionError -> {
-            command.output("No internet connection", command.terminal.theme.errorTextColor)
+            command.output(command.terminal.activity.getString(R.string.no_internet_connection), command.terminal.theme.errorTextColor)
         }
 
         is TimeoutError -> {
-            command.output("I lost my patience! Try again or try a request with a shorter expected output.", command.terminal.theme.errorTextColor)
+            command.output(command.terminal.activity.getString(R.string.timeout_error), command.terminal.theme.errorTextColor)
         }
 
         is AuthFailureError -> {
-            command.output("Authentication Failed. Make sure you used the correct API key in 'settings'", command.terminal.theme.errorTextColor)
+            command.output(command.terminal.activity.getString(R.string.ai_auth_failed), command.terminal.theme.errorTextColor)
         }
 
         else -> {
-            command.output("An error occurred: ${error.networkResponse.statusCode}",command.terminal.theme.errorTextColor)
+            command.output(command.terminal.activity.getString(R.string.ai_error, error.networkResponse.statusCode),command.terminal.theme.errorTextColor)
         }
     }
 }

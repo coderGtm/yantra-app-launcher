@@ -461,6 +461,33 @@
                 android:background="?android:attr/listDivider" />
 
             <LinearLayout
+                android:id="@+id/languageLay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingVertical="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:text="@string/app_language" />
+
+                <TextView
+                    android:id="@+id/currentLocale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="English" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
                 android:id="@+id/termuxCmdPathLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

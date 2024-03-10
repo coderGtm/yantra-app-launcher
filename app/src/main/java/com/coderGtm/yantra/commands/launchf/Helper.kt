@@ -3,6 +3,7 @@ package com.coderGtm.yantra.commands.launchf
 import android.content.Context
 import android.content.pm.LauncherApps
 import android.os.Build
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.models.AppBlock
 
 fun launchApp(command: Command, app: AppBlock) {
@@ -10,8 +11,8 @@ fun launchApp(command: Command, app: AppBlock) {
     val component = launcher.getActivityList(app.packageName, app.user).first().componentName
     try {
         launcher.startMainActivity(component, app.user, null, null)
-        command.output(":: Rendering Display to ${Build.MANUFACTURER} ${Build.MODEL}...")
+        command.output(command.terminal.activity.getString(R.string.rendering_display_to, Build.MANUFACTURER, Build.MODEL))
     } catch (e: Exception) {
-        command.output("Failed to launch app :(", command.terminal.theme.errorTextColor)
+        command.output(command.terminal.activity.getString(R.string.failed_to_launch_app), command.terminal.theme.errorTextColor)
     }
 }

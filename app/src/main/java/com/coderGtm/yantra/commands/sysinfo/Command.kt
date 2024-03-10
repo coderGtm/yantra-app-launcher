@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.SystemClock
 import com.coderGtm.yantra.BuildConfig
 import com.coderGtm.yantra.DEFAULT_TERMINAL_FONT_NAME
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.models.CommandMetadata
@@ -14,8 +15,8 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "sysinfo",
-        helpTitle = "sysinfo | sysinfo -component",
-        description = "Displays system information, much like 'Neofetch'"
+        helpTitle = terminal.activity.getString(R.string.cmd_sysinfo_title),
+        description = terminal.activity.getString(R.string.cmd_sysinfo_help)
     )
 
     override fun execute(command: String) {
@@ -52,7 +53,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 "-theme" -> output("--> Theme: ${getCurrentThemeName(terminal.preferenceObject)}")
                 "-cpu" -> output("--> CPU: ${Build.SUPPORTED_ABIS[0]} (${Runtime.getRuntime().availableProcessors()}) @ ${getCPUSpeed()}")
                 "-memory" -> output("--> Memory: ${availableMem.toInt()}MiB / ${totalMem.toInt()}MiB")
-                else -> output("Unknown flag: $arg", terminal.theme.errorTextColor)
+                else -> output(terminal.activity.getString(R.string.unknown_flag, arg), terminal.theme.errorTextColor)
             }
         }
         if (showAllInfo) {

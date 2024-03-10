@@ -1,5 +1,6 @@
 package com.coderGtm.yantra.commands.unalias
 
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.commands.alias.updateAliasList
 import com.coderGtm.yantra.models.CommandMetadata
@@ -9,17 +10,17 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "unalias",
         helpTitle = "unalias",
-        description = "Used to un-alias (remove) an alias.\nUsage: 'unalias alias_name'\nExample: 'unalias h'\nUse 'unalias -1' to remove all aliases"
+        description = terminal.activity.getString(R.string.cmd_unalias_help)
     )
 
     override fun execute(command: String) {
         if (command.trim() == "unalias") {
-            output("Invalid command. Use 'unalias alias_name' to remove alias", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.unalias_give_something), terminal.theme.errorTextColor)
             return
         }
         val cmdArray = command.trim().split(" ")
         if (cmdArray.size == 1) {
-            output("Invalid command. Use 'unalias alias_name' to remove alias", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.unalias_give_something), terminal.theme.errorTextColor)
             return
         }
         if (cmdArray.size >= 2) {
@@ -27,7 +28,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 // clear aliasList
                 terminal.aliasList.clear()
                 updateAliasList(terminal.aliasList, terminal.preferenceObject.edit())
-                output("Alias list cleared", terminal.theme.successTextColor)
+                output(terminal.activity.getString(R.string.alias_list_cleared), terminal.theme.successTextColor)
                 return
             }
             val aliasName = cmdArray[1].trim()
@@ -35,13 +36,13 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 if (terminal.aliasList[i].key == aliasName) {
                     terminal.aliasList.removeAt(i)
                     updateAliasList(terminal.aliasList, terminal.preferenceObject.edit())
-                    output("Alias '$aliasName' removed.", terminal.theme.successTextColor)
+                    output(terminal.activity.getString(R.string.alias_removed, aliasName), terminal.theme.successTextColor)
                     return
                 }
             }
-            output("No alias found for '$aliasName'", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.no_alias_found_for, aliasName), terminal.theme.errorTextColor)
             return
         }
-        output("Invalid command. See 'help' to get usage info.", terminal.theme.errorTextColor)
+        output(terminal.activity.getString(R.string.unalias_see_help), terminal.theme.errorTextColor)
     }
 }

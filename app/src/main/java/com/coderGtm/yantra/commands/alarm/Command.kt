@@ -3,6 +3,7 @@ package com.coderGtm.yantra.commands.alarm
 import android.content.Intent
 import android.graphics.Typeface
 import android.provider.AlarmClock
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -11,22 +12,22 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "alarm",
-        helpTitle = "alarm [time] [message]",
-        description = "Sets alarm using a supported Alarm Clock on your device. Use without args to open the list of alarms on your device default app. The time must be in 24 hr format. It can optionally be followed by a message string to display in alarm.\nExamples:\n'alarm 14:30' sets alarm for 2:30 pm\n'alarm 0:15 Wish good night to ***' sets alarm for 12:15 am with a message to display."
+        helpTitle = terminal.activity.getString(R.string.cmd_alarm_title),
+        description = terminal.activity.getString(R.string.cmd_alarm_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ").drop(1)
 
         if (args.isEmpty()) {
-            output("No time provided. Launching alarm app.", terminal.theme.resultTextColor)
+            output(terminal.activity.getString(R.string.no_time_provided_launch_app), terminal.theme.resultTextColor)
             terminal.activity.startActivity(Intent(AlarmClock.ACTION_SHOW_ALARMS))
         }
         else {
-            output(":: Parsing time string...", terminal.theme.resultTextColor, Typeface.ITALIC)
+            output(terminal.activity.getString(R.string.parsing_time_string), terminal.theme.resultTextColor, Typeface.ITALIC)
             val timeString = args.first().trim()
             if (!isValidTimeString(timeString)) {
-                output("Invalid time string provided. It must confront to hh:mm format and must be in 24 hr representation.", terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.invalid_time_string), terminal.theme.errorTextColor)
                 return
             }
             val hr = timeString.split(":")[0]
@@ -34,12 +35,12 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             var msg = ""
 
             if (args.size > 1) {
-                output(":: Parsing message string...", terminal.theme.resultTextColor, Typeface.ITALIC)
+                output(terminal.activity.getString(R.string.parsing_message_string), terminal.theme.resultTextColor, Typeface.ITALIC)
                 // get the original message string from the command
                 msg = command.substringAfter(timeString).trim()
             }
 
-            output("=> Setting alarm...", terminal.theme.resultTextColor)
+            output(terminal.activity.getString(R.string.setting_alarm), terminal.theme.resultTextColor)
             val intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
                 putExtra(AlarmClock.EXTRA_HOUR, hr.toInt())
                 putExtra(AlarmClock.EXTRA_MINUTES, min.toInt())
@@ -49,10 +50,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             }
             if (intent.resolveActivity(terminal.activity.packageManager) != null) {
                 terminal.activity.startActivity(intent)
-                output("Alarm set successfully.", terminal.theme.successTextColor, Typeface.BOLD)
+                output(terminal.activity.getString(R.string.alarm_set), terminal.theme.successTextColor, Typeface.BOLD)
             }
             else {
-                output("No supported alarm app found on your device.", terminal.theme.errorTextColor)
+                output(terminal.activity.getString(R.string.no_alarm_app), terminal.theme.errorTextColor)
             }
         }
     }

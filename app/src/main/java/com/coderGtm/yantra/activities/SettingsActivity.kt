@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
 import com.android.volley.NoConnectionError
@@ -56,8 +58,14 @@ class SettingsActivity : AppCompatActivity() {
     private var orientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     private var appSugOrderingMode = AppSortMode.A_TO_Z.value
     private var fontName = "Source Code Pro"
+    private var appLocale = "en"
 
     private lateinit var binding: ActivitySettingsBinding
+
+    private val supportedLocales = mapOf(
+        "English" to "en",
+        "Italiano" to "it",
+    )
 
     private val prefFile = "yantraSP"
     private val preferenceObject: SharedPreferences
@@ -89,6 +97,7 @@ class SettingsActivity : AppCompatActivity() {
         orientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         appSugOrderingMode = preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value)
         fontName = preferenceObject.getString("font","Source Code Pro") ?: "Source Code Pro"
+        appLocale = AppCompatDelegate.getApplicationLocales().toLanguageTags()
 
 
         binding.usernamePrefix.text = getUserNamePrefix(preferenceObject)
@@ -97,6 +106,7 @@ class SettingsActivity : AppCompatActivity() {
         setOrientationTvText(binding, orientation)
         setAppSugOrderTvText(binding, appSugOrderingMode)
         binding.tvFontName.text = fontName
+        binding.currentLocale.text = supportedLocales.filterValues { it == appLocale }.keys.firstOrNull() ?: "English"
         binding.prefixLayout.setOnClickListener { openUsernamePrefixSetter(this@SettingsActivity, binding, preferenceObject, preferenceEditObject) }
         binding.doubleTapActionLayout.setOnClickListener { openDoubleTapActionSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.rightSwipeActionLayout.setOnClickListener { openSwipeRightActionSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
@@ -114,7 +124,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.aiSystemPromptLayout.setOnClickListener { openAiSystemPromptSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
 
         binding.fontLay.setOnClickListener {
-            if (preferenceObject.getBoolean("fontpack___purchased",false)) {
+            if (preferenceObject.getBoolean("fontpack___purchased",true)) {
                 Toast.makeText(this, getString(R.string.loading_fonts), Toast.LENGTH_SHORT).show()
                 val url = "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBFFPy6DsYRRQVlADHdCgKk5qd62CJxjqo"
                 val queue = Volley.newRequestQueue(this)
@@ -126,12 +136,14 @@ class SettingsActivity : AppCompatActivity() {
                         for (i in 0 until jsonArray.length()) {
                             names.add(jsonArray.getJSONObject(i).getString("family"))
                         }
-                        MaterialAlertDialogBuilder(this)
+                        val fontSelector = MaterialAlertDialogBuilder(this)
                             .setTitle(getString(R.string.select_a_font))
                             .setItems(names.toTypedArray()) { dialog, which ->
                                 downloadFont(names[which])
                             }
-                            .show()
+                        if (!this@SettingsActivity.isFinishing) {
+                            fontSelector.show()
+                        }
                     },
                     { error ->
                         if (error is NoConnectionError) {
@@ -143,7 +155,9 @@ class SettingsActivity : AppCompatActivity() {
                                 getString(R.string.an_error_occurred_please_try_again), Toast.LENGTH_SHORT).show()
                         }
                     })
-                queue.add(stringRequest)
+                Thread {
+                    queue.add(stringRequest)
+                }.start()
             }
             else {
                 MaterialAlertDialogBuilder(this)
@@ -154,6 +168,29 @@ class SettingsActivity : AppCompatActivity() {
                     }
                     .show()
             }
+        }
+
+        binding.languageLay.setOnClickListener {
+            val keys = supportedLocales.keys.toTypedArray()
+            val values = supportedLocales.values.toTypedArray()
+            MaterialAlertDialogBuilder(this)
+                .setCancelable(false)
+                .setTitle(getString(R.string.attention))
+                .setMessage(getString(R.string.language_change_disclaimer))
+                .setPositiveButton(getString(R.string.i_understand)) { dialog, _ ->
+                    dialog.dismiss()
+                    MaterialAlertDialogBuilder(this)
+                        .setTitle(getString(R.string.select_a_language))
+                        .setItems(keys) { _, which ->
+                            appLocale = values[which]
+                            binding.currentLocale.text = keys[which]
+                            changedSettingsCallback(this@SettingsActivity)
+                            Toast.makeText(this, getString(R.string.changed_app_language_to, keys[which]), Toast.LENGTH_LONG).show()
+                            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(appLocale))
+                        }
+                        .show()
+                }
+                .show()
         }
 
         binding.primarySugSwitch.isChecked = getPrimarySuggestions

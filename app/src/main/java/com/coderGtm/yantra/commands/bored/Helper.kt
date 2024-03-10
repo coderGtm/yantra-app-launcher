@@ -2,6 +2,7 @@ package com.coderGtm.yantra.commands.bored
 
 import com.android.volley.NoConnectionError
 import com.android.volley.VolleyError
+import com.coderGtm.yantra.R
 import org.json.JSONObject
 
 fun handleResponse(response: String, command: Command) {
@@ -10,18 +11,18 @@ fun handleResponse(response: String, command: Command) {
     val type = json.getString("type")
     val participants = json.getString("participants")
     command.output("-------------------------")
-    command.output("Random Activity", command.terminal.theme.successTextColor)
+    command.output(command.terminal.activity.getString(R.string.random_activity), command.terminal.theme.successTextColor)
     command.output("=> $activity")
-    command.output("=> Type: $type")
-    command.output("=> Participants: $participants")
+    command.output(command.terminal.activity.getString(R.string.activity_type, type))
+    command.output(command.terminal.activity.getString(R.string.activity_participants, participants))
     command.output("-------------------------")
 }
 
 fun handleError(error: VolleyError, command: Command) {
     if (error is NoConnectionError) {
-        command.output("No internet connection", command.terminal.theme.errorTextColor)
+        command.output(command.terminal.activity.getString(R.string.no_internet_connection), command.terminal.theme.errorTextColor)
     }
     else {
-        command.output("An error occurred.",command.terminal.theme.errorTextColor)
+        command.output(command.terminal.activity.getString(R.string.an_error_occurred_please_try_again),command.terminal.theme.errorTextColor)
     }
 }

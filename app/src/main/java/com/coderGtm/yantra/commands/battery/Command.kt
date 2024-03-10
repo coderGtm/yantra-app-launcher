@@ -3,6 +3,7 @@ package com.coderGtm.yantra.commands.battery
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -12,7 +13,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "battery",
         helpTitle = "battery",
-        description = "Shows current Battery Level. Use the optional '-bar' argument to show just the battery percentage and charging status in visual form."
+        description = terminal.activity.getString(R.string.cmd_battery_help)
     )
 
     override fun execute(command: String) {
@@ -26,23 +27,23 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val charging: Boolean = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) == BatteryManager.BATTERY_STATUS_CHARGING
         if (args.isEmpty()) {
             val health: String = when (batteryStatus?.getIntExtra(BatteryManager.EXTRA_HEALTH, -1)) {
-                BatteryManager.BATTERY_HEALTH_COLD -> "Cold"
-                BatteryManager.BATTERY_HEALTH_DEAD -> "Dead"
-                BatteryManager.BATTERY_HEALTH_GOOD -> "Good"
-                BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE -> "Over Voltage"
-                BatteryManager.BATTERY_HEALTH_OVERHEAT -> "Overheat"
-                BatteryManager.BATTERY_HEALTH_UNKNOWN -> "Unknown"
-                BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE -> "Unspecified Failure"
-                else -> "Unknown"
+                BatteryManager.BATTERY_HEALTH_COLD -> terminal.activity.getString(R.string.cold)
+                BatteryManager.BATTERY_HEALTH_DEAD -> terminal.activity.getString(R.string.dead)
+                BatteryManager.BATTERY_HEALTH_GOOD -> terminal.activity.getString(R.string.good)
+                BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE -> terminal.activity.getString(R.string.over_voltage)
+                BatteryManager.BATTERY_HEALTH_OVERHEAT -> terminal.activity.getString(R.string.overheat)
+                BatteryManager.BATTERY_HEALTH_UNKNOWN -> terminal.activity.getString(R.string.unknown)
+                BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE -> terminal.activity.getString(R.string.unspecified_failure)
+                else -> terminal.activity.getString(R.string.unknown)
             }
             val temperature: Float = batteryStatus?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1)?.div(10f) ?: -1f
             val temperatureFahrenheit = String.format("%.1f", (temperature * 1.8f) + 32)
-            output("Battery Status:", terminal.theme.successTextColor)
+            output(terminal.activity.getString(R.string.battery_status), terminal.theme.successTextColor)
             output("-------------------------")
-            output("-> Level: ${(batteryPct*100).toInt()}%")
-            output("-> Charging: $charging")
-            output("-> Health: $health")
-            output("-> Temperature: $temperature°C ($temperatureFahrenheit°F)")
+            output(terminal.activity.getString(R.string.level, (batteryPct*100).toInt()))
+            output(terminal.activity.getString(R.string.charging, charging))
+            output(terminal.activity.getString(R.string.health, health))
+            output(terminal.activity.getString(R.string.temperature_c_f, temperature.toString(), temperatureFahrenheit))
             output("-------------------------")
         }
         else if (args.size == 1 && args.first() == "-bar") {
@@ -58,7 +59,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output(barString)
         }
         else {
-            output("Invalid args provided. See \"help battery\" for usage info",terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.battery_invalid_Args),terminal.theme.errorTextColor)
         }
     }
 }

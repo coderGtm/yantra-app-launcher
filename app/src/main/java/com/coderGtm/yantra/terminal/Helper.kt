@@ -459,7 +459,7 @@ fun showSuggestions(
             val btn = Button(terminal.activity)
             btn.text = sug
             btn.setTextColor(terminal.theme.suggestionTextColor)
-            if (terminal.preferenceObject.getBoolean("fontpack___purchased",false)) {
+            if (terminal.preferenceObject.getBoolean("fontpack___purchased",true)) {
                 btn.setTypeface(terminal.typeface, Typeface.BOLD)
             }
             else {
@@ -480,7 +480,7 @@ fun showSuggestions(
                 else {
                     terminal.binding.cmdInput.setText("$input $sug ")
                 }
-                terminal.binding.cmdInput.setSelection(terminal.binding.cmdInput.text.length)
+                terminal.binding.cmdInput.setSelection(terminal.binding.cmdInput.text!!.length)
                 requestCmdInputFocusAndShowKeyboard(terminal.activity, terminal.binding)
                 terminal.binding.suggestionsTab.removeView(it)
 

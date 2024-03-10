@@ -1,6 +1,9 @@
 package com.coderGtm.yantra.commands.calc
 
-fun eval(str: String): Double {
+import android.content.Context
+import com.coderGtm.yantra.R
+
+fun eval(str: String, context: Context): Double {
     return object : Any() {
         var pos = -1
         var ch = 0
@@ -20,7 +23,7 @@ fun eval(str: String): Double {
         fun parse(): Double {
             nextChar()
             val x = parseExpression()
-            if (pos < str.length) throw RuntimeException("Unexpected: " + ch.toChar())
+            if (pos < str.length) throw RuntimeException(context.getString(R.string.unexpected_char) + ch.toChar())
             return x
         }
 
@@ -55,7 +58,7 @@ fun eval(str: String): Double {
             val startPos = pos
             if (eat('('.code)) { // parentheses
                 x = parseExpression()
-                if (!eat(')'.code)) throw RuntimeException("Missing ')'")
+                if (!eat(')'.code)) throw RuntimeException(context.getString(R.string.missing_parenthesis))
             } else if (ch >= '0'.code && ch <= '9'.code || ch == '.'.code) { // numbers
                 while (ch >= '0'.code && ch <= '9'.code || ch == '.'.code) nextChar()
                 x = str.substring(startPos, pos).toDouble()
@@ -64,7 +67,7 @@ fun eval(str: String): Double {
                 val func = str.substring(startPos, pos)
                 if (eat('('.code)) {
                     x = parseExpression()
-                    if (!eat(')'.code)) throw RuntimeException("Missing ')' after argument to $func")
+                    if (!eat(')'.code)) throw RuntimeException(context.getString(R.string.missing_parenthesis_after_arg, func))
                 } else {
                     x = parseFactor()
                 }
@@ -76,10 +79,10 @@ fun eval(str: String): Double {
                     ) else if (func == "cos") Math.cos(
                         Math.toRadians(x)
                     ) else if (func == "tan") Math.tan(Math.toRadians(x)) else throw RuntimeException(
-                        "Unknown function: $func"
+                        context.getString(R.string.clac_unknown_function, func)
                     )
             } else {
-                throw RuntimeException("Unexpected: " + ch.toChar())
+                throw RuntimeException(context.getString(R.string.unexpected_char)  + ch.toChar())
             }
             if (eat('^'.code)) x = Math.pow(x, parseFactor()) // exponentiation
             return x

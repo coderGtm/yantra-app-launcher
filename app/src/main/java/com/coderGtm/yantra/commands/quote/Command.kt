@@ -1,6 +1,7 @@
 package com.coderGtm.yantra.commands.quote
 
 import android.graphics.Typeface
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -11,13 +12,13 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "quote",
         helpTitle = "quote",
-        description = "Displays a random quote! What else do you expect?"
+        description = terminal.activity.getString(R.string.cmd_quote_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size > 1) {
-            output("'quote' command does not take any parameters", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.cmd_takes_no_params, metadata.name), terminal.theme.errorTextColor)
             return
         }
         //read quotes from file

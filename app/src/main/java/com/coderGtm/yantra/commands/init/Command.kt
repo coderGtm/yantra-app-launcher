@@ -13,33 +13,33 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "init",
         helpTitle = "init",
-        description = "A special script (function) to execute specified commands automatically whenever Launcher is opened or navigated to."
+        description = terminal.activity.getString(R.string.cmd_init_help)
     )
 
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size > 1) {
-            output("'init' command does not take any arguments.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.cmd_takes_no_params, metadata.name), terminal.theme.errorTextColor)
             return
         }
-        output("Opening Initialization Tasks for Yantra Launcher")
+        output(terminal.activity.getString(R.string.opening_init_tasks))
         val initListString = getInit(terminal.preferenceObject)
         val initDialog = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-            .setTitle("Initialization Tasks")
-            .setMessage("Enter commands one-per-line to execute when Yantra Launcher gets in focus (opened or navigated-back to).\n\nWARNING: This is a powerful feature. Please be careful while using it. Using commands like 'reset' in this script can cause the launcher to recursively restart infinitely. Hence, it is recommended to use this feature only if you know what you are doing.")
+            .setTitle(terminal.activity.getString(R.string.initialization_tasks))
+            .setMessage(terminal.activity.getString(R.string.init_disclaimer))
             .setView(R.layout.dialog_multiline_input)
             .setCancelable(false)
-            .setPositiveButton("Save") { dialog, _ ->
+            .setPositiveButton(terminal.activity.getString(R.string.save)) { dialog, _ ->
                 val initTextBody = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
                 val initListBody = initTextBody.trim()
                 terminal.preferenceObject.edit().putString("initList",initListBody).apply()
-                output("Init List saved Successfully",terminal.theme.successTextColor)
+                output(terminal.activity.getString(R.string.init_list_saved),terminal.theme.successTextColor)
             }
-            .setNegativeButton("Clear") { _, _ ->
+            .setNegativeButton(terminal.activity.getString(R.string.clear)) { _, _ ->
                 terminal.preferenceObject.edit().putString("initList","").apply()
-                output("Init List cleared",terminal.theme.successTextColor)
+                output(terminal.activity.getString(R.string.init_list_cleared),terminal.theme.successTextColor)
             }
-            .setNeutralButton("Cancel") { dialog, _ ->
+            .setNeutralButton(terminal.activity.getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
