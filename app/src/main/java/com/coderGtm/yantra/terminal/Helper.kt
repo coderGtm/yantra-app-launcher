@@ -69,25 +69,27 @@ fun showSuggestions(
                 if (!terminal.appListFetched) {
                     return@Thread
                 }
+                val candidates = terminal.appList.map { it.appName }.toMutableList()
+                candidates.add(0, "-p")
                 if (args.size>1) {
                     //search using regex
                     overrideLastWord = true
 
                     val regex = Regex(Pattern.quote(reg), RegexOption.IGNORE_CASE)
-                    for (app in terminal.appList) {
-                        if (regex.containsMatchIn(app.appName) && !suggestions.contains(app.appName)) {
-                            if (app.appName.substring(0, reg.length).lowercase() == reg && reg.isNotEmpty()){
-                                suggestions.add(0, app.appName)
+                    for (app in candidates) {
+                        if (regex.containsMatchIn(app) && !suggestions.contains(app)) {
+                            if (app.substring(0, reg.length).lowercase() == reg && reg.isNotEmpty()){
+                                suggestions.add(0, app)
                                 continue
                             }
-                            suggestions.add(app.appName)
+                            suggestions.add(app)
                         }
                     }
                 }
                 else {
-                    for (app in terminal.appList) {
-                        if (!suggestions.contains(app.appName)) {
-                            suggestions.add(app.appName)
+                    for (app in candidates) {
+                        if (!suggestions.contains(app)) {
+                            suggestions.add(app)
                         }
                     }
                 }
@@ -172,24 +174,26 @@ fun showSuggestions(
                 if (!terminal.appListFetched) {
                     return@Thread
                 }
+                val candidates = terminal.appList.map { it.appName }.toMutableList()
+                candidates.add(0, "-p")
                 if (args.size>1) {
                     //search using regex
                     overrideLastWord = true
                     val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                    for (app in terminal.appList) {
-                        if (regex.containsMatchIn(app.appName) && !suggestions.contains(app.appName)) {
-                            if (app.appName.substring(0, reg.length).lowercase() == reg && reg.isNotEmpty()){
-                                suggestions.add(0, app.appName)
+                    for (app in candidates) {
+                        if (regex.containsMatchIn(app) && !suggestions.contains(app)) {
+                            if (app.substring(0, reg.length).lowercase() == reg && reg.isNotEmpty()){
+                                suggestions.add(0, app)
                                 continue
                             }
-                            suggestions.add(app.appName)
+                            suggestions.add(app)
                         }
                     }
                 }
                 else {
-                    for (app in terminal.appList) {
-                        if (!suggestions.contains(app.appName)) {
-                            suggestions.add(app.appName)
+                    for (app in candidates) {
+                        if (!suggestions.contains(app)) {
+                            suggestions.add(app)
                         }
                     }
                 }
