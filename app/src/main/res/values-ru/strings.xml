@@ -445,7 +445,7 @@
     <string name="progress_reset_for_all_tasks">Прогресс сброшен для всех задач!</string>
     <string name="todo_p_invalid">Неверное использование команды. Используйте \'todo -p -1\', чтобы сбросить прогресс для всех задач.</string>
     <string name="invalid_progress_value">Неверное значение прогресса. Используйте значение от 0 до 100.</string>
-    <string name="marked_as_pct_done">Отмечено \'%1$s\' как выполненное на %2$d\%!</string>
+    <string name="marked_as_pct_done">Отмечено \'%1$s\' как выполненное на %2$d%%!</string>
     <string name="added_to_todo_list">Добавлено \'%1$s\' в список TODO</string>
     <string name="item_already_present_in_todo">Элемент уже присутствует в списке TODO</string>
     <string name="cmd_translate_title"><![CDATA[translate <-язык> <текст>]]></string>
@@ -492,7 +492,7 @@
     <string name="weather_temperature_c_f"><![CDATA[=> Температура: %1$d°C (%2$d°F)]]></string>
     <string name="weather_min_c_f"><![CDATA[=> Мин: %1$d°C (%2$d°F)]]></string>
     <string name="weather_max_c_f"><![CDATA[=> Макс: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_humidity"><![CDATA[=> Влажность: %1$s\%]]></string>
+    <string name="weather_humidity"><![CDATA[=> Влажность: %1$s%%]]></string>
     <string name="weather_wind_kmph"><![CDATA[=> Ветер: %1$d км/ч]]></string>
     <string name="package_removed"><![CDATA[==> Пакет удален: %1$s]]></string>
     <string name="specify_a_package_name">Пожалуйста, укажите имя пакета!</string>
