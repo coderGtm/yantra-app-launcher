@@ -65,6 +65,7 @@ class SettingsActivity : AppCompatActivity() {
     private val supportedLocales = mapOf(
         "English" to "en",
         "Italiano" to "it",
+        "Русский" to "ru",
     )
 
     private val prefFile = "yantraSP"

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Yantra Launcher</string>
     <string name="accessibility_service_description">Это разрешение требуется и используется только для применения блокировки экрана из Yantra Launcher.</string>
-    <string name="username_prefix">префикс юзернейма</string>
+    <string name="username_prefix">Префикс юзернейма</string>
     <string name="primary_suggestions">Основные предложения</string>
     <string name="secondary_suggestions">Второстепенные предложения</string>
     <string name="fullscreen_launcher">Полноэкранный лаунчер</string>
