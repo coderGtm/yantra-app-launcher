@@ -281,7 +281,7 @@
     <string name="rendering_display_to">:: Rendering del display a %1$s %2$s...</string>
     <string name="failed_to_launch_app_info_page">Impossibile avviare la pagina delle informazioni dell\'app :(</string>
     <string name="cmd_infof_title">infof [nome app approssimativo]</string>
-    <string name="cmd_infof_help">Avvia le impostazioni dell\'app confrontando il nome dell\'app fornito utilizzando l\'algoritmo di ricerca fuzzy (Distanza di Levenshtein). Esempio: \'openf tube\' potrebbe aprire le impostazioni di sistema per YouTube.</string>
+    <string name="cmd_infof_help">Avvia le impostazioni dell\'app confrontando il nome dell\'app fornito utilizzando l\'algoritmo di ricerca fuzzy (Distanza di Levenshtein). Esempio: \'infof tube\' potrebbe aprire le impostazioni di sistema per YouTube.</string>
     <string name="infof_no_string">Si prega di fornire una stringa per avviare le impostazioni dell\'app con ricerca fuzzy.</string>
     <string name="getting_nearest_match_for">Ottenendo la corrispondenza più vicina per \'%1$s\'...</string>
     <string name="found_with_max_score">+ Trovato %1$s con punteggio massimo (%2$.2f)</string>
