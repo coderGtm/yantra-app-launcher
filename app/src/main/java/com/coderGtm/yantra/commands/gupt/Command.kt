@@ -42,7 +42,13 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 output(terminal.activity.getString(R.string.gupt_many_params), terminal.theme.errorTextColor)
                 return
             }
-            url = cmdArray[1]
+            url = cmdArray[1].trim()
+            if (url.startsWith("http://")) {
+                url = url.removePrefix("http://")
+            }
+            if (!url.startsWith("https://")) {
+                url = "https://$url"
+            }
         }
         terminal.activity.startActivity(Intent(terminal.activity, WebViewActivity::class.java).putExtra("url", url))
         output(terminal.activity.getString(R.string.launched_g_u_p_t),terminal.theme.successTextColor)
