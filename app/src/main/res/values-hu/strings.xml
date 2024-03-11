@@ -129,7 +129,7 @@
     <string name="internet_speed_test">Internet sebességteszt</string>
     <string name="loading_please_wait">Betöltés.. Kérem várjon.</string>
     <string name="cmd_ai_title">ai [szöveg]</string>
-    <string name="cmd_ai_help">Egyszerű eszköz a ChatGPT eléréséhez a terminálból. Az OpenAI\'s gpt-3.5-turbo alapján saját AI asszisztenseddel chatelhetsz. Egy API kulcs megadása szükséges a \'beállításokban\'. Ez a parancs nem tartja számon a kontextust, így a modell nem tartja számon a korábbi beszélgetéseidet.</string>
+    <string name="cmd_ai_help">Egyszerű eszköz a ChatGPT eléréséhez a terminálból. Az OpenAI\'s gpt-3.5-turbo alapján saját AI asszisztenseddel chatelhetsz. Egy API kulcs megadása szükséges a \'settings\'-ban. Ez a parancs nem tartja számon a kontextust, így a modell nem tartja számon a korábbi beszélgetéseidet.</string>
     <string name="ai_msg_missing">Kérlek add meg az üzenetet az AI-nek.</string>
     <string name="no_ai_api_key_found">Valószínűleg elfelejtetted megadni az API kulcsot. Kérlek add meg a \'settings\' -ben.</string>
     <string name="communicating_with_ai">Kommunikáció az AI-val...</string>
@@ -175,7 +175,7 @@
     <string name="cmd_bg_help">A \'bg\' parancs használható egyéni háttérkép beállítására az Albumokból. Használd a \'bg -1\' parancsot az egyéni háttérkép eltávolításához és az egységes téma háttérkép beállításához. Használd a \'bg random\' parancsot egy véletlenszerű háttérkép lekéréséhez az internetről. Egy opcionális [query] megadható a véletlenszerű parancshoz, például \'bg random hegyek\' vagy \'bg random textúra, sötét\' a kapcsolódó háttérképek lekéréséhez. Megjegyzés: Ez a parancs csak a Kezdőképernyő háttérképét változtatja meg, nem a Zárolási képernyőt.</string>
     <string name="bg_too_many_args">Túl sok argumentum. Használd a \'bg -1\' parancsot az egyéni háttérkép eltávolításához</string>
     <string name="removed_wallpaper">Háttérkép eltávolítva</string>
-    <string name="bg_random_too_many_args">Túl sok argumentum. Használd a \',\' karaktert a témák elválasztásához, például \'bg véletlenszerű város, éjszakai élet\'</string>
+    <string name="bg_random_too_many_args">Túl sok argumentum. Használd a \',\' karaktert a témák elválasztásához, például \'bg random város, éjszakai élet\'</string>
     <string name="bg_invalid_args">Érvénytelen argumentum a bg-hez</string>
     <string name="random_wallpaper_applied">Véletlenszerű háttérkép alkalmazva!</string>
     <string name="fetching_random_wallpaper">Véletlenszerű háttérkép letöltése...</string>
@@ -288,7 +288,7 @@
     <string name="cmd_init_help">Egy speciális parancs (funkció) azon utasítások végrehajtására, amelyeket automatikusan végrehajt, amikor a Launcher megnyílik vagy a navigációra kerül.</string>
     <string name="opening_init_tasks">Inicializálási feladatok megnyitása a Yantra Launcherhez</string>
     <string name="initialization_tasks">Inicializálási feladatok</string>
-    <string name="init_disclaimer">Írjon be egy parancsot soronként, hogy lefusson, amikor a Yantra Launcher elindul (megnyílik vagy visszanavigálódik).\n\nFIGYELEM: Ez egy erőteljes funkció. Kérjük, legyen óvatos a használatával. Az \'újraindítás\' parancs használata ebben a szkriptben végtelen újraindítást okozhat a launcherben. Ezért azt javasoljuk, hogy ezt a funkciót csak akkor használja, ha tudja, mit csinál.</string>
+    <string name="init_disclaimer">Írjon be egy parancsot soronként, hogy lefusson, amikor a Yantra Launcher elindul (megnyílik vagy visszanavigálódik).\n\nFIGYELEM: Ez egy erőteljes funkció. Kérjük, legyen óvatos a használatával. Az \'restart\' parancs használata ebben a szkriptben végtelen újraindítást okozhat a launcherben. Ezért azt javasoljuk, hogy ezt a funkciót csak akkor használja, ha tudja, mit csinál.</string>
     <string name="init_list_saved">Inicializációs lista sikeresen mentve</string>
     <string name="clear">Tiszta</string>
     <string name="init_list_cleared">Init Lista törölve</string>
