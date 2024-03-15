@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
-import android.os.Environment
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -14,15 +13,11 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
-import com.coderGtm.yantra.commands.todo.getToDo
-import com.coderGtm.yantra.findSimilarity
-import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.setSystemWallpaper
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.io.File
 import java.util.regex.Pattern
 
 fun showSuggestions(
@@ -95,54 +90,6 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
-            else if (effectivePrimaryCmd == "open") {
-                if (args.size>1) {
-                    //search using regex
-                    overrideLastWord = true
-                    val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                    for (file in getFiles(terminal)) {
-                        if (regex.containsMatchIn(file) && !suggestions.contains(file)) {
-                            if (file.substring(0, reg.length).lowercase() == reg && reg.isNotEmpty()){
-                                suggestions.add(0, file)
-                                continue
-                            }
-                            suggestions.add(file)
-                        }
-                    }
-                }
-                else {
-                    for (file in getFiles(terminal)) {
-                        if (!suggestions.contains(file)) {
-                            suggestions.add(file)
-                        }
-                    }
-                }
-                isPrimary = false
-            }
-            else if (effectivePrimaryCmd == "cd") {
-                if (args.size>1) {
-                    //search using regex
-                    overrideLastWord = true
-                    val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                    for (file in getFolders(terminal)) {
-                        if (regex.containsMatchIn(file) && !suggestions.contains(file)) {
-                            if (file.substring(0, reg.length).lowercase() == reg && reg.isNotEmpty()){
-                                suggestions.add(0, file)
-                                continue
-                            }
-                            suggestions.add(file)
-                        }
-                    }
-                }
-                else {
-                    for (file in getFolders(terminal)) {
-                        if (!suggestions.contains(file)) {
-                            suggestions.add(file)
-                        }
-                    }
-                }
-                isPrimary = false
-            }
             else if (effectivePrimaryCmd == "uninstall") {
                 if (!terminal.appListFetched) {
                     return@Thread
@@ -199,50 +146,6 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
-            else if (effectivePrimaryCmd == "launchf") {
-                if (!terminal.appListFetched) {
-                    return@Thread
-                }
-                if (args.size>1) {
-                    //search using regex
-                    overrideLastWord = true
-                    val name = input.removePrefix(args[0]).trim().lowercase()
-                    val candidates = mutableListOf<Double>()
-                    for (app in terminal.appList) {
-                        val score = findSimilarity(app.appName.lowercase(), name)
-                        candidates.add(score)
-                        //addToPrevTxt(app.appName+" ---> "+score.toString(),4)
-                    }
-                    val maxIndex = candidates.indexOf(candidates.max())
-                    val appBlock = terminal.appList[maxIndex]
-                    suggestions.add(appBlock.appName)
-                }
-                isPrimary = false
-            }
-            else if (effectivePrimaryCmd == "screentime") {
-                if (!terminal.appListFetched) {
-                    return@Thread
-                }
-                val screentimeArgs = listOf("-all") + terminal.appList.map { it.appName }
-                if (args.size>1) {
-                    //search using regex
-                    overrideLastWord = true
-                    val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                    for (arg in screentimeArgs) {
-                        if (regex.containsMatchIn(arg) && !suggestions.contains(arg)) {
-                            suggestions.add(arg)
-                        }
-                    }
-                }
-                else {
-                    for (arg in screentimeArgs) {
-                        if (!suggestions.contains(arg)) {
-                            suggestions.add(arg)
-                        }
-                    }
-                }
-                isPrimary = false
-            }
             else if (effectivePrimaryCmd == "call") {
                 if (!terminal.contactsFetched) {
                     terminal.activity.runOnUiThread {
@@ -290,64 +193,6 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
-            else if (effectivePrimaryCmd == "search") {
-                if (args.size > 1) {
-                    overrideLastWord = true
-                }
-                val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val listArgs = listOf("-e=google","-e=duckduckgo","-e=brave","-e=bing","-e=yahoo","-e=ecosia","-e=startpage","-e=qwant","-e=you","-e=playstore","-u=")
-                for (arg in listArgs) {
-                    if (regex.containsMatchIn(arg)) {
-                        suggestions.add(arg)
-                    }
-                }
-                isPrimary = false
-                executeOnTapViable = false
-            }
-            else if (effectivePrimaryCmd == "battery") {
-                if (args.size > 1) {
-                    overrideLastWord = true
-                }
-                val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val batteryArgs = listOf("-bar")
-                for (arg in batteryArgs) {
-                    if (regex.containsMatchIn(arg)) {
-                        suggestions.add(arg)
-                    }
-                }
-                isPrimary = false
-            }
-            else if (effectivePrimaryCmd == "flash" || effectivePrimaryCmd == "bluetooth") {
-                if (args.size > 1) {
-                    overrideLastWord = true
-                }
-                val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val listArgs = listOf("1","0","on","off")
-                for (arg in listArgs) {
-                    if (regex.containsMatchIn(arg)) {
-                        suggestions.add(arg)
-                    }
-                }
-                isPrimary = false
-            }
-            else if (effectivePrimaryCmd == "todo") {
-                if (args.size > 1) {
-                    overrideLastWord = true
-                }
-                val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val listArgs = mutableListOf("-p","-1")
-                val todoSize = getToDo(terminal.preferenceObject).size
-                for (i in 0 until todoSize) {
-                    listArgs.add(i.toString())
-                }
-                for (arg in listArgs) {
-                    if (regex.containsMatchIn(arg)) {
-                        suggestions.add(arg)
-                    }
-                }
-                isPrimary = false
-                executeOnTapViable = false
-            }
             else if (effectivePrimaryCmd == "help") {
                 if (args.size>1) {
                     overrideLastWord = true
@@ -384,7 +229,7 @@ fun showSuggestions(
                     overrideLastWord = true
                 }
                 val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val themeArgs = mutableListOf("Custom")
+                val themeArgs = mutableListOf<String>()
                 Themes.entries.forEach { themeArgs.add(it.name) }
                 themeArgs.filterTo(suggestions) { regex.containsMatchIn(it) }
                 isPrimary = false
@@ -401,59 +246,6 @@ fun showSuggestions(
                     }
                 }
                 isPrimary = false
-            }
-            else if (effectivePrimaryCmd == "bg") {
-                if (args.size > 1) {
-                    overrideLastWord = true
-                }
-                val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val bgArgs= listOf("-1", "random")
-                for (arg in bgArgs) {
-                    if (regex.containsMatchIn(arg)) {
-                        suggestions.add(arg)
-                    }
-                }
-                isPrimary = false
-                executeOnTapViable = false
-            }
-            else if (effectivePrimaryCmd == "echo") {
-                if (args.size > 1) {
-                    overrideLastWord = true
-                }
-                val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val echoArgs= listOf("-e", "-s", "-w")
-                for (arg in echoArgs) {
-                    if (regex.containsMatchIn(arg)) {
-                        suggestions.add(arg)
-                    }
-                }
-                isPrimary = false
-                executeOnTapViable = false
-            }
-            else if (effectivePrimaryCmd == "run") {
-                try {
-                    val scripts = getScripts(terminal.preferenceObject)
-                    if (args.size>1) {
-                        overrideLastWord = true
-                        val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                        for (sname in scripts) {
-                            if (regex.containsMatchIn(sname)) {
-                                suggestions.add(sname)
-                            }
-                        }
-                    }
-                    else {
-                        for (sname in scripts) {
-                            if (!suggestions.contains(sname)) {
-                                suggestions.add(sname)
-                            }
-                        }
-                    }
-                    isPrimary = false
-                }
-                catch (e: java.lang.Exception) {
-                    return@Thread
-                }
             }
         }
         suggestions.forEach { sug ->
@@ -518,44 +310,6 @@ fun showSuggestions(
             }
         }
     }.start()
-}
-
-fun getFolders(terminal: Terminal): List<String> {
-    val files = File(Environment.getExternalStorageDirectory().absolutePath + terminal.workingDir).listFiles()
-
-    if (files == null) {
-        return listOf()
-    }
-
-    val fullList = mutableListOf<String>()
-
-    for (file in files) {
-        if (file.isDirectory && !file.isHidden) {
-            fullList.add(file.name)
-        }
-    }
-
-    fullList.sort()
-    return fullList
-}
-
-fun getFiles(terminal: Terminal): List<String> {
-    val files = File(Environment.getExternalStorageDirectory().absolutePath + terminal.workingDir).listFiles()
-
-    if (files == null) {
-        return listOf()
-    }
-
-    val fullList = mutableListOf<String>()
-
-    for (file in files) {
-        if (file.isFile) {
-            fullList.add(file.name)
-        }
-    }
-
-    fullList.sort()
-    return fullList
 }
 
 fun setWallpaperIfNeeded(preferenceObject: SharedPreferences, applicationContext: Context, curTheme: Theme, ) {
