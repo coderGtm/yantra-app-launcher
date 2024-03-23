@@ -93,7 +93,7 @@
     <string name="ok">Ок</string>
     <string name="no_contacts_found">Контакт не найдены!</string>
     <string name="contact_not_found_attempt_number">" Имя контакта не найдено! Попытка найти по номеру телефона..."</string>
-    <string name="calling">Звонок %1...</string>
+    <string name="calling">Звонок %1$s...</string>
     <string name="multiple_phone_numbers_found">Найдено несколько номеров телефонов</string>
     <string name="multiple_contacts_description">Найдено несколько телефонных номеров с именем %1$s. Какой из них вы хотите позвонить?</string>
     <string name="select">Выбрать</string>

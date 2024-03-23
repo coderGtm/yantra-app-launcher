@@ -3,46 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="29"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" />
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" /> <!-- Request legacy Bluetooth permissions on older devices. -->
-    <uses-permission
-        android:name="android.permission.BLUETOOTH"
-        android:maxSdkVersion="30" />
-    <uses-permission
-        android:name="android.permission.BLUETOOTH_ADMIN"
-        android:maxSdkVersion="30" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="com.termux.permission.RUN_COMMAND" />
-    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
-    <queries>
-        <intent>
-            <action android:name="android.intent.action.SENDTO" />
-
-            <data android:scheme="mailto" />
-        </intent>
-    </queries>
     <queries>
         <intent>
             <action android:name="android.intent.action.MAIN" />
@@ -62,19 +35,10 @@
         android:theme="@style/Theme.YantraLauncher">
 
         <activity
-            android:name="com.canhub.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
-
-        <activity
             android:name=".activities.SettingsActivity"
             android:exported="false"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.Material3.Dark" />
-        <activity
-            android:name=".activities.WebViewActivity"
-            android:configChanges="orientation|screenSize|screenLayout"
-            android:excludeFromRecents="true"
-            android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
             android:configChanges="orientation|screenSize|screenLayout"
@@ -93,9 +57,6 @@
         </activity>
 
         <meta-data
-            android:name="com.google.mlkit.vision.DEPENDENCIES"
-            android:value="barcode_ui" />
-        <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
@@ -112,16 +73,6 @@
             </intent-filter>
         </receiver>
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-
         <service
             android:name=".services.YantraAccessibilityService"
             android:exported="false"
@@ -135,18 +86,6 @@
                 android:resource="@xml/accessibility_service_config" />
         </service>
 
-        <!-- Trigger Google Play services to install the backported photo picker module. -->
-        <!--suppress AndroidDomInspection -->
-        <service android:name="com.google.android.gms.metadata.ModuleDependencies"
-            android:enabled="false"
-            android:exported="false"
-            tools:ignore="MissingClass">
-            <intent-filter>
-                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
-            </intent-filter>
-            <meta-data android:name="photopicker_activity:0:required" android:value="" />
-        </service>
-
         <!--Let AndroidX handle locale storage for localization for Android 12 and lower-->
         <service
             android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
@@ -157,9 +96,6 @@
                 android:value="true" />
         </service>
 
-        <meta-data
-            android:name="OPEN_WEATHER_API_KEY"
-            android:value="${openWeatherAPIkey}" />
     </application>
 
 </manifest>
