@@ -419,7 +419,7 @@
     <string name="hex_code">Hexadecimális kód</string>
     <string name="select_color">Válassz színt</string>
     <string name="set">Beállítás</string>
-    <string name="enter_6_digit_hex_code_without_hash">Írd be a 6 jegyű hexadecimális kódot (a # jellel)</string>
+    <string name="enter_6_digit_hex_code_without_hash">Írd be a 6 jegyű hexadecimális kódot (a # jellel</string>
     <string name="invalid_hex_code">Érvénytelen hexadecimális kód</string>
     <string name="apply">Alkalmaz</string>
     <string name="cmd_time_title">time [utc] [GMT]</string>
@@ -431,8 +431,7 @@
     <string name="no_length_provided_launching_timer_app">Nincs megadva hossz. Az időzítő alkalmazás indítása.</string>
     <string name="parsing_length_string">:: Hossz sztring értelmezése...</string>
     <string name="invalid_length_string_provided">Érvénytelen hossz sztring megadva. Egy számot kell megadnia 1 és 86400 között.</string>
-    <string name="setting_timer">
-    <![CDATA[=> Időzítő beállítása...]]></string>
+    <string name="setting_timer"><![CDATA[=> Időzítő beállítása...]]></string>
     <string name="timer_set_successfully">Időzítő sikeresen beállítva.</string>
     <string name="no_supported_timer_app_found">Nem található támogatott időzítő alkalmazás az eszközön.</string>
     <string name="cmd_todo_help">Egyszerű feladatkezelő eszköz. Használd a \'todo\' parancsot a feladatok listájának és azok állapotának lekérdezéséhez. Add hozzá a feladatokat így: \'todo Sétálj egyet\'. Jelöld meg a feladatokat késznek az indexükkel, amelyet a \'todo\' parancs visszaad, például \'todo 2\' jelöli meg a 3. feladatot késznek. A lista törléséhez használd a \'todo -1\' parancsot.</string>
