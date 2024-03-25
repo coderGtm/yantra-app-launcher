@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
@@ -308,14 +309,38 @@ fun vibrate(millis: Long? = 100, activity: Activity) {
         v.vibrate(millis)
     }
 }
+fun getCustomThemeColors(preferenceObject: SharedPreferences): ArrayList<String> {
+    return preferenceObject.getString(
+        "customThemeClrs",
+        "#000000,#A0A0A0,#E1BEE7,#FAEBD7,#EBEBEB,#F00000,#00C853,#FFD600"
+    )!!.split(",").toMutableList() as ArrayList<String>
+}
 fun getCurrentTheme(preferenceObject: SharedPreferences): Theme {
     val id = preferenceObject.getInt("theme", 0)
-    return if (Themes.entries.indices.contains(id)) {
-        Themes.entries[id].theme
+    if (id == -1) {
+        val customThemeColors = getCustomThemeColors(preferenceObject)
+        return Theme(
+            bgColor = Color.parseColor(customThemeColors[0]),
+            commandColor = Color.parseColor(customThemeColors[1]),
+            suggestionTextColor = Color.parseColor(customThemeColors[2]),
+            buttonColor = Color.parseColor(customThemeColors[3]),
+            resultTextColor = Color.parseColor(customThemeColors[4]),
+            errorTextColor = Color.parseColor(customThemeColors[5]),
+            successTextColor = Color.parseColor(customThemeColors[6]),
+            warningTextColor = Color.parseColor(customThemeColors[7])
+        )
+    }
+    else if (Themes.entries.indices.contains(id)) {
+        return Themes.entries[id].theme
     }
     else {
-        Themes.Default.theme
+        return Themes.Default.theme
     }
+}
+fun isNetworkAvailable(activity: Activity): Boolean {
+    val connectivityManager = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val activeNetworkInfo = connectivityManager.activeNetworkInfo
+    return activeNetworkInfo != null && activeNetworkInfo.isConnected
 }
 fun getInit(preferenceObject: SharedPreferences): String {
     return try {

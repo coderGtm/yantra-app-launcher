@@ -1,10 +1,12 @@
 package com.coderGtm.yantra.commands.theme
 
 import android.app.WallpaperManager
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import androidx.core.graphics.drawable.toBitmap
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
+import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.setSystemWallpaper
@@ -29,7 +31,20 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
         val name = args[1].trim().lowercase()
-        if (Themes.entries.any { it.name.lowercase() == name }) {
+        if (Themes.entries.any { it.name.lowercase() == name } || name == "custom") {
+            if (name == "custom") {
+                if (!terminal.preferenceObject.getBoolean("customtheme___purchased",true)) {
+                    printCustomThemeFeatures(this)
+                    val mainAct = terminal.activity as MainActivity
+                    mainAct.initializeProductPurchase("customtheme")
+                    return
+                }
+                else {
+                    output(terminal.activity.getString(R.string.launching_custom_theme_designer),terminal.theme.resultTextColor, Typeface.ITALIC)
+                    openCustomThemeDesigner(terminal)
+                }
+                return
+            }
             val theme = Themes.entries.first { it.name.lowercase() == name }
             terminal.preferenceObject.edit().putInt("theme", theme.ordinal).apply()
             if (terminal.preferenceObject.getBoolean("defaultWallpaper",true)) {

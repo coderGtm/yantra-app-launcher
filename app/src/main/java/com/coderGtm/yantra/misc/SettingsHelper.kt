@@ -9,10 +9,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.coderGtm.yantra.AI_SYSTEM_PROMPT
 import com.coderGtm.yantra.AppSortMode
+import com.coderGtm.yantra.DEFAULT_AI_API_DOMAIN
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.databinding.ActivitySettingsBinding
 import com.coderGtm.yantra.getUserNamePrefix
+import com.coderGtm.yantra.openURL
 import com.coderGtm.yantra.setUserNamePrefix
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -129,6 +132,25 @@ fun openSwipeLeftActionSetter(activity: Activity, preferenceObject: SharedPrefer
         }
         .show()
     swipeLeftActionBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("swipeLeftCommand",activity.getString(R.string.default_left_swipe_text))!!)
+}
+
+fun openNewsWebsiteSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+    val newsWebsiteBuilder = MaterialAlertDialogBuilder(activity)
+        .setTitle(activity.getString(R.string.change_news_website))
+        .setMessage(activity.getString(R.string.news_description))
+        .setView(R.layout.dialog_singleline_input)
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
+            val website = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
+            preferenceEditObject.putString("newsWebsite",website.trim()).apply()
+            Toast.makeText(activity,
+                activity.getString(R.string.news_website_changed), Toast.LENGTH_SHORT).show()
+            changedSettingsCallback(activity)
+        }
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
+    newsWebsiteBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("newsWebsite","https://news.google.com/"))
 }
 
 fun openFontSizeSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
@@ -249,4 +271,128 @@ fun openAppSugOrderingSetter(activity: Activity, binding: ActivitySettingsBindin
             changedSettingsCallback(activity)
         }
         .show()
+}
+
+fun openTermuxCmdPathSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+    val termuxCmdPathBuilder = MaterialAlertDialogBuilder(activity)
+        .setTitle(activity.getString(R.string.termux_command_path))
+        .setMessage(activity.getString(R.string.termux_cmd_path_description))
+        .setView(R.layout.dialog_singleline_input)
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
+            val path = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
+            preferenceEditObject.putString("termuxCmdPath",path.trim()).apply()
+            Toast.makeText(activity,
+                activity.getString(R.string.termux_command_path_updated), Toast.LENGTH_SHORT).show()
+            changedSettingsCallback(activity)
+        }
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
+    termuxCmdPathBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("termuxCmdPath","/data/data/com.termux/files/usr/bin/")!!)
+}
+
+fun openTermuxCmdWorkingDirSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+    val termuxCmdWorkDirBuilder = MaterialAlertDialogBuilder(activity)
+        .setTitle(activity.getString(R.string.termux_command_working_directory))
+        .setMessage(activity.getString(R.string.termux_cmd_working_dir_description))
+        .setView(R.layout.dialog_singleline_input)
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
+            val path = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
+            preferenceEditObject.putString("termuxCmdWorkDir",path.trim()).apply()
+            Toast.makeText(activity,
+                activity.getString(R.string.termux_command_working_directory_updated), Toast.LENGTH_SHORT).show()
+            changedSettingsCallback(activity)
+        }
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
+    termuxCmdWorkDirBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("termuxCmdWorkDir","/data/data/com.termux/files/home/")!!)
+}
+
+fun openTermuxCmdSessionActionSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+    val termuxCmdSessionActionBuilder = MaterialAlertDialogBuilder(activity)
+        .setTitle(activity.getString(R.string.termux_command_session_action))
+        .setMessage(activity.getString(R.string.termux_command_session_action_description))
+        .setView(R.layout.dialog_singleline_input)
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
+            val action = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString().toIntOrNull()
+            if (action == null || action !in 0..3) {
+                Toast.makeText(activity,
+                    activity.getString(R.string.invalid_action), Toast.LENGTH_SHORT).show()
+                return@setPositiveButton
+            }
+            preferenceEditObject.putInt("termuxCmdSessionAction",action).apply()
+            Toast.makeText(activity,
+                activity.getString(R.string.termux_command_session_action_updated), Toast.LENGTH_SHORT).show()
+            changedSettingsCallback(activity)
+        }
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        .setNeutralButton("TermuxConstants.java") { _, _ ->
+            openURL("https://github.com/termux/termux-app/blob/master/termux-shared/src/main/java/com/termux/shared/termux/TermuxConstants.java#L1052-L1083", activity)
+        }
+        .show()
+    termuxCmdSessionActionBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getInt("termuxCmdSessionAction",0).toString())
+}
+
+fun openAiApiProviderSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+    val aiApiProviderBuilder = MaterialAlertDialogBuilder(activity)
+        .setTitle(activity.getString(R.string.change_ai_api_provider))
+        .setMessage(activity.getString(R.string.ai_api_provider_description))
+        .setView(R.layout.dialog_singleline_input)
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
+            val domain = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
+            preferenceEditObject.putString("aiApiDomain",domain.trim()).apply()
+            Toast.makeText(activity,
+                activity.getString(R.string.ai_api_provider_updated), Toast.LENGTH_LONG).show()
+            changedSettingsCallback(activity)
+        }
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
+    aiApiProviderBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("aiApiDomain",
+        DEFAULT_AI_API_DOMAIN)!!)
+}
+
+fun openAiApiKeySetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+    val aiApiKeyBuilder = MaterialAlertDialogBuilder(activity)
+        .setTitle(activity.getString(R.string.change_ai_api_key))
+        .setMessage(activity.getString(R.string.ai_api_key_description))
+        .setView(R.layout.dialog_singleline_input)
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
+            val key = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
+            preferenceEditObject.putString("aiApiKey",key.trim()).apply()
+            Toast.makeText(activity,
+                activity.getString(R.string.ai_api_key_updated), Toast.LENGTH_SHORT).show()
+            changedSettingsCallback(activity)
+        }
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
+    aiApiKeyBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("aiApiKey","")!!)
+}
+
+fun openAiSystemPromptSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+    val aiSystemPromptBuilder = MaterialAlertDialogBuilder(activity)
+        .setTitle(activity.getString(R.string.change_ai_system_prompt))
+        .setMessage(activity.getString(R.string.ai_system_prompt_description))
+        .setView(R.layout.dialog_multiline_input)
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
+            val prompt = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
+            preferenceEditObject.putString("aiSystemPrompt",prompt.trim()).apply()
+            Toast.makeText(activity,
+                activity.getString(R.string.ai_system_prompt_updated), Toast.LENGTH_SHORT).show()
+            changedSettingsCallback(activity)
+        }
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
+    aiSystemPromptBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("aiSystemPrompt",
+        AI_SYSTEM_PROMPT)!!)
 }

@@ -23,5 +23,8 @@ fun getCPUSpeed(): String {
 }
 fun getCurrentThemeName(preferenceObject: SharedPreferences): String {
     val id = preferenceObject.getInt("theme", 0)
+    if (id == -1) {
+        return "Custom"
+    }
     return Themes.entries[id].name
 }

@@ -3,6 +3,7 @@ package com.coderGtm.yantra.activities
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Typeface
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
@@ -12,14 +13,20 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
+import com.canhub.cropper.CropImageView
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getInit
+import com.coderGtm.yantra.misc.purchasePrank
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
+import com.coderGtm.yantra.setWallpaperFromUri
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.views.TerminalGestureListenerCallback
 import java.util.Locale
@@ -166,6 +173,37 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         }
     }
 
+    fun initializeProductPurchase(skuId: String) {
+        primaryTerminal.output("Initializing purchase...Please wait.",primaryTerminal.theme.resultTextColor, null)
+        purchasePrank(primaryTerminal, skuId)
+        return
+    }
+
+    private val cropImage = registerForActivityResult(CropImageContract()) { result ->
+        if (result.isSuccessful) {
+            // Use the returned uri.
+            val uriContent = result.uriContent
+            setWallpaperFromUri(uriContent, this, primaryTerminal.theme.bgColor, app.preferenceObject)
+            primaryTerminal.output(getString(R.string.selected_wallpaper_applied), primaryTerminal.theme.successTextColor, null)
+        } else {
+            primaryTerminal.output(getString(R.string.no_image_selected), primaryTerminal.theme.resultTextColor, Typeface.ITALIC)
+        }
+    }
+
+    // Registers a photo picker activity launcher in single-select mode.
+    val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        // Callback is invoked after the user selects a media item or closes the
+        // photo picker.
+        if (uri != null) {
+            cropImage.launch(
+                CropImageContractOptions(uri = uri, CropImageOptions(
+                    guidelines = CropImageView.Guidelines.ON
+                ))
+            )
+        } else {
+            primaryTerminal.output(getString(R.string.no_image_selected), primaryTerminal.theme.resultTextColor, Typeface.ITALIC)
+        }
+    }
     var yantraSettingsLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data

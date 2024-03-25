@@ -44,6 +44,7 @@ fun listContacts(command: Command) {
 
 fun listThemes(command: Command) {
     command.output(command.terminal.activity.getString(R.string.available_themes))
+    command.output("-1: Custom")
     for ((i,theme) in Themes.entries.withIndex()) {
         command.output("$i: $theme")
     }
