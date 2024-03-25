@@ -27,6 +27,17 @@ android {
         }
     }
 
+    flavorDimensions  "version"
+    productFlavors {
+        free {
+            dimension "version"
+        }
+        pro {
+            dimension "version"
+            applicationIdSuffix ".pro"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true

@@ -22,6 +22,7 @@ import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getInit
+import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.misc.purchasePrank
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
 
     override fun onStart() {
         super.onStart()
-        if (primaryTerminal.initialized) {
+        if (primaryTerminal.initialized && isPro(this@MainActivity)) {
             Thread {
                 val initList = getInit(app.preferenceObject)
                 runInitTasks(initList, app.preferenceObject, primaryTerminal)
@@ -98,18 +99,22 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     }
 
     override fun onSwipeRight() {
-        val cmdToExecute = app.preferenceObject.getString("swipeRightCommand", getString(R.string.default_right_swipe_text))
-        if (cmdToExecute != "") {
-            //execute command
-            primaryTerminal.handleCommand(cmdToExecute!!)
+        if (isPro(this@MainActivity)) {
+            val cmdToExecute = app.preferenceObject.getString("swipeRightCommand", getString(R.string.default_right_swipe_text))
+            if (cmdToExecute != "") {
+                //execute command
+                primaryTerminal.handleCommand(cmdToExecute!!)
+            }
         }
     }
 
     override fun onSwipeLeft() {
-        val cmdToExecute = app.preferenceObject.getString("swipeLeftCommand", getString(R.string.default_left_swipe_text))
-        if (cmdToExecute != "") {
-            //execute command
-            primaryTerminal.handleCommand(cmdToExecute!!)
+        if (isPro(this@MainActivity)) {
+            val cmdToExecute = app.preferenceObject.getString("swipeLeftCommand", getString(R.string.default_left_swipe_text))
+            if (cmdToExecute != "") {
+                //execute command
+                primaryTerminal.handleCommand(cmdToExecute!!)
+            }
         }
     }
 

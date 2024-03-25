@@ -16,9 +16,11 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.coderGtm.yantra.AppSortMode
+import com.coderGtm.yantra.DEFAULT_TERMINAL_FONT_NAME
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.databinding.ActivitySettingsBinding
 import com.coderGtm.yantra.getUserNamePrefix
+import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.misc.changedSettingsCallback
 import com.coderGtm.yantra.misc.openAiApiKeySetter
 import com.coderGtm.yantra.misc.openAiApiProviderSetter
@@ -97,7 +99,12 @@ class SettingsActivity : AppCompatActivity() {
         arrowSize = preferenceObject.getInt("arrowSize", 65)
         orientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         appSugOrderingMode = preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value)
-        fontName = preferenceObject.getString("font","Source Code Pro") ?: "Source Code Pro"
+        fontName = if (isPro(this@SettingsActivity)) {
+            preferenceObject.getString("font", DEFAULT_TERMINAL_FONT_NAME) ?: DEFAULT_TERMINAL_FONT_NAME
+        }
+        else {
+            DEFAULT_TERMINAL_FONT_NAME
+        }
         appLocale = AppCompatDelegate.getApplicationLocales().toLanguageTags()
 
 

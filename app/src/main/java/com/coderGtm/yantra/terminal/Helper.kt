@@ -1,5 +1,6 @@
 package com.coderGtm.yantra.terminal
 
+import android.app.Activity
 import android.app.WallpaperManager
 import android.content.Context
 import android.content.SharedPreferences
@@ -14,6 +15,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
+import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.commands.todo.getToDo
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getScripts
@@ -63,6 +65,9 @@ fun showSuggestions(
                 terminal.aliasList.first { it.key == args[0] }.value
             } else {
                 args[0].lowercase()
+            }
+            if (!terminal.commands.containsKey(effectivePrimaryCmd)) {
+                return@Thread
             }
             val reg = input.removePrefix(args[0]).trim()
             if (effectivePrimaryCmd == "launch") {
@@ -463,12 +468,7 @@ fun showSuggestions(
             val btn = Button(terminal.activity)
             btn.text = sug
             btn.setTextColor(terminal.theme.suggestionTextColor)
-            if (terminal.preferenceObject.getBoolean("fontpack___purchased",true)) {
-                btn.setTypeface(terminal.typeface, Typeface.BOLD)
-            }
-            else {
-                btn.setTypeface(null, Typeface.BOLD)
-            }
+            btn.setTypeface(terminal.typeface, Typeface.BOLD)
             btn.background = Color.TRANSPARENT.toDrawable()
             //set start and end margins
             val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)

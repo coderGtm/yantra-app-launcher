@@ -8,6 +8,7 @@ import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.contactsManager
+import com.coderGtm.yantra.isPro
 
 fun listApps(command: Command) {
     command.output(command.terminal.activity.getString(R.string.found_apps, command.terminal.appList.size))
@@ -44,8 +45,13 @@ fun listContacts(command: Command) {
 
 fun listThemes(command: Command) {
     command.output(command.terminal.activity.getString(R.string.available_themes))
-    command.output("-1: Custom")
-    for ((i,theme) in Themes.entries.withIndex()) {
-        command.output("$i: $theme")
+    if (isPro(command.terminal.activity)) {
+        command.output("-1: Custom")
+        for ((i,theme) in Themes.entries.withIndex()) {
+            command.output("$i: $theme")
+        }
+    }
+    else {
+        command.output("0: Default")
     }
 }
