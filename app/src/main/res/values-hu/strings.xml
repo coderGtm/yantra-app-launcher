@@ -72,7 +72,7 @@
     <string name="an_error_occurred_please_try_again">Hiba történt. Kérem, próbálja újra..</string>
     <string name="font_pack_is_not_purchased">A betűkészlet nincs megvásárolva!</string>
     <string name="font_pack_not_purchased_description">Meg kell vásárolnia a Betűkészlet csomagot, hogy hozzáférjen ehhez a beállításhoz\n\nA Font Pack egy Yantra Launcher kiegészítője, amely lehetővé teszi bármely betűtípus használatát a Google Fonts teljes gyűjteményéből, amely több mint 1550 betűtípust tartalmaz a Yantra Launcher Termináljához.\n\nA betűkészletet megvásárolhatja a  \'fontpack\' paranccsal.</string>
-    <string name="Király">Cool</string>
+    <string name="cool">Cool</string>
     <string name="terminal_font_updated_to">A terminál betűtípusa frissítve %1$s!</string>
     <string name="error_downloading_font">Hiba történt a betűtípus letöltése közben! Kérem, ellenőrizze az internetkapcsolatát, majd próbálja újra.".</string>
     <string name="close">Bezár</string>
@@ -388,7 +388,7 @@
     <string name="cmd_speedtest_help">Egy kis GUI sebességteszt megnyitása az internetsebesség ellenőrzéséhez, az openspeedtest.com által.</string>
     <string name="loading_speedtest_utility">Speedtest betöltése...</string>
     <string name="cmd_support_help">A Yantra Launcher támogatásáról.</string>
-    <string name="support_no_args">'support' parancs nem vár **argumentumokat**. _Ez egy barátságos parancs... :)_</string>
+    <string name="support_no_args">\'support\' parancs nem vár **argumentumokat**. _Ez egy barátságos parancs... :)_</string>
     <string name="support_chunk_1">A Yantra Launcher egy erős és ingyenes, nyílt forráskódú eszköz, amely növeli a produktivitását és menővé teszi. Ennek a kezelése és fejlesztése igazán sok erőforrást, erőfeszítést és megfeszített időt igényel. Ha a Yantra Launcher pozitív változást hozott az életedben, akkor kérlek, tekintsd meg a Támogatás részt a projekt GitHub oldalán.</string>
     <string name="support_chunk_2">\nNe feledd, a Yantra Launcher teljesen ingyenes és nyílt forráskódú. Támogathatod a fejlesztőt a projekthez való hozzájárulással, hibák bejelentésével, funkciók javasolásával és az alkalmazás megosztásával barátaiddal és családoddal.</string>
     <string name="redirecting_to_support_page">:: Átirányítás a projekt GitHub oldalán található Támogatás szakaszra...</string>
@@ -397,7 +397,7 @@
     <string name="unknown_flag">Ismeretlen kapcsoló: %1$s</string>
     <string name="cmd_termux_title"><![CDATA[termux <cmd> [args]]]></string>
     <string name="cmd_termux_help">A megadott parancs futtatása a Termux-ban, ha telepítve van. Megjegyzés: A \'allow-external-apps\' tulajdonságnak true-nak kell lennie a ~/.termux/termux.properties fájlban a Termux alkalmazásban, és a Yantra Launcher beállításainál engedélyezni kell a RUN_COMMAND engedélyt. Emellett a Termux munkamenete azonnal bezárul, amint a parancs befejeződik az API-korlátozások miatt.\nHasználat: termux parancs_név [argumentumok]\nPélda: \'termux top -n 5\nHa további problémák merülnek fel, kérdezze meg a Discord Közösségben, vagy írjon nekem e-mailt a coderGtm@gmail.com címre.</string>
-    <string name="termux_invalid_cmd">Érvénytelen parancs. További információkért lásd a 'help termux' parancsot.</string>
+    <string name="termux_invalid_cmd">Érvénytelen parancs. További információkért lásd a \'help termux\' parancsot.</string>
     <string name="grant_termux_permission">Engedélyezned kell a Termux Futtatási Parancs engedélyt a Yantra Launcher számára, hogy ez a parancs működjön!</string>
     <string name="running_command_in_termux">Parancs futtatása a Termuxban...</string>
     <string name="termux_cmd_error">Nem sikerült a parancs futtatása a Termuxban. Hiba: %1$s</string>
