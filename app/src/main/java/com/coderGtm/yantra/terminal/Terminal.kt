@@ -120,13 +120,13 @@ class Terminal(
         activity.window.navigationBarColor = theme.bgColor
         setPromptText()
         binding.suggestionsTab.background = theme.bgColor.toDrawable()
-        binding.username.setTextColor(theme.buttonColor)
-        binding.cmdInput.setTextColor(theme.buttonColor)
+        binding.username.setTextColor(theme.inputLineTextColor)
+        binding.cmdInput.setTextColor(theme.inputLineTextColor)
         val unwrappedCursorDrawable = AppCompatResources.getDrawable(activity,
             R.drawable.cursor_drawable
         )
         val wrappedCursorDrawable = DrawableCompat.wrap(unwrappedCursorDrawable!!)
-        DrawableCompat.setTint(wrappedCursorDrawable, theme.buttonColor)
+        DrawableCompat.setTint(wrappedCursorDrawable, theme.inputLineTextColor)
         binding.upBtn.setTextColor(theme.resultTextColor)
         binding.downBtn.setTextColor(theme.resultTextColor)
     }
