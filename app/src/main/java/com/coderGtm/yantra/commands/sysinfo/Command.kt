@@ -47,7 +47,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 "-kernel" -> output("--> Kernel: ${System.getProperty("os.version")}")
                 "-uptime" -> output("--> Uptime: ${uptimeHours}h ${uptimeMinutes}m")
                 "-apps" -> output("--> Apps: ${terminal.appList.size}")
-                "-terminal" -> output("--> Terminal: Yantra Launcher ${BuildConfig.VERSION_NAME}")
+                "-terminal" -> output("--> Terminal: ${terminal.activity.applicationInfo.loadLabel(terminal.activity.packageManager)} ${BuildConfig.VERSION_NAME}")
                 "-font" -> output("--> Terminal Font: ${terminal.preferenceObject.getString("font", DEFAULT_TERMINAL_FONT_NAME) ?: DEFAULT_TERMINAL_FONT_NAME}")
                 "-resolution" -> output("--> Resolution: ${widthRes}x${heightRes}")
                 "-theme" -> output("--> Theme: ${getCurrentThemeName(terminal.preferenceObject)}")

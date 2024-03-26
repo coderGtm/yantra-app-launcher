@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Yantra Launcher</string>
     <string name="accessibility_service_description">Ez a jogosultság szükséges és csak arra használható, hogy a Yantra Indító képernyőzárat alkalmazzon.</string>
     <string name="username_prefix">Felhasználónév előtag.</string>
     <string name="primary_suggestions">Fő javaslatok.</string>

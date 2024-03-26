@@ -85,6 +85,8 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        hideProForNonProUsers()
+
         getPrimarySuggestions = preferenceObject.getBoolean("getPrimarySuggestions",true)
         getSecondarySuggestions = preferenceObject.getBoolean("getSecondarySuggestions",true)
         fullscreenLauncher = preferenceObject.getBoolean("fullScreen",false)
@@ -290,5 +292,33 @@ class SettingsActivity : AppCompatActivity() {
         //make handler to fetch font in background
         val handler = Handler()
         FontsContractCompat.requestFont(this, request, callback, handler)
+    }
+
+    private fun hideProForNonProUsers() {
+        if (isPro(this@SettingsActivity))  return
+        binding.pUi1.visibility = android.view.View.GONE
+        binding.pUi2.visibility = android.view.View.GONE
+        binding.pUi3.visibility = android.view.View.GONE
+        binding.pUi4.visibility = android.view.View.GONE
+        binding.pUi5.visibility = android.view.View.GONE
+        binding.pUi6.visibility = android.view.View.GONE
+        binding.pUi7.visibility = android.view.View.GONE
+        binding.pUi8.visibility = android.view.View.GONE
+        binding.pUi9.visibility = android.view.View.GONE
+        binding.pUi10.visibility = android.view.View.GONE
+        binding.pUi11.visibility = android.view.View.GONE
+        binding.pUi12.visibility = android.view.View.GONE
+        binding.pUi13.visibility = android.view.View.GONE
+        binding.pUi14.visibility = android.view.View.GONE
+        binding.rightSwipeActionLayout.visibility = android.view.View.GONE
+        binding.leftSwipeActionLayout.visibility = android.view.View.GONE
+        binding.newsWebsiteLayout.visibility = android.view.View.GONE
+        binding.fontLay.visibility = android.view.View.GONE
+        binding.termuxCmdPathLayout.visibility = android.view.View.GONE
+        binding.termuxCmdWorkDirLayout.visibility = android.view.View.GONE
+        binding.termuxCmdSessionActionLayout.visibility = android.view.View.GONE
+        binding.aiProviderLayout.visibility = android.view.View.GONE
+        binding.aiApiKeyLayout.visibility = android.view.View.GONE
+        binding.aiSystemPromptLayout.visibility = android.view.View.GONE
     }
 }

@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Yantra Launcher</string>
     <string name="accessibility_service_description">Questo permesso è richiesto e utilizzato solo per applicare il Blocco Schermo da Yantra Launcher.</string>
     <string name="username_prefix">Prefisso username</string>
     <string name="primary_suggestions">Suggerimenti Principali</string>

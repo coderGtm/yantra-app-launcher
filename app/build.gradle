@@ -43,7 +43,7 @@ android {
             minifyEnabled true
             shrinkResources = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [appLabel: "Yantra Launcher"]
+            manifestPlaceholders.appLabel = "@string/app_name"
         }
         beta {
             minifyEnabled true
@@ -51,12 +51,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             applicationIdSuffix ".beta"
             versionNameSuffix "-beta"
-            manifestPlaceholders = [appLabel: "Yantra Launcher Beta"]
+            manifestPlaceholders.appLabel = "@string/app_name_beta"
         }
         debug {
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
-            manifestPlaceholders = [appLabel: "Yantra Launcher Debug"]
+            manifestPlaceholders.appLabel = "@string/app_name_debug"
         }
     }
     buildFeatures {
