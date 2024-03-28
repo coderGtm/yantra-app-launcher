@@ -22,6 +22,7 @@ import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getInit
+import com.coderGtm.yantra.informOfProVersionIfOldUser
 import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.misc.purchasePrank
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             preferenceObject = app.preferenceObject
         )
         primaryTerminal.initialize()
+        informOfProVersionIfOldUser(this@MainActivity)
 
         onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

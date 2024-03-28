@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
@@ -248,9 +249,9 @@ private fun showCommunityPopup(preferenceEditObject: SharedPreferences.Editor, a
 
     preferenceEditObject.putBoolean("communityPopupShown",true).apply()
 }
-fun showRatingAndCommandPopups(preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor, activity: Activity) {
+fun showRatingAndCommunityPopups(preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor, activity: Activity) {
     val n = preferenceObject.getLong("numOfCmdsEntered",0)
-    if ((n+1)%40 == 0L) {
+    if ((n+1)%40 == 0L && preferenceObject.getBoolean("ratePrompt",true)) {
         //askRating() after 5 seconds
         Timer().schedule(timerTask {
             activity.runOnUiThread {
@@ -267,6 +268,15 @@ fun showRatingAndCommandPopups(preferenceObject: SharedPreferences, preferenceEd
             }
         }, 4000)
         return
+    }
+}
+
+fun marketProVersion(terminal: Terminal, preferenceObject: SharedPreferences) {
+    if (isPro(terminal.activity))   return
+    val n = preferenceObject.getLong("numOfCmdsEntered",0)
+    if ((n+1)%50 == 0L) {
+        terminal.output(terminal.activity.getString(R.string.pro_prompt), terminal.theme.successTextColor, Typeface.BOLD_ITALIC)
+        terminal.output(terminal.activity.getString(R.string.pro_cmd_info), terminal.theme.suggestionTextColor, Typeface.NORMAL)
     }
 }
 private fun getLevenshteinDistance(x: String, y: String): Int {
@@ -452,6 +462,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "username" to com.coderGtm.yantra.commands.username.Command::class.java,
             "settings" to com.coderGtm.yantra.commands.settings.Command::class.java,
             "sysinfo" to com.coderGtm.yantra.commands.sysinfo.Command::class.java,
+            "pro" to com.coderGtm.yantra.commands.pro.Command::class.java,
             "quote" to com.coderGtm.yantra.commands.quote.Command::class.java,
             "text" to com.coderGtm.yantra.commands.text.Command::class.java,
             "info" to com.coderGtm.yantra.commands.info.Command::class.java,
@@ -465,5 +476,28 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "support" to com.coderGtm.yantra.commands.support.Command::class.java,
             "exit" to com.coderGtm.yantra.commands.exit.Command::class.java,
         )
+    }
+}
+
+fun informOfProVersionIfOldUser(activity: Activity) {
+    if (isPro(activity))    return
+    val prefObject = activity.getSharedPreferences(SHARED_PREFS_FILE_NAME, 0)
+
+    // elementary vague check for old user
+    val oldUser = prefObject.getInt("theme", 0) != 0 || prefObject.getString("initList", "") != "" || prefObject.getString("scripts", "") != "" || prefObject.getStringSet("todoList", setOf())?.size != 0 || prefObject.getString("newsWebsite", "") != "" || !prefObject.getBoolean("minimalPromptShown", false)
+
+    if (!activity.isFinishing && oldUser) {
+        MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog)
+            .setTitle(activity.getString(R.string.yantra_launcher_has_been_trimmed))
+            .setMessage(activity.getString(R.string.yantra_trim_description))
+            .setPositiveButton(activity.getString(R.string.upgrade)) { dialogInterface, _ ->
+                dialogInterface.dismiss()
+                openURL(PRO_VERSION_URL, activity)
+            }
+            .setNegativeButton(activity.getString(R.string.later)) { dialogInterface, _ ->
+                dialogInterface.dismiss()
+            }
+            .setCancelable(false)
+            .show()
     }
 }
