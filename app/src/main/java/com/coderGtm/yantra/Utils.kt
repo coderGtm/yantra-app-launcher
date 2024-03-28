@@ -327,7 +327,7 @@ fun getCurrentTheme(activity: Activity, preferenceObject: SharedPreferences): Th
             bgColor = Color.parseColor(customThemeColors[0]),
             commandColor = Color.parseColor(customThemeColors[1]),
             suggestionTextColor = Color.parseColor(customThemeColors[2]),
-            buttonColor = Color.parseColor(customThemeColors[3]),
+            inputLineTextColor = Color.parseColor(customThemeColors[3]),
             resultTextColor = Color.parseColor(customThemeColors[4]),
             errorTextColor = Color.parseColor(customThemeColors[5]),
             successTextColor = Color.parseColor(customThemeColors[6]),
