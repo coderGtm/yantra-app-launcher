@@ -243,6 +243,18 @@ enum class Themes(val theme: Theme) {
             successTextColor = 0xFFA7C080.toInt(),
             warningTextColor = 0xFFDBBC7F.toInt(),
         )
+    ),
+    Powershell(
+        Theme(
+            bgColor = 0xFF012456.toInt(),
+            commandColor = 0xFFCCCCCC.toInt(),
+            suggestionTextColor = 0xFFF9F1A5.toInt(),
+            inputLineTextColor = 0xFFCCCCCC.toInt(),
+            resultTextColor = 0xFFCCCCCC.toInt(),
+            errorTextColor = 0xFFC50F1F.toInt(),
+            successTextColor = 0xFF13A10E.toInt(),
+            warningTextColor = 0xFFE3D941.toInt(),
+        )
     )
 }
 enum class AppSortMode(val value: Int) {
