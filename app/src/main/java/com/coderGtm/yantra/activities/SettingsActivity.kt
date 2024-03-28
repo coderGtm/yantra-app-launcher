@@ -68,6 +68,7 @@ class SettingsActivity : AppCompatActivity() {
         "English" to "en",
         "Italiano" to "it",
         "Русский" to "ru",
+        "Magyar" to "hu",
     )
 
     private val prefFile = "yantraSP"
