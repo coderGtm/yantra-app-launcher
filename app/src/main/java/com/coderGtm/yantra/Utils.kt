@@ -499,5 +499,6 @@ fun informOfProVersionIfOldUser(activity: Activity) {
             }
             .setCancelable(false)
             .show()
+        prefObject.edit().putBoolean("minimalPromptShown", true).apply()
     }
 }
