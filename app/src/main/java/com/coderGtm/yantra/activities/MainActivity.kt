@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             R.drawable.cursor_drawable
         )
         val wrappedCursorDrawable = DrawableCompat.wrap(unwrappedCursorDrawable!!)
-        DrawableCompat.setTint(wrappedCursorDrawable, primaryTerminal.theme.buttonColor)
+        DrawableCompat.setTint(wrappedCursorDrawable, primaryTerminal.theme.inputLineTextColor)
         Thread {
             requestUpdateIfAvailable(app.preferenceObject, this@MainActivity)
         }.start()

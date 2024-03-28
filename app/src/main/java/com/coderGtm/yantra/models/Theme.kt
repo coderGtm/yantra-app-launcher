@@ -4,7 +4,7 @@ data class Theme (
     val bgColor: Int,
     val commandColor: Int,
     val suggestionTextColor: Int,
-    val buttonColor: Int,
+    val inputLineTextColor: Int,
     val resultTextColor: Int,
     val errorTextColor: Int,
     val successTextColor: Int,
