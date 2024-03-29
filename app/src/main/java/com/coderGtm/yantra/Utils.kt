@@ -385,7 +385,7 @@ fun getScripts(preferenceObject: SharedPreferences): java.util.ArrayList<String>
     return scripts
 }
 fun isPro(activity: Activity): Boolean {
-    return activity.packageName.endsWith(".pro") || activity.packageName.endsWith(".pro.debug")
+    return activity.packageName.endsWith(".pro") || activity.packageName.endsWith(".pro.debug") || activity.packageName.endsWith(".pro.beta")
 }
 fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand>> {
     if (isPro(activity)) {
