@@ -41,12 +41,13 @@ import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.isPro
+import com.coderGtm.yantra.marketProVersion
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
-import com.coderGtm.yantra.showRatingAndCommandPopups
+import com.coderGtm.yantra.showRatingAndCommunityPopups
 import com.coderGtm.yantra.vibrate
 import io.noties.markwon.Markwon
 import java.util.TimerTask
@@ -383,7 +384,8 @@ class Terminal(
                 cmdHistory.add(command)
                 cmdHistoryCursor = cmdHistory.size
                 incrementNumOfCommandsEntered(preferenceObject, preferenceObject.edit())
-                showRatingAndCommandPopups(preferenceObject, preferenceObject.edit(), activity)
+                showRatingAndCommunityPopups(preferenceObject, preferenceObject.edit(), activity)
+                marketProVersion(this@Terminal, preferenceObject)
             }
         }
         commandName?.let { _ ->

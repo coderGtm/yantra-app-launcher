@@ -496,4 +496,12 @@
     <string name="weather_wind_kmph"><![CDATA[=> Ветер: %1$d км/ч]]></string>
     <string name="package_removed"><![CDATA[==> Пакет удален: %1$s]]></string>
     <string name="specify_a_package_name">Пожалуйста, укажите имя пакета!</string>
+    <string name="yantra_launcher_has_been_trimmed">Yantra Launcher была обрезана!</string>
+    <string name="yantra_trim_description">В целях финансирования проекта бесплатная версия Yantra Launcher была преобразована в действительно минималистичный лаунчер с интерфейсом командной строки. Если вы предпочитаете пользоваться классической и полной версией Yantra Launcher, рассмотрите возможность обновления до версии Pro, купив версию Pro в магазине Play Store.</string>
+    <string name="upgrade">Обновиться</string>
+    <string name="later">Позже</string>
+    <string name="cmd_pro_help">Запускает страницу Play Store для профессиональной версии Yantra Launcher.</string>
+    <string name="opening_pro_page">:: Перенаправка на страницу Play Store для Pro версии...</string>
+    <string name="pro_prompt">Кажется, вам нравится Yantra Launcher! Рассмотрите возможность обновления до версии Pro, чтобы получить больше возможностей и поддержать проект.</string>
+    <string name="pro_cmd_info">Введите \'pro\' чтобы запустить страницу Play Store для Pro версии.</string>
 </resources>
