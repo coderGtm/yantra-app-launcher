@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="accessibility_service_description">Ez a jogosultság szükséges és csak arra használható, hogy a Yantra Indító képernyőzárat alkalmazzon.</string>
+    <string name="accessibility_service_description">Ez a jogosultság szükséges és csak arra használható, hogy a Yantra Launcher képernyőzárat alkalmazzon.</string>
     <string name="username_prefix">Felhasználónév előtag.</string>
     <string name="primary_suggestions">Fő javaslatok.</string>
     <string name="secondary_suggestions">Másodlagos javaslatok.</string>
@@ -496,12 +496,12 @@
     <string name="weather_wind_kmph"><![CDATA[=> Szél: %1$d kmph]]></string>
     <string name="package_removed"><![CDATA[==> Csomag eltávolítva: %1$s]]></string>
     <string name="specify_a_package_name">Kérlek, add meg egy alkalmazás csomagnevét!</string>
-    <string name="yantra_launcher_has_been_trimmed">Yantra Indító át lett váltva!</string>
-    <string name="yantra_trim_description">A projekt finanszírozása érdekében a Yantra Indító ingyenes verziója ezentúl Mnimális CLI Indítóra lett átalakítva. Ha inkább élveznéd a klasszikus és teljes verziót a Yantra Indítóból, fontolóra veheted a Pro verzióra való frissítést a Pro verzió megvásárlásával a Play Áruházból.</string>
+    <string name="yantra_launcher_has_been_trimmed">Yantra Launcher át lett váltva!</string>
+    <string name="yantra_trim_description">A projekt finanszírozása érdekében a Yantra Launcher ingyenes verziója ezentúl Minimal CLI Launcher -re lett átalakítva. Ha inkább élveznéd a klasszikus és teljes verziót a Yantra Launcher -ből, fontolóra veheted a Pro verzióra való frissítést, a Pro verzió megvásárlásával a Play Áruházból.</string>
     <string name="upgrade">Frissítés</string>
     <string name="later">Később</string>
-    <string name="cmd_pro_help">Betölti a Yantra Indító Pro verziójának Play Áruházbeli oldalát.</string>
+    <string name="cmd_pro_help">Betölti a Yantra Launcher Pro verziójának Play Áruházbeli oldalát.</string>
     <string name="opening_pro_page">:: A Pro verzió oldalának megnyitása a Play Áruházból ...</string>
-    <string name="pro_prompt">Úgy tűnik, szereted a Yantra Indítót! Fontolóra veheted a Pro verzióra való frissítést több funkcióért és a projekt támogatásáért.</string>
+    <string name="pro_prompt">Úgy tűnik, szereted a Yantra Launcher-t! Fontolóra veheted a Pro verzióra való frissítést több funkcióért és a projekt támogatásáért.</string>
     <string name="pro_cmd_info">Ird be  \'pro\' a Pro verzió Play Áruház oldalának megnyitásához.</string>
 </resources>
