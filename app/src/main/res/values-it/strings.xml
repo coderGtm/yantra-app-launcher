@@ -496,7 +496,7 @@
     <string name="weather_wind_kmph"><![CDATA[=> Vento: %1$d km/h]]></string>
     <string name="package_removed"><![CDATA[==> Pacchetto rimosso: %1$s]]></string>
     <string name="specify_a_package_name">Per favore, specifica il nome del pacchetto dell\'app!</string>
-    <string name="yantra_launcher_has_been_trimmed">Yantra Launcher has been trimmed!</string>
+    <string name="yantra_launcher_has_been_trimmed">Yantra Launcher è stato semplificato!</string>
     <string name="yantra_trim_description">Nel tentativo di finanziare il progetto, la versione gratuita di Yantra Launcher è stata convertita in un launcher CLI veramente minimale. Se preferisci goderti la versione classica e completa di Yantra Launcher, considera l\'aggiornamento alla versione Pro acquistando la versione Pro dal Play Store.</string>
     <string name="upgrade">Aggiorna a Pro</string>
     <string name="later">Più tardi</string>
