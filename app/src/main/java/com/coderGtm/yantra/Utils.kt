@@ -385,7 +385,7 @@ fun getScripts(preferenceObject: SharedPreferences): java.util.ArrayList<String>
     return scripts
 }
 fun isPro(activity: Activity): Boolean {
-    return activity.packageName.endsWith(".pro") || activity.packageName.endsWith(".pro.debug")
+    return activity.packageName.endsWith(".pro") || activity.packageName.endsWith(".pro.debug") || activity.packageName.endsWith(".pro.beta")
 }
 fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand>> {
     if (isPro(activity)) {
@@ -484,12 +484,13 @@ fun informOfProVersionIfOldUser(activity: Activity) {
     val prefObject = activity.getSharedPreferences(SHARED_PREFS_FILE_NAME, 0)
 
     // elementary vague check for old user
-    val oldUser = prefObject.getInt("theme", 0) != 0 || prefObject.getString("initList", "") != "" || prefObject.getString("scripts", "") != "" || prefObject.getStringSet("todoList", setOf())?.size != 0 || prefObject.getString("newsWebsite", "") != "" || !prefObject.getBoolean("minimalPromptShown", false)
+    val oldUser = (prefObject.getInt("theme", 0) != 0 || prefObject.getString("initList", "") != "" || prefObject.getString("scripts", "") != "" || prefObject.getStringSet("todoList", setOf())?.size != 0 || prefObject.getString("newsWebsite", "") != "") && !prefObject.getBoolean("minimalPromptShown", false)
 
     if (!activity.isFinishing && oldUser) {
         MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog)
             .setTitle(activity.getString(R.string.yantra_launcher_has_been_trimmed))
             .setMessage(activity.getString(R.string.yantra_trim_description))
+            .setCancelable(false)
             .setPositiveButton(activity.getString(R.string.upgrade)) { dialogInterface, _ ->
                 dialogInterface.dismiss()
                 openURL(PRO_VERSION_URL, activity)

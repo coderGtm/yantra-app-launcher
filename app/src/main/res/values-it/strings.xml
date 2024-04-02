@@ -496,12 +496,12 @@
     <string name="weather_wind_kmph"><![CDATA[=> Vento: %1$d km/h]]></string>
     <string name="package_removed"><![CDATA[==> Pacchetto rimosso: %1$s]]></string>
     <string name="specify_a_package_name">Per favore, specifica il nome del pacchetto dell\'app!</string>
-    <string name="yantra_launcher_has_been_trimmed">Yantra Launcher has been trimmed!</string>
-    <string name="yantra_trim_description">In an effort to fund the project, the free version of Yantra Launcher has been converted to a truly minimal CLI launcher. If you prefer to enjoy the classic and full version of Yantra Launcher, please consider upgrading to the Pro version by buying the Pro version from the Play Store.</string>
-    <string name="upgrade">Upgrade</string>
-    <string name="later">Later</string>
-    <string name="cmd_pro_help">Launches the Play Store Page for the Pro Version of Yantra Launcher</string>
-    <string name="opening_pro_page">:: Navigating to Play Store Page of Pro version...</string>
-    <string name="pro_prompt">You seem to be loving Yantra Launcher! Consider upgrading to the Pro version for more features and to support the project.</string>
-    <string name="pro_cmd_info">Type \'pro\' to launch the Play Store page for the Pro version.</string>
+    <string name="yantra_launcher_has_been_trimmed">Yantra Launcher è stato semplificato!</string>
+    <string name="yantra_trim_description">Nel tentativo di finanziare il progetto, la versione gratuita di Yantra Launcher è stata convertita in un launcher CLI veramente minimale. Se preferisci goderti la versione classica e completa di Yantra Launcher, considera l\'aggiornamento alla versione Pro acquistando la versione Pro dal Play Store.</string>
+    <string name="upgrade">Aggiorna a Pro</string>
+    <string name="later">Più tardi</string>
+    <string name="cmd_pro_help">Avvia la pagina del Play Store per la versione Pro di Yantra Launcher</string>
+    <string name="opening_pro_page">:: Navigazione alla pagina del Play Store della versione Pro...</string>
+    <string name="pro_prompt">Sembra che ti piaccia molto Yantra Launcher! Considera l\'aggiornamento alla versione Pro per più funzionalità e per supportare il progetto.</string>
+    <string name="pro_cmd_info">Digita \'pro\' per lanciare la pagina del Play Store per la versione Pro.</string>
 </resources>

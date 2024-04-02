@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
+import com.coderGtm.yantra.openURL
 import com.coderGtm.yantra.terminal.Terminal
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -37,6 +38,11 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 dialog.findViewById<TextView>(R.id.loadingText)?.visibility = android.view.View.GONE
+            }
+            // if any external link is clicked, open it in the default browser
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                url?.let { openURL(it, terminal.activity) }
+                return true
             }
         }
         dialog.findViewById<Button>(R.id.closeBtn)?.setOnClickListener {
