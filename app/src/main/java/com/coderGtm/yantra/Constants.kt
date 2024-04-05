@@ -286,6 +286,26 @@ const val SUPPORT_URL = "https://github.com/coderGtm/yantra-app-launcher/blob/ma
 const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.coderGtm.yantra"
 const val PRO_VERSION_URL = "https://play.google.com/store/apps/details?id=com.coderGtm.yantra.pro"
 
+const val DEFAULT_SYSINFO_ART =
+"         -o          o-\n" +
+"          +hydNNNNdyh+\n" +
+"        +mMMMMMMMMMMMMm+\n" +
+"      `dMMm:NMMMMMMN:mMMd`\n" +
+"      hMMMMMMMMMMMMMMMMMMh\n" +
+"  ..  yyyyyyyyyyyyyyyyyyyy  ..\n" +
+".mMMm`MMMMMMMMMMMMMMMMMMMM`mMMm.\n" +
+":MMMM-MMMMMMMMMMMMMMMMMMMM-MMMM:\n" +
+":MMMM-MMMMMMMMMMMMMMMMMMMM-MMMM:\n" +
+":MMMM-MMMMMMMMMMMMMMMMMMMM-MMMM:\n" +
+":MMMM-MMMMMMMMMMMMMMMMMMMM-MMMM:\n" +
+"-MMMM-MMMMMMMMMMMMMMMMMMMM-MMMM-\n" +
+" +yy+ MMMMMMMMMMMMMMMMMMMM +yy+\n" +
+"      mMMMMMMMMMMMMMMMMMMm\n" +
+"      `/++MMMMh++hMMMM++/`\n" +
+"          MMMMo  oMMMM\n" +
+"          MMMMo  oMMMM\n" +
+"          oNMm-  -mMNs"
+
 val NO_LOG_COMMANDS = listOf("sleep", "echo", "notify")
 val DEFAULT_ALIAS_LIST = arrayListOf(Alias("h", "help"), Alias("l", "launch"), Alias("i", "info"), Alias("u", "uninstall"), Alias("bt", "bluetooth"), Alias("w", "weather"), Alias("tx", "termux"), Alias("cls", "clear"), Alias("google", "search -e=google"), Alias("ddg", "search -e=duckduckgo")
 )

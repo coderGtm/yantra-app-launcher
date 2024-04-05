@@ -5,6 +5,7 @@ import android.content.Context.ACTIVITY_SERVICE
 import android.os.Build
 import android.os.SystemClock
 import com.coderGtm.yantra.BuildConfig
+import com.coderGtm.yantra.DEFAULT_SYSINFO_ART
 import com.coderGtm.yantra.DEFAULT_TERMINAL_FONT_NAME
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
@@ -33,12 +34,14 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val widthRes = terminal.activity.windowManager.defaultDisplay.width
         val heightRes = terminal.activity.windowManager.defaultDisplay.height
 
+        val art = terminal.preferenceObject.getString("sysinfoArt", DEFAULT_SYSINFO_ART) ?: DEFAULT_SYSINFO_ART
+
         val showAllInfo = args.isEmpty()
 
         if (showAllInfo) {
             output("${getUserName(terminal.preferenceObject)}@YantraLauncher", terminal.theme.warningTextColor)
             output("-------------------------", terminal.theme.warningTextColor)
-            args = listOf("-os","-host","-kernel","-uptime","-apps","-terminal","-font","-resolution","-theme","-cpu","-memory")
+            args = listOf("-os","-host","-kernel","-uptime","-apps","-terminal","-font","-resolution","-theme","-cpu","-memory", "-art")
         }
         for (arg in args) {
             when (arg.lowercase()) {
@@ -53,6 +56,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 "-theme" -> output("--> Theme: ${getCurrentThemeName(terminal.preferenceObject)}")
                 "-cpu" -> output("--> CPU: ${Build.SUPPORTED_ABIS[0]} (${Runtime.getRuntime().availableProcessors()}) @ ${getCPUSpeed()}")
                 "-memory" -> output("--> Memory: ${availableMem.toInt()}MiB / ${totalMem.toInt()}MiB")
+                "-art" -> output(art, terminal.theme.successTextColor)
                 else -> output(terminal.activity.getString(R.string.unknown_flag, arg), terminal.theme.errorTextColor)
             }
         }
