@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.coderGtm.yantra.AI_SYSTEM_PROMPT
 import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.DEFAULT_AI_API_DOMAIN
+import com.coderGtm.yantra.DEFAULT_SYSINFO_ART
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.databinding.ActivitySettingsBinding
 import com.coderGtm.yantra.getUserNamePrefix
@@ -271,6 +272,26 @@ fun openAppSugOrderingSetter(activity: Activity, binding: ActivitySettingsBindin
             changedSettingsCallback(activity)
         }
         .show()
+}
+
+fun openSysinfoArtSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+    val sysinfoArtBuilder = MaterialAlertDialogBuilder(activity)
+        .setTitle(activity.getString(R.string.change_sysinfo_art))
+        .setMessage(activity.getString(R.string.sysinfo_art_change_description))
+        .setView(R.layout.dialog_multiline_input)
+        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
+            val art = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
+            preferenceEditObject.putString("sysinfoArt",art).apply()
+            Toast.makeText(activity,
+                activity.getString(R.string.sysinfo_art_updated), Toast.LENGTH_SHORT).show()
+            changedSettingsCallback(activity)
+        }
+        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
+    sysinfoArtBuilder.findViewById<EditText>(R.id.bodyText)?.setText(preferenceObject.getString("sysinfoArt",
+        DEFAULT_SYSINFO_ART) ?: DEFAULT_SYSINFO_ART)
 }
 
 fun openTermuxCmdPathSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {

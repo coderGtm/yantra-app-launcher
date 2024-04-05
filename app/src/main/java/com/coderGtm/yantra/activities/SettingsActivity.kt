@@ -33,6 +33,7 @@ import com.coderGtm.yantra.misc.openNewsWebsiteSetter
 import com.coderGtm.yantra.misc.openOrientationSetter
 import com.coderGtm.yantra.misc.openSwipeLeftActionSetter
 import com.coderGtm.yantra.misc.openSwipeRightActionSetter
+import com.coderGtm.yantra.misc.openSysinfoArtSetter
 import com.coderGtm.yantra.misc.openTermuxCmdPathSelector
 import com.coderGtm.yantra.misc.openTermuxCmdSessionActionSelector
 import com.coderGtm.yantra.misc.openTermuxCmdWorkingDirSelector
@@ -127,6 +128,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.arrowSizeBtn.setOnClickListener { openArrowSizeSetter(this@SettingsActivity, binding, preferenceObject, preferenceEditObject) }
         binding.orientationLay.setOnClickListener { openOrientationSetter(this@SettingsActivity, binding, preferenceEditObject) }
         binding.appSugOrderingLay.setOnClickListener { openAppSugOrderingSetter(this@SettingsActivity, binding, preferenceEditObject) }
+        binding.sysinfoArtLayout.setOnClickListener { openSysinfoArtSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.termuxCmdPathLayout.setOnClickListener { openTermuxCmdPathSelector(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.termuxCmdWorkDirLayout.setOnClickListener { openTermuxCmdWorkingDirSelector(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.termuxCmdSessionActionLayout.setOnClickListener { openTermuxCmdSessionActionSelector(this@SettingsActivity, preferenceObject, preferenceEditObject) }
