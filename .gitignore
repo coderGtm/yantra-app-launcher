@@ -17,3 +17,6 @@ local.properties
 misc.xml
 /app/release
 /app/beta
+/app/pro/release/*
+/app/free/beta/*
+/app/pro/beta/*
