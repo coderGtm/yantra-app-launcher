@@ -1,6 +1,7 @@
 package com.coderGtm.yantra.commands.sysinfo
 
 import android.content.SharedPreferences
+import com.coderGtm.yantra.DEFAULT_SYSINFO_ART
 import com.coderGtm.yantra.Themes
 
 fun getCPUSpeed(): String {

@@ -1,9 +1,11 @@
 package com.coderGtm.yantra.commands.pro
 
 import android.graphics.Typeface
+import com.coderGtm.yantra.PRO_VERSION_URL
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
+import com.coderGtm.yantra.openURL
 import com.coderGtm.yantra.terminal.Terminal
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
@@ -20,5 +22,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
         output(terminal.activity.getString(R.string.opening_pro_page), terminal.theme.resultTextColor, Typeface.ITALIC)
+        openURL(PRO_VERSION_URL, terminal.activity)
     }
 }

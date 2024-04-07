@@ -11,8 +11,8 @@ android {
         applicationId "com.coderGtm.yantra"
         minSdk 21
         targetSdk 34
-        versionCode 101
-        versionName "9.2.1"
+        versionCode 102
+        versionName "9.3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,11 +46,13 @@ android {
             manifestPlaceholders.appLabel = "@string/app_name"
         }
         beta {
+            manifestPlaceholders
             minifyEnabled true
             shrinkResources = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             applicationIdSuffix ".beta"
             versionNameSuffix "-beta"
+            signingConfig signingConfigs.debug
             manifestPlaceholders.appLabel = "@string/app_name_beta"
         }
         debug {
@@ -89,7 +91,7 @@ dependencies {
     implementation "ch.acra:acra-dialog:$acraVersion"
     implementation "androidx.activity:activity-ktx:1.8.2"
     implementation "io.noties.markwon:core:4.6.2"
-    implementation "androidx.webkit:webkit:1.9.0"
+    proImplementation "androidx.webkit:webkit:1.9.0"
     implementation "com.vanniktech:android-image-cropper:4.5.0"
 
     testImplementation 'junit:junit:4.13.2'
