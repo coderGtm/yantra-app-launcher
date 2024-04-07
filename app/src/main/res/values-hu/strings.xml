@@ -506,5 +506,5 @@
     <string name="pro_cmd_info">Ird be  \'pro\' a Pro verzió Play Áruház oldalának megnyitásához.</string>
     <string name="change_sysinfo_art">Cseréld át a  \'sysinfo\' rajzát</string>
     <string name="sysinfo_art_change_description">Ide illesztheted be a ASCII rajzot, amit a \'sysinfo\' paranccsal megjeleníthetsz.</string>
-    <string name="sysinfo_art_updated"> A `sysinfo` parancs ASCII rajza frissült!</string>
+    <string name="sysinfo_art_updated"> A \'sysinfo\' parancs ASCII rajza frissült!</string>
 </resources>

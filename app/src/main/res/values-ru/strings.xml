@@ -505,6 +505,6 @@
     <string name="pro_prompt">Кажется, вам нравится Yantra Launcher! Рассмотрите возможность обновления до версии Pro, чтобы получить больше возможностей и поддержать проект.</string>
     <string name="pro_cmd_info">Введите \'pro\' чтобы запустить страницу Play Store для Pro версии.</string>
     <string name="change_sysinfo_art">Изменить \'sysinfo\' арт</string>
-    <string name="sysinfo_art_change_description">Вставьте свой ASCII-арт который вы хотите отображать при команде `sysinfo`.</string>
-    <string name="sysinfo_art_updated">Обновлен ASCII-арт для команды `sysinfo`!</string>
+    <string name="sysinfo_art_change_description">Вставьте свой ASCII-арт который вы хотите отображать при команде \'sysinfo\'.</string>
+    <string name="sysinfo_art_updated">Обновлен ASCII-арт для команды \'sysinfo\'!</string>
 </resources>
