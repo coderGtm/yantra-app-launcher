@@ -89,6 +89,10 @@ class SettingsActivity : AppCompatActivity() {
 
         hideProForNonProUsers()
 
+        // temporarily hiding current directory setting
+        binding.pUi1.visibility = android.view.View.GONE
+        binding.pUi2.visibility = android.view.View.GONE
+
         getPrimarySuggestions = preferenceObject.getBoolean("getPrimarySuggestions",true)
         getSecondarySuggestions = preferenceObject.getBoolean("getSecondarySuggestions",true)
         fullscreenLauncher = preferenceObject.getBoolean("fullScreen",false)

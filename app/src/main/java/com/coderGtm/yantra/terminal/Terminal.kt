@@ -300,12 +300,12 @@ class Terminal(
         }
     }
     fun setPromptText() {
-        if (preferenceObject.getBoolean("showCurrentFolderInPrompt", false) && !workingDir.isEmpty()) {
+        /*if (preferenceObject.getBoolean("showCurrentFolderInPrompt", false) && !workingDir.isEmpty()) {
             val splitOfWorkingDir = workingDir.split("/")
             binding.username.text =
                 "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}/../${splitOfWorkingDir[splitOfWorkingDir.size - 1]}>"
             return
-        }
+        }*/
 
         binding.username.text =
             "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}>"

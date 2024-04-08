@@ -100,7 +100,7 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
-            else if (effectivePrimaryCmd == "open") {
+            /*else if (effectivePrimaryCmd == "open") {
                 if (args.size>1) {
                     //search using regex
                     overrideLastWord = true
@@ -147,7 +147,7 @@ fun showSuggestions(
                     }
                 }
                 isPrimary = false
-            }
+            }*/
             else if (effectivePrimaryCmd == "uninstall") {
                 if (!terminal.appListFetched) {
                     return@Thread
