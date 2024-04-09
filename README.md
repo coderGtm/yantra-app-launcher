@@ -23,6 +23,9 @@ Now you should be good to go 🚀...
 - Follow the coding style to keep it consistent across the project.
 - If in dilemma, don't hesitate to reach out to the community via issues, discussions, or the Discord Community!
 
+## Translation
+We support initiatives to translate Yantra Launcher in your native language! If you are interested for a long-term commitment to volunteer translations, see the [Translator's Guide](/Yantra_Launcher_Translators_Guide.pdf).
+
 ## FAQs
 See the [FAQs Page](/faq.md) for answers to Frequently Asked Questions!
 
