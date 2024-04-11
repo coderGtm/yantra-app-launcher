@@ -2,9 +2,9 @@ package com.coderGtm.yantra.commands.feedback
 
 import android.content.Intent
 import android.net.Uri
-import com.coderGtm.yantra.PLAY_STORE_URL
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.getStoreUrl
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.openURL
 import com.coderGtm.yantra.terminal.Terminal
@@ -41,7 +41,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 }
             }
             .setNegativeButton(terminal.activity.getString(R.string.play_store)) { _, _ ->
-                openURL(PLAY_STORE_URL, terminal.activity)
+                openURL(getStoreUrl(terminal.activity), terminal.activity)
             }
             .setNeutralButton(terminal.activity.getString(R.string.cancel), null)
             .show()

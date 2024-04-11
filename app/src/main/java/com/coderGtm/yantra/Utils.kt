@@ -194,7 +194,7 @@ fun requestUpdateIfAvailable(preferenceObject: SharedPreferences, activity: Acti
                 .setMessage(activity.getString(R.string.update_available_description))
                 .setPositiveButton(activity.getString(R.string.update)) { dialogInterface, _ ->
                     dialogInterface.dismiss()
-                    activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PLAY_STORE_URL)))
+                    activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getStoreUrl(activity))))
                 }
                 .setNegativeButton(activity.getString(R.string.not_now)) { dialogInterface, _ ->
                     dialogInterface.dismiss()
@@ -215,7 +215,7 @@ private fun askRating(preferenceObject: SharedPreferences, preferenceEditObject:
         .setMessage(activity.getString(R.string.rate_app_description))
         .setPositiveButton("Rate") { dialogInterface, _ ->
             dialogInterface.dismiss()
-            openURL(PLAY_STORE_URL, activity)
+            openURL(getStoreUrl(activity), activity)
             preferenceEditObject.putBoolean("ratePrompt",false).apply()
         }
         .setNegativeButton(activity.getString(R.string.maybe_later)) { dialogInterface, _ ->
@@ -493,7 +493,7 @@ fun informOfProVersionIfOldUser(activity: Activity) {
             .setCancelable(false)
             .setPositiveButton(activity.getString(R.string.upgrade)) { dialogInterface, _ ->
                 dialogInterface.dismiss()
-                openURL(PRO_VERSION_URL, activity)
+                openURL(PLAY_STORE_URL_PRO, activity)
             }
             .setNegativeButton(activity.getString(R.string.later)) { dialogInterface, _ ->
                 dialogInterface.dismiss()
@@ -501,5 +501,14 @@ fun informOfProVersionIfOldUser(activity: Activity) {
             .setCancelable(false)
             .show()
         prefObject.edit().putBoolean("minimalPromptShown", true).apply()
+    }
+}
+
+fun getStoreUrl(activity: Activity): String {
+    return if (isPro(activity)) {
+        PLAY_STORE_URL_PRO
+    }
+    else {
+        PLAY_STORE_URL
     }
 }
