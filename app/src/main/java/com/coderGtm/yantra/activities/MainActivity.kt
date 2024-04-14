@@ -28,6 +28,7 @@ import com.coderGtm.yantra.misc.purchasePrank
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
+import com.coderGtm.yantra.setProStatus
 import com.coderGtm.yantra.setWallpaperFromUri
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.views.TerminalGestureListenerCallback
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
 
         app = application as YantraLauncher
         app.preferenceObject = applicationContext.getSharedPreferences(SHARED_PREFS_FILE_NAME,0)
+        setProStatus(this, app.preferenceObject)
 
         primaryTerminal = Terminal(
             activity = this@MainActivity,

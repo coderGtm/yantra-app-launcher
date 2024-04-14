@@ -35,7 +35,6 @@ import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.findSimilarity
-import com.coderGtm.yantra.getAvailableCommands
 import com.coderGtm.yantra.getCurrentTheme
 import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.getUserName
