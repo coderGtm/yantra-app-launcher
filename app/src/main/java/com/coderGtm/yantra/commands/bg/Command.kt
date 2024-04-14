@@ -20,7 +20,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     )
 
     override fun execute(command: String) {
-        if (command.trim() == "bg") {
+        if (command.trim().lowercase() == "bg") {
             val mainAct = terminal.activity as MainActivity
             mainAct.pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
