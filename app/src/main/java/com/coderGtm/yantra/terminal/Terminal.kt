@@ -250,7 +250,6 @@ class Terminal(
     }
 
     private fun getAliases(): MutableList<Alias> {
-        if (!isPro(activity)) return mutableListOf()
         //get alias list from shared preferences
         val defaultStringSet = mutableSetOf<String>()
         for (i in DEFAULT_ALIAS_LIST.indices) {
