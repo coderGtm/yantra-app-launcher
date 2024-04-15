@@ -7,7 +7,45 @@ import com.coderGtm.yantra.R
 import org.json.JSONArray
 import org.json.JSONObject
 
-fun handleResponse(response: JSONArray, command: Command) {
+fun handleUrbanResponse(response: JSONObject, command: Command) {
+   // response example: {"list"[{
+    //"definition": "[get naked] or [good] [nite]",
+    //"permalink": "http://gn.urbanup.com/15067577",
+    //"thumbs_up": 244,
+    //"author": "a snail typing on a laptop",
+    //"word": "gn",
+    //"defid": 15067577,
+    //"current_vote": "",
+    //"written_on": "2020-06-05T17:53:59.180Z",
+    //"example": "crush: gn [lila] lila:ok :) ([nudes]) crush:no! I meant good [nite] lila . _ .",
+    //"thumbs_down": 43
+    //},{}]}
+    // list maybe empty
+    // if not then show all the definitions
+
+    command.output("==================")
+    try {
+        val list = response.getJSONArray("list")
+        if (list.length() == 0) {
+            command.output("No definitions found!", command.terminal.theme.warningTextColor, Typeface.ITALIC)
+            return
+        }
+        for (i in 0 until list.length()) {
+            val item = list.getJSONObject(i)
+            val definition = item.getString("definition")
+            command.output(definition, command.terminal.theme.resultTextColor)
+            try {
+                val example = item.getString("example")
+                command.output(command.terminal.activity.getString(R.string.dict_example, example), command.terminal.theme.resultTextColor, Typeface.ITALIC)
+                command.output("------------------")
+            } catch (e: Exception) {}
+        }
+    } catch (e: Exception) {
+        command.output("No definitions found!", command.terminal.theme.warningTextColor, Typeface.ITALIC)
+    }
+}
+
+fun handleFreeDictionaryResponse(response: JSONArray, command: Command) {
     val jResponse = response.getJSONObject(0)
     command.output(command.terminal.activity.getString(R.string.dict_word, jResponse.getString("word")), command.terminal.theme.resultTextColor, Typeface.BOLD)
     command.output("==================")
@@ -67,6 +105,7 @@ fun handleError(error: Exception, command: Command) {
         }
 
         else -> {
+            command.output(error.message.toString(), command.terminal.theme.errorTextColor)
             command.output(command.terminal.activity.getString(R.string.dict_word_not_found),command.terminal.theme.errorTextColor)
         }
     }
