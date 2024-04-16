@@ -8,18 +8,6 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 fun handleUrbanResponse(response: JSONObject, command: Command) {
-   // response example: {"list"[{
-    //"definition": "[get naked] or [good] [nite]",
-    //"permalink": "http://gn.urbanup.com/15067577",
-    //"thumbs_up": 244,
-    //"author": "a snail typing on a laptop",
-    //"word": "gn",
-    //"defid": 15067577,
-    //"current_vote": "",
-    //"written_on": "2020-06-05T17:53:59.180Z",
-    //"example": "crush: gn [lila] lila:ok :) ([nudes]) crush:no! I meant good [nite] lila . _ .",
-    //"thumbs_down": 43
-    //},{}]}
     // list maybe empty
     // if not then show all the definitions
 

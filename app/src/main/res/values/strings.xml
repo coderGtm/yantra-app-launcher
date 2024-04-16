@@ -224,8 +224,8 @@
     <string name="cmd_community_help">Redirects the Discord server of Yantra Launcher. Here you can share and get Feedback, Suggestions, Insights, tips and CLI emotions from other users like you!</string>
     <string name="community_no_args">\'community\' command does not take any parameters.</string>
     <string name="opened_community_discord_server">Opened Community Discord Server</string>
-    <string name="cmd_dict_title">dict [word]</string>
-    <string name="cmd_dict_help">Search for the meaning of a word in an online dictionary (freeDictionaryAPI)</string>
+    <string name="cmd_dict_title"><![CDATA[dict [-urban] <word>]]></string>
+    <string name="cmd_dict_help">Search for the meaning of a word in an online dictionary (freeDictionaryAPI). Use the \'-urban\' flag to search in Urban Dictionary!</string>
     <string name="please_specify_word_to_search">Please specify the word to search for.</string>
     <string name="looking_up_in_the_dictionary">Looking up \'%1$s\' in the dictionary...</string>
     <string name="dict_word">Word: %1$s</string>

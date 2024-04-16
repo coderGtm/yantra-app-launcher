@@ -224,7 +224,7 @@
     <string name="cmd_community_help">Перенаправляет на сервер Discord Yantra Launcher. Здесь вы можете поделиться и получить отзывы, предложения, идеи, советы и эмоции CLI от других пользователей, таких как вы!</string>
     <string name="community_no_args">\'community\' команда не принимает никаких параметров.</string>
     <string name="opened_community_discord_server">Открытие сервера Discord</string>
-    <string name="cmd_dict_title">dict [слово]</string>
+    <string name="cmd_dict_title"><![CDATA[dict [-urban] <слово>]]></string>
     <string name="cmd_dict_help">Поиск значения слова в онлайн-словаре (freeDictionaryAPI)</string>
     <string name="please_specify_word_to_search">Пожалуйста, укажите слово для поиска.</string>
     <string name="looking_up_in_the_dictionary">Просмотр \'%1$s\' в словаре...</string>
