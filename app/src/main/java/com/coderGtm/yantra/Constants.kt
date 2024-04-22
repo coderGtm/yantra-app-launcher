@@ -284,7 +284,7 @@ const val DISCORD_COMMUNITY_URL = "https://discord.gg/sRZUG8rPjk"
 const val DEFAULT_AI_API_DOMAIN = "api.naga.ac"
 const val SUPPORT_URL = "https://github.com/coderGtm/yantra-app-launcher/blob/main/support.md"
 const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.coderGtm.yantra"
-const val PRO_VERSION_URL = "https://play.google.com/store/apps/details?id=com.coderGtm.yantra.pro"
+const val PLAY_STORE_URL_PRO = "https://play.google.com/store/apps/details?id=com.coderGtm.yantra.pro"
 
 const val DEFAULT_SYSINFO_ART =
 "         -o          o-\n" +

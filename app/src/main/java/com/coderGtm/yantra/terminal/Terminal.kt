@@ -35,7 +35,6 @@ import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.findSimilarity
-import com.coderGtm.yantra.getAvailableCommands
 import com.coderGtm.yantra.getCurrentTheme
 import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.getUserName
@@ -251,7 +250,6 @@ class Terminal(
     }
 
     private fun getAliases(): MutableList<Alias> {
-        if (!isPro(activity)) return mutableListOf()
         //get alias list from shared preferences
         val defaultStringSet = mutableSetOf<String>()
         for (i in DEFAULT_ALIAS_LIST.indices) {
@@ -300,12 +298,12 @@ class Terminal(
         }
     }
     fun setPromptText() {
-        if (preferenceObject.getBoolean("showCurrentFolderInPrompt", false) && !workingDir.isEmpty()) {
+        /*if (preferenceObject.getBoolean("showCurrentFolderInPrompt", false) && !workingDir.isEmpty()) {
             val splitOfWorkingDir = workingDir.split("/")
             binding.username.text =
                 "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}/../${splitOfWorkingDir[splitOfWorkingDir.size - 1]}>"
             return
-        }
+        }*/
 
         binding.username.text =
             "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}>"

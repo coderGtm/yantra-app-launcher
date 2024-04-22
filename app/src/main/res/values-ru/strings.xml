@@ -224,8 +224,8 @@
     <string name="cmd_community_help">Перенаправляет на сервер Discord Yantra Launcher. Здесь вы можете поделиться и получить отзывы, предложения, идеи, советы и эмоции CLI от других пользователей, таких как вы!</string>
     <string name="community_no_args">\'community\' команда не принимает никаких параметров.</string>
     <string name="opened_community_discord_server">Открытие сервера Discord</string>
-    <string name="cmd_dict_title">dict [слово]</string>
-    <string name="cmd_dict_help">Поиск значения слова в онлайн-словаре (freeDictionaryAPI)</string>
+    <string name="cmd_dict_title"><![CDATA[dict [-urban] <слово>]]></string>
+    <string name="cmd_dict_help">Поиск значения слова в онлайн-словаре (freeDictionaryAPI). Используйте флаг \'-urban\' для поиска в Urban Dictionary!</string>
     <string name="please_specify_word_to_search">Пожалуйста, укажите слово для поиска.</string>
     <string name="looking_up_in_the_dictionary">Просмотр \'%1$s\' в словаре...</string>
     <string name="dict_word">Слово: %1$s</string>
@@ -505,6 +505,6 @@
     <string name="pro_prompt">Кажется, вам нравится Yantra Launcher! Рассмотрите возможность обновления до версии Pro, чтобы получить больше возможностей и поддержать проект.</string>
     <string name="pro_cmd_info">Введите \'pro\' чтобы запустить страницу Play Store для Pro версии.</string>
     <string name="change_sysinfo_art">Изменить \'sysinfo\' арт</string>
-    <string name="sysinfo_art_change_description">Вставьте свой ASCII-арт который вы хотите отображать при команде `sysinfo`.</string>
-    <string name="sysinfo_art_updated">Обновлен ASCII-арт для команды `sysinfo`!</string>
+    <string name="sysinfo_art_change_description">Вставьте свой ASCII-арт который вы хотите отображать при команде \'sysinfo\'.</string>
+    <string name="sysinfo_art_updated">Обновлен ASCII-арт для команды \'sysinfo\'!</string>
 </resources>

@@ -3,6 +3,7 @@ package com.coderGtm.yantra.commands.dict
 import android.graphics.Typeface
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
@@ -22,34 +23,83 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output(terminal.activity.getString(R.string.please_specify_word_to_search), terminal.theme.errorTextColor)
             return
         }
-        val word = command.removePrefix(args[0]).trim()
-        val url = "https://api.dictionaryapi.dev/api/v2/entries/en/$word"
 
-        // Create a Volley request
-        val request = object: JsonArrayRequest (
-            Method.GET,
-            url,
-            null,
-            { response ->
-                handleResponse(response, this@Command)
-            },
-            { error ->
-                handleError(error, this@Command)
-            }
-        )
+        val word: String
+        val url: String
+        val dictionary: String
 
-        {
-            override fun getHeaders(): MutableMap<String, String> {
-                val headers = HashMap<String, String>()
-                headers["Content-Type"] = "application/json"
-                return headers
+        if (args[1].trim() == "-urban") {
+            if (args.size <= 2) {
+                output(terminal.activity.getString(R.string.please_specify_word_to_search), terminal.theme.errorTextColor)
+                return
             }
+            word = command.removePrefix(args[0]).trim().removePrefix(args[1]).trim()
+            url = "https://api.urbandictionary.com/v0/define?term=$word"
+            dictionary = "urban"
+        }
+        else {
+            word = command.removePrefix(args[0]).trim()
+            url = "https://api.dictionaryapi.dev/api/v2/entries/en/$word"
+            dictionary = "freeDictionaryAPI"
         }
 
-        request.retryPolicy = DefaultRetryPolicy(1000 * 60 * 5, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 
-        val requestQueue = Volley.newRequestQueue(terminal.activity)
-        requestQueue.add(request)
-        output(terminal.activity.getString(R.string.looking_up_in_the_dictionary, word), terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
+
+        // Create a Volley request
+        if (dictionary == "freeDictionaryAPI") {
+            val request = object: JsonArrayRequest (
+                Method.GET,
+                url,
+                null,
+                { response ->
+                    handleFreeDictionaryResponse(response, this@Command)
+                },
+                { error ->
+                    handleError(error, this@Command)
+                }
+            )
+
+            {
+                override fun getHeaders(): MutableMap<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Content-Type"] = "application/json"
+                    return headers
+                }
+            }
+
+            request.retryPolicy = DefaultRetryPolicy(1000 * 60 * 5, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+
+            val requestQueue = Volley.newRequestQueue(terminal.activity)
+            requestQueue.add(request)
+            output(terminal.activity.getString(R.string.looking_up_in_the_dictionary, word), terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
+        }
+        else {
+            val request = object: JsonObjectRequest (
+                Method.GET,
+                url,
+                null,
+                { response ->
+                    handleUrbanResponse(response, this@Command)
+                },
+                { error ->
+                    handleError(error, this@Command)
+                }
+            )
+
+            {
+                override fun getHeaders(): MutableMap<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Content-Type"] = "application/json"
+                    return headers
+                }
+            }
+
+            request.retryPolicy = DefaultRetryPolicy(1000 * 60 * 5, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+
+            val requestQueue = Volley.newRequestQueue(terminal.activity)
+            requestQueue.add(request)
+            output(terminal.activity.getString(R.string.looking_up_in_the_dictionary, word), terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
+        }
+
     }
 }

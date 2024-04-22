@@ -3,4 +3,5 @@
     <string name="app_name" translatable="false">Yantra Launcher Pro</string>
     <string name="app_name_debug" translatable="false">Yantra Launcher Pro Debug</string>
     <string name="app_name_beta" translatable="false">Yantra Launcher Pro Beta</string>
+    <string name="package_name" translatable="false">com.coderGtm.yantra.pro</string>
 </resources>

@@ -4,6 +4,6 @@
     android:accessibilityFeedbackType="feedbackVisual"
     android:accessibilityFlags="flagDefault"
     android:canRetrieveWindowContent="true"
-    android:packageNames="com.coderGtm.yantra"
+    android:packageNames="@string/package_name"
     android:description="@string/accessibility_service_description"
     android:settingsActivity="com.example.android.accessibility.ServiceSettingsActivity" />
