@@ -21,12 +21,6 @@ android {
         generateLocaleConfig true
     }
 
-    bundle {
-        language {
-            enableSplit = false
-        }
-    }
-
     flavorDimensions  "version"
     productFlavors {
         free {
@@ -78,20 +72,22 @@ dependencies {
 
     def acraVersion = '5.11.2'
 
-    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.core:core-ktx:1.13.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "com.google.android.play:app-update:2.1.0"
     implementation "com.google.android.play:app-update-ktx:2.1.0"
+    implementation 'com.google.android.play:feature-delivery:2.1.0'
+    implementation 'com.google.android.play:feature-delivery-ktx:2.1.0'
     implementation 'com.android.volley:volley:1.2.1'
     implementation "com.github.skydoves:colorpickerview:2.3.0"
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation "ch.acra:acra-mail:$acraVersion"
     implementation "ch.acra:acra-dialog:$acraVersion"
-    implementation "androidx.activity:activity-ktx:1.8.2"
+    implementation "androidx.activity:activity-ktx:1.9.0"
     implementation "io.noties.markwon:core:4.6.2"
-    proImplementation "androidx.webkit:webkit:1.9.0"
+    proImplementation "androidx.webkit:webkit:1.10.0"
     implementation "com.vanniktech:android-image-cropper:4.5.0"
 
     testImplementation 'junit:junit:4.13.2'
