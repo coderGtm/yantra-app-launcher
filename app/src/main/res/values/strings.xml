@@ -507,4 +507,5 @@
     <string name="change_sysinfo_art">Change \'sysinfo\' Art</string>
     <string name="sysinfo_art_change_description">Paste your ASCII art here which you want to display in the \'sysinfo\' command.</string>
     <string name="sysinfo_art_updated">Updated ASCII art for \'sysinfo\' command!</string>
+    <string name="search">Search</string>
 </resources>

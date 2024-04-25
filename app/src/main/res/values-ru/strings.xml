@@ -507,4 +507,5 @@
     <string name="change_sysinfo_art">Изменить \'sysinfo\' арт</string>
     <string name="sysinfo_art_change_description">Вставьте свой ASCII-арт который вы хотите отображать при команде \'sysinfo\'.</string>
     <string name="sysinfo_art_updated">Обновлен ASCII-арт для команды \'sysinfo\'!</string>
+    <string name="search">Search</string>
 </resources>

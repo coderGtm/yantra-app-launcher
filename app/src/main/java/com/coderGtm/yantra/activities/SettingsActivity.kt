@@ -5,12 +5,17 @@ import android.content.pm.ActivityInfo
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
+import androidx.core.widget.addTextChangedListener
 import com.android.volley.NoConnectionError
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
@@ -153,12 +158,29 @@ class SettingsActivity : AppCompatActivity() {
                         for (i in 0 until jsonArray.length()) {
                             names.add(jsonArray.getJSONObject(i).getString("family"))
                         }
+
+                        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, names)
+                        val dialogView = layoutInflater.inflate(R.layout.dialog_font_list, null) as View
+
                         val fontSelector = MaterialAlertDialogBuilder(this)
                             .setTitle(getString(R.string.select_a_font))
-                            .setItems(names.toTypedArray()) { dialog, which ->
-                                downloadFont(names[which])
+                            .setView(dialogView)
+                            .setNegativeButton(getString(R.string.close)) { dialog, _ ->
+                                dialog.cancel()
                             }
+                            .create()
                         if (!this@SettingsActivity.isFinishing) {
+                            val listView = dialogView.findViewById<ListView>(R.id.fontList)
+                            val searchBar = dialogView.findViewById<EditText>(R.id.searchBar)
+                            listView.adapter = adapter
+                            listView.setOnItemClickListener { _, _, position, _ ->
+                                val selectedFontName = adapter.getItem(position) ?: DEFAULT_TERMINAL_FONT_NAME
+                                downloadFont(selectedFontName)
+                                fontSelector.cancel()
+                            }
+                            searchBar.addTextChangedListener { text ->
+                                adapter.filter.filter(text)
+                            }
                             fontSelector.show()
                         }
                     },
