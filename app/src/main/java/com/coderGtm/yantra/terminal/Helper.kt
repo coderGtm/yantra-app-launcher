@@ -24,6 +24,7 @@ import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.setSystemWallpaper
+import com.coderGtm.yantra.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.File
 import java.util.regex.Pattern
@@ -529,6 +530,25 @@ fun showSuggestions(
             }
             terminal.activity.runOnUiThread {
                 terminal.binding.suggestionsTab.addView(btn)
+            }
+        }
+        if (suggestions.size == 1 && !isPrimary && terminal.preferenceObject.getBoolean("actOnLastSecondarySuggestion", false)) {
+            // auto execute if only one suggestion
+            terminal.activity.runOnUiThread {
+                toast(terminal.activity, "Auto executing suggestion")
+
+                val sug = suggestions.first()
+                val newCmd = if (overrideLastWord) {
+                    input.substring(0, input.length-args[args.size-1].length) + sug + " "
+                }
+                else {
+                    "$input $sug "
+                }
+                terminal.handleCommand(newCmd)
+                terminal.binding.suggestionsTab.removeAllViews()
+                suggestions.clear()
+
+                terminal.binding.cmdInput.setText("")
             }
         }
     }.start()

@@ -508,4 +508,5 @@
     <string name="sysinfo_art_change_description">Ide illesztheted be a ASCII rajzot, amit a \'sysinfo\' paranccsal megjeleníthetsz.</string>
     <string name="sysinfo_art_updated"> A \'sysinfo\' parancs ASCII rajza frissült!</string>
     <string name="search">Search</string>
+    <string name="auto_execute_last_secondary_suggestion">Auto Execute last Secondary Suggestion</string>
 </resources>

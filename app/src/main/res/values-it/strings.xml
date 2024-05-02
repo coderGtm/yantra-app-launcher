@@ -508,4 +508,5 @@
     <string name="sysinfo_art_change_description">Incolla qui l\'arte ASCII che vuoi visualizzare nel comando \'sysinfo\'.</string>
     <string name="sysinfo_art_updated">Arte ASCII aggiornata per il comando \'sysinfo\'!</string>
     <string name="search">Search</string>
+    <string name="auto_execute_last_secondary_suggestion">Auto Execute last Secondary Suggestion</string>
 </resources>

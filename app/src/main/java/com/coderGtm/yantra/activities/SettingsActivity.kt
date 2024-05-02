@@ -67,6 +67,7 @@ class SettingsActivity : AppCompatActivity() {
     private var oneTapKeyboardActivation = true
     private var hideKeyboardOnEnter = true
     private var actOnSuggestionTap = false
+    private var actOnLastSecondarySuggestion = false
     private var initCmdLog = false
     private var fontSize = 16
     private var arrowSize = 65
@@ -140,6 +141,7 @@ class SettingsActivity : AppCompatActivity() {
         oneTapKeyboardActivation = preferenceObject.getBoolean("oneTapKeyboardActivation",true)
         hideKeyboardOnEnter = preferenceObject.getBoolean("hideKeyboardOnEnter", true)
         actOnSuggestionTap = preferenceObject.getBoolean("actOnSuggestionTap", false)
+        actOnLastSecondarySuggestion = preferenceObject.getBoolean("actOnLastSecondarySuggestion", false)
         initCmdLog = preferenceObject.getBoolean("initCmdLog", false)
         fontSize = preferenceObject.getInt("fontSize",16)
         arrowSize = preferenceObject.getInt("arrowSize", 65)
@@ -313,6 +315,12 @@ class SettingsActivity : AppCompatActivity() {
         binding.actOnSuggestionTapSwitch.setOnCheckedChangeListener { _, isChecked ->
             actOnSuggestionTap = isChecked
             preferenceEditObject.putBoolean("actOnSuggestionTap", isChecked).apply()
+            changedSettingsCallback(this@SettingsActivity)
+        }
+        binding.actOnLastSecSugSwitch.isChecked = actOnLastSecondarySuggestion
+        binding.actOnLastSecSugSwitch.setOnCheckedChangeListener { _, isChecked ->
+            actOnLastSecondarySuggestion = isChecked
+            preferenceEditObject.putBoolean("actOnLastSecondarySuggestion", isChecked).apply()
             changedSettingsCallback(this@SettingsActivity)
         }
         binding.initCmdLogSwitch.isChecked = initCmdLog
