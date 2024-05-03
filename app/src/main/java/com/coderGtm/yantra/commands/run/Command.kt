@@ -1,10 +1,16 @@
 package com.coderGtm.yantra.commands.run
 
+import com.chaquo.python.PyException
+import com.chaquo.python.PyObject
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -28,9 +34,69 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
         if (rcvdScriptName in scripts) {
             val scriptBody = terminal.preferenceObject.getString("script_$rcvdScriptName","") ?: ""
-            val cmdsInScript = scriptBody.split("\n")
-            cmdsInScript.forEach {
-                terminal.handleCommand(it.trim())
+            val pyCommand = """
+                def run(name):
+                    print("-exccmd-" + name + "-endcmd-")
+
+
+            """.trimIndent() + scriptBody
+            println(scriptBody)
+
+            output(terminal.activity.getString(R.string.cmd_run_start), terminal.theme.resultTextColor)
+
+            GlobalScope.launch {
+                if (!Python.isStarted()) {
+                    output(terminal.activity.getString(R.string.cmd_run_startPy), terminal.theme.resultTextColor)
+                    Python.start(AndroidPlatform(terminal.activity))
+                }
+
+                val py = Python.getInstance()
+
+                val sys: PyObject = py.getModule("sys")
+                val io: PyObject = py.getModule("io")
+
+                val console: PyObject = py.getModule("interpreter")
+                var textOutputStream = io.callAttr("StringIO")
+                sys["stdout"] = textOutputStream
+
+                try {
+                    var i = true
+                    GlobalScope.launch {
+                        console.callAttrThrows("mainTextCode", pyCommand)
+                        i = false
+                    }
+
+                    GlobalScope.launch {
+                        var oldString = ""
+                        while (i) {
+                            var newString = textOutputStream.callAttr("getvalue").toString()
+                            if (oldString != newString) {
+                                textOutputStream = io.callAttr("StringIO")
+                                sys["stdout"] = textOutputStream
+                                val indexOfCommand = newString.indexOf("-exccmd-")
+                                val indexOfEnd = newString.indexOf("-endcmd-")
+
+                                if (newString.length > 8 && indexOfCommand != -1) {
+                                    val cmd = newString.substring(indexOfCommand + 8, indexOfEnd)
+                                    val allCmd = newString.substring(indexOfCommand, indexOfEnd + 8)
+                                    output(newString.replace(allCmd, ""), terminal.theme.resultTextColor)
+                                    terminal.handleCommand(cmd)
+                                    oldString = newString
+                                    continue
+                                }
+
+                                output(newString, terminal.theme.resultTextColor)
+                                oldString = newString
+                            }
+                        }
+
+                        output(terminal.activity.getString(R.string.cmd_run_end), terminal.theme.successTextColor)
+                    }
+                } catch (e: PyException) {
+                    output(e.message.toString(), terminal.theme.errorTextColor)
+                } catch (throwable: Throwable) {
+                    output(throwable.toString(), terminal.theme.errorTextColor)
+                }
             }
         }
         else {

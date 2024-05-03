@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id("com.chaquo.python")
     id 'org.jetbrains.kotlin.android'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
@@ -15,6 +16,10 @@ android {
         versionName "9.3.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
     }
 
     androidResources {

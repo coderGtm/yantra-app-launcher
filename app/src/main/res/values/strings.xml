@@ -358,10 +358,10 @@
     <string name="todays_screen_time">Today\'s Screen Time: %1$s</string>
     <string name="no_apps_found">No apps found.</string>
     <string name="less_than_1_minute">Less than 1 minute</string>
-    <string name="cmd_scripts_help">Opens dialog for creating, modifying and deleting custom scripts for Yantra Launcher, to execute multiple commands at once. Also see the \'run\' command.</string>
+    <string name="cmd_scripts_help">Opens dialog for creating, modifying and deleting custom scripts for Yantra Launcher, this is Python without \'pip\', you can use standard Python libs, max time of executing scripts = 60 seconds. Also you can't create a function with name \'run\'. Also see the \'run\' command.</string>
     <string name="opening_yantra_scripts">Opening Yantra Scripts...</string>
     <string name="yantra_scripts">Yantra Scripts</string>
-    <string name="scripts_disclaimer">View, Edit or Delete this script. Note: Enter 1 command per line, just as you normally enter in the Yantra terminal.</string>
+    <string name="scripts_disclaimer">View, Edit or Delete this script. Note: if you need to run a command, write \'run(\"Your command in Yantra\"), and also you can't create a function with name \'run\'.</string>
     <string name="script_saved_successfully">Script %1$s saved successfully!</string>
     <string name="delete">Delete</string>
     <string name="script_deleted">Script \'%1$s\' deleted.</string>
@@ -509,4 +509,7 @@
     <string name="sysinfo_art_updated">Updated ASCII art for \'sysinfo\' command!</string>
     <string name="search">Search</string>
     <string name="auto_execute_last_secondary_suggestion">Auto Execute last Secondary Suggestion</string>
+    <string name="cmd_run_end">Script ended!</string>
+    <string name="cmd_run_start">Starting...</string>
+    <string name="cmd_run_startPy">Starting python...</string>
 </resources>

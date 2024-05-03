@@ -509,4 +509,7 @@
     <string name="sysinfo_art_updated"> A \'sysinfo\' parancs ASCII rajza frissült!</string>
     <string name="search">Search</string>
     <string name="auto_execute_last_secondary_suggestion">Auto Execute last Secondary Suggestion</string>
+    <string name="cmd_run_end">Script ended!</string>
+    <string name="cmd_run_start">Starting...</string>
+    <string name="cmd_run_startPy">Starting python...</string>
 </resources>

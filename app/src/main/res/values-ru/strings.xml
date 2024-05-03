@@ -358,10 +358,10 @@
     <string name="todays_screen_time">Время работы экрана сегодня: %1$s</string>
     <string name="no_apps_found">Приложения не найдены.</string>
     <string name="less_than_1_minute">Менее 1 минуты</string>
-    <string name="cmd_scripts_help">Открывает диалог для создания, изменения и удаления пользовательских скриптов для Yantra Launcher для одновременного выполнения нескольких команд. См. также команду \'run\'.</string>
+    <string name="cmd_scripts_help">Открывает диалог для создания, изменения и удаления пользовательских скриптов для Yantra Launcher. Это Python без \'pip\', вы можете использовать стандартные библиотеки Python, максимальное время выполнения скриптов = 60 секунд. Кроме того, вы не можете создать функцию с именем 'run'. См. также команду \'run\'.</string>
     <string name="opening_yantra_scripts">Открытие скриптов Yantra...</string>
     <string name="yantra_scripts">Скрипты Yantra</string>
-    <string name="scripts_disclaimer">Просмотр, редактирование или удаление этого скрипта. Примечание: вводите по 1 команде в строке, как обычно вводите в терминале Yantra.</string>
+    <string name="scripts_disclaimer">Просмотр, редактирование или удаление этого скрипта. Примечание: Если вам нужно выполнить команду, напишите \'run(\"Ваша команда в Yantra\")\', также вы не можете создавать функцию с именем \'run\'.</string>
     <string name="script_saved_successfully">Скрипт %1$s успешно сохранен!</string>
     <string name="delete">Удалить</string>
     <string name="script_deleted">Скрипт \'%1$s\' удален.</string>
@@ -509,4 +509,7 @@
     <string name="sysinfo_art_updated">Обновлен ASCII-арт для команды \'sysinfo\'!</string>
     <string name="search">Search</string>
     <string name="auto_execute_last_secondary_suggestion">Auto Execute last Secondary Suggestion</string>
+    <string name="cmd_run_end">Скрипт завершен!</string>
+    <string name="cmd_run_start">Запуск...</string>
+    <string name="cmd_run_startPy">Запуск Python...</string>
 </resources>
