@@ -450,6 +450,20 @@ fun showSuggestions(
                 isPrimary = false
                 executeOnTapViable = false
             }
+            else if (effectivePrimaryCmd == "time") {
+                if (args.size > 1) {
+                    overrideLastWord = true
+                }
+                val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                val timeArgs= listOf("utc")
+                for (arg in timeArgs) {
+                    if (regex.containsMatchIn(arg)) {
+                        suggestions.add(arg)
+                    }
+                }
+                isPrimary = false
+                executeOnTapViable = false
+            }
             else if (effectivePrimaryCmd == "run") {
                 try {
                     val scripts = getScripts(terminal.preferenceObject)
@@ -534,6 +548,25 @@ fun showSuggestions(
         }
         if (suggestions.size == 1 && !isPrimary && terminal.preferenceObject.getBoolean("actOnLastSecondarySuggestion", false)) {
             // auto execute if only one suggestion
+            val effectivePrimaryCmd: String
+            val isAliasCmd = terminal.aliasList.any { it.key == args[0] }
+            effectivePrimaryCmd = if (isAliasCmd) {
+                terminal.aliasList.first { it.key == args[0] }.value
+            } else {
+                args[0].lowercase()
+            }
+            // dont auto execute for some commands
+            if (effectivePrimaryCmd == "call" || effectivePrimaryCmd == "time") {
+                return@Thread
+            }
+            // dont auto execute if only flag suggestion
+            if (suggestions[0].startsWith("-")) {
+                return@Thread
+            }
+            // dont auto execute if no input after primary command
+            if (args.size == 1) {
+                return@Thread
+            }
             terminal.activity.runOnUiThread {
                 toast(terminal.activity, "Auto executing suggestion")
 
