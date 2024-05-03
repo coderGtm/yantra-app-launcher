@@ -225,7 +225,7 @@
     <string name="community_no_args">Il comando \'community\' non accetta parametri.</string>
     <string name="opened_community_discord_server">Aperto il Server Discord della Community</string>
     <string name="cmd_dict_title"><![CDATA[dict [-urban] <parola>]]></string>
-    <string name="cmd_dict_help">Cerca il significato di una parola in un dizionario online (freeDictionaryAPI). Usa il flag '-urban' per cercare su Urban Dictionary!</string>
+    <string name="cmd_dict_help">Cerca il significato di una parola in un dizionario online (freeDictionaryAPI). Usa il flag \'-urban\' per cercare su Urban Dictionary!</string>
     <string name="please_specify_word_to_search">Perfavore specifica la parola da cercare .</string>
     <string name="looking_up_in_the_dictionary">Cercando \'%1$s\' nel dizionario...</string>
     <string name="dict_word">Parola: %1$s</string>
@@ -507,4 +507,6 @@
     <string name="change_sysinfo_art">Cambia l\'arte di \'sysinfo\'</string>
     <string name="sysinfo_art_change_description">Incolla qui l\'arte ASCII che vuoi visualizzare nel comando \'sysinfo\'.</string>
     <string name="sysinfo_art_updated">Arte ASCII aggiornata per il comando \'sysinfo\'!</string>
+    <string name="search">Search</string>
+    <string name="auto_execute_last_secondary_suggestion">Auto Execute last Secondary Suggestion</string>
 </resources>

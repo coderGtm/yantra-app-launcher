@@ -5,12 +5,17 @@ import android.content.pm.ActivityInfo
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
+import androidx.core.widget.addTextChangedListener
 import com.android.volley.NoConnectionError
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
@@ -41,7 +46,14 @@ import com.coderGtm.yantra.misc.openUsernamePrefixSetter
 import com.coderGtm.yantra.misc.setAppSugOrderTvText
 import com.coderGtm.yantra.misc.setOrientationTvText
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.play.core.ktx.languages
+import com.google.android.play.core.splitinstall.SplitInstallManager
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import com.google.android.play.core.splitinstall.SplitInstallRequest
+import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
+import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import org.json.JSONObject
+import java.util.Locale
 
 
 class SettingsActivity : AppCompatActivity() {
@@ -55,6 +67,7 @@ class SettingsActivity : AppCompatActivity() {
     private var oneTapKeyboardActivation = true
     private var hideKeyboardOnEnter = true
     private var actOnSuggestionTap = false
+    private var actOnLastSecondarySuggestion = false
     private var initCmdLog = false
     private var fontSize = 16
     private var arrowSize = 65
@@ -71,6 +84,30 @@ class SettingsActivity : AppCompatActivity() {
         "Русский" to "ru",
         "Magyar" to "hu",
     )
+
+    private lateinit var splitInstallManager: SplitInstallManager
+    private var splitInstallSessionId = 0
+    private val splitInstallStateListener = SplitInstallStateUpdatedListener { state ->
+        if (state.sessionId() == splitInstallSessionId) {
+            // Read the status of the request to handle the state update.
+            when (state.status()) {
+                SplitInstallSessionStatus.INSTALLED -> {
+                    // Module installed
+                    val keys = supportedLocales.keys.toTypedArray()
+                    val langCode = state.languages.firstOrNull() ?: "en"
+                    appLocale = langCode
+                    binding.currentLocale.text = keys[supportedLocales.values.indexOf(langCode)]
+                    changedSettingsCallback(this@SettingsActivity)
+                    Toast.makeText(this, getString(R.string.changed_app_language_to, keys[supportedLocales.values.indexOf(langCode)]), Toast.LENGTH_LONG).show()
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(appLocale))
+                }
+                SplitInstallSessionStatus.FAILED -> {
+                    // Module installation failed
+                    Toast.makeText(this, getString(R.string.an_error_occurred_please_try_again), Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
 
     private val prefFile = "yantraSP"
     private val preferenceObject: SharedPreferences
@@ -90,8 +127,10 @@ class SettingsActivity : AppCompatActivity() {
         hideProForNonProUsers()
 
         // temporarily hiding current directory setting
-        binding.pUi1.visibility = android.view.View.GONE
-        binding.pUi2.visibility = android.view.View.GONE
+        binding.pUi1.visibility = View.GONE
+        binding.pUi2.visibility = View.GONE
+
+        splitInstallManager = SplitInstallManagerFactory.create(this)
 
         getPrimarySuggestions = preferenceObject.getBoolean("getPrimarySuggestions",true)
         getSecondarySuggestions = preferenceObject.getBoolean("getSecondarySuggestions",true)
@@ -102,6 +141,7 @@ class SettingsActivity : AppCompatActivity() {
         oneTapKeyboardActivation = preferenceObject.getBoolean("oneTapKeyboardActivation",true)
         hideKeyboardOnEnter = preferenceObject.getBoolean("hideKeyboardOnEnter", true)
         actOnSuggestionTap = preferenceObject.getBoolean("actOnSuggestionTap", false)
+        actOnLastSecondarySuggestion = preferenceObject.getBoolean("actOnLastSecondarySuggestion", false)
         initCmdLog = preferenceObject.getBoolean("initCmdLog", false)
         fontSize = preferenceObject.getInt("fontSize",16)
         arrowSize = preferenceObject.getInt("arrowSize", 65)
@@ -153,12 +193,29 @@ class SettingsActivity : AppCompatActivity() {
                         for (i in 0 until jsonArray.length()) {
                             names.add(jsonArray.getJSONObject(i).getString("family"))
                         }
+
+                        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, names)
+                        val dialogView = layoutInflater.inflate(R.layout.dialog_font_list, null) as View
+
                         val fontSelector = MaterialAlertDialogBuilder(this)
                             .setTitle(getString(R.string.select_a_font))
-                            .setItems(names.toTypedArray()) { dialog, which ->
-                                downloadFont(names[which])
+                            .setView(dialogView)
+                            .setNegativeButton(getString(R.string.close)) { dialog, _ ->
+                                dialog.cancel()
                             }
+                            .create()
                         if (!this@SettingsActivity.isFinishing) {
+                            val listView = dialogView.findViewById<ListView>(R.id.fontList)
+                            val searchBar = dialogView.findViewById<EditText>(R.id.searchBar)
+                            listView.adapter = adapter
+                            listView.setOnItemClickListener { _, _, position, _ ->
+                                val selectedFontName = adapter.getItem(position) ?: DEFAULT_TERMINAL_FONT_NAME
+                                downloadFont(selectedFontName)
+                                fontSelector.cancel()
+                            }
+                            searchBar.addTextChangedListener { text ->
+                                adapter.filter.filter(text)
+                            }
                             fontSelector.show()
                         }
                     },
@@ -199,11 +256,7 @@ class SettingsActivity : AppCompatActivity() {
                     MaterialAlertDialogBuilder(this)
                         .setTitle(getString(R.string.select_a_language))
                         .setItems(keys) { _, which ->
-                            appLocale = values[which]
-                            binding.currentLocale.text = keys[which]
-                            changedSettingsCallback(this@SettingsActivity)
-                            Toast.makeText(this, getString(R.string.changed_app_language_to, keys[which]), Toast.LENGTH_LONG).show()
-                            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(appLocale))
+                            downloadLanguage(values[which])
                         }
                         .show()
                 }
@@ -264,6 +317,12 @@ class SettingsActivity : AppCompatActivity() {
             preferenceEditObject.putBoolean("actOnSuggestionTap", isChecked).apply()
             changedSettingsCallback(this@SettingsActivity)
         }
+        binding.actOnLastSecSugSwitch.isChecked = actOnLastSecondarySuggestion
+        binding.actOnLastSecSugSwitch.setOnCheckedChangeListener { _, isChecked ->
+            actOnLastSecondarySuggestion = isChecked
+            preferenceEditObject.putBoolean("actOnLastSecondarySuggestion", isChecked).apply()
+            changedSettingsCallback(this@SettingsActivity)
+        }
         binding.initCmdLogSwitch.isChecked = initCmdLog
         binding.initCmdLogSwitch.setOnCheckedChangeListener { _, isChecked ->
             initCmdLog = isChecked
@@ -301,31 +360,48 @@ class SettingsActivity : AppCompatActivity() {
         FontsContractCompat.requestFont(this, request, callback, handler)
     }
 
+    private fun downloadLanguage(code: String) {
+        val request = SplitInstallRequest.newBuilder()
+            .addLanguage(Locale.forLanguageTag(code))
+            .build()
+        splitInstallManager.registerListener(splitInstallStateListener)
+        splitInstallManager.startInstall(request)
+            .addOnSuccessListener { sessionId ->
+                splitInstallSessionId = sessionId
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, getString(R.string.an_error_occurred_please_try_again), Toast.LENGTH_LONG).show()
+            }
+            .addOnCompleteListener {
+                splitInstallManager.unregisterListener(splitInstallStateListener)
+            }
+    }
+
     private fun hideProForNonProUsers() {
         if (isPro(this@SettingsActivity))  return
-        binding.pUi1.visibility = android.view.View.GONE
-        binding.pUi2.visibility = android.view.View.GONE
-        binding.pUi3.visibility = android.view.View.GONE
-        binding.pUi4.visibility = android.view.View.GONE
-        binding.pUi5.visibility = android.view.View.GONE
-        binding.pUi6.visibility = android.view.View.GONE
-        binding.pUi7.visibility = android.view.View.GONE
-        binding.pUi8.visibility = android.view.View.GONE
-        binding.pUi9.visibility = android.view.View.GONE
-        binding.pUi10.visibility = android.view.View.GONE
-        binding.pUi11.visibility = android.view.View.GONE
-        binding.pUi12.visibility = android.view.View.GONE
-        binding.pUi13.visibility = android.view.View.GONE
-        binding.pUi14.visibility = android.view.View.GONE
-        binding.rightSwipeActionLayout.visibility = android.view.View.GONE
-        binding.leftSwipeActionLayout.visibility = android.view.View.GONE
-        binding.newsWebsiteLayout.visibility = android.view.View.GONE
-        binding.fontLay.visibility = android.view.View.GONE
-        binding.termuxCmdPathLayout.visibility = android.view.View.GONE
-        binding.termuxCmdWorkDirLayout.visibility = android.view.View.GONE
-        binding.termuxCmdSessionActionLayout.visibility = android.view.View.GONE
-        binding.aiProviderLayout.visibility = android.view.View.GONE
-        binding.aiApiKeyLayout.visibility = android.view.View.GONE
-        binding.aiSystemPromptLayout.visibility = android.view.View.GONE
+        binding.pUi1.visibility = View.GONE
+        binding.pUi2.visibility = View.GONE
+        binding.pUi3.visibility = View.GONE
+        binding.pUi4.visibility = View.GONE
+        binding.pUi5.visibility = View.GONE
+        binding.pUi6.visibility = View.GONE
+        binding.pUi7.visibility = View.GONE
+        binding.pUi8.visibility = View.GONE
+        binding.pUi9.visibility = View.GONE
+        binding.pUi10.visibility = View.GONE
+        binding.pUi11.visibility = View.GONE
+        binding.pUi12.visibility = View.GONE
+        binding.pUi13.visibility = View.GONE
+        binding.pUi14.visibility = View.GONE
+        binding.rightSwipeActionLayout.visibility = View.GONE
+        binding.leftSwipeActionLayout.visibility = View.GONE
+        binding.newsWebsiteLayout.visibility = View.GONE
+        binding.fontLay.visibility = View.GONE
+        binding.termuxCmdPathLayout.visibility = View.GONE
+        binding.termuxCmdWorkDirLayout.visibility = View.GONE
+        binding.termuxCmdSessionActionLayout.visibility = View.GONE
+        binding.aiProviderLayout.visibility = View.GONE
+        binding.aiApiKeyLayout.visibility = View.GONE
+        binding.aiSystemPromptLayout.visibility = View.GONE
     }
 }

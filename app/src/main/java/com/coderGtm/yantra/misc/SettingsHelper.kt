@@ -19,6 +19,9 @@ import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.openURL
 import com.coderGtm.yantra.setUserNamePrefix
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.play.core.splitinstall.SplitInstallManager
+import com.google.android.play.core.splitinstall.SplitInstallRequest
+import java.util.Locale
 
 fun setOrientationTvText(binding: ActivitySettingsBinding, orientation: Int) {
     binding.tvOrientation.text = when (orientation) {
