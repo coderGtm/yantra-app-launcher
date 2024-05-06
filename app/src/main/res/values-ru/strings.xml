@@ -509,4 +509,5 @@
     <string name="sysinfo_art_updated">Обновлен ASCII-арт для команды \'sysinfo\'!</string>
     <string name="search">Поиск</string>
     <string name="auto_execute_last_secondary_suggestion">Автоматически выполнять последнюю второстепенную подсказку</string>
+    <string name="auto_executing_suggestion">Автоматическое выполнение предложения 🤖...</string>
 </resources>

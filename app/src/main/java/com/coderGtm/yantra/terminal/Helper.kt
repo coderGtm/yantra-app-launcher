@@ -568,7 +568,7 @@ fun showSuggestions(
                 return@Thread
             }
             terminal.activity.runOnUiThread {
-                toast(terminal.activity, "Auto executing suggestion")
+                terminal.output(terminal.activity.getString(R.string.auto_executing_suggestion), terminal.theme.successTextColor, Typeface.ITALIC)
 
                 val sug = suggestions.first()
                 val newCmd = if (overrideLastWord) {

@@ -509,4 +509,5 @@
     <string name="sysinfo_art_updated">Updated ASCII art for \'sysinfo\' command!</string>
     <string name="search">Search</string>
     <string name="auto_execute_last_secondary_suggestion">Auto Execute last Secondary Suggestion</string>
+    <string name="auto_executing_suggestion">Auto executing Suggestion 🤖...</string>
 </resources>
