@@ -506,22 +506,24 @@ fun showSuggestions(
 
 
             btn.setOnClickListener {
-                if (overrideLastWord) {
-                    val newCmd = input.substring(0, input.length-args[args.size-1].length) + sug + " "
-                    terminal.binding.cmdInput.setText(newCmd)
+                val newCmd = if (overrideLastWord) {
+                    input.substring(0, input.length-args[args.size-1].length) + sug + " "
                 }
                 else {
-                    terminal.binding.cmdInput.setText("$input $sug ")
+                    "$input $sug "
                 }
-                terminal.binding.cmdInput.setSelection(terminal.binding.cmdInput.text!!.length)
-                requestCmdInputFocusAndShowKeyboard(terminal.activity, terminal.binding)
-                terminal.binding.suggestionsTab.removeView(it)
-
                 val actOnSuggestionTap = terminal.preferenceObject.getBoolean("actOnSuggestionTap", false)
                 if (!isPrimary && actOnSuggestionTap && executeOnTapViable) {
-                    terminal.handleCommand(terminal.binding.cmdInput.text.toString().trim())
+                    terminal.handleCommand(newCmd)
                     terminal.binding.cmdInput.setText("")
                 }
+                else {
+                    terminal.binding.cmdInput.setText(newCmd)
+                    terminal.binding.cmdInput.setSelection(terminal.binding.cmdInput.text!!.length)
+                    requestCmdInputFocusAndShowKeyboard(terminal.activity, terminal.binding)
+                    terminal.binding.suggestionsTab.removeView(it)
+                }
+
             }
             if (isPrimary) {
                 btn.setOnLongClickListener {
@@ -567,7 +569,7 @@ fun showSuggestions(
             if (args.size == 1) {
                 return@Thread
             }
-            executeOnTapViable = false
+
             terminal.activity.runOnUiThread {
                 terminal.output(terminal.activity.getString(R.string.auto_executing_suggestion), terminal.theme.successTextColor, Typeface.ITALIC)
 
