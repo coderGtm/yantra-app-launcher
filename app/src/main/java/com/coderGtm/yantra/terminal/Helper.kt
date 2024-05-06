@@ -567,6 +567,7 @@ fun showSuggestions(
             if (args.size == 1) {
                 return@Thread
             }
+            executeOnTapViable = false
             terminal.activity.runOnUiThread {
                 terminal.output(terminal.activity.getString(R.string.auto_executing_suggestion), terminal.theme.successTextColor, Typeface.ITALIC)
 
