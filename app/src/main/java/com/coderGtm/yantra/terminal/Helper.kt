@@ -24,7 +24,6 @@ import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.setSystemWallpaper
-import com.coderGtm.yantra.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.File
 import java.util.regex.Pattern
@@ -102,7 +101,7 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
-            /*else if (effectivePrimaryCmd == "open") {
+            else if (effectivePrimaryCmd == "open") {
                 if (args.size>1) {
                     //search using regex
                     overrideLastWord = true
@@ -149,7 +148,20 @@ fun showSuggestions(
                     }
                 }
                 isPrimary = false
-            }*/
+            }
+            else if (effectivePrimaryCmd == "ls") {
+                if (args.size > 1) {
+                    overrideLastWord = true
+                }
+                val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                val lsArgs = listOf("-a")
+                for (arg in lsArgs) {
+                    if (regex.containsMatchIn(arg)) {
+                        suggestions.add(arg)
+                    }
+                }
+                isPrimary = false
+            }
             else if (effectivePrimaryCmd == "uninstall") {
                 if (!terminal.appListFetched) {
                     return@Thread
@@ -652,10 +664,10 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "alias" to com.coderGtm.yantra.commands.alias.Command::class.java,
             "weather" to com.coderGtm.yantra.commands.weather.Command::class.java,
             "username" to com.coderGtm.yantra.commands.username.Command::class.java,
-            /*"pwd" to com.coderGtm.yantra.commands.pwd.Command::class.java,
+            "pwd" to com.coderGtm.yantra.commands.pwd.Command::class.java,
             "cd" to com.coderGtm.yantra.commands.cd.Command::class.java,
             "ls" to com.coderGtm.yantra.commands.ls.Command::class.java,
-            "open" to com.coderGtm.yantra.commands.open.Command::class.java,*/
+            "open" to com.coderGtm.yantra.commands.open.Command::class.java,
             "search" to com.coderGtm.yantra.commands.search.Command::class.java,
             "web" to com.coderGtm.yantra.commands.web.Command::class.java,
             "gupt" to com.coderGtm.yantra.commands.gupt.Command::class.java,

@@ -126,10 +126,6 @@ class SettingsActivity : AppCompatActivity() {
 
         hideProForNonProUsers()
 
-        // temporarily hiding current directory setting
-        binding.pUi1.visibility = View.GONE
-        binding.pUi2.visibility = View.GONE
-
         splitInstallManager = SplitInstallManagerFactory.create(this)
 
         getPrimarySuggestions = preferenceObject.getBoolean("getPrimarySuggestions",true)
