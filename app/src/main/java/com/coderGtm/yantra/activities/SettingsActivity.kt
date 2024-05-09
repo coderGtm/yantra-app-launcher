@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo
 import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -357,6 +358,18 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun downloadLanguage(code: String) {
+        // Check if the language is already installed
+        if (splitInstallManager.installedLanguages.contains(code)) {
+            Toast.makeText(this, "Language already installed!", Toast.LENGTH_LONG).show()
+            val keys = supportedLocales.keys.toTypedArray()
+            appLocale = code
+            binding.currentLocale.text = keys[supportedLocales.values.indexOf(code)]
+            changedSettingsCallback(this@SettingsActivity)
+            Toast.makeText(this, getString(R.string.changed_app_language_to, keys[supportedLocales.values.indexOf(code)]), Toast.LENGTH_LONG).show()
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(appLocale))
+            return
+        }
+
         val request = SplitInstallRequest.newBuilder()
             .addLanguage(Locale.forLanguageTag(code))
             .build()
@@ -365,12 +378,15 @@ class SettingsActivity : AppCompatActivity() {
             .addOnSuccessListener { sessionId ->
                 splitInstallSessionId = sessionId
             }
-            .addOnFailureListener {
+            .addOnFailureListener { exception ->
+                // Log the exception
+                Log.e("SplitInstallManager", "Failed to install language: $code", exception)
                 Toast.makeText(this, getString(R.string.an_error_occurred_please_try_again), Toast.LENGTH_LONG).show()
             }
             .addOnCompleteListener {
                 splitInstallManager.unregisterListener(splitInstallStateListener)
             }
+        Toast.makeText(this, "Downloading language...", Toast.LENGTH_LONG).show()
     }
 
     private fun hideProForNonProUsers() {
