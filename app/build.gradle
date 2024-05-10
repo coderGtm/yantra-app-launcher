@@ -11,8 +11,8 @@ android {
         applicationId "com.coderGtm.yantra"
         minSdk 21
         targetSdk 34
-        versionCode 106
-        versionName "9.4.0"
+        versionCode 107
+        versionName "9.4.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
