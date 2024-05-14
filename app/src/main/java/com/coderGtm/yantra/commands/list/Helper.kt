@@ -18,6 +18,14 @@ fun listApps(command: Command) {
     }
 }
 
+fun listShortcuts(command: Command) {
+    command.output(command.terminal.activity.getString(R.string.found_shortcuts, command.terminal.shortcutList.size))
+    command.output("-------------------------")
+    for (shortcut in command.terminal.shortcutList) {
+        command.output("""- ${shortcut.label} (${shortcut.packageName})""")
+    }
+}
+
 fun listContacts(command: Command) {
     if (ContextCompat.checkSelfPermission(command.terminal.activity.baseContext,
             Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {

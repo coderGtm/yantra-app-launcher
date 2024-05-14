@@ -43,6 +43,7 @@ import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.marketProVersion
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.AppBlock
+import com.coderGtm.yantra.models.ShortcutBlock
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
@@ -77,9 +78,11 @@ class Terminal(
     var contactsFetched: Boolean = false
     var contactNames = HashSet<String>()
     var appListFetched: Boolean = false
+    var shortcutListFetched: Boolean = false
     var workingDir = ""
 
     lateinit var appList: ArrayList<AppBlock>
+    lateinit var shortcutList: ArrayList<ShortcutBlock>
     lateinit var wakeBtn: TextView
     lateinit var aliasList: MutableList<Alias>
 
@@ -100,6 +103,7 @@ class Terminal(
         setInputListener()
         setLauncherAppsListener(this@Terminal)
         appList = getAppsList(this@Terminal)
+        shortcutList = getShortcutList(this@Terminal)
         showSuggestions(binding.cmdInput.text.toString(), getPrimarySuggestions, getSecondarySuggestions, this@Terminal)
         //fetching contacts if permitted
         if (ContextCompat.checkSelfPermission(activity.baseContext, android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {

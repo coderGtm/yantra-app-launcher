@@ -22,6 +22,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 output(terminal.activity.getString(R.string.fetching_apps))
                 listApps(this)
             }
+            else if (args[1].lowercase() == "shortcuts") {
+                output(terminal.activity.getString(R.string.fetching_shortcuts))
+                listShortcuts(this)
+            }
             else if (args[1].lowercase() == "contacts") {
                 output(terminal.activity.getString(R.string.fetching_contacts))
                 listContacts(this)

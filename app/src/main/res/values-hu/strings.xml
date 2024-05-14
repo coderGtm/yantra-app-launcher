@@ -510,4 +510,11 @@
     <string name="search">Keresés</string>
     <string name="auto_execute_last_secondary_suggestion">Az utolsó másodlagos javaslat automatikus végrehajtása</string>
     <string name="auto_executing_suggestion">A javaslat automatikus végrehajtása 🤖...</string>
+    <string name="shortcut_list_fetch_error">An error occurred while fetching shortcuts!</string>
+    <string name="fetching_shortcuts">Fetching Shortcuts...</string>
+    <string name="found_shortcuts">Found %1$d shortcuts</string>
+    <string name="not_shortcut_host">Shortcut Host Permission missing! You need to set %1$s as the default Launcher to use Shortcuts.</string>
+    <string name="specify_a_shortcut_label">Please specify a Shortcut Label to launch!</string>
+    <string name="shortcut_not_found">\'%1$s\' shortcut not found. Try using \'list shortcuts\' to get list of all shortcuts.</string>
+    <string name="shortcut_not_supported">Shortcuts are not supported on your device!</string>
 </resources>

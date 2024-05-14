@@ -76,6 +76,7 @@ fun showSuggestions(
                     return@Thread
                 }
                 val candidates = terminal.appList.map { it.appName }.toMutableList()
+                candidates.add(0, "-s")
                 candidates.add(0, "-p")
                 if (args.size>1) {
                     //search using regex
@@ -301,7 +302,7 @@ fun showSuggestions(
                     overrideLastWord = true
                 }
                 val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val listArgs = listOf("apps","themes","contacts")
+                val listArgs = listOf("apps","shortcuts","themes","contacts")
                 for (arg in listArgs) {
                     if (regex.containsMatchIn(arg)) {
                         suggestions.add(arg)

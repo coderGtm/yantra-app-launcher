@@ -45,6 +45,25 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
 
+        else if (args[1].trim() == "-s") {
+            val shortcutLabel = command.trim().removePrefix(args[0]).trim().removePrefix(args[1]).trim()
+            if (shortcutLabel.isEmpty()) {
+                output(terminal.activity.getString(R.string.specify_a_shortcut_label), terminal.theme.errorTextColor)
+                return
+            }
+            val shortcut = terminal.shortcutList.find {
+                it.label == shortcutLabel
+            }
+            if (shortcut != null) {
+                output(terminal.activity.getString(R.string.launching_app, shortcut.label, shortcut.packageName), terminal.theme.successTextColor)
+                launchShortcut(this@Command, shortcut)
+            }
+            else {
+                output(terminal.activity.getString(R.string.shortcut_not_found, shortcutLabel), terminal.theme.warningTextColor)
+            }
+            return
+        }
+
         val name = command.removePrefix(args[0]).trim().lowercase()
 
         output(terminal.activity.getString(R.string.locating_app, name), terminal.theme.resultTextColor, Typeface.ITALIC)
