@@ -741,6 +741,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "feedback" to com.coderGtm.yantra.commands.feedback.Command::class.java,
             "support" to com.coderGtm.yantra.commands.support.Command::class.java,
             "exit" to com.coderGtm.yantra.commands.exit.Command::class.java,
+            "time" to com.coderGtm.yantra.commands.time.Command::class.java,
         )
     }
 }
