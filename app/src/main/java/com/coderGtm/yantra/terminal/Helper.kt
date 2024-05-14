@@ -724,6 +724,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "weather" to com.coderGtm.yantra.commands.weather.Command::class.java,
             "search" to com.coderGtm.yantra.commands.search.Command::class.java,
             "username" to com.coderGtm.yantra.commands.username.Command::class.java,
+            "time" to com.coderGtm.yantra.commands.time.Command::class.java,
             "settings" to com.coderGtm.yantra.commands.settings.Command::class.java,
             "sysinfo" to com.coderGtm.yantra.commands.sysinfo.Command::class.java,
             "pro" to com.coderGtm.yantra.commands.pro.Command::class.java,
