@@ -1,7 +1,10 @@
 package com.coderGtm.yantra.commands.list
 
 import android.Manifest
+import android.content.Context
+import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.coderGtm.yantra.PermissionRequestCodes
@@ -23,6 +26,12 @@ fun listShortcuts(command: Command) {
     command.output("-------------------------")
     for (shortcut in command.terminal.shortcutList) {
         command.output("""- ${shortcut.label} (${shortcut.packageName})""")
+    }
+    if (command.terminal.shortcutList.isEmpty() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+        val launcherApps = command.terminal.activity.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
+        if (!launcherApps.hasShortcutHostPermission()) {
+            command.terminal.output(command.terminal.activity.getString(R.string.not_shortcut_host, command.terminal.activity.applicationInfo.loadLabel(command.terminal.activity.packageManager)), command.terminal.theme.warningTextColor, null)
+        }
     }
 }
 

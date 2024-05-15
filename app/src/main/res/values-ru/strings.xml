@@ -517,4 +517,6 @@
     <string name="specify_a_shortcut_label">Please specify a Shortcut Label to launch!</string>
     <string name="shortcut_not_found">\'%1$s\' shortcut not found. Try using \'list shortcuts\' to get list of all shortcuts.</string>
     <string name="shortcut_not_supported">Shortcuts are not supported on your device!</string>
+    <string name="multiple_shortcuts_found">Multiple shortcuts found</string>
+    <string name="multiple_shortcuts_found_with_label_please_select_one">Multiple shortcuts found with name \'%1$s\'. Please select one.</string>
 </resources>

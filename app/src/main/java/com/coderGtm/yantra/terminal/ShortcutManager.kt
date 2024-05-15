@@ -21,11 +21,6 @@ fun getShortcutList(terminal: Terminal): ArrayList<ShortcutBlock> {
         val userManager = terminal.activity.getSystemService(Context.USER_SERVICE) as UserManager
         val launcherApps = terminal.activity.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
         if (!launcherApps.hasShortcutHostPermission()) {
-            terminal.output(
-                terminal.activity.getString(
-                    R.string.not_shortcut_host,
-                    terminal.activity.applicationInfo.loadLabel(terminal.activity.packageManager)
-                ), terminal.theme.warningTextColor, null)
             return terminal.shortcutList
         }
         for (profile in userManager.userProfiles) {
