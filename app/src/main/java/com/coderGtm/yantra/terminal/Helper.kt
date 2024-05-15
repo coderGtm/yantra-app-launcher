@@ -348,6 +348,7 @@ fun showSuggestions(
                     }
                 }
                 isPrimary = false
+                executeOnTapViable = false
             }
             else if (effectivePrimaryCmd == "flash" || effectivePrimaryCmd == "bluetooth") {
                 if (args.size > 1) {
