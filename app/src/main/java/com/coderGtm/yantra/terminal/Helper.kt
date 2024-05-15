@@ -8,11 +8,9 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.os.Environment
-import android.widget.Button
-import android.widget.LinearLayout
+import android.util.TypedValue
 import android.widget.TextView
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.graphics.drawable.toDrawable
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.blueprints.BaseCommand
@@ -26,6 +24,7 @@ import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.setSystemWallpaper
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.File
+import java.util.Locale
 import java.util.regex.Pattern
 
 fun showSuggestions(
@@ -507,18 +506,17 @@ fun showSuggestions(
             if ((isPrimary && (input.trim() == sug.trim())) || (!isPrimary && (input.removePrefix(args[0]).trim() == sug.trim()))) {
                 return@forEach
             }
-            val btn = Button(terminal.activity)
-            btn.text = sug
-            btn.setTextColor(terminal.theme.suggestionTextColor)
-            btn.setTypeface(terminal.typeface, Typeface.BOLD)
-            btn.background = Color.TRANSPARENT.toDrawable()
+            val suggestion = TextView(terminal.activity)
+            suggestion.text = sug.uppercase(Locale.getDefault())
+            suggestion.setTextColor(terminal.theme.suggestionTextColor)
+            suggestion.setTypeface(terminal.typeface, Typeface.BOLD)
+            suggestion.setBackgroundColor(Color.TRANSPARENT)
+            suggestion.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.5F)
             //set start and end margins
-            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            params.setMargins(20, 0, 20, 0)
-            btn.layoutParams = params
+            suggestion.setPadding(50, 28, 60, 28)
 
 
-            btn.setOnClickListener {
+            suggestion.setOnClickListener {
                 val newCmd = if (overrideLastWord) {
                     input.substring(0, input.length-args[args.size-1].length) + sug + " "
                 }
@@ -539,7 +537,7 @@ fun showSuggestions(
 
             }
             if (isPrimary) {
-                btn.setOnLongClickListener {
+                suggestion.setOnLongClickListener {
                     try {
                         val commandClass = terminal.commands[sug]
                         if (commandClass != null) {
@@ -558,7 +556,7 @@ fun showSuggestions(
                 }
             }
             terminal.activity.runOnUiThread {
-                terminal.binding.suggestionsTab.addView(btn)
+                terminal.binding.suggestionsTab.addView(suggestion)
             }
         }
         if (suggestions.size == 1 && !isPrimary && terminal.preferenceObject.getBoolean("actOnLastSecondarySuggestion", false)) {
