@@ -294,8 +294,8 @@
     <string name="init_list_cleared">Список инициализации очищен</string>
     <string name="cmd_internet_help">Открывает панель с настройками для включения интернет-соединения.</string>
     <string name="android10_reqd_for_cmd">О нет! Мне очень жаль, но для использования этой команды вам нужно обновиться как минимум до Android 10 :(</string>
-    <string name="cmd_launch_title">launch [имя приложения]</string>
-    <string name="cmd_launch_help">Запускает указанное приложение. Пример: \'launch Chrome\'</string>
+    <string name="cmd_launch_title">launch [-p/-s] [приложение/имя пакета/ярлык]</string>
+    <string name="cmd_launch_help">Запускает указанное приложение или ярлык. Пример: \'launch Chrome\'. Используйте флаг \'-p\' для запуска приложения по имени пакета. Пример: \'launch com.android.chrome\'. Используйте флаг \'-s\' для запуска ярлыка. Пример: \'launch -s Chats\'</string>
     <string name="specify_an_app_to_launch">Пожалуйста, укажите приложение для запуска.</string>
     <string name="excluding_app">- Исключая %1$s</string>
     <string name="launching_app">Запуск %1$s (%2$s)</string>
