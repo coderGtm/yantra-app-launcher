@@ -512,8 +512,7 @@ fun showSuggestions(
             suggestion.setTypeface(terminal.typeface, Typeface.BOLD)
             suggestion.setBackgroundColor(Color.TRANSPARENT)
             suggestion.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.5F)
-            //set start and end margins
-            suggestion.setPadding(50, 28, 60, 28)
+            suggestion.setPadding(40, 30, 40, 30)
 
 
             suggestion.setOnClickListener {
