@@ -294,8 +294,8 @@
     <string name="init_list_cleared">Список инициализации очищен</string>
     <string name="cmd_internet_help">Открывает панель с настройками для включения интернет-соединения.</string>
     <string name="android10_reqd_for_cmd">О нет! Мне очень жаль, но для использования этой команды вам нужно обновиться как минимум до Android 10 :(</string>
-    <string name="cmd_launch_title">launch [имя приложения]</string>
-    <string name="cmd_launch_help">Запускает указанное приложение. Пример: \'launch Chrome\'</string>
+    <string name="cmd_launch_title">launch [-p/-s] [приложение/имя пакета/ярлык]</string>
+    <string name="cmd_launch_help">Запускает указанное приложение или ярлык. Пример: \'launch Chrome\'. Используйте флаг \'-p\' для запуска приложения по имени пакета. Пример: \'launch com.android.chrome\'. Используйте флаг \'-s\' для запуска ярлыка. Пример: \'launch -s Chats\'</string>
     <string name="specify_an_app_to_launch">Пожалуйста, укажите приложение для запуска.</string>
     <string name="excluding_app">- Исключая %1$s</string>
     <string name="launching_app">Запуск %1$s (%2$s)</string>
@@ -510,13 +510,13 @@
     <string name="search">Поиск</string>
     <string name="auto_execute_last_secondary_suggestion">Автоматически выполнять последнюю второстепенную подсказку</string>
     <string name="auto_executing_suggestion">Автоматическое выполнение предложения 🤖...</string>
-    <string name="shortcut_list_fetch_error">An error occurred while fetching shortcuts!</string>
-    <string name="fetching_shortcuts">Fetching Shortcuts...</string>
-    <string name="found_shortcuts">Found %1$d shortcuts</string>
-    <string name="not_shortcut_host">Shortcut Host Permission missing! You need to set %1$s as the default Launcher to use Shortcuts.</string>
-    <string name="specify_a_shortcut_label">Please specify a Shortcut Label to launch!</string>
-    <string name="shortcut_not_found">\'%1$s\' shortcut not found. Try using \'list shortcuts\' to get list of all shortcuts.</string>
-    <string name="shortcut_not_supported">Shortcuts are not supported on your device!</string>
-    <string name="multiple_shortcuts_found">Multiple shortcuts found</string>
-    <string name="multiple_shortcuts_found_with_label_please_select_one">Multiple shortcuts found with name \'%1$s\'. Please select one.</string>
+    <string name="shortcut_list_fetch_error">Произошла ошибка при получении ярлыков!</string>
+    <string name="fetching_shortcuts">Получение ярлыков...</string>
+    <string name="found_shortcuts">Найдено %1$d ярлыков</string>
+    <string name="not_shortcut_host">Отсутствует разрешение хоста! Вам нужно установить %1$s в качестве основного лаунчера, чтобы использовать ярлыки.</string>
+    <string name="specify_a_shortcut_label">Пожалуйста, укажите ярлык для запуска!</string>
+    <string name="shortcut_not_found">Ярлык \'%1$s\' не найден. Попробуйте использовать \'list shortcuts\' что бы получить список всех ярлыков.</string>
+    <string name="shortcut_not_supported">Ярлыки не поддерживаются на вашем устройстве</string>
+    <string name="multiple_shortcuts_found">Найдено несколько ярлыков</string>
+    <string name="multiple_shortcuts_found_with_label_please_select_one">Найдено несколько ярлыков с именем \'%1$s\'. Пожалуйста, выберите один.</string>
 </resources>
