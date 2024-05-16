@@ -8,11 +8,9 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.os.Environment
-import android.widget.Button
-import android.widget.LinearLayout
+import android.util.TypedValue
 import android.widget.TextView
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.graphics.drawable.toDrawable
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.blueprints.BaseCommand
@@ -24,9 +22,9 @@ import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.setSystemWallpaper
-import com.coderGtm.yantra.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.File
+import java.util.Locale
 import java.util.regex.Pattern
 
 fun showSuggestions(
@@ -77,6 +75,7 @@ fun showSuggestions(
                     return@Thread
                 }
                 val candidates = terminal.appList.map { it.appName }.toMutableList()
+                candidates.add(0, "-s")
                 candidates.add(0, "-p")
                 if (args.size>1) {
                     //search using regex
@@ -102,7 +101,7 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
-            /*else if (effectivePrimaryCmd == "open") {
+            else if (effectivePrimaryCmd == "open") {
                 if (args.size>1) {
                     //search using regex
                     overrideLastWord = true
@@ -149,7 +148,20 @@ fun showSuggestions(
                     }
                 }
                 isPrimary = false
-            }*/
+            }
+            else if (effectivePrimaryCmd == "ls") {
+                if (args.size > 1) {
+                    overrideLastWord = true
+                }
+                val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                val lsArgs = listOf("-a")
+                for (arg in lsArgs) {
+                    if (regex.containsMatchIn(arg)) {
+                        suggestions.add(arg)
+                    }
+                }
+                isPrimary = false
+            }
             else if (effectivePrimaryCmd == "uninstall") {
                 if (!terminal.appListFetched) {
                     return@Thread
@@ -289,7 +301,7 @@ fun showSuggestions(
                     overrideLastWord = true
                 }
                 val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val listArgs = listOf("apps","themes","contacts")
+                val listArgs = listOf("apps","shortcuts","themes","contacts")
                 for (arg in listArgs) {
                     if (regex.containsMatchIn(arg)) {
                         suggestions.add(arg)
@@ -336,6 +348,7 @@ fun showSuggestions(
                     }
                 }
                 isPrimary = false
+                executeOnTapViable = false
             }
             else if (effectivePrimaryCmd == "flash" || effectivePrimaryCmd == "bluetooth") {
                 if (args.size > 1) {
@@ -494,37 +507,37 @@ fun showSuggestions(
             if ((isPrimary && (input.trim() == sug.trim())) || (!isPrimary && (input.removePrefix(args[0]).trim() == sug.trim()))) {
                 return@forEach
             }
-            val btn = Button(terminal.activity)
-            btn.text = sug
-            btn.setTextColor(terminal.theme.suggestionTextColor)
-            btn.setTypeface(terminal.typeface, Typeface.BOLD)
-            btn.background = Color.TRANSPARENT.toDrawable()
-            //set start and end margins
-            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            params.setMargins(20, 0, 20, 0)
-            btn.layoutParams = params
+            val suggestion = TextView(terminal.activity)
+            suggestion.text = sug.uppercase(Locale.getDefault())
+            suggestion.setTextColor(terminal.theme.suggestionTextColor)
+            suggestion.setTypeface(terminal.typeface, Typeface.BOLD)
+            suggestion.setBackgroundColor(Color.TRANSPARENT)
+            suggestion.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.5F)
+            suggestion.setPadding(40, 30, 40, 30)
 
 
-            btn.setOnClickListener {
-                if (overrideLastWord) {
-                    val newCmd = input.substring(0, input.length-args[args.size-1].length) + sug + " "
-                    terminal.binding.cmdInput.setText(newCmd)
+            suggestion.setOnClickListener {
+                val newCmd = if (overrideLastWord) {
+                    input.substring(0, input.length-args[args.size-1].length) + sug + " "
                 }
                 else {
-                    terminal.binding.cmdInput.setText("$input $sug ")
+                    "$input $sug "
                 }
-                terminal.binding.cmdInput.setSelection(terminal.binding.cmdInput.text!!.length)
-                requestCmdInputFocusAndShowKeyboard(terminal.activity, terminal.binding)
-                terminal.binding.suggestionsTab.removeView(it)
-
                 val actOnSuggestionTap = terminal.preferenceObject.getBoolean("actOnSuggestionTap", false)
                 if (!isPrimary && actOnSuggestionTap && executeOnTapViable) {
-                    terminal.handleCommand(terminal.binding.cmdInput.text.toString().trim())
+                    terminal.handleCommand(newCmd)
                     terminal.binding.cmdInput.setText("")
                 }
+                else {
+                    terminal.binding.cmdInput.setText(newCmd)
+                    terminal.binding.cmdInput.setSelection(terminal.binding.cmdInput.text!!.length)
+                    requestCmdInputFocusAndShowKeyboard(terminal.activity, terminal.binding)
+                    terminal.binding.suggestionsTab.removeView(it)
+                }
+
             }
             if (isPrimary) {
-                btn.setOnLongClickListener {
+                suggestion.setOnLongClickListener {
                     try {
                         val commandClass = terminal.commands[sug]
                         if (commandClass != null) {
@@ -543,7 +556,7 @@ fun showSuggestions(
                 }
             }
             terminal.activity.runOnUiThread {
-                terminal.binding.suggestionsTab.addView(btn)
+                terminal.binding.suggestionsTab.addView(suggestion)
             }
         }
         if (suggestions.size == 1 && !isPrimary && terminal.preferenceObject.getBoolean("actOnLastSecondarySuggestion", false)) {
@@ -567,8 +580,9 @@ fun showSuggestions(
             if (args.size == 1) {
                 return@Thread
             }
+
             terminal.activity.runOnUiThread {
-                toast(terminal.activity, "Auto executing suggestion")
+                terminal.output(terminal.activity.getString(R.string.auto_executing_suggestion), terminal.theme.successTextColor, Typeface.ITALIC)
 
                 val sug = suggestions.first()
                 val newCmd = if (overrideLastWord) {
@@ -649,10 +663,10 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "alias" to com.coderGtm.yantra.commands.alias.Command::class.java,
             "weather" to com.coderGtm.yantra.commands.weather.Command::class.java,
             "username" to com.coderGtm.yantra.commands.username.Command::class.java,
-            /*"pwd" to com.coderGtm.yantra.commands.pwd.Command::class.java,
+            "pwd" to com.coderGtm.yantra.commands.pwd.Command::class.java,
             "cd" to com.coderGtm.yantra.commands.cd.Command::class.java,
             "ls" to com.coderGtm.yantra.commands.ls.Command::class.java,
-            "open" to com.coderGtm.yantra.commands.open.Command::class.java,*/
+            "open" to com.coderGtm.yantra.commands.open.Command::class.java,
             "search" to com.coderGtm.yantra.commands.search.Command::class.java,
             "web" to com.coderGtm.yantra.commands.web.Command::class.java,
             "gupt" to com.coderGtm.yantra.commands.gupt.Command::class.java,
@@ -709,6 +723,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "weather" to com.coderGtm.yantra.commands.weather.Command::class.java,
             "search" to com.coderGtm.yantra.commands.search.Command::class.java,
             "username" to com.coderGtm.yantra.commands.username.Command::class.java,
+            "time" to com.coderGtm.yantra.commands.time.Command::class.java,
             "settings" to com.coderGtm.yantra.commands.settings.Command::class.java,
             "sysinfo" to com.coderGtm.yantra.commands.sysinfo.Command::class.java,
             "pro" to com.coderGtm.yantra.commands.pro.Command::class.java,

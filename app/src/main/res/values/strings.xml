@@ -221,7 +221,7 @@
     <string name="oops">Oops!</string>
     <string name="command_request_for_yantra_launcher">Command request for Yantra Launcher</string>
     <string name="copied_title_to_clipboard">Copied title to clipboard</string>
-    <string name="cmd_community_help">Redirects the Discord server of Yantra Launcher. Here you can share and get Feedback, Suggestions, Insights, tips and CLI emotions from other users like you!</string>
+    <string name="cmd_community_help">Redirects to the Discord server of Yantra Launcher. Here you can share and get Feedback, Suggestions, Insights, tips and CLI emotions from other users like you!</string>
     <string name="community_no_args">\'community\' command does not take any parameters.</string>
     <string name="opened_community_discord_server">Opened Community Discord Server</string>
     <string name="cmd_dict_title"><![CDATA[dict [-urban] <word>]]></string>
@@ -294,8 +294,8 @@
     <string name="init_list_cleared">Init List cleared</string>
     <string name="cmd_internet_help">Opens a panel containing settings to enable internet connection.</string>
     <string name="android10_reqd_for_cmd">Uh oh! I am sorry but it\'s time to upgrade to Android 10 at least to use this command :(</string>
-    <string name="cmd_launch_title">launch [-p] [app/package name]</string>
-    <string name="cmd_launch_help">Launches specified app. Example: \'launch Chrome\'. Use the optional \'-p\' flag to launch app by package name. Example: \'launch com.android.chrome\'</string>
+    <string name="cmd_launch_title">launch [-p/-s] [app/package name/shortcut label]</string>
+    <string name="cmd_launch_help">Launches specified app or shortcut. Example: \'launch Chrome\'. Use the \'-p\' flag to launch app by package name. Example: \'launch com.android.chrome\'. Use the \'-s\' flag to launch a Shortcut. Example: \'launch -s Chats\'</string>
     <string name="specify_an_app_to_launch">Please specify an app to launch.</string>
     <string name="excluding_app">- Excluding %1$s</string>
     <string name="launching_app">Launching %1$s (%2$s)</string>
@@ -509,4 +509,14 @@
     <string name="sysinfo_art_updated">Updated ASCII art for \'sysinfo\' command!</string>
     <string name="search">Search</string>
     <string name="auto_execute_last_secondary_suggestion">Auto Execute last Secondary Suggestion</string>
+    <string name="auto_executing_suggestion">Auto executing Suggestion 🤖...</string>
+    <string name="shortcut_list_fetch_error">An error occurred while fetching shortcuts!</string>
+    <string name="fetching_shortcuts">Fetching Shortcuts...</string>
+    <string name="found_shortcuts">Found %1$d shortcuts</string>
+    <string name="not_shortcut_host">Shortcut Host Permission missing! You need to set %1$s as the default Launcher to use Shortcuts.</string>
+    <string name="specify_a_shortcut_label">Please specify a Shortcut Label to launch!</string>
+    <string name="shortcut_not_found">\'%1$s\' shortcut not found. Try using \'list shortcuts\' to get list of all shortcuts.</string>
+    <string name="shortcut_not_supported">Shortcuts are not supported on your device!</string>
+    <string name="multiple_shortcuts_found">Multiple shortcuts found</string>
+    <string name="multiple_shortcuts_found_with_label_please_select_one">Multiple shortcuts found with name \'%1$s\'. Please select one.</string>
 </resources>

@@ -6,6 +6,7 @@ import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.CommandMetadata
+import com.coderGtm.yantra.models.ShortcutBlock
 import com.coderGtm.yantra.terminal.Terminal
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -42,6 +43,51 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             else {
                 output(terminal.activity.getString(R.string.app_not_found, packageName), terminal.theme.warningTextColor)
             }
+            return
+        }
+
+        else if (args[1].trim() == "-s") {
+            val shortcutLabel = command.trim().removePrefix(args[0]).trim().removePrefix(args[1]).trim()
+            if (shortcutLabel.isEmpty()) {
+                output(terminal.activity.getString(R.string.specify_a_shortcut_label), terminal.theme.errorTextColor)
+                return
+            }
+            val candidates = mutableListOf<ShortcutBlock>()
+            terminal.shortcutList.forEach { 
+                if (it.label.lowercase() == shortcutLabel) {
+                    candidates.add(it)
+                }
+            }
+            var shortcut: ShortcutBlock?
+            if (candidates.size == 1) {
+                shortcut = candidates[0]
+                output(terminal.activity.getString(R.string.launching_app, shortcut.label, shortcut.packageName), terminal.theme.successTextColor)
+                launchShortcut(this@Command, shortcut)
+                return
+            }
+            else if (candidates.size > 1) {
+                output(terminal.activity.getString(R.string.multiple_entries_found_for_opening_selection_dialog, shortcutLabel), terminal.theme.warningTextColor)
+                MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
+                    .setTitle(terminal.activity.getString(R.string.multiple_shortcuts_found))
+                    .setMessage(terminal.activity.getString(R.string.multiple_shortcuts_found_with_label_please_select_one, shortcutLabel))
+                    .setPositiveButton(terminal.activity.getString(R.string.ok)) { _, _ ->
+                        val items = mutableListOf<String>()
+                        for (candidate in candidates) {
+                            items.add(candidate.packageName)
+                        }
+                        MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
+                            .setTitle(terminal.activity.getString(R.string.select_package_name))
+                            .setItems(items.toTypedArray()) { _, which ->
+                                shortcut = candidates[which]
+                                output(terminal.activity.getString(R.string.launching_app, shortcut!!.label, shortcut!!.packageName), terminal.theme.successTextColor)
+                                launchShortcut(this@Command, shortcut!!)
+                            }
+                            .show()
+                    }
+                    .show()
+                return
+            }
+            output(terminal.activity.getString(R.string.shortcut_not_found, shortcutLabel), terminal.theme.warningTextColor)
             return
         }
 
