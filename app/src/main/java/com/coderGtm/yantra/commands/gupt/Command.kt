@@ -18,22 +18,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
     override fun execute(command: String) {
         output(terminal.activity.getString(R.string.initializing_g_u_p_t),terminal.theme.warningTextColor)
-        if (!terminal.preferenceObject.getBoolean("gupt___purchased",true)) {
-            output("[-] G.U.P.T is a paid add-on feature. Consider buying it to enable it.",terminal.theme.errorTextColor)
-            output("Salient features of G.U.P.T:",terminal.theme.warningTextColor, Typeface.BOLD)
-            output("--------------------------",terminal.theme.warningTextColor)
-            output("1. Launch a private browsing tab inside Yantra Launcher.")
-            output("2. All the data is cleared after closing the tab.")
-            output("3. You can also open a specific url in the private tab.")
-            output("4. Hidden from the recent apps list.")
-            output("5. No history is saved.")
-            output("6. No cookies are saved.")
-            output("7. No more going through the hassle of opening an incognito tab in your browser.")
-            output("--------------------------",terminal.theme.warningTextColor)
-            val mainAct = terminal.activity as MainActivity
-            mainAct.initializeProductPurchase("gupt")
-            return
-        }
         output(terminal.activity.getString(R.string.getting_undercover_private_tab),terminal.theme.resultTextColor, Typeface.ITALIC)
         val cmdArray = command.split(" ")
         var url = "https://www.google.com"

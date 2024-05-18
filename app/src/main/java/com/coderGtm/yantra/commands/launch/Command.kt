@@ -54,7 +54,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             }
             val candidates = mutableListOf<ShortcutBlock>()
             terminal.shortcutList.forEach { 
-                if (it.label.lowercase() == shortcutLabel) {
+                if (it.label.trim().lowercase() == shortcutLabel) {
                     candidates.add(it)
                 }
             }

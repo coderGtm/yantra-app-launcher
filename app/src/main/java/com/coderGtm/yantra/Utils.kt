@@ -323,7 +323,7 @@ fun vibrate(millis: Long? = 100, activity: Activity) {
 fun getCustomThemeColors(preferenceObject: SharedPreferences): ArrayList<String> {
     return preferenceObject.getString(
         "customThemeClrs",
-        "#000000,#A0A0A0,#E1BEE7,#FAEBD7,#EBEBEB,#F00000,#00C853,#FFD600"
+        "#FF000000,#FFA0A0A0,#FFE1BEE7,#FFFAEBD7,#FFEBEBEB,#FFF00000,#FF00C853,#FFFFD600"
     )!!.split(",").toMutableList() as ArrayList<String>
 }
 fun getCurrentTheme(activity: Activity, preferenceObject: SharedPreferences): Theme {

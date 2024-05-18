@@ -419,7 +419,7 @@
     <string name="hex_code">Hexadecimális kód</string>
     <string name="select_color">Válassz színt</string>
     <string name="set">Beállítás</string>
-    <string name="enter_6_digit_hex_code_without_hash">Írd be a 6 jegyű hexadecimális kódot (a # jellel</string>
+    <string name="enter_8_digit_hex_code_without_hash">Írd be a 8 jegyű hexadecimális kódot (a # jellel</string>
     <string name="invalid_hex_code">Érvénytelen hexadecimális kód</string>
     <string name="apply">Alkalmaz</string>
     <string name="cmd_time_title">time [utc] [GMT]</string>

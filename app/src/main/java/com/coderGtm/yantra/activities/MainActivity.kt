@@ -24,7 +24,6 @@ import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.informOfProVersionIfOldUser
 import com.coderGtm.yantra.isPro
-import com.coderGtm.yantra.misc.purchasePrank
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
@@ -180,12 +179,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         } else {
             primaryTerminal.output(getString(R.string.permission_granted), primaryTerminal.theme.successTextColor, null)
         }
-    }
-
-    fun initializeProductPurchase(skuId: String) {
-        primaryTerminal.output("Initializing purchase...Please wait.",primaryTerminal.theme.resultTextColor, null)
-        purchasePrank(primaryTerminal, skuId)
-        return
     }
 
     private val cropImage = registerForActivityResult(CropImageContract()) { result ->

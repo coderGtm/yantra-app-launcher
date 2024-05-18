@@ -53,14 +53,14 @@ fun openCustomThemeDesigner(terminal: Terminal) {
                             val colorDialogBuilder = ColorPickerDialog.Builder(terminal.activity, R.style.Theme_AlertDialog)
                                 .setTitle(terminal.activity.getString(R.string.select_color))
                                 .setPositiveButton(terminal.activity.getString(R.string.set), ColorEnvelopeListener { envelope, _->
-                                    toast(terminal.activity.baseContext, envelope.hexCode.drop(2).prependIndent("#"))
-                                    imgBtn.setImageDrawable(ColorDrawable(Color.parseColor(envelope.hexCode.drop(2).prependIndent("#"))))
-                                    imgBtn.tag = envelope.hexCode.drop(2).prependIndent("#")
+                                    toast(terminal.activity.baseContext, envelope.hexCode.prependIndent("#"))
+                                    imgBtn.setImageDrawable(ColorDrawable(Color.parseColor(envelope.hexCode.prependIndent("#"))))
+                                    imgBtn.tag = envelope.hexCode.prependIndent("#")
                                 })
                                 .setNegativeButton(terminal.activity.getString(R.string.cancel)) { dialogInterface, i ->
                                     dialogInterface.dismiss()
                                 }
-                                .attachAlphaSlideBar(false) // the default value is true.
+                                .attachAlphaSlideBar(true) // the default value is true.
                                 .attachBrightnessSlideBar(true) // the default value is true.
                                 .setBottomSpace(12) // set a bottom space between the last slidebar and buttons.
                             //val bubbleFlag = BubbleFlag(this)
@@ -68,13 +68,13 @@ fun openCustomThemeDesigner(terminal: Terminal) {
                             colorDialogBuilder.colorPickerView.flagView = CustomFlag(terminal.activity,
                                 R.layout.color_picker_flag_view
                             )
-                            colorDialogBuilder.colorPickerView.setInitialColor(Color.parseColor("#FF"+imgBtn.tag.toString().drop(1)))
+                            colorDialogBuilder.colorPickerView.setInitialColor(Color.parseColor(imgBtn.tag.toString()))
                             terminal.activity.runOnUiThread { colorDialogBuilder.show() }
                         }
                         1 -> {
                             terminal.activity.runOnUiThread {
                                 val hexDialog = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                                    .setTitle(terminal.activity.getString(R.string.enter_6_digit_hex_code_without_hash))
+                                    .setTitle(terminal.activity.getString(R.string.enter_8_digit_hex_code_without_hash))
                                     .setView(R.layout.dialog_singleline_input)
                                     .setPositiveButton(terminal.activity.getString(R.string.set)) { dialog, _ ->
                                         val hexCode = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString().trim()
@@ -123,7 +123,7 @@ fun openCustomThemeDesigner(terminal: Terminal) {
 
 fun isValidHexCode(hexCode: String): Boolean {
     return try {
-        Color.parseColor("#FF$hexCode")
+        Color.parseColor("#$hexCode")
         true
     }
     catch (e: Exception) {

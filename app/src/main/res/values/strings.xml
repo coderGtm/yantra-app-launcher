@@ -419,7 +419,7 @@
     <string name="hex_code">Hex Code</string>
     <string name="select_color">Select Color</string>
     <string name="set">Set</string>
-    <string name="enter_6_digit_hex_code_without_hash">Enter 6-digit Hex Code (without the #)</string>
+    <string name="enter_8_digit_hex_code_without_hash">Enter 8-digit Hex Code (without the #)</string>
     <string name="invalid_hex_code">Invalid Hex Code</string>
     <string name="apply">Apply</string>
     <string name="cmd_time_title">time [utc] [GMT]</string>

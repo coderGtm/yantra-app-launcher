@@ -419,7 +419,7 @@
     <string name="hex_code">Hex-код</string>
     <string name="select_color">Выбрать цвет</string>
     <string name="set">Установить</string>
-    <string name="enter_6_digit_hex_code_without_hash">Введите 6-значный Hex-код (без #)</string>
+    <string name="enter_8_digit_hex_code_without_hash">Введите 8-значный Hex-код (без #)</string>
     <string name="invalid_hex_code">Неверный Hex-код</string>
     <string name="apply">Применить</string>
     <string name="cmd_time_title">time [utc] [GMT]</string>
