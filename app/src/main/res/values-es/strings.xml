@@ -41,7 +41,7 @@
 <string name="news_website_changed"> ¡Sitio web de noticias cambiado!</string>
 <string name="font_size_description">Ingresa un tamaño de fuente para la terminal:</string>
 <string name="invalid_font_size">¡Tamaño de fuente inválido!</string>
-    <string name="font_size_updated">Font size updated!</string>
+    <string name="font_size_updated">¡Tamaño de la fuente actualizado!</string>
     <string name="arrow_size_description">Enter a size for the terminal Arrow Keys:</string>
     <string name="invalid_arrow_size">Invalid Arrow size!</string>
     <string name="arrow_size_updated">Arrow size updated!</string>
