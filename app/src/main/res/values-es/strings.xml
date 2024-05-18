@@ -2,8 +2,8 @@
 <resources>
     <string name="accessibility_service_description">This permission is required for and used only for applying Screen Lock from Yantra Launcher.</string>
     <string name="username_prefix">Username prefix</string>
-    <string name="primary_suggestions">Sugerencias primarias</string>
-    <string name="secondary_suggestions">Secondary Suggestions</string>
+    <string name="primary_suggestions">Sugerencias Primarias</string>
+    <string name="secondary_suggestions">Sugerencias Secundarias</string>
     <string name="fullscreen_launcher">Fullscreen Launcher</string>
     <string name="vibrate_on_error">Vibrate on Error</string>
     <string name="show_arrow_keys">Show Arrow Keys</string>
