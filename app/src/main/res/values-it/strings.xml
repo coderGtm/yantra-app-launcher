@@ -419,7 +419,7 @@
     <string name="hex_code">Codice Hex</string>
     <string name="select_color">Seleziona Colore</string>
     <string name="set">Imposta</string>
-    <string name="enter_6_digit_hex_code_without_hash">Inserisci Codice Hex di 6 cifre (senza il #)</string>
+    <string name="enter_8_digit_hex_code_without_hash">Inserisci Codice Hex di 8 cifre (senza il #)</string>
     <string name="invalid_hex_code">Codice Hex non valido</string>
     <string name="apply">Applica</string>
     <string name="cmd_time_title">time [utc] [GMT]</string>
