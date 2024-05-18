@@ -58,7 +58,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             else {
                 if (state) {
                     bluetoothAdapter?.enable()
-                    output(terminal.activity.getString(R.string.toggleable_turned_on), terminal.theme.successTextColor)
+                    output(terminal.activity.getString(R.string.toggleable_turned_on, metadata.name.replaceFirstChar { it.titlecase() }), terminal.theme.successTextColor)
                 }
                 else {
                     bluetoothAdapter?.disable()
