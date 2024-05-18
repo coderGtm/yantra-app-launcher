@@ -8,7 +8,7 @@
     <string name="vibrate_on_error">Vibrate on Error</string>
     <string name="show_arrow_keys">Show Arrow Keys</string>
     <string name="show_current_folder_in_prompt">Show Current Folder in Prompt</string>
-    <string name="tap_anywhere_to_open_keyboard">Tap anywhere to open Keyboard</string>
+    <string name="tap_anywhere_to_open_keyboard">Toca en cualquier parte de la pantalla para abrir el teclado</string>
     <string name="hide_keyboard_on_command_enter">Hide Keyboard on Command Enter</string>
     <string name="auto_execute_command_when_secondary_suggestion_is_selected">Auto Execute command when Secondary Suggestion is Selected</string>
     <string name="log_commands_in_the_init_script">Log commands in the \'init\' script</string>
