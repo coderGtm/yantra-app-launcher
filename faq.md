@@ -17,7 +17,7 @@ Ensure that termux is installed on your device. Follow the steps below to integr
    ```
 5. Set `allow-external-apps` property to `true`, by entering the following code in termux:
    ```
-   value="true"; key="allow-external-apps"; file="/data/data/com.termux/files/home/.termux/termux.properties"; mkdir -p "$(dirname "$file")"; chmod 700 "$(dirname "$file")"; if ! grep -E '^'"$key"'=.*' $file &>/dev/null; then [[ -s "$file" && ! -z "$(tail -c 1 "$file")" ]] && newline=$'\n' || newline=""; echo "$newline$key=$value" >> "$file"; else sed -i'' -E 's/^'"$key"'=.*/'"$key=$value"'/' $file; fi
+   value="true"; key="allow-external-apps"; file="/data/data/com.termux/files/home/.termux/termux.properties"; mkdir -p "$(dirname "$file"; chmod 700 "$(dirname "$file"; if ! grep -E '^'"$key"'=.*' $file &>/dev/null; then [[ -s "$file" && ! -z "$(tail -c 1 "$file" ]] && newline=$'\n' || newline=""; echo "$newline$key=$value" >> "$file"; else sed -i'' -E 's/^'"$key"'=.*/'"$key=$value"'/' $file; fi
    ```
    *Source: https://github.com/termux/termux-tasker?tab=readme-ov-file#allow-external-apps-property-optional*
 
@@ -38,3 +38,14 @@ Getting ChatGPT like responses in your Home Screen Terminal is so cool that you 
    ai Hello World
    ```
 *Feel free to discuss in the [Discord community](https://discord.gg/sRZUG8rPjk) if you still face any issues!*
+
+## 3. What is the 'gupt' command?
+G.U.P.T stands for Get Undercover Private Tab. Tired of going to browser everytime and opening Incognito Tab. With GUPT command, you get a built-in Private incognito Tab. Example: 'gupt https://www.youtube.com'. Use without url to default to https://www.google.com. Salient features of G.U.P.T:
+
+1. Launch a private browsing tab inside Yantra Launcher.
+2. All the data is cleared after closing the tab.
+3. You can also open a specific url in the private tab.
+4. Hidden from the recent apps list.
+5. No history is saved.
+6. No cookies are saved.
+7. No more going through the hassle of opening an incognito tab in your browser.
