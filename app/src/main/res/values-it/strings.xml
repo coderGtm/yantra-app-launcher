@@ -294,8 +294,8 @@
     <string name="init_list_cleared">Lista di inizializzazione pulita</string>
     <string name="cmd_internet_help">Apre un pannello contenente le impostazioni per abilitare la connessione internet.</string>
     <string name="android10_reqd_for_cmd">Uh oh! Mi dispiace ma è ora di aggiornare almeno ad Android 10 per utilizzare questo comando :(</string>
-    <string name="cmd_launch_title">launch [nome app/nome pacchetto]</string>
-    <string name="cmd_launch_help">Avvia l\'app specificata. Esempio: \'launch Chrome\'. Usa l\'opzione \'-p\' per avviare l\'app tramite il nome del pacchetto. Esempio: \'launch com.android.chrome\'</string>
+    <string name="cmd_launch_title">launch [-p/-s] [nome app/nome pacchetto/etichetta scorciatoia]</string>
+    <string name="cmd_launch_help">Avvia l\'app o la scorciatoia specificata. Esempio: \'launch Chrome\'. Usa l\'opzione \'-p\' per avviare l\'app tramite il nome del pacchetto. Esempio: \'launch com.android.chrome\'. Usa l\'opzione \'-s\' per lanciare una Scorciatoia. Esempio: \'launch -s Chats\'.</string>
     <string name="specify_an_app_to_launch">Si prega di specificare un\'app da avviare.</string>
     <string name="excluding_app">- Escludendo %1$s</string>
     <string name="launching_app">Avviando %1$s (%2$s)</string>
@@ -510,13 +510,13 @@
     <string name="search">Cerca</string>
     <string name="auto_execute_last_secondary_suggestion">Esegui automaticamente l\'ultimo Suggerimento Secondario</string>
     <string name="auto_executing_suggestion">Suggerimento di esecuzione automatica 🤖...</string>
-    <string name="shortcut_list_fetch_error">An error occurred while fetching shortcuts!</string>
-    <string name="fetching_shortcuts">Fetching Shortcuts...</string>
-    <string name="found_shortcuts">Found %1$d shortcuts</string>
-    <string name="not_shortcut_host">Shortcut Host Permission missing! You need to set %1$s as the default Launcher to use Shortcuts.</string>
-    <string name="specify_a_shortcut_label">Please specify a Shortcut Label to launch!</string>
-    <string name="shortcut_not_found">\'%1$s\' shortcut not found. Try using \'list shortcuts\' to get list of all shortcuts.</string>
-    <string name="shortcut_not_supported">Shortcuts are not supported on your device!</string>
-    <string name="multiple_shortcuts_found">Multiple shortcuts found</string>
-    <string name="multiple_shortcuts_found_with_label_please_select_one">Multiple shortcuts found with name \'%1$s\'. Please select one.</string>
+    <string name="shortcut_list_fetch_error">Si è verificato un errore durante il recupero delle scorciatoie!</string>
+    <string name="fetching_shortcuts">Recupero delle scorciatoie in corso...</string>
+    <string name="found_shortcuts">Trovate %1$d scorciatoie</string>
+    <string name="not_shortcut_host">Permesso di Host delle Scorciatoie mancante! È necessario impostare %1$s come launcher predefinito per utilizzare le scorciatoie.</string>
+    <string name="specify_a_shortcut_label">Si prega di specificare un'etichetta di scorciatoia da avviare!</string>
+    <string name="shortcut_not_found">Scorciatoia \'%1$s\' non trovata. Prova a utilizzare \'elenco scorciatoie\' per ottenere l'elenco di tutte le scorciatoie.</string>
+    <string name="shortcut_not_supported">Le scorciatoie non sono supportate sul tuo dispositivo!</string>
+    <string name="multiple_shortcuts_found">Trovate più scorciatoie</string>
+    <string name="multiple_shortcuts_found_with_label_please_select_one">Trovate più scorciatoie con il nome \'%1$s\'. Si prega di selezionarne una.</string>
 </resources>
