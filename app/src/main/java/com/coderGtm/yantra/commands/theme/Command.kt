@@ -33,16 +33,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val name = args[1].trim().lowercase()
         if (Themes.entries.any { it.name.lowercase() == name } || name == "custom") {
             if (name == "custom") {
-                if (!terminal.preferenceObject.getBoolean("customtheme___purchased",true)) {
-                    printCustomThemeFeatures(this)
-                    val mainAct = terminal.activity as MainActivity
-                    mainAct.initializeProductPurchase("customtheme")
-                    return
-                }
-                else {
-                    output(terminal.activity.getString(R.string.launching_custom_theme_designer),terminal.theme.resultTextColor, Typeface.ITALIC)
-                    openCustomThemeDesigner(terminal)
-                }
+                output(terminal.activity.getString(R.string.launching_custom_theme_designer),terminal.theme.resultTextColor, Typeface.ITALIC)
+                openCustomThemeDesigner(terminal)
                 return
             }
             val theme = Themes.entries.first { it.name.lowercase() == name }
