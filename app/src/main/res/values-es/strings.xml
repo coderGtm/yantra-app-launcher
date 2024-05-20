@@ -57,8 +57,8 @@
 <string name="termux_command_path_updated">¡Ruta de comandos Termux actualizada!</string>
 <string name="termux_cmd_working_dir_description">Ingrese la ruta al directorio donde se ejecutará el comando Termux.</string>
 <string name="termux_command_working_directory_updated">¡Directorio de trabajo del comando Termux actualizado!</string>
-    <string name="termux_command_session_action_description">Enter integer for Termux Session Action. Available : 0,1,2,3. See TermuxConstants.java on GitHub for more info.</string>
-    <string name="invalid_action">Invalid action!</string>
+    <string name="termux_command_session_action_description">Ingresa un entero para el comando de Termux llamado Session Action. Disponible: 0,1,2,3. Ver TermuxConstants.java en GitHub para más información.</string>
+    <string name="invalid_action">¡Acción invalida!</string>
     <string name="termux_command_session_action_updated">Termux command session action updated!</string>
     <string name="ai_api_provider_description">Enter your AI provider\'s domain for use in the \'ai\' command. Do not provide the entire URL, just the domain is required (For example: api.openai.com</string>
     <string name="ai_api_provider_updated">AI API Provider updated! Make sure you use the corresponding API Key</string>
