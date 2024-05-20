@@ -389,7 +389,7 @@
     <string name="loading_speedtest_utility">Caricamento utility Speedtest...</string>
     <string name="cmd_support_help">Informazioni sul supportare Yantra Launcher.</string>
     <string name="support_no_args">Il comando \'support\' non accetta **argomenti**. _È un comando amichevole... :)_</string>
-    <string name="support_chunk_1">Yantra Launcher è uno strumento potente e gratuito open-source per aumentare la tua produttività ed essere cool. Sviluppare questo launcher e mantenerlo richiede davvero molti sforzi, risorse e tempo prezioso. Se Yantra Launcher ha fatto una differenza positiva nella tua vita, ti invito a controllare la sezione Supporto nella pagina GitHub del progetto.</string>
+    <string name="support_chunk_1">Yantra Launcher è uno strumento potente, gratuito ed open-source per aumentare la tua produttività ed essere figo. Sviluppare questo launcher e mantenerlo richiede davvero molti sforzi, risorse e tempo prezioso. Se Yantra Launcher ha fatto una differenza positiva nella tua vita, ti invito a controllare la sezione "Supporto" nella pagina GitHub del progetto.</string>
     <string name="support_chunk_2">\nRicorda, Yantra Launcher è completamente gratuito e open-source. Puoi supportare lo sviluppatore contribuendo al progetto, segnalando problemi, suggerendo funzionalità e condividendolo con i tuoi amici e familiari.</string>
     <string name="redirecting_to_support_page">:: Reindirizzamento alla sezione Supporto nella pagina GitHub del progetto...</string>
     <string name="cmd_sysinfo_title">sysinfo | sysinfo -componente</string>
