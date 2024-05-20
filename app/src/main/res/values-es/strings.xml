@@ -43,7 +43,7 @@
 <string name="invalid_font_size">¡Tamaño de fuente inválido!</string>
     <string name="font_size_updated">¡Tamaño de la fuente actualizado!</string>
     <string name="arrow_size_description">Enter a size for the terminal Arrow Keys:</string>
-    <string name="invalid_arrow_size">Invalid Arrow size!</string>
+    <string name="invalid_arrow_size">¡Tamaño de flechas invalido!</string>
     <string name="arrow_size_updated">Arrow size updated!</string>
     <string name="portrait">Portrait</string>
     <string name="landscape">Landscape</string>
