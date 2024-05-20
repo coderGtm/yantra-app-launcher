@@ -102,7 +102,7 @@ fun contactsManager(terminal: Terminal, callingIntent: Boolean = false, callTo: 
                             cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                         builder.add(Contacts(name,phoneNumValue))
                         terminal.contactNames.add(name)
-                        val phoneNumValueStandardized  = phoneNumValue.filter { !it.isWhitespace() }
+                        val phoneNumValueStandardized  = phoneNumValue.filterNot { it.isWhitespace() }
                         if (callingIntent && callTo == name.lowercase() && !callingCandidates.contains(phoneNumValueStandardized)) {
                             callingCandidates.add(phoneNumValueStandardized)
                         }
