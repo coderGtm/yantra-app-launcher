@@ -2,6 +2,7 @@ package com.coderGtm.yantra
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.WallpaperManager
 import android.content.ContentResolver
 import android.content.Context
@@ -20,8 +21,8 @@ import android.os.Vibrator
 import android.provider.ContactsContract
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.toDrawable
-import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.models.Contacts
 import com.coderGtm.yantra.models.Theme
@@ -237,11 +238,28 @@ private fun showCommunityPopup(preferenceEditObject: SharedPreferences.Editor, a
             openURL(DISCORD_COMMUNITY_URL, activity)
             dialog.dismiss()
         }
-        .setNegativeButton(activity.getString(R.string.no_thanks)) { dialog, _ ->
+        .setNegativeButton("Reddit") { dialog, _ ->
+            openURL(REDDIT_COMMUNITY_URL, activity)
+            dialog.dismiss()
+        }
+        .setNeutralButton(activity.getString(R.string.no_thanks)) { dialog, _ ->
             dialog.dismiss()
             toast(activity.baseContext, activity.getString(R.string.we_d_miss_you))
         }
         .setCancelable(false)
+        .create()
+    communityPopup.setOnShowListener {
+        val positiveButton = communityPopup.getButton(AlertDialog.BUTTON_POSITIVE)
+        val negativeButton = communityPopup.getButton(AlertDialog.BUTTON_NEGATIVE)
+        val textSize = positiveButton.textSize.toInt()
+        val drawable1 = AppCompatResources.getDrawable(activity, R.drawable.ic_discord)
+        val drawable2 = AppCompatResources.getDrawable(activity, R.drawable.ic_reddit)
+        val positiveDrawableResized = drawable1?.apply { setBounds(0, 0, textSize, textSize) }
+        val negativeDrawableResized = drawable2?.apply { setBounds(0, 0, textSize, textSize) }
+        // add drawable to button
+        positiveButton.setCompoundDrawables(positiveDrawableResized, null, null, null)
+        negativeButton.setCompoundDrawables(negativeDrawableResized, null, null, null)
+    }
 
     if (!activity.isFinishing) {
         communityPopup.show()

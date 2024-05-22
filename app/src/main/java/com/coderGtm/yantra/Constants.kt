@@ -281,6 +281,7 @@ const val DEFAULT_TERMINAL_FONT_NAME = "Source Code Pro"
 const val USER_NOTIFICATION_ID = 101
 const val AI_SYSTEM_PROMPT = "Friendly, warm, and farcical. You must always be extremely concise. If the user is chatting casually, your responses must be less than 1 sentence, sometimes just a word or two. If the user needs help, disregard the length restriction, and answer technical or knowledge-based questions with useful details and reasoning. Communicate responses in lowercase without punctuation, similar to the style used in chat rooms. Use Unicode emoji rarely."
 const val DISCORD_COMMUNITY_URL = "https://discord.gg/sRZUG8rPjk"
+const val REDDIT_COMMUNITY_URL = "https://www.reddit.com/r/YantraLauncher/"
 const val DEFAULT_AI_API_DOMAIN = "api.naga.ac"
 const val SUPPORT_URL = "https://github.com/coderGtm/yantra-app-launcher/blob/main/support.md"
 const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.coderGtm.yantra"
