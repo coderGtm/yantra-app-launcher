@@ -60,7 +60,7 @@
     <string name="termux_command_session_action_description">Ingresa un entero para el comando de Termux llamado Session Action. Disponible: 0,1,2,3. Ver TermuxConstants.java en GitHub para más información.</string>
     <string name="invalid_action">¡Acción invalida!</string>
     <string name="termux_command_session_action_updated">¡Comando de Termux Session Action actualizado!</string>
-    <<string name="ai_api_provider_description">Ingrese el dominio de su proveedor de IA para usar en el comando \'ai\'. No proporcione la URL completa, solo se requiere el dominio (Por ejemplo: api.openai.com)</string>
+    <string name="ai_api_provider_description">Ingrese el dominio de su proveedor de IA para usar en el comando \'ai\'. No proporcione la URL completa, solo se requiere el dominio (Por ejemplo: api.openai.com)</string>
 <string name="ai_api_provider_updated">¡Proveedor de API de IA actualizado! Asegúrate de usar la clave API correspondiente.</string>
 <string name="ai_api_key_description">Ingrese su clave API para usar en el comando \'ai\', correspondiente a su proveedor de IA.</string>
 <string name="ai_api_key_updated">¡Clave API de IA actualizada!</string>
