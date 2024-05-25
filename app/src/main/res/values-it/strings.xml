@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="accessibility_service_description">Questo permesso è richiesto e utilizzato solo per applicare il Blocco Schermo da Yantra Launcher.</string>
-    <string name="username_prefix">Prefisso username</string>
+    <string name="username_prefix">Prefisso nome utente</string>
     <string name="primary_suggestions">Suggerimenti Principali</string>
     <string name="secondary_suggestions">Suggerimenti Secondari</string>
     <string name="fullscreen_launcher">Launcher a Schermo Intero</string>
@@ -24,12 +24,12 @@
     <string name="termux_command_path">Percorso del Comando Termux</string>
     <string name="termux_command_working_directory">Directory di Lavoro del Comando Termux</string>
     <string name="termux_command_session_action">Azione della Sessione del Comando Termux</string>
-    <string name="change_ai_api_provider">Cambia Fornitore API dell\'AI</string>
+    <string name="change_ai_api_provider">Cambia Fornitore API dell\'IA</string>
     <string name="change_ai_api_key">Cambia Chiave API dell\'AI</string>
-    <string name="change_ai_system_prompt">Cambia Prompt \'system\' dell\'AI</string>
-    <string name="username_prefix_description">Inserisci un prefisso per il tuo username. Questo verrà visualizzato prima del tuo username nel terminale.</string>
+    <string name="change_ai_system_prompt">Cambia Prompt \'system\' dell\'IA</string>
+    <string name="username_prefix_description">Inserisci un prefisso per il tuo nome utente. Questo verrà visualizzato prima del tuo nome utente nel terminale.</string>
     <string name="save">Salva</string>
-    <string name="username_prefix_updated">Prefisso username aggiornato!</string>
+    <string name="username_prefix_updated">Prefisso nome utente aggiornato!</string>
     <string name="cancel">Annulla</string>
     <string name="double_tap_command_description">Inserisci un comando da eseguire quando fai doppio tap sul terminale.</string>
     <string name="double_tap_command_updated">Comando del doppio tocco aggiornato!</string>
@@ -61,9 +61,9 @@
     <string name="invalid_action">Azione non valida!</string>
     <string name="termux_command_session_action_updated">Azione della sessione del comando Termux aggiornata!</string>
     <string name="ai_api_provider_description">Inserisci il dominio del tuo fornitore AI da utilizzare nel comando \'ai\'. Non fornire l\'URL completo, è richiesto solo il dominio (Ad esempio: api.openai.com)</string>
-    <string name="ai_api_provider_updated">Fornitore API AI aggiornato! Assicurati di utilizzare la Chiave API corrispondente</string>
-    <string name="ai_api_key_description">Inserisci la tua Chiave API da utilizzare nel comando \'ai\', corrispondente al tuo fornitore AI.</string>
-    <string name="ai_api_key_updated">Chiave API AI aggiornata!</string>
+    <string name="ai_api_provider_updated">Fornitore API IA aggiornato! Assicurati di utilizzare la Chiave API corrispondente</string>
+    <string name="ai_api_key_description">Inserisci la tua Chiave API da utilizzare nel comando \'ai\', corrispondente al tuo fornitore IA.</string>
+    <string name="ai_api_key_updated">Chiave API IA aggiornata!</string>
     <string name="ai_system_prompt_description">Inserisci il prompt \'system\' da utilizzare nel comando \'ai\'. Esso detta il comportamento del modello.</string>
     <string name="ai_system_prompt_updated">Prompt di sistema AI aggiornato!</string>
     <string name="loading_fonts">Caricamento Font...</string>
