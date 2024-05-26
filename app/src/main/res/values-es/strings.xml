@@ -294,7 +294,7 @@
 <string name="init_list_cleared">Lista de inicio borrada</string>
 <string name="cmd_internet_help">Abre un panel que contiene configuraciones para habilitar la conexión a Internet.</string>
 <string name="android10_reqd_for_cmd">¡Oh, oh! Lo siento, pero es hora de actualizar al menos a Android 10 para usar este comando :(</string>
-<string name="cmd_launch_title">launch [-p/-s] [app/package name/shortcut label]</string>
+<string name="cmd_launch_title">launch [-p/-s] [app/nombre de paquete/etiqueta de acceso directo]</string>
 <string name="cmd_launch_help">Inicia la aplicación o acceso directo especificado. Ejemplo: 'launch Chrome'. Usa la bandera '-p' para iniciar la aplicación por nombre de paquete. Ejemplo: 'launch com.android.chrome'. Usa la bandera '-s' para iniciar un acceso directo. Ejemplo: 'launch -s Chats'</string>
 <string name="specify_an_app_to_launch">Por favor, especifica una aplicación para iniciar.</string>
 <string name="excluding_app">- Excluyendo %1$s</string>
@@ -316,12 +316,12 @@
 <string name="cmd_lock_help">Aplica el bloqueo de pantalla a tu Yantra (dispositivo). Nota: Se requieren los permisos apropiados.</string>
 <string name="attempting_to_lock_device">Intentando bloquear el dispositivo...</string>
 <string name="enable_locking_device">Habilitar bloqueo de dispositivo</string>
-<string name="lock_by_accessibility_explainer">Por favor, activa el Servicio de Accesibilidad para Yantra Launcher para que el comando 'lock' funcione.</string>
+<string name="lock_by_accessibility_explainer">Por favor, activa el Servicio de Accesibilidad para Yantra Launcher para que el comando \'lock\' funcione.</string>
 <string name="launch_settings">Abrir configuración</string>
 <string name="lock_by_device_admin_explainer">Por favor, habilita el administrador de dispositivos para Yantra Launcher para que el comando Lock funcione.\n\nTen en cuenta que para Android 8 e inferiores, el uso del bloqueo de Yantra Launcher puede impedir la autenticación biométrica y utilizar solo PIN o contraseña la próxima vez que desbloquees tu dispositivo, debido a las limitaciones de la API de Android.</string>
 <string name="cmd_ls_help">Lista el contenido del directorio actual. Opcionalmente, pasa el indicador '-a' para mostrar también los archivos/carpetas ocultos.</string>
 <string name="ls_invalid_arg">¡Error! Argumento no válido proporcionado. El comando 'ls' solo acepta 1 parámetro de bandera: '-a'.</string>
-<string name="ls_many_args">¡Error! El comando 'ls' solo acepta 1 parámetro de bandera: '-a'.</string>
+<string name="ls_many_args">¡Error! El comando \'ls\' solo acepta 1 parámetro de bandera: \'-a\'.</string>
 <string name="cmd_news_help">Abre el sitio web de noticias configurado a través de la configuración. Por defecto es Google News</string>
 <string name="opening_news">Abriendo noticias...</string>
 <string name="news_invalid_url">No se pudo abrir el sitio web de noticias. Por favor, comprueba la URL en la configuración.</string>
@@ -346,8 +346,8 @@
 <string name="cmd_run_title">run script_name</string>
 <string name="cmd_run_help">Se usa para ejecutar tus scripts personalizados.</string>
 <string name="specify_script_to_run">Por favor, especifica el nombre de un script para ejecutar.</string>
-<string name="run_only_one_param">El comando 'run' solo acepta 1 parámetro: el nombre del script a ejecutar.</string>
-<string name="script_not_found">El script '%1$s' no está definido. Usa el comando 'scripts' para crear tus propios Yantra Scripts.</string>
+<string name="run_only_one_param">El comando \'run\' solo acepta 1 parámetro: el nombre del script a ejecutar.</string>
+<string name="script_not_found">El script '%1$s' no está definido. Usa el comando \'scripts\' para crear tus propios Yantra Scripts.</string>
     <string name="cmd_screentime_title">screentime [nombre-app][-all]</string>
 <string name="cmd_screentime_help">¡Muestra el tiempo total de pantalla del día! Proporcione el nombre de la aplicación para obtener el tiempo de pantalla de una aplicación en particular, o utilice la bandera '-all' para obtener el tiempo de pantalla de todas las aplicaciones utilizadas hoy.\nEjemplo: 'screentime Instagram' o 'screentime -all'</string>
 <string name="permission_required">Permiso requerido</string>
@@ -358,7 +358,7 @@
 <string name="todays_screen_time">Tiempo de pantalla de hoy: %1$s</string>
 <string name="no_apps_found">No se encontraron aplicaciones.</string>
 <string name="less_than_1_minute">Menos de 1 minuto</string>
-<string name="cmd_scripts_help">Abre el diálogo para crear, modificar y eliminar scripts personalizados para Yantra Launcher, para ejecutar varios comandos a la vez. Consulta también el comando 'run'.</string>
+<string name="cmd_scripts_help">Abre el diálogo para crear, modificar y eliminar scripts personalizados para Yantra Launcher, para ejecutar varios comandos a la vez. Consulta también el comando \'run\'.</string>
 <string name="opening_yantra_scripts">Abriendo Yantra Scripts...</string>
 <string name="yantra_scripts">Yantra Scripts</string>
 <string name="scripts_disclaimer">Ver, editar o eliminar este script. Nota: Introduce 1 comando por línea, tal como lo introducirías normalmente en el terminal de Yantra.</string>
@@ -370,25 +370,25 @@
 <string name="new_script">Nuevo Script</string>
 <string name="enter_script_name">Introducir nombre del Script</string>
 <string name="create">Crear</string>
-<string name="script_name_validation">El nombre del script no puede contener ';' ni estar vacío.</string>
+<string name="script_name_validation">El nombre del script no puede contener \';\' ni estar vacío.</string>
 <string name="script_name_another_validation">El nombre del script debe comenzar con una letra y no puede contener espacios</string>
 <string name="name_already_taken">Este nombre ya está en uso</string>
-<string name="script_created">¡Script '%1$s' creado con éxito! Ahora puedes editarlo.</string>
+<string name="script_created">¡Script \'%1$s\' creado con éxito! Ahora puedes editarlo.</string>
 <string name="cmd_search_help">Busca en internet la consulta proporcionada. El motor de búsqueda se puede especificar con la bandera -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore). El valor predeterminado es google. Puedes utilizar un motor de búsqueda personalizado especificando la URL con la bandera -u (-u=https://example.com/search?q=). La consulta es el único argumento requerido que se proporciona al final del comando. Se codifica automáticamente en URL durante la ejecución del comando. Ejemplos:\n'search Yantra Launcher'\n'search -e=duckduckgo Yantra Launcher'\n'search -u=https://example.com/search?q= Yantra Launcher'</string>
 <string name="missing_query">Por favor, proporcione una consulta.</string>
-<string name="invalid_search_engine">Motor de búsqueda no válido. Consulta 'help search' para obtener información sobre las palabras clave del motor de búsqueda.</string>
+<string name="invalid_search_engine">Motor de búsqueda no válido. Consulta \'help search\' para obtener información sobre las palabras clave del motor de búsqueda.</string>
 <string name="searching_for_with">Buscando \'%1$s\' con %2$s...</string>
-<string name="searching_for_with_custom_search_engine">Buscando '%1$s' con un motor de búsqueda personalizado...</string>
+<string name="searching_for_with_custom_search_engine">Buscando \'%1$s\' con un motor de búsqueda personalizado...</string>
 <string name="no_app_found_to_open_the_url">No se encontró ninguna aplicación para abrir la URL.</string>
 <string name="error_opening_url">Se ha producido un error al abrir la URL.</string>
 <string name="cmd_settings_help">Inicia la configuración de Yantra Launcher.</string>
 <string name="cmd_sleep_help">Pausa Yantra Launcher por los milisegundos especificados.\nUso: 'sleep numOfMilliseconds'\nEjemplo: 'sleep 5000'</string>
 <string name="specify_sleep_in_ms">Por favor, especifica la duración del sueño en milisegundos.</string>
-<string name="sleep_1_param">El comando 'sleep' solo acepta 1 parámetro: la duración del sueño en milisegundos.</string>
+<string name="sleep_1_param">El comando \'sleep\' solo acepta 1 parámetro: la duración del sueño en milisegundos.</string>
 <string name="cmd_speedtest_help">Abre una pequeña utilidad de prueba de velocidad GUI para comprobar tu velocidad de internet, impulsada por openspeedtest.com.</string>
 <string name="loading_speedtest_utility">Cargando utilidad Speedtest...</string>
 <string name="cmd_support_help">Acerca de apoyar a Yantra Launcher.</string>
-<string name="support_no_args">El comando 'support' no acepta ningún argumento. Es un comando amigable... :)</string>
+<string name="support_no_args">El comando \'support\' no acepta ningún argumento. Es un comando amigable... :)</string>
 <string name="support_chunk_1">Yantra Launcher es una herramienta poderosa y gratuita de código abierto para aumentar tu productividad y ser genial. Desarrollar este lanzador y mantenerlo realmente exige muchos esfuerzos, recursos y tiempo invaluable. Si Yantra Launcher ha hecho alguna diferencia positiva en tu vida, te pido que consultes la sección de Soporte en la página de GitHub del proyecto.</string>
 <string name="support_chunk_2">\nRecuerda, Yantra Launcher es completamente gratuito y de código abierto. Puedes apoyar al desarrollador contribuyendo al proyecto, reportando problemas, sugiriendo características y compartiéndolo con tus amigos y familiares.</string>
 <string name="redirecting_to_support_page">:: Redirigiéndote a la sección de Soporte en la página de GitHub del proyecto...</string>
@@ -397,7 +397,7 @@
 <string name="unknown_flag">Bandera desconocida: %1$s</string>
 <string name="cmd_termux_title"><![CDATA[termux <cmd> [args]]]></string>
 <string name="cmd_termux_help">Ejecuta el comando dado en termux si está instalado. Ten en cuenta que la propiedad 'allow-external-apps' debe establecerse en true en ~/.termux/termux.properties en la aplicación Termux y se debe otorgar el permiso RUN_COMMAND desde la página de configuración de Yantra Launcher. Además, la sesión de termux se cierra tan pronto como se termina el comando debido a las restricciones de la API.\nUso: termux cmd_name [args]\nEjemplo: 'termux top -n 5\nPara resolver cualquier problema que aún ocurra, pregunta en la Comunidad Discord o envíame un correo a coderGtm@gmail.com.</string>
-<string name="termux_invalid_cmd">Comando no válido. Consulta 'help termux' para obtener información de uso</string>
+<string name="termux_invalid_cmd">Comando no válido. Consulta \'help termux\' para obtener información de uso</string>
 <string name="grant_termux_permission">¡Necesitas otorgar el permiso de ejecución de comandos de Termux a Yantra Launcher para que este comando funcione!</string>
 <string name="running_command_in_termux">Ejecutando comando en Termux...</string>
 <string name="termux_cmd_error">No se pudo ejecutar el comando en Termux. Error: %1$s</string>
@@ -424,7 +424,7 @@
 <string name="apply">Aplicar</string>
 <string name="cmd_time_title">time [utc] [GMT]</string>
 <string name="cmd_time_help">Muestra la fecha y hora local actual. Utiliza el argumento utc para obtener la hora UTC. Un parámetro opcional de diferencia horaria puede sumar o restar eso de la hora UTC. Ejemplo:\ntime\ntime utc\ntime utc +5:30</string>
-<string name="time_invalid_param">Parámetro no válido proporcionado. Consulta 'help time' para obtener información de uso.</string>
+<string name="time_invalid_param">Parámetro no válido proporcionado. Consulta \'help time\' para obtener información de uso.</string>
 <string name="time_invalid_diff">Diferencia horaria no válida proporcionada. Por favor, proporcione un parámetro correcto. Consulta 'help time' para obtener información de uso.</string>
 <string name="cmd_timer_title">timer [duración] [mensaje]</string>
 <string name="cmd_timer_help">Se utiliza para crear un temporizador de cuenta atrás utilizando la aplicación predeterminada en tu dispositivo. Utilízalo sin argumentos para iniciar la aplicación del temporizador. La duración debe ser en segundos y oscilar entre 1 y 86400 (24 horas). Opcionalmente puede ir seguido de una cadena de mensaje para mostrar en el temporizador.\nEjemplos:\n'timer 60' establece el temporizador en 1 minuto\n'timer 3600 Sacar la basura' establece el temporizador en 1 hora con un mensaje para mostrar.</string>
@@ -434,7 +434,7 @@
 <string name="setting_timer"><![CDATA[=> Configurando el temporizador...]]></string>
 <string name="timer_set_successfully">¡Temporizador configurado con éxito!</string>
 <string name="no_supported_timer_app_found">No se encontró ninguna aplicación de temporizador compatible en tu dispositivo.</string>
-<string name="cmd_todo_help">Una sencilla utilidad TODO. Utiliza 'todo' para obtener la lista de tareas con sus índices y progreso. Añade una tarea como 'todo Salir a caminar a paso ligero'. Marca las tareas como realizadas utilizando su índice devuelto por el comando 'todo', como 'todo 2' marca la tercera tarea como realizada. Utiliza 'todo -1' para borrar la lista.\n\nUtiliza el argumento -p para marcar el progreso opcional de cualquier tarea, como 'todo -p 1 30' marca la segunda tarea como 30% hecha (Sintaxis: todo -p taskIndex progress). Utiliza 'todo -p -1' para restablecer el progreso de todas las tareas.</string>
+<string name="cmd_todo_help">Una sencilla utilidad TODO. Utiliza \'todo\' para obtener la lista de tareas con sus índices y progreso. Añade una tarea como \'todo Salir a caminar a paso ligero\'. Marca las tareas como realizadas utilizando su índice devuelto por el comando \'todo\', como \'todo 2\' marca la tercera tarea como realizada. Utiliza \'todo -1\' para borrar la lista.\n\nUtiliza el argumento -p para marcar el progreso opcional de cualquier tarea, como \'todo -p 1 30\' marca la segunda tarea como 30% hecha (Sintaxis: todo -p taskIndex progress). Utiliza \'todo -p -1\' para restablecer el progreso de todas las tareas.</string>
 <string name="enjoy_nothing_to_do">¡Disfruta! No hay nada que hacer. ¯\(ツ)/¯</string>
 <string name="try_adding_an_item">Prueba a añadir un elemento como: todo Terminar la configuración del servidor del juego</string>
 <string name="todo_list">Lista de tareas:</string>
