@@ -128,7 +128,7 @@
    <string name="suggestions_color">Color de sugerencias</string>
    <string name="internet_speed_test">Prueba de velocidad de Internet</string>
    <string name="loading_please_wait">Cargando...Por favor espere.</string>
-   <string name="cmd_ai_title">ai [mensaje]</string>
+   <string name="cmd_ai_title">ai [mensaje/reset]</string>
    <string name="cmd_ai_help">Una herramienta simple para acceder a ChatGPT desde la terminal. Basado en gpt-3.5-turbo de OpenAI, puedes chatear con tu propio asistente de IA. Se requiere una clave API para ser ingresada en \'settings\'. Este comando no recuerda el contexto, por lo que el modelo no será consciente de tu conversación anterior.</string>
    <string name="ai_msg_missing">Por favor, especifica el mensaje a enviar a la IA.</string>
    <string name="no_ai_api_key_found">Probablemente olvidaste proporcionar una clave API. Por favor, ingrésala en \'settings\'.</string>
@@ -199,8 +199,8 @@
 <string name="cmd_calc_help">Una calculadora incorporada para evaluar expresiones aritméticas. Realiza suma, resta, multiplicación, división, exponenciación (usando el símbolo ^) y algunas funciones básicas como sqrt, sin, cos y tan. Admite la agrupación usando (...), y obtiene las reglas de precedencia y asociatividad del operador correctas.\n\nEjemplo: 'calc ((4 - 2^3 + 1) * -sqrt(33+44)) / 2' da 7.5</string>
 <string name="clac_no_expression">Por favor, especifica una expresión para evaluar.</string>
 <string name="unexpected_char">"Inesperado: "</string>
-<string name="missing_parenthesis">Falta ')'</string>
-<string name="missing_parenthesis_after_arg">Falta ')' después del argumento para %1$s</string>
+<string name="missing_parenthesis">Falta \')\'</string>
+<string name="missing_parenthesis_after_arg">Falta \')\' después del argumento para %1$s</string>
 <string name="clac_unknown_function">Función desconocida: %1$s</string>
 <string name="cmd_call_title">call [nombre | número]</string>
 <string name="cmd_call_help">Llama al nombre de contacto especificado. Si no se encuentra el nombre del contacto, se llama a la entrada sin procesar (considerada como número de teléfono).</string>
@@ -216,7 +216,7 @@
 <string name="cmd_clear_help">Limpia la consola</string>
 <string name="cmd_takes_no_params">El comando '%1$s' no acepta ningún parámetro.</string>
 <string name="cmd_cmdrequest_help">En caso de que quieras que se añadan nuevos comandos a Yantra Launcher, ejecuta este comando para abrir la plantilla de correo electrónico para la solicitud de comandos. Ten en cuenta que no se garantiza que la solicitud de comando sea aceptada, pero haré todo lo posible para ver si puedo acomodarla en las próximas versiones de Yantra Launcher, si es adecuada.</string>
-<string name="cmdrequest_no_args">El comando 'cmdrequest' no acepta ningún parámetro.</string>
+<string name="cmdrequest_no_args">El comando \'cmdrequest\' no acepta ningún parámetro.</string>
 <string name="send_manual_mail_with_title">No se pudo iniciar una aplicación de correo electrónico. Por favor, envía el correo a coderGtm@gmail.com con el título '%1$s'</string>
 <string name="oops">¡Ups!</string>
 <string name="command_request_for_yantra_launcher">Solicitud de comando para Yantra Launcher</string>
