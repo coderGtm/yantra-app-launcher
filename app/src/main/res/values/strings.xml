@@ -128,8 +128,8 @@
     <string name="suggestions_color">Suggestions Color</string>
     <string name="internet_speed_test">Internet Speed Test</string>
     <string name="loading_please_wait">Loading...Please Wait.</string>
-    <string name="cmd_ai_title">ai [message]</string>
-    <string name="cmd_ai_help">A simple tool to access chatGPT from the terminal. Based on OpenAI\'s gpt-3.5-turbo, you can chat with your own AI assistant. An API key is required to be entered in \'settings\'. This command does not remember context, so the model will be unaware of your previous conversation.</string>
+    <string name="cmd_ai_title">ai [message/reset]</string>
+    <string name="cmd_ai_help">A simple tool to access chatGPT from the terminal. Based on OpenAI\'s gpt-3.5-turbo, you can chat with your own AI assistant. An API key is required to be entered in \'settings\'. When you want to erase the message history to save tokens, you can use the \'reset\' message (\'ai reset\').</string>
     <string name="ai_msg_missing">Please specify the message to send to AI.</string>
     <string name="no_ai_api_key_found">You probably forgot to provide an API key. Please enter it in \'settings\'.</string>
     <string name="communicating_with_ai">Communicating with AI...</string>
@@ -221,7 +221,7 @@
     <string name="oops">Oops!</string>
     <string name="command_request_for_yantra_launcher">Command request for Yantra Launcher</string>
     <string name="copied_title_to_clipboard">Copied title to clipboard</string>
-    <string name="cmd_community_help">Redirects to the Discord server of Yantra Launcher. Here you can share and get Feedback, Suggestions, Insights, tips and CLI emotions from other users like you!</string>
+    <string name="cmd_community_help">Redirects to the Discord server of Yantra Launcher. Here you can share and get Feedback, Suggestions, Insights, tips and CLI emotions from other users like you! Use the optional \'discord\' or \'reddit\' parameters to navigate to a specific platform.</string>
     <string name="community_no_args">\'community\' command does not take any parameters.</string>
     <string name="opened_community_discord_server">Opened Community Discord Server</string>
     <string name="cmd_dict_title"><![CDATA[dict [-urban] <word>]]></string>
@@ -519,4 +519,6 @@
     <string name="shortcut_not_supported">Shortcuts are not supported on your device!</string>
     <string name="multiple_shortcuts_found">Multiple shortcuts found</string>
     <string name="multiple_shortcuts_found_with_label_please_select_one">Multiple shortcuts found with name \'%1$s\'. Please select one.</string>
+    <string name="total_tokens_used">Total Tokens used in this conversation: %1$s</string>
+    <string name="ai_reset">AI message history has been reset!</string>
 </resources>

@@ -519,4 +519,6 @@
     <string name="shortcut_not_supported">Shortcuts are not supported on your device!</string>
     <string name="multiple_shortcuts_found">Multiple shortcuts found</string>
     <string name="multiple_shortcuts_found_with_label_please_select_one">Multiple shortcuts found with name \'%1$s\'. Please select one.</string>
+    <string name="total_tokens_used">Total Tokens used in this conversation: %1$s</string>
+    <string name="ai_reset">AI message history has been reset!</string>
 </resources>
