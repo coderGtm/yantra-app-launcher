@@ -128,8 +128,8 @@
     <string name="suggestions_color">Цвет подсказок</string>
     <string name="internet_speed_test">Проверка скорости интернета</string>
     <string name="loading_please_wait">Загрузка... Пожалуйста подождите.</string>
-    <string name="cmd_ai_title">ai [сообщение]</string>
-    <string name="cmd_ai_help">Простой инструмент для доступа к chatGPT из терминала. Основан на gpt-3.5-turbo от OpenAI, что позволяет общаться с собственным ИИ-ассистентом. Требуется ввести API-ключ в \'settings \'. Эта команда не запоминает контекст, поэтому модель будет не знать о вашем предыдущем разговоре.</string>
+    <string name="cmd_ai_title">ai [сообщение/очистка]</string>
+    <string name="cmd_ai_help">Простой инструмент для доступа к chatGPT из терминала. Основан на gpt-3.5-turbo от OpenAI, что позволяет общаться с собственным ИИ-ассистентом. Требуется ввести API-ключ в \'settings \'. Когда вам нужно очистить историю разговора чтобы сохранить токены, вам нужно написать \'reset\' в сообщении (\'ai reset\').</string>
     <string name="ai_msg_missing">Пожалуйста укажите сообщение к AI.</string>
     <string name="no_ai_api_key_found">Вы забыли указать API ключ. Укажите его в разделе \'settings\'.</string>
     <string name="communicating_with_ai">Communicating with AI...</string>
@@ -519,6 +519,6 @@
     <string name="shortcut_not_supported">Ярлыки не поддерживаются на вашем устройстве</string>
     <string name="multiple_shortcuts_found">Найдено несколько ярлыков</string>
     <string name="multiple_shortcuts_found_with_label_please_select_one">Найдено несколько ярлыков с именем \'%1$s\'. Пожалуйста, выберите один.</string>
-    <string name="total_tokens_used">Total Tokens used in this conversation: %1$s</string>
-    <string name="ai_reset">AI message history has been reset!</string>
+    <string name="total_tokens_used">Всего токенов было использовано при разговоре: %1$s</string>
+    <string name="ai_reset">История сообщений с AI очищена!</string>
 </resources>
