@@ -519,6 +519,6 @@
     <string name="shortcut_not_supported">Le scorciatoie non sono supportate sul tuo dispositivo!</string>
     <string name="multiple_shortcuts_found">Trovate più scorciatoie</string>
     <string name="multiple_shortcuts_found_with_label_please_select_one">Trovate più scorciatoie con il nome \'%1$s\'. Si prega di selezionarne una.</string>
-    <string name="total_tokens_used">Token usati in totale: %1$s</string>
-    <string name="ai_reset">La cronologia dei messaggi dell\'IA è stata eliminata!</string>
+    <string name="total_tokens_used">I token usati in totale per questa conversazione sono: %1$s</string>
+    <string name="ai_reset">La cronologi messaggi dell\'IA è stata eliminata!</string>
 </resources>
