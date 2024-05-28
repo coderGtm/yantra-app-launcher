@@ -514,11 +514,11 @@
     <string name="fetching_shortcuts">Recupero delle scorciatoie in corso...</string>
     <string name="found_shortcuts">Trovate %1$d scorciatoie</string>
     <string name="not_shortcut_host">Permesso di Host delle Scorciatoie mancante! È necessario impostare %1$s come launcher predefinito per utilizzare le scorciatoie.</string>
-    <string name="specify_a_shortcut_label">Si prega di specificare un\'etichetta di scorciatoia da avviare!</string>
+    <string name="specify_a_shortcut_label">Si prega di specificare l\'etichetta di scorciatoia da avviare!</string>
     <string name="shortcut_not_found">Scorciatoia \'%1$s\' non trovata. Prova a utilizzare \'elenco scorciatoie\' per ottenere l\'elenco di tutte le scorciatoie.</string>
     <string name="shortcut_not_supported">Le scorciatoie non sono supportate sul tuo dispositivo!</string>
     <string name="multiple_shortcuts_found">Trovate più scorciatoie</string>
     <string name="multiple_shortcuts_found_with_label_please_select_one">Trovate più scorciatoie con il nome \'%1$s\'. Si prega di selezionarne una.</string>
-    <string name="total_tokens_used">Total Tokens used in this conversation: %1$s</string>
-    <string name="ai_reset">AI message history has been reset!</string>
+    <string name="total_tokens_used">I token usati in totale per questa conversazione sono: %1$s</string>
+    <string name="ai_reset">La cronologia messaggi dell\'IA è stata eliminata!</string>
 </resources>
