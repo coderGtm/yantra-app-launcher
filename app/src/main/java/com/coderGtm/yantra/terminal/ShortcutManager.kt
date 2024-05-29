@@ -44,7 +44,7 @@ fun getShortcutList(terminal: Terminal): ArrayList<ShortcutBlock> {
                         terminal.shortcutList.sortBy { it.label }
                     }
                 } catch (e: Exception) {
-                    terminal.output(terminal.activity.getString(R.string.shortcut_list_fetch_error), terminal.theme.errorTextColor, null)
+                    terminal.output("${terminal.activity.getString(R.string.shortcut_list_fetch_error)} (${e.message})", terminal.theme.errorTextColor, null)
                 }
             }
         }
