@@ -2,17 +2,20 @@ package com.coderGtm.yantra.activities
 
 import android.app.Activity
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
+import android.util.Log
 import android.view.KeyEvent
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
@@ -24,9 +27,11 @@ import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.informOfProVersionIfOldUser
 import com.coderGtm.yantra.isPro
+import com.coderGtm.yantra.listeners.TermuxCommandResultReceiver
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
+import com.coderGtm.yantra.services.PluginResultsService
 import com.coderGtm.yantra.setProStatus
 import com.coderGtm.yantra.setWallpaperFromUri
 import com.coderGtm.yantra.terminal.Terminal
@@ -39,6 +44,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     private lateinit var primaryTerminal: Terminal
     private lateinit var app: YantraLauncher
     private lateinit var binding: ActivityMainBinding
+    private lateinit var commandResultReceiver: TermuxCommandResultReceiver
 
     var tts: TextToSpeech? = null
     var ttsTxt = ""
@@ -59,6 +65,18 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         )
         primaryTerminal.initialize()
         informOfProVersionIfOldUser(this@MainActivity)
+
+        commandResultReceiver = TermuxCommandResultReceiver { result ->
+            // Handle the results here
+            primaryTerminal.output(result, primaryTerminal.theme.resultTextColor, null)
+            Log.d("MainActivityTermux", result)
+        }
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+            commandResultReceiver,
+            IntentFilter(PluginResultsService.ACTION_COMMAND_RESULT)
+        )
+        Log.d("MainActivity", "Receiver registered")
 
         onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -86,6 +104,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         Thread {
             requestUpdateIfAvailable(app.preferenceObject, this@MainActivity)
         }.start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(commandResultReceiver)
     }
     override fun onSingleTap() {
         val oneTapKeyboardActivation = app.preferenceObject.getBoolean("oneTapKeyboardActivation",true)
