@@ -157,8 +157,8 @@ class SettingsActivity : AppCompatActivity() {
         binding.usernamePrefix.text = getUserNamePrefix(preferenceObject)
         binding.fontSizeBtn.text = fontSize.toString()
         binding.arrowSizeBtn.text = arrowSize.toString()
-        setOrientationTvText(binding, orientation)
-        setAppSugOrderTvText(binding, appSugOrderingMode)
+        setOrientationTvText(this@SettingsActivity, binding, orientation)
+        setAppSugOrderTvText(this@SettingsActivity, binding, appSugOrderingMode)
         binding.tvFontName.text = fontName
         binding.currentLocale.text = supportedLocales.filterValues { it == appLocale }.keys.firstOrNull() ?: "English"
         binding.prefixLayout.setOnClickListener { openUsernamePrefixSetter(this@SettingsActivity, binding, preferenceObject, preferenceEditObject) }

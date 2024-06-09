@@ -23,35 +23,35 @@ import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallRequest
 import java.util.Locale
 
-fun setOrientationTvText(binding: ActivitySettingsBinding, orientation: Int) {
+fun setOrientationTvText(activity: Activity, binding: ActivitySettingsBinding, orientation: Int) {
     binding.tvOrientation.text = when (orientation) {
         ActivityInfo.SCREEN_ORIENTATION_PORTRAIT -> {
-            "Portrait"
+            activity.getString(R.string.portrait)
         }
         ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE -> {
-            "Landscape"
+            activity.getString(R.string.landscape)
         }
         ActivityInfo.SCREEN_ORIENTATION_USER -> {
-            "System"
+            activity.getString(R.string.system)
         }
         ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR -> {
-            "Full Sensor"
+            activity.getString(R.string.full_sensor)
         }
         else -> {
             "Unspecified"
         }
     }
 }
-fun setAppSugOrderTvText(binding: ActivitySettingsBinding, appSugOrderingMode: Int) {
+fun setAppSugOrderTvText(activity: Activity, binding: ActivitySettingsBinding, appSugOrderingMode: Int) {
     binding.tvAppSugOrder.text = when (appSugOrderingMode) {
         AppSortMode.A_TO_Z.value -> {
-            "Alphabetically"
+            activity.getString(R.string.alphabetically)
         }
         AppSortMode.RECENT.value -> {
-            "Recency"
+            activity.getString(R.string.recency)
         }
         else -> {
-            "Alphabetically"
+            activity.getString(R.string.alphabetically)
         }
     }
 }
