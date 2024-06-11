@@ -8,7 +8,6 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
-import android.util.Log
 import android.view.KeyEvent
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +22,7 @@ import com.canhub.cropper.CropImageView
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
+import com.coderGtm.yantra.commands.termux.handleTermuxResult
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.informOfProVersionIfOldUser
@@ -67,16 +67,12 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         informOfProVersionIfOldUser(this@MainActivity)
 
         commandResultReceiver = TermuxCommandResultReceiver { result ->
-            // Handle the results here
-            primaryTerminal.output(result, primaryTerminal.theme.resultTextColor, null)
-            Log.d("MainActivityTermux", result)
+            handleTermuxResult(result, primaryTerminal)
         }
-
         LocalBroadcastManager.getInstance(this).registerReceiver(
             commandResultReceiver,
             IntentFilter(PluginResultsService.ACTION_COMMAND_RESULT)
         )
-        Log.d("MainActivity", "Receiver registered")
 
         onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
