@@ -23,6 +23,15 @@
         "ideas",
         "maintenance"
       ]
+    },
+    {
+      "login": "axolotl-git",
+      "name": "axolotl-git",
+      "avatar_url": "https://avatars.githubusercontent.com/u/131001318?v=4",
+      "profile": "https://github.com/axolotl-git",
+      "contributions": [
+        "translation"
+      ]
     }
   ]
 }
