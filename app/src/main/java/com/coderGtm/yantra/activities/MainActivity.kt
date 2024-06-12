@@ -31,7 +31,7 @@ import com.coderGtm.yantra.listeners.TermuxCommandResultReceiver
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
-import com.coderGtm.yantra.services.PluginResultsService
+import com.coderGtm.yantra.services.TermuxCommandService
 import com.coderGtm.yantra.setProStatus
 import com.coderGtm.yantra.setWallpaperFromUri
 import com.coderGtm.yantra.terminal.Terminal
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         }
         LocalBroadcastManager.getInstance(this).registerReceiver(
             commandResultReceiver,
-            IntentFilter(PluginResultsService.ACTION_COMMAND_RESULT)
+            IntentFilter(TermuxCommandService.ACTION_COMMAND_RESULT)
         )
 
         onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {

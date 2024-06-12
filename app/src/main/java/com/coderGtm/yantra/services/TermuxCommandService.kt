@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 
-class PluginResultsService : IntentService(PLUGIN_SERVICE_LABEL) {
+class TermuxCommandService : IntentService(PLUGIN_SERVICE_LABEL) {
     override fun onHandleIntent(intent: Intent?) {
         if (intent == null) return
 

@@ -4,14 +4,12 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import android.util.Log
 import androidx.core.app.ActivityCompat
-import androidx.core.content.PackageManagerCompat.LOG_TAG
 import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
-import com.coderGtm.yantra.services.PluginResultsService
+import com.coderGtm.yantra.services.TermuxCommandService
 import com.coderGtm.yantra.terminal.Terminal
 
 
@@ -57,20 +55,20 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 }
 
                 // Create the intent for the IntentService class that should be sent the result by TermuxService
-                val pluginResultsServiceIntent = Intent(
+                val termuxCommandServiceIntent = Intent(
                     terminal.activity,
-                    PluginResultsService::class.java
+                    TermuxCommandService::class.java
                 )
 
 
                 // Generate a unique execution id for this execution command
-                val executionId: Int = PluginResultsService.getNextExecutionId()
+                val executionId: Int = TermuxCommandService.getNextExecutionId()
 
 
                 // Optional put an extra that uniquely identifies the command internally for your app.
                 // This can be an Intent extra as well with more extras instead of just an int.
-                pluginResultsServiceIntent.putExtra(
-                    PluginResultsService.EXTRA_EXECUTION_ID,
+                termuxCommandServiceIntent.putExtra(
+                    TermuxCommandService.EXTRA_EXECUTION_ID,
                     executionId
                 )
 
@@ -84,41 +82,18 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 // will not be able to send more.
                 val pendingIntent = PendingIntent.getService(
                     terminal.activity, executionId,
-                    pluginResultsServiceIntent,
+                    termuxCommandServiceIntent,
                     PendingIntent.FLAG_ONE_SHOT or (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else 0)
                 )
                 intent.putExtra("com.termux.RUN_COMMAND_PENDING_INTENT", pendingIntent)
 
                 try {
-                    /*// Send command intent for execution
-                    Log.d(
-                        LOG_TAG,
-                        "Sending execution command with id $executionId"
-                    )*/
+                    // Send command intent for execution
                     output(terminal.activity.getString(R.string.running_command_in_termux),terminal.theme.successTextColor)
                     terminal.activity.startService(intent)
                 } catch (e: java.lang.Exception) {
-                    /*Log.e(
-                        LOG_TAG,
-                        "Failed to start execution command with id " + executionId + ": " + e.message
-                    )*/
                     output(terminal.activity.getString(R.string.termux_cmd_error, e.message),terminal.theme.errorTextColor)
                 }
-
-
-
-                /*if (intent.resolveActivity(terminal.activity.packageManager) != null) {
-                    output(terminal.activity.getString(R.string.running_command_in_termux),terminal.theme.successTextColor)
-                    try {
-                        terminal.activity.startService(intent)
-                    }
-                    catch (e: Exception) {
-                        output(terminal.activity.getString(R.string.termux_cmd_error, e.message),terminal.theme.errorTextColor)
-                    }
-                }
-                else {
-                    output(terminal.activity.getString(R.string.termux_cmd_error, terminal.activity.getString(R.string.termux_not_installed)),terminal.theme.errorTextColor)
-                }*/
                 return
             }
         }

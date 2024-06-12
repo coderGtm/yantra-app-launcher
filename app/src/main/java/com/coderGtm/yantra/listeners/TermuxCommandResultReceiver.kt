@@ -3,12 +3,12 @@ package com.coderGtm.yantra.listeners
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.coderGtm.yantra.services.PluginResultsService
+import com.coderGtm.yantra.services.TermuxCommandService
 import org.json.JSONObject
 
 class TermuxCommandResultReceiver(private val callback: (JSONObject) -> Unit) : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        val executionId = intent?.getIntExtra(PluginResultsService.EXTRA_EXECUTION_ID, 0)
+        val executionId = intent?.getIntExtra(TermuxCommandService.EXTRA_EXECUTION_ID, 0)
         val stdout = intent?.getStringExtra("stdout")
         val stderr = intent?.getStringExtra("stderr")
         val exitCode = intent?.getIntExtra("exitCode", -1)
