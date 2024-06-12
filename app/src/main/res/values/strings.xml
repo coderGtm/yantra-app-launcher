@@ -396,7 +396,7 @@
     <string name="cmd_sysinfo_help">Displays system information, much like \'Neofetch\'</string>
     <string name="unknown_flag">Unknown flag: %1$s</string>
     <string name="cmd_termux_title"><![CDATA[termux <cmd> [args]]]></string>
-    <string name="cmd_termux_help">Runs given command in termux if it is installed. Note that the \'allow-external-apps\' property must be set to true in ~/.termux/termux.properties in Termux app and RUN_COMMAND permission must be given from Yantra Launcher\'s settings page. Also, termux session is closed as soon as command is terminated due to API restrictions.\nUsage: termux cmd_name [args]\nExample: \'termux top -n 5\nTo resolve any issues still occurring, ask in Discord Community or mail me at coderGtm@gmail.com.</string>
+    <string name="cmd_termux_help">Runs given command in termux if it is installed and logs the stdout generated. Note that the \'allow-external-apps\' property must be set to true in ~/.termux/termux.properties in Termux app and RUN_COMMAND permission must be given from Yantra Launcher\'s settings page. Also, the result is returned only after the command is fully executed (exited) due to API restrictions.\nUsage: termux cmd_name [args]\nExample: \'termux echo Hello from Termux\'\nTo resolve any issues still occurring, ask in Discord Community or mail me at coderGtm@gmail.com.</string>
     <string name="termux_invalid_cmd">Invalid command. See \'help termux\' for usage info</string>
     <string name="grant_termux_permission">You need to grant the Termux Run Command Permission to Yantra Launcher for this command to work!</string>
     <string name="running_command_in_termux">Running command in Termux...</string>
