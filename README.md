@@ -32,6 +32,17 @@ See the [FAQs Page](/faq.md) for answers to Frequently Asked Questions!
 ## Support
 See the [Support Page](/support.md) if you'd like to support the project.
 
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 ***LIVE THE CLI EXPERIENCE :heart_eyes:***
 
 ![yantra-genai](https://github.com/coderGtm/yantra-app-launcher/assets/66418526/e721cdc3-f925-4b31-8b47-a8cba6fd7a63)
