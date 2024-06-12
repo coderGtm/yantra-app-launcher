@@ -10,7 +10,8 @@ import com.coderGtm.yantra.models.ShortcutBlock
 
 fun getShortcutList(terminal: Terminal): ArrayList<ShortcutBlock> {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
-        return terminal.shortcutList
+        // return empty list if the device is not running Android 7.1 or higher
+        return ArrayList()
     }
     val alreadyFetched = terminal.shortcutListFetched
     terminal.shortcutListFetched = false
