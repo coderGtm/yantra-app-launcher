@@ -40,7 +40,7 @@ See the [Support Page](/support.md) if you'd like to support the project.
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/coderGtm"><img src="https://avatars.githubusercontent.com/u/66418526?v=4?s=100" width="100px;" alt="Gautam Mehta"/><br /><sub><b>Gautam Mehta</b></sub></a><br /><a href="#code-coderGtm" title="Code">💻</a> <a href="#review-coderGtm" title="Reviewed Pull Requests">👀</a> <a href="#research-coderGtm" title="Research">🔬</a> <a href="#projectManagement-coderGtm" title="Project Management">📆</a> <a href="#doc-coderGtm" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/coderGtm"><img src="https://avatars.githubusercontent.com/u/66418526?v=4?s=100" width="100px;" alt="Gautam Mehta"/><br /><sub><b>Gautam Mehta</b></sub></a><br /><a href="#code-coderGtm" title="Code">💻</a> <a href="#review-coderGtm" title="Reviewed Pull Requests">👀</a> <a href="#research-coderGtm" title="Research">🔬</a> <a href="#projectManagement-coderGtm" title="Project Management">📆</a> <a href="#doc-coderGtm" title="Documentation">📖</a> <a href="#design-coderGtm" title="Design">🎨</a></td>
     </tr>
   </tbody>
 </table>
