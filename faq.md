@@ -8,7 +8,7 @@ Ensure that termux is installed on your device. Follow the steps below to integr
 1. Open Yantra Launcher.
 2. Type any termux command to invoke the Permission Dialog. For example, enter
    ```
-   termux top
+   termux ls
    ```
 3. Click on **Allow** in the permission dialog.
 4. Now, manually launch the termux app. You can do it via the following Yantra Launcher command:
