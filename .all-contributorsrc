@@ -1,4 +1,21 @@
 {
   "projectName": "yantra-app-launcher",
-  "projectOwner": "coderGtm"
+  "projectOwner": "coderGtm",
+  "files": [
+    "README.md"
+  ],
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributors": [
+    {
+      "login": "coderGtm",
+      "name": "Gautam Mehta",
+      "avatar_url": "https://avatars.githubusercontent.com/u/66418526?v=4",
+      "profile": "https://github.com/coderGtm",
+      "contributions": [
+        "code"
+      ]
+    }
+  ]
 }
