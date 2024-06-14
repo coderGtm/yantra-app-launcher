@@ -2,9 +2,11 @@ package com.coderGtm.yantra.commands.run
 
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.blueprints.LuaExecutor
 import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
+import com.google.android.material.button.MaterialButton
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -20,8 +22,20 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
         if (args.size > 2) {
-            output(terminal.activity.getString(R.string.run_only_one_param), terminal.theme.errorTextColor)
-            return
+            if (args[1].trim() == "-lua") {
+                if (args.size > 3) {
+                    terminal.output("invalid usage", terminal.theme.errorTextColor, null)
+                    return
+                }
+                val luaScriptName = args[2].trim()
+                val scriptBody = terminal.preferenceObject.getString("script_$luaScriptName","") ?: ""
+                val luaExecutor = LuaExecutor(luaScriptName, terminal)
+
+                Thread {
+                    luaExecutor.execute(scriptBody)
+                }.start()
+                return
+            }
         }
         val rcvdScriptName = args[1]
         val scripts = getScripts(terminal.preferenceObject)
