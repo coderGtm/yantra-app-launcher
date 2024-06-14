@@ -32,6 +32,25 @@ See the [FAQs Page](/faq.md) for answers to Frequently Asked Questions!
 ## Support
 See the [Support Page](/support.md) if you'd like to support the project.
 
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/coderGtm"><img src="https://avatars.githubusercontent.com/u/66418526?v=4?s=100" width="100px;" alt="Gautam Mehta"/><br /><sub><b>Gautam Mehta</b></sub></a><br /><a href="#code-coderGtm" title="Code">💻</a> <a href="#review-coderGtm" title="Reviewed Pull Requests">👀</a> <a href="#research-coderGtm" title="Research">🔬</a> <a href="#projectManagement-coderGtm" title="Project Management">📆</a> <a href="#doc-coderGtm" title="Documentation">📖</a> <a href="#design-coderGtm" title="Design">🎨</a> <a href="#ideas-coderGtm" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-coderGtm" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/axolotl-git"><img src="https://avatars.githubusercontent.com/u/131001318?v=4?s=100" width="100px;" alt="axolotl-git"/><br /><sub><b>axolotl-git</b></sub></a><br /><a href="#translation-axolotl-git" title="Translation">🌍</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 ***LIVE THE CLI EXPERIENCE :heart_eyes:***
 
 ![yantra-genai](https://github.com/coderGtm/yantra-app-launcher/assets/66418526/e721cdc3-f925-4b31-8b47-a8cba6fd7a63)
