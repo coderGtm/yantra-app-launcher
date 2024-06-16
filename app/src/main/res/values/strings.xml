@@ -493,7 +493,7 @@
     <string name="weather_min_c_f"><![CDATA[=> Min: %1$d°C (%2$d°F)]]></string>
     <string name="weather_max_c_f"><![CDATA[=> Max: %1$d°C (%2$d°F)]]></string>
     <string name="weather_humidity"><![CDATA[=> Humidity: %1$s%%]]></string>
-    <string name="weather_wind_kmph"><![CDATA[=> Wind: %1$d kmph]]></string>
+    <string name="weather_wind_kmph"><![CDATA[=> Wind: %1$d kmph (%2d mph)]]></string>
     <string name="package_removed"><![CDATA[==> Package removed: %1$s]]></string>
     <string name="specify_a_package_name">Please specify an app package name!</string>
     <string name="yantra_launcher_has_been_trimmed">Yantra Launcher has been trimmed!</string>

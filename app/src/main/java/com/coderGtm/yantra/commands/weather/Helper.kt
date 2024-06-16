@@ -23,7 +23,7 @@ fun handleResponse(response: String, command: Command, location: String) {
     command.output(command.terminal.activity.getString(R.string.weather_min_c_f, minTemp.toFloat().roundToInt() - 273, minTemp.toFloat().roundToInt().minus(273) * 9/5 +32))
     command.output(command.terminal.activity.getString(R.string.weather_max_c_f, maxTemp.toFloat().roundToInt() - 273, maxTemp.toFloat().roundToInt().minus(273 ) * 9/5 +32))
     command.output(command.terminal.activity.getString(R.string.weather_humidity, humidity))
-    command.output(command.terminal.activity.getString(R.string.weather_wind_kmph, (windSpeed * 3.6).roundToInt()))
+    command.output(command.terminal.activity.getString(R.string.weather_wind_kmph, (windSpeed * 3.6).roundToInt(), (windSpeed*2.23694).roundToInt()))
     command.output("-------------------------")
 }
 

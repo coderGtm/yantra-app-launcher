@@ -493,7 +493,7 @@
     <string name="weather_min_c_f"><![CDATA[=> Мин: %1$d°C (%2$d°F)]]></string>
     <string name="weather_max_c_f"><![CDATA[=> Макс: %1$d°C (%2$d°F)]]></string>
     <string name="weather_humidity"><![CDATA[=> Влажность: %1$s%%]]></string>
-    <string name="weather_wind_kmph"><![CDATA[=> Ветер: %1$d км/ч]]></string>
+    <string name="weather_wind_kmph"><![CDATA[=> Ветер: %1$d км/ч (%2d mph)]]></string>
     <string name="package_removed"><![CDATA[==> Пакет удален: %1$s]]></string>
     <string name="specify_a_package_name">Пожалуйста, укажите имя пакета!</string>
     <string name="yantra_launcher_has_been_trimmed">Yantra Launcher была обрезана!</string>
