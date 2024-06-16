@@ -1,4 +1,4 @@
-package com.coderGtm.yantra.blueprints
+package com.coderGtm.yantra
 
 import com.coderGtm.yantra.commands.run.requestInput
 import com.coderGtm.yantra.terminal.Terminal
@@ -22,10 +22,12 @@ class LuaExecutor(private val scriptName: String, private val terminal: Terminal
 
     private val globals: Globals = JsePlatform.standardGlobals()
     private var luaThread: Thread? = null
+    private val binding: LuaBinding = LuaBinding(terminal)
 
     init {
         globals.set("print", PrintFunction())
         globals.set("input", InputFunction())
+        globals.set("binding", binding)
     }
 
     fun execute(luaCode: String) {
