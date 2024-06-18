@@ -344,7 +344,7 @@
     <string name="cmd_quote_help">Displays a random quote! What else do you expect?</string>
     <string name="cmd_reset_help">Restarts the console (Launcher) completely.</string>
     <string name="cmd_run_title">run script_name</string>
-    <string name="cmd_run_help">Used to run your custom scripts.</string>
+    <string name="cmd_run_help">Used to run your custom scripts. Use the \'-lua\' flag to run the script as Lua code.</string>
     <string name="specify_script_to_run">Please specify a script name to run.</string>
     <string name="run_only_one_param">\'run\' command takes only 1 parameter: The script name to run.</string>
     <string name="script_not_found">Script \'%1$s\' is not defined. Use \'scripts\' command to create your own Yantra Scripts.</string>
@@ -358,7 +358,7 @@
     <string name="todays_screen_time">Today\'s Screen Time: %1$s</string>
     <string name="no_apps_found">No apps found.</string>
     <string name="less_than_1_minute">Less than 1 minute</string>
-    <string name="cmd_scripts_help">Opens dialog for creating, modifying and deleting custom scripts for Yantra Launcher, to execute multiple commands at once. Also see the \'run\' command.</string>
+    <string name="cmd_scripts_help">Opens dialog for creating, modifying and deleting custom scripts for Yantra Launcher, to execute multiple commands at once. Scripts can have Yantra Launcher commands in it. But you can also create exclusive Lua scripts for extended functionality. If you are using Lua code, you can even call Yantra Launcher commands from the script using the binding.exec() function.\nExample: \'binding.exec("text Scripts are cool!")\'. Also see the \'run\' command.</string>
     <string name="opening_yantra_scripts">Opening Yantra Scripts...</string>
     <string name="yantra_scripts">Yantra Scripts</string>
     <string name="scripts_disclaimer">View, Edit or Delete this script. Note: Enter 1 command per line, just as you normally enter in the Yantra terminal.</string>
