@@ -521,7 +521,7 @@
     <string name="multiple_shortcuts_found_with_label_please_select_one">Trovate più scorciatoie con il nome \'%1$s\'. Si prega di selezionarne una.</string>
     <string name="total_tokens_used">I token usati in totale per questa conversazione sono: %1$s</string>
     <string name="ai_reset">La cronologia messaggi dell\'IA è stata eliminata!</string>
-    <string name="weather_feels_like_c_f"><![CDATA[=> Feels like: %1$.1f°C (%2$.1f°F)]]></string>
-    <string name="precipitation_chance"><![CDATA[=> Precipitation chances: %1$d%%]]></string>
-    <string name="snow_chance"><![CDATA[=> Snow chances: %1$d%%]]></string>
+    <string name="weather_feels_like_c_f"><![CDATA[=> Temperatura percepita: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="precipitation_chance"><![CDATA[=> Possibilità che piova: %1$d%%]]></string>
+    <string name="snow_chance"><![CDATA[=> Possibilità che nevichi: %1$d%%]]></string>
 </resources>
