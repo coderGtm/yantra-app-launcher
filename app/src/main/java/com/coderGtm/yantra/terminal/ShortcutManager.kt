@@ -10,7 +10,8 @@ import com.coderGtm.yantra.models.ShortcutBlock
 
 fun getShortcutList(terminal: Terminal): ArrayList<ShortcutBlock> {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
-        return terminal.shortcutList
+        // return empty list if the device is not running Android 7.1 or higher
+        return ArrayList()
     }
     val alreadyFetched = terminal.shortcutListFetched
     terminal.shortcutListFetched = false
@@ -44,6 +45,10 @@ fun getShortcutList(terminal: Terminal): ArrayList<ShortcutBlock> {
                         terminal.shortcutList.sortBy { it.label }
                     }
                 } catch (e: Exception) {
+                    // if samnsung secure folder access error occurs, ignore it
+                    if (e.message?.contains("User 150 is locked") == true) {
+                        continue
+                    }
                     terminal.output("${terminal.activity.getString(R.string.shortcut_list_fetch_error)} (${e.message})", terminal.theme.errorTextColor, null)
                 }
             }

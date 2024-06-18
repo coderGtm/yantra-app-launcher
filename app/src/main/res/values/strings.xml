@@ -115,7 +115,7 @@
     <string name="no_thanks">No thanks</string>
     <string name="we_d_miss_you">We\'d miss you!\n༼☯﹏☯༽</string>
     <string name="crash_title">An unexpected error has occurred!</string>
-    <string name="crash_message">Sorry, Yantra Launcher seems to have crashed! Please send a report to the developer to help debug the crash. Pressing Ok will take yo to your email client.</string>
+    <string name="crash_message">Sorry, Yantra Launcher seems to have crashed! Please send a report to the developer to help debug the crash. Pressing Ok will take you to your email client.</string>
     <string name="crash_comment_prompt">You can add an optional comment here to describe the crash:</string>
     <string name="background_color">Background Color</string>
     <string name="pick_color">Pick Color</string>
@@ -344,7 +344,7 @@
     <string name="cmd_quote_help">Displays a random quote! What else do you expect?</string>
     <string name="cmd_reset_help">Restarts the console (Launcher) completely.</string>
     <string name="cmd_run_title">run script_name</string>
-    <string name="cmd_run_help">Used to run your custom scripts.</string>
+    <string name="cmd_run_help">Used to run your custom scripts. Use the \'-lua\' flag to run the script as Lua code.</string>
     <string name="specify_script_to_run">Please specify a script name to run.</string>
     <string name="run_only_one_param">\'run\' command takes only 1 parameter: The script name to run.</string>
     <string name="script_not_found">Script \'%1$s\' is not defined. Use \'scripts\' command to create your own Yantra Scripts.</string>
@@ -358,7 +358,7 @@
     <string name="todays_screen_time">Today\'s Screen Time: %1$s</string>
     <string name="no_apps_found">No apps found.</string>
     <string name="less_than_1_minute">Less than 1 minute</string>
-    <string name="cmd_scripts_help">Opens dialog for creating, modifying and deleting custom scripts for Yantra Launcher, to execute multiple commands at once. Also see the \'run\' command.</string>
+    <string name="cmd_scripts_help">Opens dialog for creating, modifying and deleting custom scripts for Yantra Launcher, to execute multiple commands at once. Scripts can have Yantra Launcher commands in it. But you can also create exclusive Lua scripts for extended functionality. If you are using Lua code, you can even call Yantra Launcher commands from the script using the binding.exec() function.\nExample: \'binding.exec("text Scripts are cool!")\'. Also see the \'run\' command.</string>
     <string name="opening_yantra_scripts">Opening Yantra Scripts...</string>
     <string name="yantra_scripts">Yantra Scripts</string>
     <string name="scripts_disclaimer">View, Edit or Delete this script. Note: Enter 1 command per line, just as you normally enter in the Yantra terminal.</string>
@@ -396,7 +396,7 @@
     <string name="cmd_sysinfo_help">Displays system information, much like \'Neofetch\'</string>
     <string name="unknown_flag">Unknown flag: %1$s</string>
     <string name="cmd_termux_title"><![CDATA[termux <cmd> [args]]]></string>
-    <string name="cmd_termux_help">Runs given command in termux if it is installed. Note that the \'allow-external-apps\' property must be set to true in ~/.termux/termux.properties in Termux app and RUN_COMMAND permission must be given from Yantra Launcher\'s settings page. Also, termux session is closed as soon as command is terminated due to API restrictions.\nUsage: termux cmd_name [args]\nExample: \'termux top -n 5\nTo resolve any issues still occurring, ask in Discord Community or mail me at coderGtm@gmail.com.</string>
+    <string name="cmd_termux_help">Runs given command in termux if it is installed and logs the stdout generated. Note that the \'allow-external-apps\' property must be set to true in ~/.termux/termux.properties in Termux app and RUN_COMMAND permission must be given from Yantra Launcher\'s settings page. Also, the result is returned only after the command is fully executed (exited) due to API restrictions.\nUsage: termux cmd_name [args]\nExample: \'termux echo Hello from Termux\'\nTo resolve any issues still occurring, ask in Discord Community or mail me at coderGtm@gmail.com.</string>
     <string name="termux_invalid_cmd">Invalid command. See \'help termux\' for usage info</string>
     <string name="grant_termux_permission">You need to grant the Termux Run Command Permission to Yantra Launcher for this command to work!</string>
     <string name="running_command_in_termux">Running command in Termux...</string>
@@ -489,11 +489,11 @@
     <string name="you_would_need_a_web_browser_to_open_this_url">You would need a web browser to open this URL, which I couldn\'t find on your device :|</string>
     <string name="web_tip">TIP: If you don\'t want to install a full-fledged web browser, you can use the \'gupt\' command to open the URL in a private browsing session, built into Yantra Launcher.</string>
     <string name="something_went_wrong_while_opening_the_url">Something went wrong while opening the URL :(</string>
-    <string name="weather_temperature_c_f"><![CDATA[=> Temperature: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_min_c_f"><![CDATA[=> Min: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_max_c_f"><![CDATA[=> Max: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_humidity"><![CDATA[=> Humidity: %1$s%%]]></string>
-    <string name="weather_wind_kmph"><![CDATA[=> Wind: %1$d kmph]]></string>
+    <string name="weather_temperature_c_f"><![CDATA[=> Temperature: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_min_c_f"><![CDATA[=> Min: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_max_c_f"><![CDATA[=> Max: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_humidity"><![CDATA[=> Humidity: %1$d%%]]></string>
+    <string name="weather_wind"><![CDATA[=> Wind: %1$.1f kph (%2$.1f mph) %3$s]]></string>
     <string name="package_removed"><![CDATA[==> Package removed: %1$s]]></string>
     <string name="specify_a_package_name">Please specify an app package name!</string>
     <string name="yantra_launcher_has_been_trimmed">Yantra Launcher has been trimmed!</string>
@@ -521,4 +521,7 @@
     <string name="multiple_shortcuts_found_with_label_please_select_one">Multiple shortcuts found with name \'%1$s\'. Please select one.</string>
     <string name="total_tokens_used">Total Tokens used in this conversation: %1$s</string>
     <string name="ai_reset">AI message history has been reset!</string>
+    <string name="weather_feels_like_c_f"><![CDATA[=> Feels like: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="precipitation_chance"><![CDATA[=> Precipitation chances: %1$d%%]]></string>
+    <string name="snow_chance"><![CDATA[=> Snow chances: %1$d%%]]></string>
 </resources>

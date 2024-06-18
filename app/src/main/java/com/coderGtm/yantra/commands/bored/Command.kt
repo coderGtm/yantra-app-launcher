@@ -22,7 +22,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output(terminal.activity.getString(R.string.bored_no_args), terminal.theme.errorTextColor)
             return
         }
-        val url = "https://www.boredapi.com/api/activity/"
+        val url = "https://bored-api.appbrewery.com/random"
         val queue = Volley.newRequestQueue(terminal.activity)
         val stringRequest = StringRequest(
             Request.Method.GET, url,

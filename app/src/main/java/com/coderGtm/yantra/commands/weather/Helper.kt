@@ -7,23 +7,45 @@ import com.coderGtm.yantra.R
 import org.json.JSONObject
 import kotlin.math.roundToInt
 
-fun handleResponse(response: String, command: Command, location: String) {
+fun handleResponse(response: String, command: Command) {
     command.output("-------------------------")
-    command.output(command.terminal.activity.getString(R.string.weather_report_of, location), command.terminal.theme.successTextColor, Typeface.BOLD)
     val json = JSONObject(response)
-    val weather = json.getJSONArray("weather").getJSONObject(0).getString("main")
-    val temp = json.getJSONObject("main").getString("temp")
-    val minTemp = json.getJSONObject("main").getString("temp_min")
-    val maxTemp = json.getJSONObject("main").getString("temp_max")
-    val humidity = json.getJSONObject("main").getString("humidity")
-    val windSpeed = json.getJSONObject("wind").getString("speed").toFloat()
-    val tempC = temp.toFloat().roundToInt() - 273
-    command.output("=> $weather")
-    command.output(command.terminal.activity.getString(R.string.weather_temperature_c_f, tempC, tempC*9/5 +32))
-    command.output(command.terminal.activity.getString(R.string.weather_min_c_f, minTemp.toFloat().roundToInt() - 273, minTemp.toFloat().roundToInt().minus(273) * 9/5 +32))
-    command.output(command.terminal.activity.getString(R.string.weather_max_c_f, maxTemp.toFloat().roundToInt() - 273, maxTemp.toFloat().roundToInt().minus(273 ) * 9/5 +32))
-    command.output(command.terminal.activity.getString(R.string.weather_humidity, humidity))
-    command.output(command.terminal.activity.getString(R.string.weather_wind_kmph, (windSpeed * 3.6).roundToInt()))
+    val weather_location = json.getJSONObject("location").getString("name") + ", " + json.getJSONObject("location").getString("country")
+    val current = json.getJSONObject("current")
+    val condition = current.getJSONObject("condition").getString("text")
+    val temp_c = current.getDouble("temp_c")
+    val temp_f = current.getDouble("temp_f")
+    val feelslike_c = current.getDouble("feelslike_c")
+    val feelslike_f = current.getDouble("feelslike_f")
+    val wind_kph = current.getDouble("wind_kph")
+    val wind_mph = current.getDouble("wind_mph")
+    val wind_dir = current.getString("wind_dir")
+    val humidity = current.getDouble("humidity")
+    val forecast = json.getJSONObject("forecast")
+    val forecastDay = forecast.getJSONArray("forecastday").getJSONObject(0)
+    val day = forecastDay.getJSONObject("day")
+    val maxtemp_c = day.getDouble("maxtemp_c")
+    val mintemp_c = day.getDouble("mintemp_c")
+    val maxtemp_f = day.getDouble("maxtemp_f")
+    val mintemp_f = day.getDouble("mintemp_f")
+    val will_it_rain = day.getInt("daily_will_it_rain")
+    val will_it_snow = day.getInt("daily_will_it_snow")
+    val precipitation_chance = day.getInt("daily_chance_of_rain")
+    val snow_chance = day.getInt("daily_chance_of_snow")
+    command.output(command.terminal.activity.getString(R.string.weather_report_of, weather_location), command.terminal.theme.successTextColor, Typeface.BOLD)
+    command.output("=> $condition")
+    command.output(command.terminal.activity.getString(R.string.weather_temperature_c_f, temp_c, temp_f))
+    command.output(command.terminal.activity.getString(R.string.weather_feels_like_c_f, feelslike_c, feelslike_f))
+    command.output(command.terminal.activity.getString(R.string.weather_min_c_f, mintemp_c, mintemp_f))
+    command.output(command.terminal.activity.getString(R.string.weather_max_c_f, maxtemp_c, maxtemp_f))
+    command.output(command.terminal.activity.getString(R.string.weather_humidity, humidity.roundToInt()))
+    command.output(command.terminal.activity.getString(R.string.weather_wind, wind_kph, wind_mph, wind_dir))
+    if (will_it_rain == 1) {
+        command.output(command.terminal.activity.getString(R.string.precipitation_chance, precipitation_chance))
+    }
+    if (will_it_snow == 1) {
+        command.output(command.terminal.activity.getString(R.string.snow_chance, snow_chance))
+    }
     command.output("-------------------------")
 }
 
@@ -31,8 +53,7 @@ fun handleError(error: VolleyError, command: Command) {
     if (error is NoConnectionError) {
         command.output(command.terminal.activity.getString(R.string.no_internet_connection), command.terminal.theme.errorTextColor)
     }
-    //handle 404 error
-    else if (error.networkResponse.statusCode == 404) {
+    else if (error.networkResponse.statusCode == 400) {
         command.output(command.terminal.activity.getString(R.string.location_not_found), command.terminal.theme.warningTextColor)
     }
     else {

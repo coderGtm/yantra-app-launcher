@@ -6,17 +6,15 @@ import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 
-class PluginResultsService : IntentService(PLUGIN_SERVICE_LABEL) {
+class TermuxCommandService : IntentService(PLUGIN_SERVICE_LABEL) {
     override fun onHandleIntent(intent: Intent?) {
         if (intent == null) return
-
-        Log.d(LOG_TAG, PLUGIN_SERVICE_LABEL + " received execution result 1")
 
         val resultBundle = intent.getBundleExtra("result")
         if (resultBundle == null) {
             Log.e(
                 LOG_TAG,
-                ("The intent does not contain the result bundle at the \"" + "result").toString() + "\" key."
+                ("The intent does not contain the result bundle at the \"" + "result") + "\" key."
             )
             return
         }
@@ -29,7 +27,7 @@ class PluginResultsService : IntentService(PLUGIN_SERVICE_LABEL) {
         val errCode = resultBundle.getInt("err")
         val errmsg = resultBundle.getString("errmsg", "")
 
-        Log.d(LOG_TAG, "Broadcasting command result for execution id $executionId")
+        //Log.d(LOG_TAG, "Broadcasting command result for execution id $executionId")
 
         val resultIntent = Intent(ACTION_COMMAND_RESULT).apply {
             putExtra(EXTRA_EXECUTION_ID, executionId)
