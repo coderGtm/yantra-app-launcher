@@ -489,11 +489,11 @@
     <string name="you_would_need_a_web_browser_to_open_this_url">Вам понадобится веб-браузер, чтобы открыть этот URL-адрес, который я не нашел на вашем устройстве :|</string>
     <string name="web_tip">СОВЕТ: Если вы не хотите устанавливать полноценный веб-браузер, вы можете использовать команду \'gupt\', чтобы открыть URL в приватной сессии браузера, встроенной в Yantra Launcher.</string>
     <string name="something_went_wrong_while_opening_the_url">Что-то пошло не так при открытии URL :(</string>
-    <string name="weather_temperature_c_f"><![CDATA[=> Температура: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_min_c_f"><![CDATA[=> Мин: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_max_c_f"><![CDATA[=> Макс: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_humidity"><![CDATA[=> Влажность: %1$s%%]]></string>
-    <string name="weather_wind_kmph"><![CDATA[=> Ветер: %1$d км/ч (%2d mph)]]></string>
+    <string name="weather_temperature_c_f"><![CDATA[=> Температура: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_min_c_f"><![CDATA[=> Мин: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_max_c_f"><![CDATA[=> Макс: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_humidity"><![CDATA[=> Влажность: %1$d%%]]></string>
+    <string name="weather_wind"><![CDATA[=> Ветер: %1$.1f км/ч (%2$.1f mph) %3$s]]></string>
     <string name="package_removed"><![CDATA[==> Пакет удален: %1$s]]></string>
     <string name="specify_a_package_name">Пожалуйста, укажите имя пакета!</string>
     <string name="yantra_launcher_has_been_trimmed">Yantra Launcher была обрезана!</string>
@@ -521,4 +521,7 @@
     <string name="multiple_shortcuts_found_with_label_please_select_one">Найдено несколько ярлыков с именем \'%1$s\'. Пожалуйста, выберите один.</string>
     <string name="total_tokens_used">Всего токенов было использовано при разговоре: %1$s</string>
     <string name="ai_reset">История сообщений с AI очищена!</string>
+    <string name="weather_feels_like_c_f"><![CDATA[=> Feels like: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="precipitation_chance"><![CDATA[=> Precipitation chances: %1$d%%]]></string>
+    <string name="snow_chance"><![CDATA[=> Snow chances: %1$d%%]]></string>
 </resources>

@@ -489,11 +489,11 @@
     <string name="you_would_need_a_web_browser_to_open_this_url">Avresti bisogno di un browser web per aprire questo URL, che non sono riuscito a trovare sul tuo dispositivo :|</string>
     <string name="web_tip">SUGGERIMENTO: Se non vuoi installare un browser web completo, puoi usare il comando \'gupt\' per aprire l\'URL in una sessione di navigazione privata, integrata in Yantra Launcher.</string>
     <string name="something_went_wrong_while_opening_the_url">Qualcosa è andato storto durante l\'apertura dell\'URL :(</string>
-    <string name="weather_temperature_c_f"><![CDATA[=> Temperatura: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_min_c_f"><![CDATA[=> Min: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_max_c_f"><![CDATA[=> Max: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_humidity"><![CDATA[=> Umidità: %1$s%%]]></string>
-    <string name="weather_wind_kmph"><![CDATA[=> Vento: %1$d km/h (%2d mph)]]></string>
+    <string name="weather_temperature_c_f"><![CDATA[=> Temperatura: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_min_c_f"><![CDATA[=> Min: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_max_c_f"><![CDATA[=> Max: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_humidity"><![CDATA[=> Umidità: %1$d%%]]></string>
+    <string name="weather_wind"><![CDATA[=> Vento: %1$.1f km/h (%2$.1f mph) %3$s]]></string>
     <string name="package_removed"><![CDATA[==> Pacchetto rimosso: %1$s]]></string>
     <string name="specify_a_package_name">Per favore, specifica il nome del pacchetto dell\'app!</string>
     <string name="yantra_launcher_has_been_trimmed">Yantra Launcher è stato semplificato!</string>
@@ -521,4 +521,7 @@
     <string name="multiple_shortcuts_found_with_label_please_select_one">Trovate più scorciatoie con il nome \'%1$s\'. Si prega di selezionarne una.</string>
     <string name="total_tokens_used">I token usati in totale per questa conversazione sono: %1$s</string>
     <string name="ai_reset">La cronologia messaggi dell\'IA è stata eliminata!</string>
+    <string name="weather_feels_like_c_f"><![CDATA[=> Feels like: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="precipitation_chance"><![CDATA[=> Precipitation chances: %1$d%%]]></string>
+    <string name="snow_chance"><![CDATA[=> Snow chances: %1$d%%]]></string>
 </resources>
