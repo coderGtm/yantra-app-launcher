@@ -28,6 +28,8 @@ fun handleResponse(response: String, command: Command) {
     val mintemp_c = day.getDouble("mintemp_c")
     val maxtemp_f = day.getDouble("maxtemp_f")
     val mintemp_f = day.getDouble("mintemp_f")
+    val will_it_rain = day.getInt("daily_will_it_rain")
+    val will_it_snow = day.getInt("daily_will_it_snow")
     val precipitation_chance = day.getInt("daily_chance_of_rain")
     val snow_chance = day.getInt("daily_chance_of_snow")
     command.output(command.terminal.activity.getString(R.string.weather_report_of, weather_location), command.terminal.theme.successTextColor, Typeface.BOLD)
@@ -38,10 +40,10 @@ fun handleResponse(response: String, command: Command) {
     command.output(command.terminal.activity.getString(R.string.weather_max_c_f, maxtemp_c, maxtemp_f))
     command.output(command.terminal.activity.getString(R.string.weather_humidity, humidity.roundToInt()))
     command.output(command.terminal.activity.getString(R.string.weather_wind, wind_kph, wind_mph, wind_dir))
-    if (precipitation_chance > 0) {
+    if (will_it_rain == 1) {
         command.output(command.terminal.activity.getString(R.string.precipitation_chance, precipitation_chance))
     }
-    if (snow_chance > 0) {
+    if (will_it_snow == 1) {
         command.output(command.terminal.activity.getString(R.string.snow_chance, snow_chance))
     }
     command.output("-------------------------")
