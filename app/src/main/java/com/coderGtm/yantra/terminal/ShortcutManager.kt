@@ -45,6 +45,10 @@ fun getShortcutList(terminal: Terminal): ArrayList<ShortcutBlock> {
                         terminal.shortcutList.sortBy { it.label }
                     }
                 } catch (e: Exception) {
+                    // if samnsung secure folder access error occurs, ignore it
+                    if (e.message?.contains("User 150 is locked") == true) {
+                        continue
+                    }
                     terminal.output("${terminal.activity.getString(R.string.shortcut_list_fetch_error)} (${e.message})", terminal.theme.errorTextColor, null)
                 }
             }
