@@ -115,7 +115,7 @@
     <string name="no_thanks">No thanks</string>
     <string name="we_d_miss_you">We\'d miss you!\n༼☯﹏☯༽</string>
     <string name="crash_title">An unexpected error has occurred!</string>
-    <string name="crash_message">Sorry, Yantra Launcher seems to have crashed! Please send a report to the developer to help debug the crash. Pressing Ok will take yo to your email client.</string>
+    <string name="crash_message">Sorry, Yantra Launcher seems to have crashed! Please send a report to the developer to help debug the crash. Pressing Ok will take you to your email client.</string>
     <string name="crash_comment_prompt">You can add an optional comment here to describe the crash:</string>
     <string name="background_color">Background Color</string>
     <string name="pick_color">Pick Color</string>
