@@ -344,7 +344,7 @@
 <string name="cmd_quote_help">¡Muestra una cita aleatoria! ¿Qué más esperas?</string>
 <string name="cmd_reset_help">Reinicia la consola (Launcher) completamente.</string>
 <string name="cmd_run_title">run script_name</string>
-<string name="cmd_run_help">Se usa para ejecutar tus scripts personalizados.</string>
+<string name="cmd_run_help">Se usa para ejecutar tus scripts personalizados. Usa la bandera \'-lua\' para ejecutar el script como código Lua</string>
 <string name="specify_script_to_run">Por favor, especifica el nombre de un script para ejecutar.</string>
 <string name="run_only_one_param">El comando \'run\' solo acepta 1 parámetro: el nombre del script a ejecutar.</string>
 <string name="script_not_found">El script '%1$s' no está definido. Usa el comando \'scripts\' para crear tus propios Yantra Scripts.</string>
@@ -358,7 +358,7 @@
 <string name="todays_screen_time">Tiempo de pantalla de hoy: %1$s</string>
 <string name="no_apps_found">No se encontraron aplicaciones.</string>
 <string name="less_than_1_minute">Menos de 1 minuto</string>
-<string name="cmd_scripts_help">Abre el diálogo para crear, modificar y eliminar scripts personalizados para Yantra Launcher, para ejecutar varios comandos a la vez. Consulta también el comando \'run\'.</string>
+<string name="cmd_scripts_help">Abre el diálogo para crear, modificar y eliminar scripts personalizados para Yantra Launcher, para ejecutar varios comandos a la vez. Los scripts pueden tener comandos de Yantra Launcher dentro de los mismos. Pero tu también puedes crear scripts exclusivos en Lua para funcionalidad extendida. Si estás usando código Lua, puedes ejecutar comandos Yantra Launcher desde el script usando la funcion binding.exec() .\nEjemplo: \'binding.exec("Scripts de texto son geniales!")\'. Consulta también el comando \'run\'.</string>
 <string name="opening_yantra_scripts">Abriendo Yantra Scripts...</string>
 <string name="yantra_scripts">Yantra Scripts</string>
 <string name="scripts_disclaimer">Ver, editar o eliminar este script. Nota: Introduce 1 comando por línea, tal como lo introducirías normalmente en el terminal de Yantra.</string>
@@ -396,7 +396,7 @@
 <string name="cmd_sysinfo_help">Muestra información del sistema, muy parecido a 'Neofetch'</string>
 <string name="unknown_flag">Bandera desconocida: %1$s</string>
 <string name="cmd_termux_title"><![CDATA[termux <cmd> [args]]]></string>
-<string name="cmd_termux_help">Ejecuta el comando dado en termux si está instalado. Ten en cuenta que la propiedad 'allow-external-apps' debe establecerse en true en ~/.termux/termux.properties en la aplicación Termux y se debe otorgar el permiso RUN_COMMAND desde la página de configuración de Yantra Launcher. Además, la sesión de termux se cierra tan pronto como se termina el comando debido a las restricciones de la API.\nUso: termux cmd_name [args]\nEjemplo: 'termux top -n 5\nPara resolver cualquier problema que aún ocurra, pregunta en la Comunidad Discord o envíame un correo a coderGtm@gmail.com.</string>
+<string name="cmd_termux_help">Ejecuta el comando dado en termux si está instalado y registra el stdout generado. Ten en cuenta que la propiedad 'allow-external-apps' debe establecerse en true en ~/.termux/termux.properties en la aplicación Termux y se debe otorgar el permiso RUN_COMMAND desde la página de configuración de Yantra Launcher. Además, el resultado se imprime tan pronto como se ejecuta completamente el comando debido a las restricciones de la API.\nUso: termux cmd_name [args]\nEjemplo: \'termux echo Hello from Termux\'\nPara resolver cualquier problema que aún ocurra, pregunta en la Comunidad Discord o envíame un correo a coderGtm@gmail.com.</string>
 <string name="termux_invalid_cmd">Comando no válido. Consulta \'help termux\' para obtener información de uso</string>
 <string name="grant_termux_permission">¡Necesitas otorgar el permiso de ejecución de comandos de Termux a Yantra Launcher para que este comando funcione!</string>
 <string name="running_command_in_termux">Ejecutando comando en Termux...</string>
@@ -489,11 +489,11 @@
    <string name="you_would_need_a_web_browser_to_open_this_url">Necesitarías un navegador web para abrir esta URL, que no pude encontrar en tu dispositivo :|</string>
    <string name="web_tip">CONSEJO: Si no quieres instalar un navegador web completo, puedes usar el comando \'gupt\' para abrir la URL en una sesión de navegación privada, integrada en Yantra Launcher.</string>
    <string name="something_went_wrong_while_opening_the_url">Algo salió mal al abrir la URL :(</string>
-   <string name="weather_temperature_c_f"><![CDATA[=> Temperatura: %1$d°C (%2$d°F)]]></string>
-   <string name="weather_min_c_f"><![CDATA[=> Mín: %1$d°C (%2$d°F)]]></string>
-   <string name="weather_max_c_f"><![CDATA[=> Máx: %1$d°C (%2$d°F)]]></string>
-   <string name="weather_humidity"><![CDATA[=> Humedad: %1$s%%]]></string>
-   <string name="weather_wind_kmph"><![CDATA[=> Viento: %1$d kmph]]></string>
+   <string name="weather_temperature_c_f"><![CDATA[=> Temperatura: %1$.1f°C (%2$.1f°F)]]></string>
+   <string name="weather_min_c_f"><![CDATA[=> Min: %1$.1f°C (%2$.1f°F)]]></string>
+   <string name="weather_max_c_f"><![CDATA[=> Max: %1$.1f°C (%2$.1f°F)]]></string>
+   <string name="weather_humidity"><![CDATA[=> Humedad: %1$d%%]]></string>
+   <string name="weather_wind"><![CDATA[=> Viento: %1$.1f kph (%2$.1f mph) %3$s]]></string>
    <string name="package_removed"><![CDATA[==> Paquete eliminado: %1$s]]></string>
    <string name="specify_a_package_name">¡Por favor, especifica el nombre del paquete de la aplicación!</string>
    <string name="yantra_launcher_has_been_trimmed">¡Yantra Launcher ha sido recortado!</string>
@@ -519,4 +519,9 @@
    <string name="shortcut_not_supported">Los accesos directos no son compatibles con tu dispositivo.</string>
    <string name="multiple_shortcuts_found">Se encontraron múltiples accesos directos</string>
    <string name="multiple_shortcuts_found_with_label_please_select_one">Se encontraron varios accesos directos con el nombre \'%1$s\'. Por favor, selecciona uno.</string>
+   <string name="total_tokens_used">Tokens totales usados en esta conversación: %1$s</string>
+   <string name="ai_reset">¡El historial de mensajes IA ha sido reiniciado!</string>
+   <string name="weather_feels_like_c_f"><![CDATA[=> Se siente como: %1$.1f°C (%2$.1f°F)]]></string>
+   <string name="precipitation_chance"><![CDATA[=> Posibilidades de precipitación: %1$d%%]]></string>
+   <string name="snow_chance"><![CDATA[=> Posibilidades de nieve: %1$d%%]]></string>
 </resources>
