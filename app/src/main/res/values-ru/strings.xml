@@ -128,8 +128,8 @@
     <string name="suggestions_color">Цвет подсказок</string>
     <string name="internet_speed_test">Проверка скорости интернета</string>
     <string name="loading_please_wait">Загрузка... Пожалуйста подождите.</string>
-    <string name="cmd_ai_title">ai [сообщение]</string>
-    <string name="cmd_ai_help">Простой инструмент для доступа к chatGPT из терминала. Основан на gpt-3.5-turbo от OpenAI, что позволяет общаться с собственным ИИ-ассистентом. Требуется ввести API-ключ в \'settings \'. Эта команда не запоминает контекст, поэтому модель будет не знать о вашем предыдущем разговоре.</string>
+    <string name="cmd_ai_title">ai [сообщение/очистка]</string>
+    <string name="cmd_ai_help">Простой инструмент для доступа к chatGPT из терминала. Основан на gpt-3.5-turbo от OpenAI, что позволяет общаться с собственным ИИ-ассистентом. Требуется ввести API-ключ в \'settings \'. Когда вам нужно очистить историю разговора чтобы сохранить токены, вам нужно написать \'reset\' в сообщении (\'ai reset\').</string>
     <string name="ai_msg_missing">Пожалуйста укажите сообщение к AI.</string>
     <string name="no_ai_api_key_found">Вы забыли указать API ключ. Укажите его в разделе \'settings\'.</string>
     <string name="communicating_with_ai">Communicating with AI...</string>
@@ -344,7 +344,7 @@
     <string name="cmd_quote_help">Отображает случайную цитату! Чего еще вы ожидаете?</string>
     <string name="cmd_reset_help">Полностью перезапускает консоль (Launcher).</string>
     <string name="cmd_run_title">run имя_скрипта</string>
-    <string name="cmd_run_help">Используется для запуска ваших пользовательских скриптов.</string>
+    <string name="cmd_run_help">Используется для запуска ваших пользовательских скриптов. Используйте флаг \'-lua\', чтобы запустить скрипт как код Lua.</string>
     <string name="specify_script_to_run">Пожалуйста, укажите имя скрипта для запуска.</string>
     <string name="run_only_one_param">Команда \'run\' принимает только 1 параметр: имя скрипта для запуска.</string>
     <string name="script_not_found">Скрипт \'%1$s\' не определен. Используйте команду \'scripts\' для создания собственных скриптов Yantra.</string>
@@ -358,7 +358,7 @@
     <string name="todays_screen_time">Время работы экрана сегодня: %1$s</string>
     <string name="no_apps_found">Приложения не найдены.</string>
     <string name="less_than_1_minute">Менее 1 минуты</string>
-    <string name="cmd_scripts_help">Открывает диалог для создания, изменения и удаления пользовательских скриптов для Yantra Launcher для одновременного выполнения нескольких команд. См. также команду \'run\'.</string>
+    <string name="cmd_scripts_help">Открывает диалог для создания, изменения и удаления пользовательских скриптов для Yantra Launcher для одновременного выполнения нескольких команд. Скрипты могут содержать команды Yantra Launcher. Но вы также можете создавать эксклюзивные сценарии Lua для расширенной функциональности. Если вы используете код Lua, вы даже можете вызывать команды Yantra Launcher из скрипта, используя функцию binding.exec().\nПример: \'binding.exec("text Scripts are cool!")\'. См. также команду \'run\'.</string>
     <string name="opening_yantra_scripts">Открытие скриптов Yantra...</string>
     <string name="yantra_scripts">Скрипты Yantra</string>
     <string name="scripts_disclaimer">Просмотр, редактирование или удаление этого скрипта. Примечание: вводите по 1 команде в строке, как обычно вводите в терминале Yantra.</string>
@@ -396,7 +396,7 @@
     <string name="cmd_sysinfo_help">Отображает информацию о системе, аналогично \'Neofetch\'</string>
     <string name="unknown_flag">Неизвестный флаг: %1$s</string>
     <string name="cmd_termux_title"><![CDATA[termux <cmd> [args]]]></string>
-    <string name="cmd_termux_help">Выполняет указанную команду в Termux, если он установлен. Обратите внимание, что свойство \'allow-external-apps\' должно быть установлено в true в ~/.termux/termux.properties в приложении Termux, и разрешение RUN_COMMAND должно быть предоставлено со страницы настроек Yantra Launcher. Кроме того, сеанс Termux закрывается сразу после завершения команды из-за ограничений API.\nИспользование: termux cmd_name [args]\nПример: \'termux top -n 5\'\nЧтобы решить любые возникающие проблемы, обращайтесь в Discord Community или отправляйте письмо на coderGtm@gmail.com</string>
+    <string name="cmd_termux_help">Запускает данную команду в Termux, если он установлена, и регистрирует сгенерированный стандартный вывод. Обратите внимание, что для свойства \'allow-external-apps\' должно быть установлено значение true в ~/.termux/termux.properties в приложении Termux, а разрешение RUN_COMMAND должно быть предоставлено на странице настроек Yantra Launcher. Кроме того, результат возвращается только после полного выполнения команды (завершения выхода) из-за ограничений API.\nИспользование: termux cmd_name [args]\nПример: \'termux echo Hello from Termux\'\nЧтобы решить любые возникающие проблемы, спросите в сообществе Discord или напишите мне по адресу coderGtm@gmail.com.</string>
     <string name="termux_invalid_cmd">Некорректная команда. См. \'help termux\', чтобы получить информацию об использовании</string>
     <string name="grant_termux_permission">Вам необходимо предоставить разрешение Termux Run Command для Yantra Launcher, чтобы эта команда работала!</string>
     <string name="running_command_in_termux">Выполнение команды в Termux...</string>
@@ -489,11 +489,11 @@
     <string name="you_would_need_a_web_browser_to_open_this_url">Вам понадобится веб-браузер, чтобы открыть этот URL-адрес, который я не нашел на вашем устройстве :|</string>
     <string name="web_tip">СОВЕТ: Если вы не хотите устанавливать полноценный веб-браузер, вы можете использовать команду \'gupt\', чтобы открыть URL в приватной сессии браузера, встроенной в Yantra Launcher.</string>
     <string name="something_went_wrong_while_opening_the_url">Что-то пошло не так при открытии URL :(</string>
-    <string name="weather_temperature_c_f"><![CDATA[=> Температура: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_min_c_f"><![CDATA[=> Мин: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_max_c_f"><![CDATA[=> Макс: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_humidity"><![CDATA[=> Влажность: %1$s%%]]></string>
-    <string name="weather_wind_kmph"><![CDATA[=> Ветер: %1$d км/ч]]></string>
+    <string name="weather_temperature_c_f"><![CDATA[=> Температура: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_min_c_f"><![CDATA[=> Мин.: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_max_c_f"><![CDATA[=> Макс.: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_humidity"><![CDATA[=> Влажность: %1$d%%]]></string>
+    <string name="weather_wind"><![CDATA[=> Ветер: %1$.1f кмч (%2$.1f mph) %3$s]]></string>
     <string name="package_removed"><![CDATA[==> Пакет удален: %1$s]]></string>
     <string name="specify_a_package_name">Пожалуйста, укажите имя пакета!</string>
     <string name="yantra_launcher_has_been_trimmed">Yantra Launcher была обрезана!</string>
@@ -519,4 +519,9 @@
     <string name="shortcut_not_supported">Ярлыки не поддерживаются на вашем устройстве</string>
     <string name="multiple_shortcuts_found">Найдено несколько ярлыков</string>
     <string name="multiple_shortcuts_found_with_label_please_select_one">Найдено несколько ярлыков с именем \'%1$s\'. Пожалуйста, выберите один.</string>
+    <string name="total_tokens_used">Всего токенов было использовано при разговоре: %1$s</string>
+    <string name="ai_reset">История сообщений с AI очищена!</string>
+    <string name="weather_feels_like_c_f"><![CDATA[=> Ощущается как: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="precipitation_chance"><![CDATA[=> Вероятность осадков: %1$d%%]]></string>
+    <string name="snow_chance"><![CDATA[=> Вероятность снега: %1$d%%]]></string>
 </resources>

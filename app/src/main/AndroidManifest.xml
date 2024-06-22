@@ -112,10 +112,11 @@
                 android:name="autoStoreLocales"
                 android:value="true" />
         </service>
+        <service android:name=".services.TermuxCommandService" />
 
         <meta-data
-            android:name="OPEN_WEATHER_API_KEY"
-            android:value="${openWeatherAPIkey}" />
+            android:name="WEATHER_API_KEY"
+            android:value="${weatherAPIkey}" />
     </application>
 
 </manifest>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="accessibility_service_description">Questo permesso è richiesto e utilizzato solo per applicare il Blocco Schermo da Yantra Launcher.</string>
-    <string name="username_prefix">Prefisso username</string>
+    <string name="username_prefix">Prefisso nome utente</string>
     <string name="primary_suggestions">Suggerimenti Principali</string>
     <string name="secondary_suggestions">Suggerimenti Secondari</string>
     <string name="fullscreen_launcher">Launcher a Schermo Intero</string>
@@ -24,12 +24,12 @@
     <string name="termux_command_path">Percorso del Comando Termux</string>
     <string name="termux_command_working_directory">Directory di Lavoro del Comando Termux</string>
     <string name="termux_command_session_action">Azione della Sessione del Comando Termux</string>
-    <string name="change_ai_api_provider">Cambia Fornitore API dell\'AI</string>
+    <string name="change_ai_api_provider">Cambia Fornitore API dell\'IA</string>
     <string name="change_ai_api_key">Cambia Chiave API dell\'AI</string>
-    <string name="change_ai_system_prompt">Cambia Prompt \'system\' dell\'AI</string>
-    <string name="username_prefix_description">Inserisci un prefisso per il tuo username. Questo verrà visualizzato prima del tuo username nel terminale.</string>
+    <string name="change_ai_system_prompt">Cambia Prompt \'system\' dell\'IA</string>
+    <string name="username_prefix_description">Inserisci un prefisso per il tuo nome utente. Questo verrà visualizzato prima del tuo nome utente nel terminale.</string>
     <string name="save">Salva</string>
-    <string name="username_prefix_updated">Prefisso username aggiornato!</string>
+    <string name="username_prefix_updated">Prefisso nome utente aggiornato!</string>
     <string name="cancel">Annulla</string>
     <string name="double_tap_command_description">Inserisci un comando da eseguire quando fai doppio tap sul terminale.</string>
     <string name="double_tap_command_updated">Comando del doppio tocco aggiornato!</string>
@@ -61,9 +61,9 @@
     <string name="invalid_action">Azione non valida!</string>
     <string name="termux_command_session_action_updated">Azione della sessione del comando Termux aggiornata!</string>
     <string name="ai_api_provider_description">Inserisci il dominio del tuo fornitore AI da utilizzare nel comando \'ai\'. Non fornire l\'URL completo, è richiesto solo il dominio (Ad esempio: api.openai.com)</string>
-    <string name="ai_api_provider_updated">Fornitore API AI aggiornato! Assicurati di utilizzare la Chiave API corrispondente</string>
-    <string name="ai_api_key_description">Inserisci la tua Chiave API da utilizzare nel comando \'ai\', corrispondente al tuo fornitore AI.</string>
-    <string name="ai_api_key_updated">Chiave API AI aggiornata!</string>
+    <string name="ai_api_provider_updated">Fornitore API IA aggiornato! Assicurati di utilizzare la Chiave API corrispondente</string>
+    <string name="ai_api_key_description">Inserisci la tua Chiave API da utilizzare nel comando \'ai\', corrispondente al tuo fornitore IA.</string>
+    <string name="ai_api_key_updated">Chiave API IA aggiornata!</string>
     <string name="ai_system_prompt_description">Inserisci il prompt \'system\' da utilizzare nel comando \'ai\'. Esso detta il comportamento del modello.</string>
     <string name="ai_system_prompt_updated">Prompt di sistema AI aggiornato!</string>
     <string name="loading_fonts">Caricamento Font...</string>
@@ -344,7 +344,7 @@
     <string name="cmd_quote_help">Visualizza una citazione casuale! Cosa ti aspetti?</string>
     <string name="cmd_reset_help">Riavvia completamente la console (Launcher).</string>
     <string name="cmd_run_title">run nome_script</string>
-    <string name="cmd_run_help">Usato per eseguire i tuoi script personalizzati.</string>
+    <string name="cmd_run_help">Usato per eseguire i tuoi script personalizzati. Usa il flag \'-lua\' per eseguire lo script come codice Lua.</string>
     <string name="specify_script_to_run">Si prega di specificare il nome dello script da eseguire.</string>
     <string name="run_only_one_param">Il comando \'run\' accetta solo 1 parametro: Il nome dello script da eseguire.</string>
     <string name="script_not_found">Lo script \'%1$s\' non definito. Usa il comando \'scripts\' per creare i tuoi Scripts Yantra.</string>
@@ -358,7 +358,7 @@
     <string name="todays_screen_time">Tempo di utilizzo dello schermo oggi: %1$s</string>
     <string name="no_apps_found">Nessuna app trovata.</string>
     <string name="less_than_1_minute">Meno di 1 minuto</string>
-    <string name="cmd_scripts_help">Apre la finestra di dialogo per creare, modificare ed eliminare script personalizzati per Yantra Launcher, per eseguire più comandi contemporaneamente. Vedi anche il comando \'run\'.</string>
+    <string name="cmd_scripts_help">Apre la finestra di dialogo per creare, modificare ed eliminare script personalizzati per Yantra Launcher, per eseguire più comandi contemporaneamente. Gli script possono contenere comandi di Yantra Launcher, ma è anche possibile creare script esclusivi in Lua per funzionalità estese. Se si utilizza il codice Lua, è possibile richiamare i comandi di Yantra Launcher dallo script utilizzando la funzione binding.exec(). \nEsempio: \'binding.exec("text Scripts are cool!")\'. Vedi anche il comando \'run\'.</string>
     <string name="opening_yantra_scripts">Apertura Scripts Yantra...</string>
     <string name="yantra_scripts">Scripts Yantra</string>
     <string name="scripts_disclaimer">Visualizza, modifica o elimina questo script. Nota: Inserisci 1 comando per linea, proprio come fai normalmente nel terminale Yantra.</string>
@@ -389,14 +389,14 @@
     <string name="loading_speedtest_utility">Caricamento utility Speedtest...</string>
     <string name="cmd_support_help">Informazioni sul supportare Yantra Launcher.</string>
     <string name="support_no_args">Il comando \'support\' non accetta **argomenti**. _È un comando amichevole... :)_</string>
-    <string name="support_chunk_1">Yantra Launcher è uno strumento potente e gratuito open-source per aumentare la tua produttività ed essere cool. Sviluppare questo launcher e mantenerlo richiede davvero molti sforzi, risorse e tempo prezioso. Se Yantra Launcher ha fatto una differenza positiva nella tua vita, ti invito a controllare la sezione Supporto nella pagina GitHub del progetto.</string>
+    <string name="support_chunk_1">Yantra Launcher è uno strumento potente, gratuito ed open-source per aumentare la tua produttività ed essere figo. Sviluppare questo launcher e mantenerlo richiede davvero molti sforzi, risorse e tempo prezioso. Se Yantra Launcher ha fatto una differenza positiva nella tua vita, ti invito a controllare la sezione "Supporto" nella pagina GitHub del progetto.</string>
     <string name="support_chunk_2">\nRicorda, Yantra Launcher è completamente gratuito e open-source. Puoi supportare lo sviluppatore contribuendo al progetto, segnalando problemi, suggerendo funzionalità e condividendolo con i tuoi amici e familiari.</string>
     <string name="redirecting_to_support_page">:: Reindirizzamento alla sezione Supporto nella pagina GitHub del progetto...</string>
     <string name="cmd_sysinfo_title">sysinfo | sysinfo -componente</string>
     <string name="cmd_sysinfo_help">Mostra informazioni di sistema, molto simile a \'Neofetch\'</string>
     <string name="unknown_flag">Flag sconosciuto: %1$s</string>
     <string name="cmd_termux_title"><![CDATA[termux <cmd> [args]]]></string>
-    <string name="cmd_termux_help">Esegue il comando dato in termux se è installato. Nota che la proprietà \'allow-external-apps\' deve essere impostata su true in ~/.termux/termux.properties nell\'app Termux e il permesso RUN_COMMAND deve essere dato dalla pagina delle impostazioni di Yantra Launcher. Inoltre, la sessione termux viene chiusa non appena il comando termina a causa delle restrizioni API.\nUso: termux nome_cmd [args]\nEsempio: \'termux top -n 5\nPer risolvere qualsiasi problema ancora presente, chiedi nella Comunità Discord o mandami una mail a coderGtm@gmail.com.</string>
+    <string name="cmd_termux_help">Esegue il comando dato in termux se è installato e registra lo stdout generato. Nota che la proprietà \'allow-external-apps\' deve essere impostata su true in ~/.termux/termux.properties nell\'app Termux e il permesso RUN_COMMAND deve essere dato dalla pagina delle impostazioni di Yantra Launcher. Inoltre, il risultato viene restituito solo dopo che il comando è stato completamente eseguito (uscito) a causa delle restrizioni API.\nUso: termux nome_cmd [args]\nEsempio: \'termux echo Hello from Termux\'\nPer risolvere qualsiasi problema ancora presente, chiedi nella Comunità Discord o mandami una mail a coderGtm@gmail.com.</string>
     <string name="termux_invalid_cmd">Comando non valido. Vedi \'help termux\' per informazioni sull\'uso</string>
     <string name="grant_termux_permission">Devi concedere il Permesso di Esecuzione Comando Termux a Yantra Launcher affinché questo comando funzioni!</string>
     <string name="running_command_in_termux">Esecuzione comando in Termux...</string>
@@ -489,11 +489,11 @@
     <string name="you_would_need_a_web_browser_to_open_this_url">Avresti bisogno di un browser web per aprire questo URL, che non sono riuscito a trovare sul tuo dispositivo :|</string>
     <string name="web_tip">SUGGERIMENTO: Se non vuoi installare un browser web completo, puoi usare il comando \'gupt\' per aprire l\'URL in una sessione di navigazione privata, integrata in Yantra Launcher.</string>
     <string name="something_went_wrong_while_opening_the_url">Qualcosa è andato storto durante l\'apertura dell\'URL :(</string>
-    <string name="weather_temperature_c_f"><![CDATA[=> Temperatura: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_min_c_f"><![CDATA[=> Min: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_max_c_f"><![CDATA[=> Max: %1$d°C (%2$d°F)]]></string>
-    <string name="weather_humidity"><![CDATA[=> Umidità: %1$s%%]]></string>
-    <string name="weather_wind_kmph"><![CDATA[=> Vento: %1$d km/h]]></string>
+    <string name="weather_temperature_c_f"><![CDATA[=> Temperatura: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_min_c_f"><![CDATA[=> Min: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_max_c_f"><![CDATA[=> Max: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_humidity"><![CDATA[=> Umidità: %1$d%%]]></string>
+    <string name="weather_wind"><![CDATA[=> Vento: %1$.1f km/h (%2$.1f mph) %3$s]]></string>
     <string name="package_removed"><![CDATA[==> Pacchetto rimosso: %1$s]]></string>
     <string name="specify_a_package_name">Per favore, specifica il nome del pacchetto dell\'app!</string>
     <string name="yantra_launcher_has_been_trimmed">Yantra Launcher è stato semplificato!</string>
@@ -514,9 +514,14 @@
     <string name="fetching_shortcuts">Recupero delle scorciatoie in corso...</string>
     <string name="found_shortcuts">Trovate %1$d scorciatoie</string>
     <string name="not_shortcut_host">Permesso di Host delle Scorciatoie mancante! È necessario impostare %1$s come launcher predefinito per utilizzare le scorciatoie.</string>
-    <string name="specify_a_shortcut_label">Si prega di specificare un\'etichetta di scorciatoia da avviare!</string>
+    <string name="specify_a_shortcut_label">Si prega di specificare l\'etichetta di scorciatoia da avviare!</string>
     <string name="shortcut_not_found">Scorciatoia \'%1$s\' non trovata. Prova a utilizzare \'elenco scorciatoie\' per ottenere l\'elenco di tutte le scorciatoie.</string>
     <string name="shortcut_not_supported">Le scorciatoie non sono supportate sul tuo dispositivo!</string>
     <string name="multiple_shortcuts_found">Trovate più scorciatoie</string>
     <string name="multiple_shortcuts_found_with_label_please_select_one">Trovate più scorciatoie con il nome \'%1$s\'. Si prega di selezionarne una.</string>
+    <string name="total_tokens_used">I token usati in totale per questa conversazione sono: %1$s</string>
+    <string name="ai_reset">La cronologia messaggi dell\'IA è stata eliminata!</string>
+    <string name="weather_feels_like_c_f"><![CDATA[=> Temperatura percepita: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="precipitation_chance"><![CDATA[=> Possibilità che piova: %1$d%%]]></string>
+    <string name="snow_chance"><![CDATA[=> Possibilità che nevichi: %1$d%%]]></string>
 </resources>

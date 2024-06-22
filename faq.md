@@ -8,7 +8,7 @@ Ensure that termux is installed on your device. Follow the steps below to integr
 1. Open Yantra Launcher.
 2. Type any termux command to invoke the Permission Dialog. For example, enter
    ```
-   termux top
+   termux ls
    ```
 3. Click on **Allow** in the permission dialog.
 4. Now, manually launch the termux app. You can do it via the following Yantra Launcher command:
@@ -17,7 +17,7 @@ Ensure that termux is installed on your device. Follow the steps below to integr
    ```
 5. Set `allow-external-apps` property to `true`, by entering the following code in termux:
    ```
-   value="true"; key="allow-external-apps"; file="/data/data/com.termux/files/home/.termux/termux.properties"; mkdir -p "$(dirname "$file"; chmod 700 "$(dirname "$file"; if ! grep -E '^'"$key"'=.*' $file &>/dev/null; then [[ -s "$file" && ! -z "$(tail -c 1 "$file" ]] && newline=$'\n' || newline=""; echo "$newline$key=$value" >> "$file"; else sed -i'' -E 's/^'"$key"'=.*/'"$key=$value"'/' $file; fi
+   value="true"; key="allow-external-apps"; file="/data/data/com.termux/files/home/.termux/termux.properties"; mkdir -p "$(dirname "$file")"; chmod 700 "$(dirname "$file")"; if ! grep -E '^'"$key"'=.*' $file &>/dev/null; then [[ -s "$file" && ! -z "$(tail -c 1 "$file")" ]] && newline=$'\n' || newline=""; echo "$newline$key=$value" >> "$file"; else sed -i'' -E 's/^'"$key"'=.*/'"$key=$value"'/' $file; fi
    ```
    *Source: https://github.com/termux/termux-tasker?tab=readme-ov-file#allow-external-apps-property-optional*
 

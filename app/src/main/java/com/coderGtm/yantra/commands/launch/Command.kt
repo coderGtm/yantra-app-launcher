@@ -47,7 +47,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
 
         else if (args[1].trim() == "-s") {
-            val shortcutLabel = command.trim().removePrefix(args[0]).trim().removePrefix(args[1]).trim()
+            val shortcutLabel = command.trim().removePrefix(args[0]).trim().removePrefix(args[1]).trim().lowercase()
             if (shortcutLabel.isEmpty()) {
                 output(terminal.activity.getString(R.string.specify_a_shortcut_label), terminal.theme.errorTextColor)
                 return
