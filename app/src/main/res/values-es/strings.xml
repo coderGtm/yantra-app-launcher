@@ -708,17 +708,14 @@
    <string name="shortcut_not_supported">Los accesos directos no son compatibles con tu dispositivo.</string>
    <string name="multiple_shortcuts_found">Se encontraron múltiples accesos directos</string>
    <string name="multiple_shortcuts_found_with_label_please_select_one">Se encontraron varios accesos directos con el nombre \'%1$s\'. Por favor, selecciona uno.</string>
-<<<<<<< HEAD
    <string name="total_tokens_used">Tokens totales usados en esta conversación: %1$s</string>
    <string name="ai_reset">¡El historial de mensajes IA ha sido reiniciado!</string>
-   <string name="weather_feels_like_c_f"><![CDATA[=> Se siente como: %1$.1f°C (%2$.1f°F)]]></string>
+   <string name="weather_feels_like_c_f"><![CDATA[=> Sensación térmica: %1$.1f°C (%2$.1f°F)]]></string>
    <string name="precipitation_chance"><![CDATA[=> Posibilidades de precipitación: %1$d%%]]></string>
    <string name="snow_chance"><![CDATA[=> Posibilidades de nieve: %1$d%%]]></string>
-=======
     <string name="total_tokens_used">Total de tokens utilizados en esta conversación: %1$s</string>
     <string name="ai_reset">¡El historial de mensajes de IA se ha restablecido!</string>
-    <string name="weather_feels_like_c_f"><![CDATA[=> Feels like: %1$.1f°C (%2$.1f°F)]]></string>
-    <string name="precipitation_chance"><![CDATA[=> Precipitation chances: %1$d%%]]></string>
-    <string name="snow_chance"><![CDATA[=> Snow chances: %1$d%%]]></string>
->>>>>>> upstream/main
+    <string name="weather_feels_like_c_f"><![CDATA[=> Sensación térmica: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="precipitation_chance"><![CDATA[=> Probabilidad de precipitaciones: %1$d%%]]></string>
+    <string name="snow_chance"><![CDATA[=> Probabilidad de nieve: %1$d%%]]></string>
 </resources>
