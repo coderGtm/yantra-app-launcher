@@ -344,7 +344,7 @@
     <string name="cmd_quote_help">Visualizza una citazione casuale! Cosa ti aspetti?</string>
     <string name="cmd_reset_help">Riavvia completamente la console (Launcher).</string>
     <string name="cmd_run_title">run nome_script</string>
-    <string name="cmd_run_help">Usato per eseguire i tuoi script personalizzati.</string>
+    <string name="cmd_run_help">Usato per eseguire i tuoi script personalizzati. Usa il flag \'-lua\' per eseguire lo script come codice Lua.</string>
     <string name="specify_script_to_run">Si prega di specificare il nome dello script da eseguire.</string>
     <string name="run_only_one_param">Il comando \'run\' accetta solo 1 parametro: Il nome dello script da eseguire.</string>
     <string name="script_not_found">Lo script \'%1$s\' non definito. Usa il comando \'scripts\' per creare i tuoi Scripts Yantra.</string>
@@ -358,7 +358,7 @@
     <string name="todays_screen_time">Tempo di utilizzo dello schermo oggi: %1$s</string>
     <string name="no_apps_found">Nessuna app trovata.</string>
     <string name="less_than_1_minute">Meno di 1 minuto</string>
-    <string name="cmd_scripts_help">Apre la finestra di dialogo per creare, modificare ed eliminare script personalizzati per Yantra Launcher, per eseguire più comandi contemporaneamente. Vedi anche il comando \'run\'.</string>
+    <string name="cmd_scripts_help">Apre la finestra di dialogo per creare, modificare ed eliminare script personalizzati per Yantra Launcher, per eseguire più comandi contemporaneamente. Gli script possono contenere comandi di Yantra Launcher, ma è anche possibile creare script esclusivi in Lua per funzionalità estese. Se si utilizza il codice Lua, è possibile richiamare i comandi di Yantra Launcher dallo script utilizzando la funzione binding.exec(). \nEsempio: \'binding.exec("text Scripts are cool!")\'. Vedi anche il comando \'run\'.</string>
     <string name="opening_yantra_scripts">Apertura Scripts Yantra...</string>
     <string name="yantra_scripts">Scripts Yantra</string>
     <string name="scripts_disclaimer">Visualizza, modifica o elimina questo script. Nota: Inserisci 1 comando per linea, proprio come fai normalmente nel terminale Yantra.</string>
@@ -396,7 +396,7 @@
     <string name="cmd_sysinfo_help">Mostra informazioni di sistema, molto simile a \'Neofetch\'</string>
     <string name="unknown_flag">Flag sconosciuto: %1$s</string>
     <string name="cmd_termux_title"><![CDATA[termux <cmd> [args]]]></string>
-    <string name="cmd_termux_help">Esegue il comando dato in termux se è installato. Nota che la proprietà \'allow-external-apps\' deve essere impostata su true in ~/.termux/termux.properties nell\'app Termux e il permesso RUN_COMMAND deve essere dato dalla pagina delle impostazioni di Yantra Launcher. Inoltre, la sessione termux viene chiusa non appena il comando termina a causa delle restrizioni API.\nUso: termux nome_cmd [args]\nEsempio: \'termux top -n 5\nPer risolvere qualsiasi problema ancora presente, chiedi nella Comunità Discord o mandami una mail a coderGtm@gmail.com.</string>
+    <string name="cmd_termux_help">Esegue il comando dato in termux se è installato e registra lo stdout generato. Nota che la proprietà \'allow-external-apps\' deve essere impostata su true in ~/.termux/termux.properties nell\'app Termux e il permesso RUN_COMMAND deve essere dato dalla pagina delle impostazioni di Yantra Launcher. Inoltre, il risultato viene restituito solo dopo che il comando è stato completamente eseguito (uscito) a causa delle restrizioni API.\nUso: termux nome_cmd [args]\nEsempio: \'termux echo Hello from Termux\'\nPer risolvere qualsiasi problema ancora presente, chiedi nella Comunità Discord o mandami una mail a coderGtm@gmail.com.</string>
     <string name="termux_invalid_cmd">Comando non valido. Vedi \'help termux\' per informazioni sull\'uso</string>
     <string name="grant_termux_permission">Devi concedere il Permesso di Esecuzione Comando Termux a Yantra Launcher affinché questo comando funzioni!</string>
     <string name="running_command_in_termux">Esecuzione comando in Termux...</string>
