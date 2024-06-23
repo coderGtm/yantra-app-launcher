@@ -4,18 +4,15 @@ import android.app.Activity
 import android.app.WallpaperManager
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.os.Environment
 import android.os.UserHandle
 import android.os.UserManager
 import android.util.TypedValue
-import android.view.LayoutInflater
-import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.graphics.drawable.toBitmap
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
@@ -609,7 +606,7 @@ fun showSuggestions(
                         }
 
                         if (candidates.size == 1) {
-                            displayIcon(candidates[0].appName, candidates[0].packageName, terminal.activity)
+                            Toast.makeText(terminal.activity, candidates[0].packageName, Toast.LENGTH_SHORT).show()
                         }
                         else if (candidates.size > 1) {
                             MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
@@ -639,7 +636,7 @@ fun showSuggestions(
                                     MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
                                         .setTitle(terminal.activity.getString(R.string.select_package_name))
                                         .setItems(items.toTypedArray()) { _, which ->
-                                            displayIcon(suggestion.text.toString(), candidates[which].packageName, terminal.activity)
+                                            Toast.makeText(terminal.activity, candidates[which].packageName, Toast.LENGTH_SHORT).show()
                                         }
                                         .show()
                                 }
@@ -738,38 +735,9 @@ fun setWallpaperIfNeeded(preferenceObject: SharedPreferences, applicationContext
     }
 }
 
-fun getAppIcon(activity: Activity, packageName: String): Drawable? {
-    val pm: PackageManager = activity.packageManager
-    return try {
-        pm.getApplicationIcon(packageName)
-    } catch (e: PackageManager.NameNotFoundException) {
-        e.printStackTrace()
-        null
-    }
-}
-
 fun isDefaultUser(user: UserHandle, terminal: Activity): Boolean {
     val userManager = terminal.getSystemService(Context.USER_SERVICE) as UserManager
     return user == userManager.userProfiles[0]
-}
-
-fun displayIcon(text: String, packageName: String, activity: Activity) {
-    val appIcon: Drawable? = getAppIcon(activity, packageName)
-
-    val customView = LayoutInflater.from(activity)
-        .inflate(R.layout.custom_dialog_for_apps, null)
-    val dialogImage: ImageView = customView.findViewById(R.id.dialog_image)
-    if (appIcon != null) {
-        dialogImage.setImageDrawable(appIcon)
-    }
-
-    MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog)
-        .setTitle(text)
-        .setView(customView)
-        .setPositiveButton(activity.getString(R.string.ok)) { helpDialog, _ ->
-            helpDialog.dismiss()
-        }
-        .show()
 }
 
 fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand>> {
