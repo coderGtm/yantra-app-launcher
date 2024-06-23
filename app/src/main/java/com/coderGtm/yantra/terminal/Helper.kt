@@ -20,7 +20,6 @@ import androidx.core.graphics.drawable.toBitmap
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.commands.launch.Command
 import com.coderGtm.yantra.commands.todo.getToDo
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getScripts
