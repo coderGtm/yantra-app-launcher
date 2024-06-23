@@ -4,21 +4,29 @@ import android.app.Activity
 import android.app.WallpaperManager
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Environment
+import android.os.UserHandle
+import android.os.UserManager
 import android.util.TypedValue
+import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.graphics.drawable.toBitmap
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.commands.launch.Command
 import com.coderGtm.yantra.commands.todo.getToDo
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.models.Alias
+import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.setSystemWallpaper
@@ -568,8 +576,79 @@ fun showSuggestions(
                     true
                 }
             }
+
             terminal.activity.runOnUiThread {
                 terminal.binding.suggestionsTab.addView(suggestion)
+            }
+
+            val effectivePrimaryCmd: String
+            val isAliasCmd = terminal.aliasList.any { it.key == args[0] }
+            effectivePrimaryCmd = if (isAliasCmd) {
+                terminal.aliasList.first { it.key == args[0] }.value
+            } else {
+                args[0].lowercase()
+            }
+            if (!terminal.commands.containsKey(effectivePrimaryCmd)) {
+                return@forEach
+            }
+
+            if (effectivePrimaryCmd == "launch" || effectivePrimaryCmd == "uninstall") {
+                if (suggestion.text.toString().lowercase() == "-p" || suggestion.text.toString().lowercase() == "-s") {
+                    return@forEach
+                }
+
+                suggestion.setOnLongClickListener {
+                    try {
+                        val candidates = mutableListOf<AppBlock>()
+                        for (app in terminal.appList) {
+                            if (app.appName.lowercase() == suggestion.text.toString().lowercase()) {
+                                candidates.add(app)
+                            }
+                        }
+                        candidates.removeAll {
+                            it.packageName == terminal.activity.packageName
+                        }
+
+                        if (candidates.size == 1) {
+                            displayIcon(candidates[0].appName, candidates[0].packageName, terminal.activity)
+                        }
+                        else if (candidates.size > 1) {
+                            MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
+                                .setTitle(terminal.activity.getString(R.string.multiple_apps_found))
+                                .setMessage(terminal.activity.getString(R.string.multiple_apps_found_with_name_please_select_one, suggestion.text))
+                                .setPositiveButton(terminal.activity.getString(R.string.ok)) { _, _ ->
+                                    val items = mutableListOf<String>()
+                                    for (app in candidates) {
+                                        items.add(app.packageName)
+                                    }
+                                    for (i in 0 until items.size) {
+                                        for (j in i + 1 until items.size) {
+                                            if (candidates[i].user != candidates[j].user) {
+                                                if (!isDefaultUser(candidates[i].user, terminal.activity)) {
+                                                    if (!items[i].endsWith(" (work)")) {
+                                                        items[i] = "${items[i]} (work)"
+                                                    }
+                                                }
+                                                else {
+                                                    if (!items[j].endsWith(" (work)")) {
+                                                        items[j] = "${items[j]} (work)"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
+                                        .setTitle(terminal.activity.getString(R.string.select_package_name))
+                                        .setItems(items.toTypedArray()) { _, which ->
+                                            displayIcon(suggestion.text.toString(), candidates[which].packageName, terminal.activity)
+                                        }
+                                        .show()
+                                }
+                                .show()
+                        }
+                    } catch (e: Exception) {}
+                    true
+                }
             }
         }
         if (suggestions.size == 1 && !isPrimary && terminal.preferenceObject.getBoolean("actOnLastSecondarySuggestion", false)) {
@@ -658,6 +737,40 @@ fun setWallpaperIfNeeded(preferenceObject: SharedPreferences, applicationContext
         val colorDrawable = ColorDrawable(curTheme.bgColor)
         setSystemWallpaper(wallpaperManager, colorDrawable.toBitmap(applicationContext.resources.displayMetrics.widthPixels, applicationContext.resources.displayMetrics.heightPixels))
     }
+}
+
+fun getAppIcon(activity: Activity, packageName: String): Drawable? {
+    val pm: PackageManager = activity.packageManager
+    return try {
+        pm.getApplicationIcon(packageName)
+    } catch (e: PackageManager.NameNotFoundException) {
+        e.printStackTrace()
+        null
+    }
+}
+
+fun isDefaultUser(user: UserHandle, terminal: Activity): Boolean {
+    val userManager = terminal.getSystemService(Context.USER_SERVICE) as UserManager
+    return user == userManager.userProfiles[0]
+}
+
+fun displayIcon(text: String, packageName: String, activity: Activity) {
+    val appIcon: Drawable? = getAppIcon(activity, packageName)
+
+    val customView = LayoutInflater.from(activity)
+        .inflate(R.layout.custom_dialog_for_apps, null)
+    val dialogImage: ImageView = customView.findViewById(R.id.dialog_image)
+    if (appIcon != null) {
+        dialogImage.setImageDrawable(appIcon)
+    }
+
+    MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog)
+        .setTitle(text)
+        .setView(customView)
+        .setPositiveButton(activity.getString(R.string.ok)) { helpDialog, _ ->
+            helpDialog.dismiss()
+        }
+        .show()
 }
 
 fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand>> {
