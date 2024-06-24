@@ -11,8 +11,8 @@ android {
         applicationId "com.coderGtm.yantra"
         minSdk 21
         targetSdk 34
-        versionCode 109
-        versionName "9.5.1"
+        versionCode 110
+        versionName "9.6.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -89,7 +89,7 @@ dependencies {
     implementation "io.noties.markwon:core:4.6.2"
     proImplementation "androidx.webkit:webkit:1.10.0"
     implementation "com.vanniktech:android-image-cropper:4.5.0"
-    proImplementation 'org.luaj:luaj-jse:3.0.1'
+    implementation 'org.luaj:luaj-jse:3.0.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
