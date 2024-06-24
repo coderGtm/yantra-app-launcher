@@ -21,3 +21,11 @@
 #-renamesourcefileattribute SourceFile
 
 -keep class com.coderGtm.yantra.commands.** { *;}
+
+-keep class org.luaj.** { *; }
+-keepclassmembers class org.luaj.** { *; }
+
+-dontwarn javax.script.**
+-dontwarn org.apache.bcel.**
+
+-keep class org.luaj.vm2.script.** { *; }
