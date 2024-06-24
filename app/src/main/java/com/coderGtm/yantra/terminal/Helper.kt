@@ -492,20 +492,21 @@ fun showSuggestions(
             }
             else if (effectivePrimaryCmd == "run") {
                 try {
-                    val scripts = getScripts(terminal.preferenceObject)
+                    val runArgs = getScripts(terminal.preferenceObject).toMutableList()
+                    runArgs.add(0, "-lua")
                     if (args.size>1) {
                         overrideLastWord = true
                         val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                        for (sname in scripts) {
-                            if (regex.containsMatchIn(sname)) {
-                                suggestions.add(sname)
+                        for (ra in runArgs) {
+                            if (regex.containsMatchIn(ra)) {
+                                suggestions.add(ra)
                             }
                         }
                     }
                     else {
-                        for (sname in scripts) {
-                            if (!suggestions.contains(sname)) {
-                                suggestions.add(sname)
+                        for (ra in runArgs) {
+                            if (!suggestions.contains(ra)) {
+                                suggestions.add(ra)
                             }
                         }
                     }
