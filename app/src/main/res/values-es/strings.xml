@@ -358,7 +358,7 @@
 <string name="todays_screen_time">Tiempo de pantalla de hoy: %1$s</string>
 <string name="no_apps_found">No se encontraron aplicaciones.</string>
 <string name="less_than_1_minute">Menos de 1 minuto</string>
-<string name="cmd_scripts_help">Abre el diálogo para crear, modificar y eliminar scripts personalizados para Yantra Launcher, para ejecutar varios comandos a la vez. Consulta también el comando \'run\'.</string>
+<string name="cmd_scripts_help">Abre el diálogo para crear, modificar y eliminar scripts personalizados para Yantra Launcher, para ejecutar varios comandos a la vez. Los scripts pueden contener comandos de Yantra Launcher. También puedes crear scripts de Lua exlusivos para funcionalidad extendida. Si estas usando código Lua, puedes llamar comandos de Yantra Launcher desde el the script usando la función binding.exec() .\nEjemplo: \'binding.exec("Los Scripts de texto son geniales!")\'.  Consulta también el comando \'run\'.</string>
 <string name="opening_yantra_scripts">Abriendo Yantra Scripts...</string>
 <string name="yantra_scripts">Yantra Scripts</string>
 <string name="scripts_disclaimer">Ver, editar o eliminar este script. Nota: Introduce 1 comando por línea, tal como lo introducirías normalmente en el terminal de Yantra.</string>
@@ -396,7 +396,7 @@
 <string name="cmd_sysinfo_help">Muestra información del sistema, muy parecido a \'Neofetch\'</string>
 <string name="unknown_flag">Bandera desconocida: %1$s</string>
 <string name="cmd_termux_title"><![CDATA[termux <cmd> [args]]]></string>
-<string name="cmd_termux_help">Ejecuta el comando dado en termux si está instalado. Ten en cuenta que la propiedad \'allow-external-apps\' debe establecerse en true en ~/.termux/termux.properties en la aplicación Termux y se debe otorgar el permiso RUN_COMMAND desde la página de configuración de Yantra Launcher. Además, la sesión de termux se cierra tan pronto como se termina el comando debido a las restricciones de la API.\nUso: termux cmd_name [args]\nEjemplo: \'termux top -n 5\nPara resolver cualquier problema que aún ocurra, pregunta en la Comunidad Discord o envíame un correo a coderGtm@gmail.com.</string>
+<string name="cmd_termux_help">Ejecuta el comando dado en termux si está instalado y registra el stdout generado. Ten en cuenta que la propiedad \'allow-external-apps\' debe establecerse en true en ~/.termux/termux.properties en la aplicación Termux y se debe otorgar el permiso RUN_COMMAND desde la página de configuración de Yantra Launcher. Además, el resultado se imprime tan pronto como se ejecuta completamente el comando debido a las restricciones de la API.\nUso: termux cmd_name [args]\nEjemplo: \'termux echo Hello from Termux\'\nPara resolver cualquier problema que aún ocurra, pregunta en la Comunidad Discord o envíame un correo a coderGtm@gmail.com.</string>
 <string name="termux_invalid_cmd">Comando no válido. Consulta \'help termux\' para obtener información de uso</string>
 <string name="grant_termux_permission">¡Necesitas otorgar el permiso de ejecución de comandos de Termux a Yantra Launcher para que este comando funcione!</string>
 <string name="running_command_in_termux">Ejecutando comando en Termux...</string>
