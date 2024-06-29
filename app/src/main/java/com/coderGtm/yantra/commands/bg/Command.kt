@@ -36,15 +36,30 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output(terminal.activity.getString(R.string.removed_wallpaper), terminal.theme.successTextColor)
         }
         else if (command.trim().split(" ")[1] == "random") {
-            var query = "wallpaper"
-            if (command.trim().split(" ").size == 3) {
-                query = command.trim().split(" ")[2]
+            // -id=123
+            // -grayscale
+            // -blur=5
+            var id = -1
+            var grayscale = false
+            var blur = 0
+            if (command.trim().split(" ").size > 2) {
+                for (arg in command.trim().split(" ").subList(2,command.trim().split(" ").size)) {
+                    if (arg.startsWith("-id=")) {
+                        id = arg.split("=")[1].toInt()
+                    }
+                    else if (arg == "-grayscale") {
+                        grayscale = true
+                    }
+                    else if (arg.startsWith("-blur=")) {
+                        blur = arg.split("=")[1].toInt()
+                    }
+                    else {
+                        output(terminal.activity.getString(R.string.bg_invalid_args),terminal.theme.errorTextColor)
+                        return
+                    }
+                }
             }
-            else if (command.trim().split(" ").size > 3) {
-                output(terminal.activity.getString(R.string.bg_random_too_many_args), terminal.theme.warningTextColor)
-                return
-            }
-            getRandomWallpaper(query, this)
+            getRandomWallpaper(id,grayscale,blur,this)
         }
         else {
             output(terminal.activity.getString(R.string.bg_invalid_args),terminal.theme.errorTextColor)

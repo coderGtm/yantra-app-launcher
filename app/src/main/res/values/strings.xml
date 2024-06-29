@@ -171,8 +171,8 @@
     <string name="health"><![CDATA[-> Health: %1$s]]></string>
     <string name="temperature_c_f"><![CDATA[-> Temperature: %1$s°C (%2$s°F)]]></string>
     <string name="battery_invalid_Args">Invalid args provided. See \"help battery\" for usage info</string>
-    <string name="cmd_bg_title">bg | bg random | bg random [query]</string>
-    <string name="cmd_bg_help">\'bg\' is used to set custom Wallpaper from the Albums. Use \'bg -1\' to remove custom Wallpaper and set to solid theme background. Use \'bg random\' to fetch a random Wallpaper from the Internet. An optional [query] can be specified with the random command, like \'bg random mountains\' or \'bg random texture,dark\' to fetch related Wallpaper. Note that this command only changes the Home screen wallpaper, not the Lock screen one.</string>
+    <string name="cmd_bg_title">bg | bg random [-id=53] [-grayscale] [-blur=2]</string>
+    <string name="cmd_bg_help">\'bg\' is used to set custom Wallpaper from the Albums. Use \'bg -1\' to remove custom Wallpaper and set to solid theme background. Use \'bg random\' to fetch a random Wallpaper from the picsum.photos. You can fetch a specific image by passing its id as a flag parameter (full list at https://picsum.photos/images). An optional -grayscale flag is used to get a grayscale image. Get a blurred image by providing the blur flag with intensity from 1 to 10. Note that this command only changes the Home screen wallpaper, not the Lock screen one.</string>
     <string name="bg_too_many_args">Too many arguments. Use \'bg -1\' to remove custom Wallpaper</string>
     <string name="removed_wallpaper">Removed Wallpaper</string>
     <string name="bg_random_too_many_args">Too many arguments. Use \',\' to separate topics like \'bg random city,night-life\'</string>
