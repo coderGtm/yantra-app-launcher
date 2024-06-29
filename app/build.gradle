@@ -90,6 +90,8 @@ dependencies {
     proImplementation "androidx.webkit:webkit:1.11.0"
     implementation "com.vanniktech:android-image-cropper:4.5.0"
     implementation 'org.luaj:luaj-jse:3.0.1'
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+    implementation 'org.json:json:20240303'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'

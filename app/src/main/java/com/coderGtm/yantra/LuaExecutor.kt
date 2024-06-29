@@ -1,5 +1,6 @@
 package com.coderGtm.yantra
 
+import LuaHttpAPI
 import com.coderGtm.yantra.commands.run.requestInput
 import com.coderGtm.yantra.terminal.Terminal
 import kotlinx.coroutines.CompletableDeferred
@@ -23,10 +24,12 @@ class LuaExecutor(private val scriptName: String, private val terminal: Terminal
     private val globals: Globals = JsePlatform.standardGlobals()
     private var luaThread: Thread? = null
     private val binding: LuaBinding = LuaBinding(terminal)
+    private val http = LuaHttpAPI(terminal.activity.baseContext)
 
     init {
         globals.set("print", PrintFunction())
         globals.set("input", InputFunction())
+        globals.set("http", http)
         globals.set("binding", binding)
     }
 
