@@ -15,6 +15,9 @@ class LuaHttpAPI(context: Context) : LuaTable() {
         AndroidNetworking.initialize(context)
         set("get", GetFunction())
         set("post", PostFunction())
+        set("put", PutFunction())
+        set("delete", DeleteFunction())
+        set("patch", PatchFunction())
     }
 
     private inner class GetFunction : TwoArgFunction() {
@@ -55,6 +58,105 @@ class LuaHttpAPI(context: Context) : LuaTable() {
             val responseTable = LuaTable()
 
             val requestBuilder = AndroidNetworking.post(url.checkjstring())
+            headers.keys().forEach { key ->
+                requestBuilder.addHeaders(key.checkjstring(), headers.get(key).checkjstring())
+            }
+
+            requestBuilder.addJSONObjectBody(JSONObject(body))
+
+            requestBuilder.build().getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(jsonResponse: JSONObject?) {
+                    if (jsonResponse != null) {
+                        responseTable.set("body", toLuaTable(jsonResponse))
+                    }
+                    latch.release()
+                }
+
+                override fun onError(error: ANError) {
+                    responseTable.set("error", LuaValue.valueOf(error.errorDetail))
+                    latch.release()
+                }
+            })
+
+            latch.acquire()  // Block until the response is received
+            return responseTable
+        }
+    }
+
+    private inner class PutFunction : TwoArgFunction() {
+        override fun call(url: LuaValue, options: LuaValue): LuaValue {
+            val headers = if (options.istable()) options.get("headers").checktable() else LuaTable()
+            val body = options.get("body").optjstring("")
+            val latch = OneShotLatch()
+            val responseTable = LuaTable()
+
+            val requestBuilder = AndroidNetworking.put(url.checkjstring())
+            headers.keys().forEach { key ->
+                requestBuilder.addHeaders(key.checkjstring(), headers.get(key).checkjstring())
+            }
+
+            requestBuilder.addJSONObjectBody(JSONObject(body))
+
+            requestBuilder.build().getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(jsonResponse: JSONObject?) {
+                    if (jsonResponse != null) {
+                        responseTable.set("body", toLuaTable(jsonResponse))
+                    }
+                    latch.release()
+                }
+
+                override fun onError(error: ANError) {
+                    responseTable.set("error", LuaValue.valueOf(error.errorDetail))
+                    latch.release()
+                }
+            })
+
+            latch.acquire()  // Block until the response is received
+            return responseTable
+        }
+    }
+
+    private inner class DeleteFunction : TwoArgFunction() {
+        override fun call(url: LuaValue, options: LuaValue): LuaValue {
+            val headers = if (options.istable()) options.get("headers").checktable() else LuaTable()
+            val body = options.get("body").optjstring("")
+            val latch = OneShotLatch()
+            val responseTable = LuaTable()
+
+            val requestBuilder = AndroidNetworking.delete(url.checkjstring())
+            headers.keys().forEach { key ->
+                requestBuilder.addHeaders(key.checkjstring(), headers.get(key).checkjstring())
+            }
+
+            requestBuilder.addJSONObjectBody(JSONObject(body))
+
+            requestBuilder.build().getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(jsonResponse: JSONObject?) {
+                    if (jsonResponse != null) {
+                        responseTable.set("body", toLuaTable(jsonResponse))
+                    }
+                    latch.release()
+                }
+
+                override fun onError(error: ANError) {
+                    responseTable.set("error", LuaValue.valueOf(error.errorDetail))
+                    latch.release()
+                }
+            })
+
+            latch.acquire()  // Block until the response is received
+            return responseTable
+        }
+    }
+
+    private inner class PatchFunction : TwoArgFunction() {
+        override fun call(url: LuaValue, options: LuaValue): LuaValue {
+            val headers = if (options.istable()) options.get("headers").checktable() else LuaTable()
+            val body = options.get("body").optjstring("")
+            val latch = OneShotLatch()
+            val responseTable = LuaTable()
+
+            val requestBuilder = AndroidNetworking.patch(url.checkjstring())
             headers.keys().forEach { key ->
                 requestBuilder.addHeaders(key.checkjstring(), headers.get(key).checkjstring())
             }

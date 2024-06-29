@@ -4,19 +4,12 @@ import LuaHttpAPI
 import com.coderGtm.yantra.commands.run.requestInput
 import com.coderGtm.yantra.terminal.Terminal
 import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import org.luaj.vm2.Globals
 import org.luaj.vm2.LuaError
 import org.luaj.vm2.LuaValue
-import org.luaj.vm2.Varargs
-import org.luaj.vm2.lib.DebugLib
 import org.luaj.vm2.lib.OneArgFunction
 import org.luaj.vm2.lib.jse.JsePlatform
-import kotlin.coroutines.cancellation.CancellationException
 
 
 class LuaExecutor(private val scriptName: String, private val terminal: Terminal) {
