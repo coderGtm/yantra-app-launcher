@@ -12,7 +12,6 @@ import java.util.concurrent.CountDownLatch
 class LuaHttpAPI(context: Context) : LuaTable() {
 
     init {
-        AndroidNetworking.initialize(context)
         set("get", GetFunction())
         set("post", PostFunction())
         set("put", PutFunction())
