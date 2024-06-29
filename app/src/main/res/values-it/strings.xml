@@ -526,4 +526,13 @@
     <string name="snow_chance"><![CDATA[=> Possibilità che nevichi: %1$d%%]]></string>
     <string name="clear_init_list">Clear Init List?</string>
     <string name="clear_init_list_confirmation">Are you sure you want to clear your init script?</string>
+    <string name="backup_too_many_arguments">Too many arguments. Command \"backup\" has only one parameter</string>
+    <string name="backup_title">backup [-i]</string>
+    <string name="backup_help">Export and import settings of Yantra. Use \'-i\' for importing settings from \'.yle\' file</string>
+    <string name="exporting">:: Exporting…</string>
+    <string name="pleaseWait">Please wait…</string>
+    <string name="incorrect_file">Incorrect file!</string>
+    <string name="success">Success</string>
+    <string name="send_dialog">:: Creating an export dialog</string>
+    <string name="import_dialog">:: Creating import dialog</string>
 </resources>

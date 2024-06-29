@@ -490,6 +490,19 @@ fun showSuggestions(
                 isPrimary = false
                 executeOnTapViable = false
             }
+            else if (effectivePrimaryCmd == "backup") {
+                if (args.size > 1) {
+                    overrideLastWord = true
+                }
+                val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                val listArgs = listOf("-i")
+                for (arg in listArgs) {
+                    if (regex.containsMatchIn(arg)) {
+                        suggestions.add(arg)
+                    }
+                }
+                isPrimary = false
+            }
             else if (effectivePrimaryCmd == "run") {
                 try {
                     val runArgs = getScripts(terminal.preferenceObject).toMutableList()
@@ -714,6 +727,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "unalias" to com.coderGtm.yantra.commands.unalias.Command::class.java,
             "termux" to com.coderGtm.yantra.commands.termux.Command::class.java,
             "run" to com.coderGtm.yantra.commands.run.Command::class.java,
+            "backup" to com.coderGtm.yantra.commands.backup.Command::class.java,
             "dict" to com.coderGtm.yantra.commands.dict.Command::class.java,
             "battery" to com.coderGtm.yantra.commands.battery.Command::class.java,
             "lock" to com.coderGtm.yantra.commands.lock.Command::class.java,
@@ -747,6 +761,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "info" to com.coderGtm.yantra.commands.info.Command::class.java,
             "uninstall" to com.coderGtm.yantra.commands.uninstall.Command::class.java,
             "list" to com.coderGtm.yantra.commands.list.Command::class.java,
+            "backup" to com.coderGtm.yantra.commands.backup.Command::class.java,
             "unalias" to com.coderGtm.yantra.commands.unalias.Command::class.java,
             "lock" to com.coderGtm.yantra.commands.lock.Command::class.java,
             "clear" to com.coderGtm.yantra.commands.clear.Command::class.java,
