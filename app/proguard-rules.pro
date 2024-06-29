@@ -29,3 +29,5 @@
 -dontwarn org.apache.bcel.**
 
 -keep class org.luaj.vm2.script.** { *; }
+
+-dontwarn okhttp3.internal.platform.*
