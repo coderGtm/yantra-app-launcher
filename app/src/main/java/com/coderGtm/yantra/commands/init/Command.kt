@@ -36,8 +36,18 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 output(terminal.activity.getString(R.string.init_list_saved),terminal.theme.successTextColor)
             }
             .setNegativeButton(terminal.activity.getString(R.string.clear)) { _, _ ->
-                terminal.preferenceObject.edit().putString("initList","").apply()
-                output(terminal.activity.getString(R.string.init_list_cleared),terminal.theme.successTextColor)
+                MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
+                    .setTitle(terminal.activity.getString(R.string.clear_init_list))
+                    .setMessage(terminal.activity.getString(R.string.clear_init_list_confirmation))
+                    .setCancelable(false)
+                    .setPositiveButton(terminal.activity.getString(R.string.clear)) { _, _ ->
+                        terminal.preferenceObject.edit().putString("initList","").apply()
+                        output(terminal.activity.getString(R.string.init_list_cleared),terminal.theme.successTextColor)
+                    }
+                    .setNeutralButton(terminal.activity.getString(R.string.cancel)) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
             }
             .setNeutralButton(terminal.activity.getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()

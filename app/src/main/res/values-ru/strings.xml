@@ -524,4 +524,6 @@
     <string name="weather_feels_like_c_f"><![CDATA[=> Ощущается как: %1$.1f°C (%2$.1f°F)]]></string>
     <string name="precipitation_chance"><![CDATA[=> Вероятность осадков: %1$d%%]]></string>
     <string name="snow_chance"><![CDATA[=> Вероятность снега: %1$d%%]]></string>
+    <string name="clear_init_list">Clear Init List?</string>
+    <string name="clear_init_list_confirmation">Are you sure you want to clear your init script?</string>
 </resources>
