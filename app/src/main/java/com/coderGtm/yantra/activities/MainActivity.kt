@@ -22,6 +22,7 @@ import com.canhub.cropper.CropImageView
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
+import com.coderGtm.yantra.commands.backup.copyFile
 import com.coderGtm.yantra.commands.termux.handleTermuxResult
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getInit
@@ -36,6 +37,8 @@ import com.coderGtm.yantra.setProStatus
 import com.coderGtm.yantra.setWallpaperFromUri
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.views.TerminalGestureListenerCallback
+import java.io.File
+import java.io.FileInputStream
 import java.util.Locale
 
 
@@ -233,6 +236,31 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                 if (settingsChanged) {
                     recreate()
                 }
+            }
+        }
+    }
+
+    val sendFileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            result.data?.data?.also { uri ->
+                val inputStream = FileInputStream(File(filesDir, "YantraBackup.yle"))
+
+                contentResolver.openOutputStream(uri)?.use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+            }
+
+            val fileToDelete = File(filesDir, "YantraBackup.yle")
+            if (fileToDelete.exists()) {
+                fileToDelete.delete()
+            }
+        }
+    }
+
+    val selectFileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            if (result.data != null) {
+                copyFile(this, result.data!!.data!!)
             }
         }
     }
