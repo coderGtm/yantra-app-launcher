@@ -2,15 +2,11 @@ package com.coderGtm.yantra.commands.backup
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.widget.Toast
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
-import ir.mahdi.mzip.zip.ZipArchive
-import net.lingala.zip4j.core.ZipFile
-import net.lingala.zip4j.exception.ZipException
-import net.lingala.zip4j.model.ZipParameters
-import net.lingala.zip4j.util.Zip4jConstants
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -19,34 +15,18 @@ import java.io.OutputStream
 
 
 fun packFile(command: Command) {
-    val files = arrayOf(
-        SHARED_PREFS_FILE_NAME
+    val packageManager = command.terminal.activity.packageManager
+    val applicationInfo = packageManager.getApplicationInfo(command.terminal.activity.packageName, PackageManager.GET_META_DATA)
+    val metaData = applicationInfo.metaData
+    val password = metaData?.getString("PASS_FOR_ZIP")?.toCharArray()
+
+    val plainFile = File("${command.terminal.activity.filesDir.parent}/shared_prefs/",
+        "$SHARED_PREFS_FILE_NAME.xml"
     )
+    val encryptedFile = File(command.terminal.activity.filesDir, "YantraBackup.yle")
 
-    val zipFileName = "${command.terminal.activity.filesDir}/YantraBackup.zip"
-
-    try {
-        val parameters = ZipParameters().apply {
-            compressionMethod = Zip4jConstants.COMP_STORE
-            compressionLevel = Zip4jConstants.DEFLATE_LEVEL_FASTEST
-            isEncryptFiles = true
-            encryptionMethod = Zip4jConstants.ENC_METHOD_AES
-            aesKeyStrength = Zip4jConstants.AES_STRENGTH_256
-            password = command.terminal.activity.resources.getString(R.string.PASS_FOR_ZIP).toCharArray()
-        }
-
-        val zipFile = ZipFile(zipFileName)
-
-        files.forEach { targetPath ->
-            val targetFile = File("${command.terminal.activity.filesDir.parent}/shared_prefs/", "$targetPath.xml")
-            if (!targetFile.exists()) return@forEach
-            if (targetFile.isFile) {
-                zipFile.addFile(targetFile, parameters)
-            } else if (targetFile.isDirectory) {
-                zipFile.addFolder(targetFile, parameters)
-            }
-        }
-    } catch (ignored: Exception) {
+    if (password != null) {
+        AESSecurity.encryptFile(plainFile, password, encryptedFile)
     }
 }
 
@@ -60,56 +40,26 @@ fun extractZip(activity: Activity, name: String): Boolean {
         return false
     }
 
+    val packageManager = activity.packageManager
+    val applicationInfo = packageManager.getApplicationInfo(activity.packageName, PackageManager.GET_META_DATA)
+    val metaData = applicationInfo.metaData
+    val password = metaData?.getString("PASS_FOR_ZIP")?.toCharArray()
+
     val oldFile = File(activity.filesDir, name)
-    val newName = name.replace(".yle", ".zip")
-    renameFile(oldFile, newName)
+    val decryptedFile = File("${activity.filesDir.parent}/shared_prefs/", "$SHARED_PREFS_FILE_NAME.xml")
 
-    if (!isProtected("${activity.filesDir}/$newName")) {
-        return false
+    if (password != null) {
+        AESSecurity.decryptFile(oldFile, password, decryptedFile)
     }
 
-    if (!containsFile(activity, newName)) {
-        return false
-    }
-
-    deleteFolder(File("${activity.filesDir.parent}/shared_prefs"))
-
-    ZipArchive.unzip("${activity.filesDir}/$newName", "${activity.filesDir.parent}/shared_prefs/",activity.resources.getString(R.string.PASS_FOR_ZIP))
-
-    File("${activity.filesDir}/$newName").delete()
+    File("${activity.filesDir}/$oldFile").delete()
 
     return true
 }
 
-private fun isProtected(zipFilePath: String): Boolean {
-    return try {
-        val zipFile = ZipFile(zipFilePath)
-        zipFile.isEncrypted
-    } catch (ignore: ZipException) {
-        false
-    }
-}
 
 private fun getFileExtension(fileName: String?): String {
     return fileName?.substringAfterLast('.', "") ?: ""
-}
-
-private fun containsFile(activity: Activity, newName: String): Boolean {
-    ZipArchive.unzip("${activity.filesDir}/$newName", "${activity.filesDir.parent}/temp/", activity.resources.getString(R.string.PASS_FOR_ZIP))
-    val fileExists = File("${activity.filesDir.parent}/temp/$SHARED_PREFS_FILE_NAME.xml").exists()
-    deleteFolder(File("${activity.filesDir.parent}/temp"))
-    return fileExists
-}
-
-private fun deleteFolder(folder: File): Boolean {
-    if (folder.isDirectory) {
-        folder.listFiles()?.forEach { file ->
-            if (!deleteFolder(file)) {
-                return false
-            }
-        }
-    }
-    return folder.delete()
 }
 
 private fun copyFileToInternalStorage(activity: Activity, uri: Uri) {
@@ -137,7 +87,6 @@ private fun copyFileToInternalStorage(activity: Activity, uri: Uri) {
 }
 
 private fun getFileNameFromUri(uri: Uri): String? {
-    println(uri.toString())
     val path = uri.lastPathSegment ?: return null
     val index = path.lastIndexOf('/')
     val index2 = path.lastIndexOf(':')

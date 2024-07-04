@@ -17,7 +17,6 @@
         android:label="${appLabel}"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        tools:replace="android:label"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.YantraLauncher">
 
@@ -118,6 +117,10 @@
         <meta-data
             android:name="WEATHER_API_KEY"
             android:value="${weatherAPIkey}" />
+
+        <meta-data
+            android:name="PASS_FOR_ZIP"
+            android:value="${passFromZip}" />
     </application>
 
 </manifest>

@@ -4,9 +4,6 @@ plugins {
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
-def Properties properties = new Properties()
-properties.load(project.rootProject.file("local.properties").newDataInputStream())
-
 android {
     compileSdk 34
 
@@ -18,8 +15,6 @@ android {
         versionName "9.6.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        resValue "string", "PASS_FOR_ZIP", properties.getProperty("PASS.FOR.ZIP", "")
     }
 
     androidResources {
@@ -77,7 +72,7 @@ dependencies {
 
     def acraVersion = '5.11.2'
 
-    implementation 'com.github.ghost1372:Mzip-Android:0.4.0'
+    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
