@@ -25,7 +25,7 @@ fun packFile(command: Command): String {
     val plainFile = File("${command.terminal.activity.filesDir.parent}/shared_prefs/",
         "$SHARED_PREFS_FILE_NAME.xml"
     )
-    val date = java.text.SimpleDateFormat("HHmm_dd_MM__yyyy", Locale.getDefault()).format(java.util.Date())
+    val date = java.text.SimpleDateFormat("HHmm_dd_MM_yyyy", Locale.getDefault()).format(java.util.Date())
     val fileName = "backup_$date.yantra"
     val encryptedFile = File(command.terminal.activity.filesDir, fileName)
 

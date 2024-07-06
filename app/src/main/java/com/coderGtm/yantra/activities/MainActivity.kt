@@ -243,7 +243,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
 
     val sendFileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
-            val date = java.text.SimpleDateFormat("HHmm_dd_MM__yyyy", Locale.getDefault()).format(java.util.Date())
+            val date = java.text.SimpleDateFormat("HHmm_dd_MM_yyyy", Locale.getDefault()).format(java.util.Date())
             val fileName = "backup_$date.yantra"
 
             result.data?.data?.also { uri ->
