@@ -3,7 +3,9 @@ package com.coderGtm.yantra.commands.backup
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
+import android.provider.OpenableColumns
 import android.widget.Toast
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import java.io.File
@@ -35,9 +37,9 @@ fun packFile(command: Command): String {
 }
 
 fun extractZip(activity: Activity, name: String): Boolean {
-    /*if (!getFileExtension(name).equals("yantra", ignoreCase = true)) {
+    if (!getFileExtension(name).equals("yantra", ignoreCase = true)) {
         return false
-    }*/
+    }
 
     val packageManager = activity.packageManager
     val applicationInfo = packageManager.getApplicationInfo(activity.packageName, PackageManager.GET_META_DATA)
@@ -66,7 +68,7 @@ private fun copyFileToInternalStorage(activity: Activity, uri: Uri) {
     var outputStream: OutputStream? = null
     try {
         inputStream = activity.contentResolver.openInputStream(uri) ?: return
-        val fileName = getFileNameFromUri(uri) ?: return
+        val fileName = getFullName(uri, activity) ?: return
         val outputFile = File(activity.filesDir, fileName)
         outputStream = FileOutputStream(outputFile)
         val buffer = ByteArray(1024)
@@ -85,21 +87,30 @@ private fun copyFileToInternalStorage(activity: Activity, uri: Uri) {
     }
 }
 
-private fun getFileNameFromUri(uri: Uri): String? {
-    val path = uri.lastPathSegment ?: return null
-    val index = path.lastIndexOf('/')
-    val index2 = path.lastIndexOf(':')
-    return when {
-        index != -1 -> path.substring(index + 1)
-        index2 != -1 -> path.substring(index2 + 1)
-        else -> path
+fun getFullName(uri: Uri, activity: Activity): String? {
+    val contentResolver = activity.contentResolver
+    val cursor: Cursor? = contentResolver.query(
+        uri, null, null, null, null, null)
+
+    cursor?.use {
+        if (it.moveToFirst()) {
+            val name = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+
+            if (name >= 0) {
+                val displayName: String =
+                    it.getString(name)
+                return displayName
+            }
+        }
     }
+
+    return null
 }
 
 fun copyFile(activity: Activity, selectedFileUri: Uri) {
     copyFileToInternalStorage(activity, selectedFileUri)
     Toast.makeText(activity,"please wait", Toast.LENGTH_SHORT).show()
-    if (!extractZip(activity, getFileNameFromUri(selectedFileUri) ?: return)) {
+    if (!extractZip(activity, getFullName(selectedFileUri, activity) ?: return)) {
         Toast.makeText(activity, "incorrect_file", Toast.LENGTH_SHORT).show()
         return
     }

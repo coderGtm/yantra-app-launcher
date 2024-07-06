@@ -8,7 +8,9 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
+import android.util.Log
 import android.view.KeyEvent
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -243,17 +245,25 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     val sendFileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             val date = java.text.SimpleDateFormat("HHmm_dd_MM__yyyy", Locale.getDefault()).format(java.util.Date())
+            val fileName = "backup_$date.yantra"
+
             result.data?.data?.also { uri ->
-                val inputStream = FileInputStream(File(filesDir, "backup_$date.yantra"))
+                val file = File(filesDir, fileName)
+                if (file.exists()) {
+                    val inputStream = FileInputStream(file)
 
-                contentResolver.openOutputStream(uri)?.use { outputStream ->
-                    inputStream.copyTo(outputStream)
+                    contentResolver.openOutputStream(uri)?.use { outputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+
+                    inputStream.close()
+
+                    if (file.exists()) {
+                        file.delete()
+                    }
+                } else {
+                    Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show()
                 }
-            }
-
-            val fileToDelete = File(filesDir, "backup_$date.yantra")
-            if (fileToDelete.exists()) {
-                fileToDelete.delete()
             }
         }
     }
