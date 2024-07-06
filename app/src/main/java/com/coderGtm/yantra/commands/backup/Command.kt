@@ -6,7 +6,6 @@ import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
-import java.io.File
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(

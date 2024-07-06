@@ -8,7 +8,6 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
-import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
