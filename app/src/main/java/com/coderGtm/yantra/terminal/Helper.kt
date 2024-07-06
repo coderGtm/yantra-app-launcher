@@ -14,6 +14,7 @@ import androidx.core.graphics.drawable.toBitmap
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.commands.todo.getToDo
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getScripts
@@ -22,7 +23,6 @@ import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.setSystemWallpaper
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.File
 import java.util.Locale
 import java.util.regex.Pattern
@@ -569,13 +569,21 @@ fun showSuggestions(
                         val commandClass = terminal.commands[sug]
                         if (commandClass != null) {
                             val cmdMetadata = commandClass.getDeclaredConstructor(Terminal::class.java).newInstance(terminal).metadata
-                            MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
+                            /*MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
                                 .setTitle(cmdMetadata.helpTitle)
                                 .setMessage(cmdMetadata.description)
                                 .setPositiveButton(terminal.activity.getString(R.string.ok)) { helpDialog, _ ->
                                     helpDialog.dismiss()
                                 }
-                                    .show()
+                                    .show()*/
+                            YantraLauncherDialog(terminal.activity).showInfo(
+                                cmdMetadata.helpTitle,
+                                cmdMetadata.description,
+                                terminal.activity.getString(R.string.ok),
+                                "",
+                                { },
+                                { }
+                            )
                         }
                     }
                     catch (e: Exception) {}
