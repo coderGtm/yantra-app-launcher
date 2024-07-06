@@ -11,15 +11,15 @@ import java.io.File
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "backup",
-        helpTitle = terminal.activity.getString(R.string.backup_title),
-        description = terminal.activity.getString(R.string.backup_help)
+        helpTitle = "backup",
+        description = "Backup your Yantra data"
     )
 
     override fun execute(command: String) {
         val args = command.split(" ").drop(1)
 
         if (args.size > 1) {
-            output(terminal.activity.getString(R.string.backup_too_many_arguments), terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.command_takes_one_param, metadata.name), terminal.theme.errorTextColor)
             return
         }
 
@@ -32,29 +32,25 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             val mainAct = terminal.activity as MainActivity
             mainAct.selectFileLauncher.launch(Intent.createChooser(intent, "Select file"))
 
-            output(terminal.activity.getString(R.string.import_dialog), terminal.theme.successTextColor)
+            output("import dialog", terminal.theme.successTextColor)
             return
         }
 
-        output(terminal.activity.getString(R.string.exporting), terminal.theme.successTextColor)
+        output("exporting", terminal.theme.successTextColor)
 
-        packFile(this@Command)
-        val filePath = "YantraBackup.zip"
-        val newName = "YantraBackup.yle"
+        val fileName = packFile(this@Command)
 
-        val oldFile = File(terminal.activity.filesDir, filePath)
-        renameFile(oldFile, newName)
 
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "*/*"
-            putExtra(Intent.EXTRA_TITLE, newName)
+            putExtra(Intent.EXTRA_TITLE, fileName)
         }
 
         val mainAct = terminal.activity as MainActivity
         mainAct.sendFileLauncher.launch(Intent.createChooser(intent, "Send file"))
 
-        output(terminal.activity.getString(R.string.send_dialog), terminal.theme.successTextColor)
+        output("send dialog", terminal.theme.successTextColor)
         return
     }
 }

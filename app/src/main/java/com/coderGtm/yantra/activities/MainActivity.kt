@@ -242,15 +242,16 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
 
     val sendFileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
+            val date = java.text.SimpleDateFormat("HHmm_dd_MM__yyyy", Locale.getDefault()).format(java.util.Date())
             result.data?.data?.also { uri ->
-                val inputStream = FileInputStream(File(filesDir, "YantraBackup.yle"))
+                val inputStream = FileInputStream(File(filesDir, "backup_$date.yantra"))
 
                 contentResolver.openOutputStream(uri)?.use { outputStream ->
                     inputStream.copyTo(outputStream)
                 }
             }
 
-            val fileToDelete = File(filesDir, "YantraBackup.yle")
+            val fileToDelete = File(filesDir, "backup_$date.yantra")
             if (fileToDelete.exists()) {
                 fileToDelete.delete()
             }

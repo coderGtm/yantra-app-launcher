@@ -119,8 +119,8 @@
             android:value="${weatherAPIkey}" />
 
         <meta-data
-            android:name="PASS_FOR_ZIP"
-            android:value="${passFromZip}" />
+            android:name="BACKUP_PASSWORD"
+            android:value="${backupPassword}" />
     </application>
 
 </manifest>
