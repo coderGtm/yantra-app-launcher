@@ -503,6 +503,19 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
+            else if (effectivePrimaryCmd == "music") {
+                if (args.size > 1) {
+                    overrideLastWord = true
+                }
+                val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                val listArgs = listOf("play", "pause", "next", "prev")
+                for (arg in listArgs) {
+                    if (regex.containsMatchIn(arg)) {
+                        suggestions.add(arg)
+                    }
+                }
+                isPrimary = false
+            }
             else if (effectivePrimaryCmd == "run") {
                 try {
                     val runArgs = getScripts(terminal.preferenceObject).toMutableList()
@@ -719,6 +732,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "bg" to com.coderGtm.yantra.commands.bg.Command::class.java,
             "text" to com.coderGtm.yantra.commands.text.Command::class.java,
             "translate" to com.coderGtm.yantra.commands.translate.Command::class.java,
+            "music" to com.coderGtm.yantra.commands.music.Command::class.java,
             "echo" to com.coderGtm.yantra.commands.echo.Command::class.java,
             "speedtest" to com.coderGtm.yantra.commands.speedtest.Command::class.java,
             "notify" to com.coderGtm.yantra.commands.notify.Command::class.java,
@@ -769,6 +783,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "info" to com.coderGtm.yantra.commands.info.Command::class.java,
             "uninstall" to com.coderGtm.yantra.commands.uninstall.Command::class.java,
             "list" to com.coderGtm.yantra.commands.list.Command::class.java,
+            "music" to com.coderGtm.yantra.commands.music.Command::class.java,
             "backup" to com.coderGtm.yantra.commands.backup.Command::class.java,
             "unalias" to com.coderGtm.yantra.commands.unalias.Command::class.java,
             "lock" to com.coderGtm.yantra.commands.lock.Command::class.java,
