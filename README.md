@@ -33,6 +33,7 @@ See the [FAQs Page](/faq.md) for answers to Frequently Asked Questions!
 See the [Support Page](/support.md) if you'd like to support the project.
 
 ## Contributors
+_(This section is not complete and updated yet)_
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
