@@ -261,7 +261,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                         file.delete()
                     }
                 } else {
-                    Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.file_not_found), Toast.LENGTH_SHORT).show()
                 }
             }
         }

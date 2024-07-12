@@ -10,8 +10,8 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "backup",
-        helpTitle = "backup",
-        description = "Backup your Yantra data"
+        helpTitle = terminal.activity.getString(R.string.cmd_backup_title),
+        description = terminal.activity.getString(R.string.cmd_backup_help)
     )
 
     override fun execute(command: String) {
@@ -29,13 +29,11 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             }
 
             val mainAct = terminal.activity as MainActivity
-            mainAct.selectFileLauncher.launch(Intent.createChooser(intent, "Select file"))
+            mainAct.selectFileLauncher.launch(Intent.createChooser(intent,
+                terminal.activity.getString(R.string.select_backup_file)))
 
-            output("import dialog", terminal.theme.successTextColor)
             return
         }
-
-        output("exporting", terminal.theme.successTextColor)
 
         val fileName = packFile(this@Command)
 
@@ -47,9 +45,9 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
 
         val mainAct = terminal.activity as MainActivity
-        mainAct.sendFileLauncher.launch(Intent.createChooser(intent, "Send file"))
+        mainAct.sendFileLauncher.launch(Intent.createChooser(intent,
+            terminal.activity.getString(R.string.save_backup_file)))
 
-        output("send dialog", terminal.theme.successTextColor)
         return
     }
 }

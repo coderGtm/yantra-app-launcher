@@ -1,6 +1,7 @@
 package com.coderGtm.yantra.commands.music
 
 import android.content.Context
+import android.graphics.Typeface
 import android.media.AudioManager
 import android.view.KeyEvent
 import com.coderGtm.yantra.R
@@ -11,8 +12,8 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "music",
-        helpTitle = "music [-state]",
-        description = "Control your music state in your device"
+        helpTitle = terminal.activity.getString(R.string.cmd_music_title),
+        description = terminal.activity.getString(R.string.cmd_music_help),
     )
 
     override fun execute(command: String) {
@@ -24,7 +25,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
 
         if (args.isEmpty()) {
-            output("No parameters provided, change state of music", terminal.theme.warningTextColor)
+            output(terminal.activity.getString(R.string.changing_music_state), terminal.theme.successTextColor, Typeface.ITALIC)
             sendMediaButtonEvent(KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE, terminal.activity.getSystemService(
                 Context.AUDIO_SERVICE) as AudioManager
             )
@@ -32,21 +33,21 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
 
         if (args[0] == "play") {
-            output("Resuming music", terminal.theme.successTextColor)
+            output(terminal.activity.getString(R.string.resuming_music), terminal.theme.successTextColor, Typeface.ITALIC)
             sendMediaButtonEvent(KeyEvent.KEYCODE_MEDIA_PLAY, terminal.activity.getSystemService(
                 Context.AUDIO_SERVICE) as AudioManager
             )
             return
         }
         if (args[0] == "pause") {
-            output("Pausing music", terminal.theme.successTextColor)
+            output(terminal.activity.getString(R.string.pausing_music), terminal.theme.successTextColor, Typeface.ITALIC)
             sendMediaButtonEvent(KeyEvent.KEYCODE_MEDIA_PAUSE, terminal.activity.getSystemService(
                 Context.AUDIO_SERVICE) as AudioManager
             )
             return
         }
         if (args[0] == "next") {
-            output("Next music", terminal.theme.successTextColor)
+            output(terminal.activity.getString(R.string.playing_next_track), terminal.theme.successTextColor, Typeface.ITALIC)
             sendMediaButtonEvent(KeyEvent.KEYCODE_MEDIA_NEXT, terminal.activity.getSystemService(
                 Context.AUDIO_SERVICE) as AudioManager
             )
@@ -54,14 +55,18 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
 
         if (args[0] == "prev") {
-            output("Previous music", terminal.theme.successTextColor)
+            output(terminal.activity.getString(R.string.playing_previous_track), terminal.theme.successTextColor, Typeface.ITALIC)
             sendMediaButtonEvent(KeyEvent.KEYCODE_MEDIA_PREVIOUS, terminal.activity.getSystemService(
                 Context.AUDIO_SERVICE) as AudioManager
             )
             return
         }
 
-        output("Invalid parameter!", terminal.theme.errorTextColor)
+        output(
+            terminal.activity.getString(
+                R.string.invalid_parameter_see_help_to_see_usage_info,
+                metadata.name
+            ), terminal.theme.errorTextColor)
         return
     }
 }

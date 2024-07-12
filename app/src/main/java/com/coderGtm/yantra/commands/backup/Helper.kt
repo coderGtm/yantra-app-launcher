@@ -7,7 +7,9 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.widget.Toast
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
+import com.coderGtm.yantra.toast
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -109,12 +111,12 @@ fun getFullName(uri: Uri, activity: Activity): String? {
 
 fun copyFile(activity: Activity, selectedFileUri: Uri) {
     copyFileToInternalStorage(activity, selectedFileUri)
-    Toast.makeText(activity,"please wait", Toast.LENGTH_SHORT).show()
+    toast(activity,activity.getString(R.string.loading_please_wait))
     if (!extractZip(activity, getFullName(selectedFileUri, activity) ?: return)) {
-        Toast.makeText(activity, "incorrect_file", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, activity.getString(R.string.incorrect_file), Toast.LENGTH_SHORT).show()
         return
     }
-    Toast.makeText(activity, "success", Toast.LENGTH_SHORT).show()
+    toast(activity, activity.getString(R.string.backup_restored))
 
     restartApp(activity)
 }

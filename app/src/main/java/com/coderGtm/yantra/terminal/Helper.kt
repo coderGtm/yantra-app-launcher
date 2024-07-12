@@ -495,8 +495,8 @@ fun showSuggestions(
                     overrideLastWord = true
                 }
                 val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val listArgs = listOf("-i")
-                for (arg in listArgs) {
+                val backupArgs = listOf("-i")
+                for (arg in backupArgs) {
                     if (regex.containsMatchIn(arg)) {
                         suggestions.add(arg)
                     }
@@ -508,8 +508,8 @@ fun showSuggestions(
                     overrideLastWord = true
                 }
                 val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val listArgs = listOf("play", "pause", "next", "prev")
-                for (arg in listArgs) {
+                val musicArgs = listOf("play", "pause", "prev", "next")
+                for (arg in musicArgs) {
                     if (regex.containsMatchIn(arg)) {
                         suggestions.add(arg)
                     }
