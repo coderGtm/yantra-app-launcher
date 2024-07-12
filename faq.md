@@ -50,7 +50,7 @@ G.U.P.T stands for Get Undercover Private Tab. Tired of going to browser everyti
 6. No cookies are saved.
 7. No more going through the hassle of opening an incognito tab in your browser.
 
-## How to use Lua scripting in Yantra Launcher?
+## 4. How to use Lua scripting in Yantra Launcher?
 Lua Scripting is a very powerful feature addition to Yantra Launcher using which you can literally do almost anything within your launcher. The reason being obvious: Lua is an entire programming language which has been embedded in the Launcher. This FAQ assumes that you already know how normal Yantra Launcher scripts work. If you don't know then pleas read the documentation of that command using the `help scripts` command.
 
 Creating a Lua script has the same process as creating a normal Yantra Launcher commands script:
