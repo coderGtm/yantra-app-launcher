@@ -14,6 +14,7 @@ import androidx.core.graphics.drawable.toBitmap
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.commands.todo.getToDo
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getScripts
@@ -22,7 +23,6 @@ import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.setSystemWallpaper
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.File
 import java.util.Locale
 import java.util.regex.Pattern
@@ -490,22 +490,49 @@ fun showSuggestions(
                 isPrimary = false
                 executeOnTapViable = false
             }
+            else if (effectivePrimaryCmd == "backup") {
+                if (args.size > 1) {
+                    overrideLastWord = true
+                }
+                val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                val backupArgs = listOf("-i")
+                for (arg in backupArgs) {
+                    if (regex.containsMatchIn(arg)) {
+                        suggestions.add(arg)
+                    }
+                }
+                isPrimary = false
+            }
+            else if (effectivePrimaryCmd == "music") {
+                if (args.size > 1) {
+                    overrideLastWord = true
+                }
+                val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                val musicArgs = listOf("play", "pause", "prev", "next")
+                for (arg in musicArgs) {
+                    if (regex.containsMatchIn(arg)) {
+                        suggestions.add(arg)
+                    }
+                }
+                isPrimary = false
+            }
             else if (effectivePrimaryCmd == "run") {
                 try {
-                    val scripts = getScripts(terminal.preferenceObject)
+                    val runArgs = getScripts(terminal.preferenceObject).toMutableList()
+                    runArgs.add(0, "-lua")
                     if (args.size>1) {
                         overrideLastWord = true
                         val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                        for (sname in scripts) {
-                            if (regex.containsMatchIn(sname)) {
-                                suggestions.add(sname)
+                        for (ra in runArgs) {
+                            if (regex.containsMatchIn(ra)) {
+                                suggestions.add(ra)
                             }
                         }
                     }
                     else {
-                        for (sname in scripts) {
-                            if (!suggestions.contains(sname)) {
-                                suggestions.add(sname)
+                        for (ra in runArgs) {
+                            if (!suggestions.contains(ra)) {
+                                suggestions.add(ra)
                             }
                         }
                     }
@@ -555,13 +582,21 @@ fun showSuggestions(
                         val commandClass = terminal.commands[sug]
                         if (commandClass != null) {
                             val cmdMetadata = commandClass.getDeclaredConstructor(Terminal::class.java).newInstance(terminal).metadata
-                            MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
+                            /*MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
                                 .setTitle(cmdMetadata.helpTitle)
                                 .setMessage(cmdMetadata.description)
                                 .setPositiveButton(terminal.activity.getString(R.string.ok)) { helpDialog, _ ->
                                     helpDialog.dismiss()
                                 }
-                                    .show()
+                                    .show()*/
+                            YantraLauncherDialog(terminal.activity).showInfo(
+                                cmdMetadata.helpTitle,
+                                cmdMetadata.description,
+                                terminal.activity.getString(R.string.ok),
+                                "",
+                                { },
+                                { }
+                            )
                         }
                     }
                     catch (e: Exception) {}
@@ -697,6 +732,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "bg" to com.coderGtm.yantra.commands.bg.Command::class.java,
             "text" to com.coderGtm.yantra.commands.text.Command::class.java,
             "translate" to com.coderGtm.yantra.commands.translate.Command::class.java,
+            "music" to com.coderGtm.yantra.commands.music.Command::class.java,
             "echo" to com.coderGtm.yantra.commands.echo.Command::class.java,
             "speedtest" to com.coderGtm.yantra.commands.speedtest.Command::class.java,
             "notify" to com.coderGtm.yantra.commands.notify.Command::class.java,
@@ -713,6 +749,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "unalias" to com.coderGtm.yantra.commands.unalias.Command::class.java,
             "termux" to com.coderGtm.yantra.commands.termux.Command::class.java,
             "run" to com.coderGtm.yantra.commands.run.Command::class.java,
+            "backup" to com.coderGtm.yantra.commands.backup.Command::class.java,
             "dict" to com.coderGtm.yantra.commands.dict.Command::class.java,
             "battery" to com.coderGtm.yantra.commands.battery.Command::class.java,
             "lock" to com.coderGtm.yantra.commands.lock.Command::class.java,
@@ -746,6 +783,8 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "info" to com.coderGtm.yantra.commands.info.Command::class.java,
             "uninstall" to com.coderGtm.yantra.commands.uninstall.Command::class.java,
             "list" to com.coderGtm.yantra.commands.list.Command::class.java,
+            "music" to com.coderGtm.yantra.commands.music.Command::class.java,
+            "backup" to com.coderGtm.yantra.commands.backup.Command::class.java,
             "unalias" to com.coderGtm.yantra.commands.unalias.Command::class.java,
             "lock" to com.coderGtm.yantra.commands.lock.Command::class.java,
             "clear" to com.coderGtm.yantra.commands.clear.Command::class.java,

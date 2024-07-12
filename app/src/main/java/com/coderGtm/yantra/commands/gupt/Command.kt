@@ -3,7 +3,6 @@ package com.coderGtm.yantra.commands.gupt
 import android.content.Intent
 import android.graphics.Typeface
 import com.coderGtm.yantra.R
-import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.activities.WebViewActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata

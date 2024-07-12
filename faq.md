@@ -49,3 +49,69 @@ G.U.P.T stands for Get Undercover Private Tab. Tired of going to browser everyti
 5. No history is saved.
 6. No cookies are saved.
 7. No more going through the hassle of opening an incognito tab in your browser.
+
+## 4. How to use Lua scripting in Yantra Launcher?
+Lua Scripting is a very powerful feature addition to Yantra Launcher using which you can literally do almost anything within your launcher. The reason being obvious: Lua is an entire programming language which has been embedded in the Launcher. This FAQ assumes that you already know how normal Yantra Launcher scripts work. If you don't know then pleas read the documentation of that command using the `help scripts` command.
+
+Creating a Lua script has the same process as creating a normal Yantra Launcher commands script:
+
+1. Enter the `scripts` command to open the scripts menu.
+2. Click on the button to create a new script and enter the script name.
+3. Enter the `scripts` command again to open the menu and click on your newly created script to open its editor.
+4. Enter the Lua code that you want to execute and click on the Save button.
+
+As you saw, the script creation process is the same. But the difference lies in execution, namely the `run` command. To tell Yantra Launcher that you want to execute a script as Lua code, you need to pass the `-lua` flag to the `run` command. For example, suppose your script name is "jokeNotifier", you can run it using:
+```
+run -lua jokeNotifier
+```
+
+Also, note that the embedded Lua language may not have the modules you are loking for. This is because most modules are written in C while this embedding is based on Java ([LuaJ](http://www.luaj.org/luaj.html)). But worry not, I have included 2 custom modules for the embedding using which you can do amazing things. The first one is the `http` module to create and send HTTP requests and parse their responses. The second one is a `binding` module to execute Yantra Launcher commands from Lua scripts. Also, there are custom `input` and `print` functions to facilitate IO operations in the absence of an stdout. Here are some code snipperts to show the usage:
+
+```lua
+-- A script to ask for a name and wait for 5 seconds before using a Yantra Launcher command
+print("Enter your name:")
+name = input()
+
+-- Sleep for 5 seconds
+os.execute("sleep 5")
+
+-- Use Yantra Launcher's 'text' command to broadcast greetings
+binding.exec("text Hello "..name.."!")
+```
+
+```lua
+-- Script to notify a random cat fact
+
+-- Make an HTTP GET request
+local response = http.get("https://catfact.ninja/fact", {headers={}})
+
+-- Use the 'exec' function of 'binding' to execute a Yantra Launcher command string
+binding.exec("notify "..response.body.fact)
+```
+
+```lua
+-- Example POST request
+local postUrl = "https://jsonplaceholder.typicode.com/posts"
+local postData = '{"title": "foo", "body": "bar", "userId": 1}'
+local headers = {
+    ["Content-Type"] = "application/json"
+}
+
+-- Can use get, post, put, delete and patch
+local response = http.post(postUrl, {body=postData, headers=headers})
+
+-- Check for errors
+if response.error then
+    print("Error: " .. response.error)
+else
+    local body = response.body
+    print("Response ID: " .. body.id)
+    print("Title: " .. body.title)
+    print("Body: " .. body.body)
+    print("User ID: " .. body.userId)
+end
+```
+I hope these examples are enough to get you started. If that's the case then probably you can now see the extent to power you have on your fingertips while using your Yantra Lancher. 
+
+
+_(Yes, you know what I am saying...AUTOMATE)_

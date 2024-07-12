@@ -171,8 +171,8 @@
     <string name="health"><![CDATA[-> Health: %1$s]]></string>
     <string name="temperature_c_f"><![CDATA[-> Temperature: %1$s°C (%2$s°F)]]></string>
     <string name="battery_invalid_Args">Invalid args provided. See \"help battery\" for usage info</string>
-    <string name="cmd_bg_title">bg | bg random | bg random [query]</string>
-    <string name="cmd_bg_help">\'bg\' is used to set custom Wallpaper from the Albums. Use \'bg -1\' to remove custom Wallpaper and set to solid theme background. Use \'bg random\' to fetch a random Wallpaper from the Internet. An optional [query] can be specified with the random command, like \'bg random mountains\' or \'bg random texture,dark\' to fetch related Wallpaper. Note that this command only changes the Home screen wallpaper, not the Lock screen one.</string>
+    <string name="cmd_bg_title">bg | bg random [-id=53] [-grayscale] [-blur=2]</string>
+    <string name="cmd_bg_help">\'bg\' is used to set custom Wallpaper from the Albums. Use \'bg -1\' to remove custom Wallpaper and set to solid theme background. Use \'bg random\' to fetch a random Wallpaper from the picsum.photos. You can fetch a specific image by passing its id as a flag parameter (full list at https://picsum.photos/images). An optional -grayscale flag is used to get a grayscale image. Get a blurred image by providing the blur flag with intensity from 1 to 10. Note that this command only changes the Home screen wallpaper, not the Lock screen one.</string>
     <string name="bg_too_many_args">Too many arguments. Use \'bg -1\' to remove custom Wallpaper</string>
     <string name="removed_wallpaper">Removed Wallpaper</string>
     <string name="bg_random_too_many_args">Too many arguments. Use \',\' to separate topics like \'bg random city,night-life\'</string>
@@ -524,4 +524,21 @@
     <string name="weather_feels_like_c_f"><![CDATA[=> Feels like: %1$.1f°C (%2$.1f°F)]]></string>
     <string name="precipitation_chance"><![CDATA[=> Precipitation chances: %1$d%%]]></string>
     <string name="snow_chance"><![CDATA[=> Snow chances: %1$d%%]]></string>
+    <string name="clear_init_list">Clear Init List?</string>
+    <string name="clear_init_list_confirmation">Are you sure you want to clear your init script?</string>
+    <string name="cmd_backup_title">backup [-i]</string>
+    <string name="cmd_backup_help">A utility to backup your Yantra Launcher configuration. Using the command will export your current configuration to a file. If you use the -i flag, you can import a configuration file that will replace your current configuration.</string>
+    <string name="select_backup_file">Select Backup File</string>
+    <string name="save_backup_file">Save Backup File</string>
+    <string name="incorrect_file">Incorrect File</string>
+    <string name="backup_restored">Configuration restored successfully. Restarting Yantra Launcher...</string>
+    <string name="file_not_found">File not found</string>
+    <string name="cmd_music_title">music [play/pause/prev/next]</string>
+    <string name="cmd_music_help">Control the local music state on your device. Use without any parameters to toggle the music state. Use \'play\' to resume music, \'pause\' to pause music, \'next\' to play the next track and \'prev\' to play the previous track in the queue.</string>
+    <string name="changing_music_state">Changing music state...</string>
+    <string name="resuming_music">Resuming music...</string>
+    <string name="pausing_music">Pausing music...</string>
+    <string name="playing_next_track">Playing next track...</string>
+    <string name="playing_previous_track">Playing previous track...</string>
+    <string name="invalid_parameter_see_help_to_see_usage_info">Invalid parameter! See \'help %1$s\' to see usage info.</string>
 </resources>

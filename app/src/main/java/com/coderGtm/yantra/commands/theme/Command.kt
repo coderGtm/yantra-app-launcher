@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable
 import androidx.core.graphics.drawable.toBitmap
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
-import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.setSystemWallpaper

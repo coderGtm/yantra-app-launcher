@@ -117,6 +117,10 @@
         <meta-data
             android:name="WEATHER_API_KEY"
             android:value="${weatherAPIkey}" />
+
+        <meta-data
+            android:name="BACKUP_PASSWORD"
+            android:value="${backupPassword}" />
     </application>
 
 </manifest>

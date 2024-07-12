@@ -5,7 +5,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.View
-import android.webkit.*
+import android.webkit.CookieManager
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
+import android.webkit.WebStorage
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity

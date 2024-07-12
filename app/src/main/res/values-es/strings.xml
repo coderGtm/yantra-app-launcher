@@ -358,7 +358,7 @@
 <string name="todays_screen_time">Tiempo de pantalla de hoy: %1$s</string>
 <string name="no_apps_found">No se encontraron aplicaciones.</string>
 <string name="less_than_1_minute">Menos de 1 minuto</string>
-<string name="cmd_scripts_help">Abre el diálogo para crear, modificar y eliminar scripts personalizados para Yantra Launcher, para ejecutar varios comandos a la vez. Consulta también el comando \'run\'.</string>
+<string name="cmd_scripts_help">Abre el diálogo para crear, modificar y eliminar scripts personalizados para Yantra Launcher, para ejecutar varios comandos a la vez. Los scripts pueden contener comandos de Yantra Launcher. También puedes crear scripts de Lua exlusivos para funcionalidad extendida. Si estas usando código Lua, puedes llamar comandos de Yantra Launcher desde el the script usando la función binding.exec() .\nEjemplo: \'binding.exec("Los Scripts de texto son geniales!")\'.  Consulta también el comando \'run\'.</string>
 <string name="opening_yantra_scripts">Abriendo Yantra Scripts...</string>
 <string name="yantra_scripts">Yantra Scripts</string>
 <string name="scripts_disclaimer">Ver, editar o eliminar este script. Nota: Introduce 1 comando por línea, tal como lo introducirías normalmente en el terminal de Yantra.</string>
@@ -396,7 +396,7 @@
 <string name="cmd_sysinfo_help">Muestra información del sistema, muy parecido a \'Neofetch\'</string>
 <string name="unknown_flag">Bandera desconocida: %1$s</string>
 <string name="cmd_termux_title"><![CDATA[termux <cmd> [args]]]></string>
-<string name="cmd_termux_help">Ejecuta el comando dado en termux si está instalado. Ten en cuenta que la propiedad \'allow-external-apps\' debe establecerse en true en ~/.termux/termux.properties en la aplicación Termux y se debe otorgar el permiso RUN_COMMAND desde la página de configuración de Yantra Launcher. Además, la sesión de termux se cierra tan pronto como se termina el comando debido a las restricciones de la API.\nUso: termux cmd_name [args]\nEjemplo: \'termux top -n 5\nPara resolver cualquier problema que aún ocurra, pregunta en la Comunidad Discord o envíame un correo a coderGtm@gmail.com.</string>
+<string name="cmd_termux_help">Ejecuta el comando dado en termux si está instalado y registra el stdout generado. Ten en cuenta que la propiedad \'allow-external-apps\' debe establecerse en true en ~/.termux/termux.properties en la aplicación Termux y se debe otorgar el permiso RUN_COMMAND desde la página de configuración de Yantra Launcher. Además, el resultado se imprime tan pronto como se ejecuta completamente el comando debido a las restricciones de la API.\nUso: termux cmd_name [args]\nEjemplo: \'termux echo Hello from Termux\'\nPara resolver cualquier problema que aún ocurra, pregunta en la Comunidad Discord o envíame un correo a coderGtm@gmail.com.</string>
 <string name="termux_invalid_cmd">Comando no válido. Consulta \'help termux\' para obtener información de uso</string>
 <string name="grant_termux_permission">¡Necesitas otorgar el permiso de ejecución de comandos de Termux a Yantra Launcher para que este comando funcione!</string>
 <string name="running_command_in_termux">Ejecutando comando en Termux...</string>
@@ -521,7 +521,24 @@
    <string name="multiple_shortcuts_found_with_label_please_select_one">Se encontraron varios accesos directos con el nombre \'%1$s\'. Por favor, selecciona uno.</string>
     <string name="total_tokens_used">Total de tokens utilizados en esta conversación: %1$s</string>
     <string name="ai_reset">¡El historial de mensajes de IA se ha restablecido!</string>
-    <string name="weather_feels_like_c_f"><![CDATA[=> Feels like: %1$.1f°C (%2$.1f°F)]]></string>
-    <string name="precipitation_chance"><![CDATA[=> Precipitation chances: %1$d%%]]></string>
-    <string name="snow_chance"><![CDATA[=> Snow chances: %1$d%%]]></string>
+    <string name="weather_feels_like_c_f"><![CDATA[=> Sensación térmica: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="precipitation_chance"><![CDATA[=> Probabilidad de precipitación: %1$d%%]]></string>
+    <string name="snow_chance"><![CDATA[=> Probabilidad de nieve: %1$d%%]]></string>
+    <string name="clear_init_list">Clear Init List?</string>
+    <string name="clear_init_list_confirmation">Are you sure you want to clear your init script?</string>
+    <string name="cmd_backup_title">backup [-i]</string>
+    <string name="cmd_backup_help">A utility to backup your Yantra Launcher configuration. Using the command will export your current configuration to a file. If you use the -i flag, you can import a configuration file that will replace your current configuration.</string>
+    <string name="select_backup_file">Select Backup File</string>
+    <string name="save_backup_file">Save Backup File</string>
+    <string name="incorrect_file">Incorrect File</string>
+    <string name="backup_restored">Configuration restored successfully. Restarting Yantra Launcher...</string>
+    <string name="file_not_found">File not found</string>
+    <string name="cmd_music_title">music [play/pause/prev/next]</string>
+    <string name="cmd_music_help">Control the local music state on your device. Use without any parameters to toggle the music state. Use \'play\' to resume music, \'pause\' to pause music, \'next\' to play the next track and \'prev\' to play the previous track in the queue.</string>
+    <string name="changing_music_state">Changing music state...</string>
+    <string name="resuming_music">Resuming music...</string>
+    <string name="pausing_music">Pausing music...</string>
+    <string name="playing_next_track">Playing next track...</string>
+    <string name="playing_previous_track">Playing previous track...</string>
+    <string name="invalid_parameter_see_help_to_see_usage_info">Invalid parameter! See \'help %1$s\' to see usage info.</string>
 </resources>

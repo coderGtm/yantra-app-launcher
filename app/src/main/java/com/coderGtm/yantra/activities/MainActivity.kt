@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.view.KeyEvent
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,7 @@ import com.canhub.cropper.CropImageView
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
+import com.coderGtm.yantra.commands.backup.copyFile
 import com.coderGtm.yantra.commands.termux.handleTermuxResult
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getInit
@@ -36,6 +38,8 @@ import com.coderGtm.yantra.setProStatus
 import com.coderGtm.yantra.setWallpaperFromUri
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.views.TerminalGestureListenerCallback
+import java.io.File
+import java.io.FileInputStream
 import java.util.Locale
 
 
@@ -233,6 +237,40 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                 if (settingsChanged) {
                     recreate()
                 }
+            }
+        }
+    }
+
+    val sendFileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val date = java.text.SimpleDateFormat("HHmm_dd_MM_yyyy", Locale.getDefault()).format(java.util.Date())
+            val fileName = "backup_$date.yantra"
+
+            result.data?.data?.also { uri ->
+                val file = File(filesDir, fileName)
+                if (file.exists()) {
+                    val inputStream = FileInputStream(file)
+
+                    contentResolver.openOutputStream(uri)?.use { outputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+
+                    inputStream.close()
+
+                    if (file.exists()) {
+                        file.delete()
+                    }
+                } else {
+                    Toast.makeText(this, getString(R.string.file_not_found), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    val selectFileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            if (result.data != null) {
+                copyFile(this, result.data!!.data!!)
             }
         }
     }

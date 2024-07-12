@@ -524,4 +524,21 @@
     <string name="weather_feels_like_c_f"><![CDATA[=> Feels like: %1$.1f°C (%2$.1f°F)]]></string>
     <string name="precipitation_chance"><![CDATA[=> Precipitation chances: %1$d%%]]></string>
     <string name="snow_chance"><![CDATA[=> Snow chances: %1$d%%]]></string>
+    <string name="clear_init_list">Clear Init List?</string>
+    <string name="clear_init_list_confirmation">Are you sure you want to clear your init script?</string>
+    <string name="cmd_backup_title">backup [-i]</string>
+    <string name="cmd_backup_help">A utility to backup your Yantra Launcher configuration. Using the command will export your current configuration to a file. If you use the -i flag, you can import a configuration file that will replace your current configuration.</string>
+    <string name="select_backup_file">Select Backup File</string>
+    <string name="save_backup_file">Save Backup File</string>
+    <string name="incorrect_file">Incorrect File</string>
+    <string name="backup_restored">Configuration restored successfully. Restarting Yantra Launcher...</string>
+    <string name="file_not_found">File not found</string>
+    <string name="cmd_music_title">music [play/pause/prev/next]</string>
+    <string name="cmd_music_help">Control the local music state on your device. Use without any parameters to toggle the music state. Use \'play\' to resume music, \'pause\' to pause music, \'next\' to play the next track and \'prev\' to play the previous track in the queue.</string>
+    <string name="changing_music_state">Changing music state...</string>
+    <string name="resuming_music">Resuming music...</string>
+    <string name="pausing_music">Pausing music...</string>
+    <string name="playing_next_track">Playing next track...</string>
+    <string name="playing_previous_track">Playing previous track...</string>
+    <string name="invalid_parameter_see_help_to_see_usage_info">Invalid parameter! See \'help %1$s\' to see usage info.</string>
 </resources>

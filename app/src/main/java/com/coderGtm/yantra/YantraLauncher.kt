@@ -3,6 +3,7 @@ package com.coderGtm.yantra
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.androidnetworking.AndroidNetworking
 import org.acra.ReportField
 import org.acra.config.dialog
 import org.acra.config.mailSender
@@ -51,5 +52,10 @@ class YantraLauncher : Application() {
                 body = "Yantra Launcher Crashed. Crash Report is attached."
             }
         }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        AndroidNetworking.initialize(applicationContext)
     }
 }
