@@ -40,10 +40,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/inputLineLayout"
+                android:id="@+id/newInputLineLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="200dp"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -68,7 +69,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_launcher"
+                            android:src="@drawable/ic_new_prompt"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="8dp"/>
 
@@ -81,7 +82,7 @@
                         android:backgroundTint="#FFFFFF"/>
 
                     <TextView
-                        android:id="@+id/username"
+                        android:id="@+id/usernameNew"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="root"
@@ -95,11 +96,11 @@
                 <View
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="2dp"
                     android:background="@drawable/right_triangle" />
 
                 <com.coderGtm.yantra.terminal.TerminalEditText
-                    android:id="@+id/cmdInput"
+                    android:id="@+id/cmdInputNew"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -107,6 +108,35 @@
                     android:background="@null"
                     android:textSize="16sp"
                     android:layout_gravity="center_vertical"
+                    android:textCursorDrawable="@drawable/cursor_drawable"
+                    android:inputType="textMultiLine" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/inputLineLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="200dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="root>"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <com.coderGtm.yantra.terminal.TerminalEditText
+                    android:id="@+id/cmdInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:imeOptions="actionSend"
+                    android:background="@null"
+                    android:textSize="16sp"
                     android:textCursorDrawable="@drawable/cursor_drawable"
                     android:inputType="textMultiLine" />
             </LinearLayout>

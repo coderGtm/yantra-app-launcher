@@ -27,6 +27,7 @@ import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.models.Contacts
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.terminal.Terminal
+import com.coderGtm.yantra.terminal.TerminalEditText
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.UpdateAvailability
@@ -68,10 +69,10 @@ fun setWallpaperFromUri(uri: Uri?, activity: Activity, fallbackColor: Int, prefe
     setSystemWallpaper(wallpaperManager, (bg as BitmapDrawable).bitmap)
     preferenceObject.edit().putBoolean("defaultWallpaper",false).apply()
 }
-fun requestCmdInputFocusAndShowKeyboard(activity: Activity, binding: ActivityMainBinding) {
-    binding.cmdInput.requestFocus()
+fun requestCmdInputFocusAndShowKeyboard(activity: Activity, cmdInput: TerminalEditText) {
+    cmdInput.requestFocus()
     val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.showSoftInput(binding.cmdInput, InputMethodManager.SHOW_IMPLICIT)
+    imm.showSoftInput(cmdInput, InputMethodManager.SHOW_IMPLICIT)
 }
 @SuppressLint("Range")
 fun contactsManager(terminal: Terminal, callingIntent: Boolean = false, callTo: String = ""): List<Contacts> {

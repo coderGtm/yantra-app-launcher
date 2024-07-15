@@ -44,7 +44,7 @@ fun showSuggestions(
         var isPrimary = true
         var executeOnTapViable = true
 
-        if ((args.isEmpty() || (args.size == 1 && terminal.binding.cmdInput.text.toString().lastOrNull() != ' ')) && getPrimarySuggestions) {
+        if ((args.isEmpty() || (args.size == 1 && terminal.cmdInput.text.toString().lastOrNull() != ' ')) && getPrimarySuggestions) {
             overrideLastWord = true
             val regex = Regex(Pattern.quote(args[0]), RegexOption.IGNORE_CASE)
             val allPrimarySuggestions: MutableSet<String> = terminal.commands.keys.toMutableSet()
@@ -57,7 +57,7 @@ fun showSuggestions(
                 }
             }
         }
-        else if ((args.size > 1 || (args.size == 1 && terminal.binding.cmdInput.text.toString().lastOrNull() == ' ')) && getSecondarySuggestions) {
+        else if ((args.size > 1 || (args.size == 1 && terminal.cmdInput.text.toString().lastOrNull() == ' ')) && getSecondarySuggestions) {
             // check for alias
             val effectivePrimaryCmd: String
             val isAliasCmd = terminal.aliasList.any { it.key == args[0] }
@@ -566,12 +566,12 @@ fun showSuggestions(
                 val actOnSuggestionTap = terminal.preferenceObject.getBoolean("actOnSuggestionTap", false)
                 if (!isPrimary && actOnSuggestionTap && executeOnTapViable) {
                     terminal.handleCommand(newCmd)
-                    terminal.binding.cmdInput.setText("")
+                    terminal.cmdInput.setText("")
                 }
                 else {
-                    terminal.binding.cmdInput.setText(newCmd)
-                    terminal.binding.cmdInput.setSelection(terminal.binding.cmdInput.text!!.length)
-                    requestCmdInputFocusAndShowKeyboard(terminal.activity, terminal.binding)
+                    terminal.cmdInput.setText(newCmd)
+                    terminal.cmdInput.setSelection(terminal.cmdInput.text!!.length)
+                    requestCmdInputFocusAndShowKeyboard(terminal.activity, terminal.cmdInput)
                     terminal.binding.suggestionsTab.removeView(it)
                 }
 
@@ -640,7 +640,7 @@ fun showSuggestions(
                 terminal.binding.suggestionsTab.removeAllViews()
                 suggestions.clear()
 
-                terminal.binding.cmdInput.setText("")
+                terminal.cmdInput.setText("")
             }
         }
     }.start()

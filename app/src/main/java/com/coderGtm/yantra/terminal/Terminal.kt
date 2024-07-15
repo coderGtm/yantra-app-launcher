@@ -30,6 +30,7 @@ import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.marginTop
 import androidx.core.widget.addTextChangedListener
 import com.coderGtm.yantra.BuildConfig
 import com.coderGtm.yantra.DEFAULT_ALIAS_LIST
@@ -44,6 +45,7 @@ import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getCurrentTheme
 import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.getUserName
+import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.marketProVersion
 import com.coderGtm.yantra.models.Alias
@@ -86,6 +88,7 @@ class Terminal(
     var shortcutListFetched: Boolean = false
     var workingDir = ""
     var cmdHistory = ArrayList<String>()
+    var cmdInput = binding.cmdInput
 
     lateinit var appList: ArrayList<AppBlock>
     lateinit var shortcutList: ArrayList<ShortcutBlock>
@@ -93,10 +96,20 @@ class Terminal(
     lateinit var aliasList: MutableList<Alias>
 
     fun initialize() {
+        if (preferenceObject.getBoolean("useNewPromptView", false)) {
+            cmdInput = binding.cmdInputNew
+        }
+
         activity.requestedOrientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         goFullScreen()
         enforceThemeComponents()
         setTypeface()
+
+        if (preferenceObject.getBoolean("useNewPromptView", false)) {
+            binding.newInputLineLayout.visibility = View.VISIBLE
+            binding.inputLineLayout.visibility = View.GONE
+        }
+
         setArrowKeys(preferenceObject, binding)
         binding.upBtn.setOnClickListener { cmdUp() }
         binding.downBtn.setOnClickListener { cmdDown() }
@@ -110,7 +123,7 @@ class Terminal(
         setLauncherAppsListener(this@Terminal)
         appList = getAppsList(this@Terminal)
         shortcutList = getShortcutList(this@Terminal)
-        showSuggestions(binding.cmdInput.text.toString(), getPrimarySuggestions, getSecondarySuggestions, this@Terminal)
+        showSuggestions(cmdInput.text.toString(), getPrimarySuggestions, getSecondarySuggestions, this@Terminal)
         //fetching contacts if permitted
         if (ContextCompat.checkSelfPermission(activity.baseContext, android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             Thread {
@@ -123,15 +136,20 @@ class Terminal(
     }
 
     private fun enforceThemeComponents() {
-        binding.username.textSize = fontSize
-        binding.cmdInput.textSize = fontSize
-        binding.cmdInput.textSize = fontSize
+        if (preferenceObject.getBoolean("useNewPromptView", false)) {
+            binding.usernameNew.textSize = fontSize
+            binding.usernameNew.setTextColor(theme.inputLineTextColor)
+        } else {
+            binding.username.textSize = fontSize
+            binding.username.setTextColor(theme.inputLineTextColor)
+        }
+
+        cmdInput.setTextColor(theme.inputLineTextColor)
+
         activity.window.statusBarColor = Color.TRANSPARENT
         activity.window.navigationBarColor = theme.bgColor
         setPromptText()
         binding.suggestionsTab.background = theme.bgColor.toDrawable()
-        binding.username.setTextColor(theme.inputLineTextColor)
-        binding.cmdInput.setTextColor(theme.inputLineTextColor)
         val unwrappedCursorDrawable = AppCompatResources.getDrawable(activity,
             R.drawable.cursor_drawable
         )
@@ -158,16 +176,26 @@ class Terminal(
             override fun onTypefaceRetrieved(rTypeface: Typeface) {
                 //set font as retrieved cliTypeface
                 typeface = rTypeface
-                binding.username.setTypeface(typeface, Typeface.BOLD)
-                binding.cmdInput.typeface = typeface
+                if (preferenceObject.getBoolean("useNewPromptView", false)) {
+                    binding.usernameNew.setTypeface(typeface, Typeface.BOLD)
+                } else {
+                    binding.username.setTypeface(typeface, Typeface.BOLD)
+                }
+                cmdInput.typeface = typeface
+
                 finishInitialization()
             }
 
             override fun onTypefaceRequestFailed(reason: Int) {
                 //set font as source code pro from res folder
                 typeface = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
-                binding.username.setTypeface(typeface, Typeface.BOLD)
-                binding.cmdInput.typeface = typeface
+                if (preferenceObject.getBoolean("useNewPromptView", false)) {
+                    binding.usernameNew.setTypeface(typeface, Typeface.BOLD)
+                } else {
+                    binding.username.setTypeface(typeface, Typeface.BOLD)
+                }
+
+                cmdInput.typeface = typeface
                 finishInitialization()
             }
         }
@@ -177,10 +205,10 @@ class Terminal(
     }
 
     private fun setInputListener() {
-        binding.cmdInput.setOnEditorActionListener { v, actionId, event ->
+       cmdInput.setOnEditorActionListener { v, actionId, event ->
             return@setOnEditorActionListener when (actionId) {
                 EditorInfo.IME_ACTION_SEND -> {
-                    val inputReceived = binding.cmdInput.text.toString().trim()
+                    val inputReceived = cmdInput.text.toString().trim()
                     handleInput(inputReceived)
                     true
                 }
@@ -194,19 +222,19 @@ class Terminal(
         }
     }
     private fun registerTextChangedListener() {
-        binding.cmdInput.addTextChangedListener {
+        cmdInput.addTextChangedListener {
             showSuggestions(it.toString(), getPrimarySuggestions, getSecondarySuggestions, this@Terminal)
         }
     }
     fun handleInput(input: String) {
         handleCommand(input)
-        binding.cmdInput.setText("")
+        cmdInput.setText("")
         if (hideKeyboardOnEnter) hideSoftKeyboard()
         goFullScreen()
     }
     private fun hideSoftKeyboard() {
         val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.cmdInput.windowToken, 0)
+        imm.hideSoftInputFromWindow(cmdInput.windowToken, 0)
     }
     private fun goFullScreen() {
         if (preferenceObject.getBoolean("fullScreen",false)) {
@@ -241,7 +269,7 @@ class Terminal(
             isSleeping = false
             binding.terminalOutput.removeView(wakeBtn)
             output("Yantra Launcher awakened mid-sleep (~_^)", theme.errorTextColor, null)
-            binding.cmdInput.isEnabled = true
+            cmdInput.isEnabled = true
             executeCommandsInQueue()
         }
     }
@@ -255,7 +283,7 @@ class Terminal(
         binding.scrollView.setGestureListenerCallback((activity as MainActivity))
         // for keyboard open
         binding.inputLineLayout.setOnClickListener {
-            requestCmdInputFocusAndShowKeyboard(activity, binding)
+            requestCmdInputFocusAndShowKeyboard(activity, cmdInput)
         }
     }
 
@@ -310,12 +338,23 @@ class Terminal(
     fun setPromptText() {
         if (preferenceObject.getBoolean("showCurrentFolderInPrompt", false) && !workingDir.isEmpty()) {
             val splitOfWorkingDir = workingDir.split("/")
+            if (preferenceObject.getBoolean("useNewPromptView", false)) {
+                binding.usernameNew.text =
+                    "${getUserName(preferenceObject)}/../${splitOfWorkingDir[splitOfWorkingDir.size - 1]}"
+                return
+            }
             binding.username.text =
-                "${getUserName(preferenceObject)}/../${splitOfWorkingDir[splitOfWorkingDir.size - 1]}"
+                "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}/../${splitOfWorkingDir[splitOfWorkingDir.size - 1]}>"
             return
         }
 
-        binding.username.text = getUserName(preferenceObject)
+        if (preferenceObject.getBoolean("useNewPromptView", false)) {
+            binding.usernameNew.text = getUserName(preferenceObject)
+            return
+        }
+
+        binding.username.text =
+            "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}>"
     }
     private fun getCommandInstance(commandName: String): BaseCommand? {
         val cachedCommand = commandCache.find { it.containsKey(commandName) }
@@ -360,21 +399,21 @@ class Terminal(
     }
 
     fun cmdDown() {
-        binding.cmdInput.requestFocus()
+        cmdInput.requestFocus()
         if (cmdHistoryCursor<(cmdHistory.size-1)) {
             cmdHistoryCursor++
-            binding.cmdInput.setText(cmdHistory[cmdHistoryCursor])
-            binding.cmdInput.setSelection(binding.cmdInput.text!!.length)
-            requestCmdInputFocusAndShowKeyboard(activity, binding)
+            cmdInput.setText(cmdHistory[cmdHistoryCursor])
+            cmdInput.setSelection(cmdInput.text!!.length)
+            requestCmdInputFocusAndShowKeyboard(activity, cmdInput)
         }
     }
     fun cmdUp() {
-        binding.cmdInput.requestFocus()
+        cmdInput.requestFocus()
         if (cmdHistoryCursor>0) {
             cmdHistoryCursor--
-            binding.cmdInput.setText(cmdHistory[cmdHistoryCursor])
-            binding.cmdInput.setSelection(binding.cmdInput.text!!.length)
-            requestCmdInputFocusAndShowKeyboard(activity, binding)
+            cmdInput.setText(cmdHistory[cmdHistoryCursor])
+            cmdInput.setSelection(cmdInput.text!!.length)
+            requestCmdInputFocusAndShowKeyboard(activity, cmdInput)
         }
     }
     fun handleCommand(command: String, isAlias: Boolean = false, logCmd: Boolean = true) {
@@ -385,7 +424,11 @@ class Terminal(
         val commandName = command.trim().split(" ").firstOrNull()
         if (!isAlias) {
             if (logCmd && !NO_LOG_COMMANDS.contains(commandName?.lowercase())) {
-                addChatBubble(getUserName(preferenceObject), command)
+                if (preferenceObject.getBoolean("useNewPromptView", false)) {
+                    addChatBubble(getUserName(preferenceObject), command)
+                } else {
+                    output(getUserNamePrefix(preferenceObject)+getUserName(preferenceObject)+"> $command", theme.commandColor, null)
+                }
             }
             if (command.trim()!="") {
                 cmdHistory.add(command)
@@ -428,7 +471,6 @@ class Terminal(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply {
-                gravity = Gravity.CENTER_VERTICAL
                 setMargins(0, 2.dpToPx(), 0, 2.dpToPx())
                 marginEnd = 8.dpToPx()
             }
@@ -455,7 +497,7 @@ class Terminal(
                 gravity = Gravity.CENTER_VERTICAL
                 marginStart = 8.dpToPx()
             }
-            setImageResource(R.drawable.ic_launcher)
+            setImageResource(R.drawable.ic_new_prompt)
         }
         frameLayout.addView(imageView)
 
@@ -495,7 +537,7 @@ class Terminal(
 
         val bottomTriangle = View(activity).apply {
             layoutParams = LinearLayout.LayoutParams(24.dpToPx(), 24.dpToPx()).apply {
-                gravity = Gravity.CENTER_VERTICAL
+                setMargins(0, 2.dpToPx(), 0, 2.dpToPx())
                 marginStart = (-8).dpToPx()
             }
             background = ContextCompat.getDrawable(activity, R.drawable.right_triangle)
