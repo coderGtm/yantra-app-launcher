@@ -65,7 +65,7 @@ class Terminal(
     private val getSecondarySuggestions = preferenceObject.getBoolean("getSecondarySuggestions",true)
     
     private var commandQueue: MutableList<String> = mutableListOf()
-    private var cmdHistory = ArrayList<String>()
+    var cmdHistory = ArrayList<String>()
     private var cmdHistoryCursor = -1
     private var commandCache = mutableListOf<Map<String, BaseCommand>>()
 
