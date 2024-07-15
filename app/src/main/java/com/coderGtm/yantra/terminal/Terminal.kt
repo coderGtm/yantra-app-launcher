@@ -44,7 +44,6 @@ import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getCurrentTheme
 import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.getUserName
-import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.marketProVersion
 import com.coderGtm.yantra.models.Alias
@@ -58,7 +57,6 @@ import com.coderGtm.yantra.vibrate
 import io.noties.markwon.Markwon
 import java.util.TimerTask
 import kotlin.math.roundToInt
-import kotlin.time.times
 
 class Terminal(
     val activity: Activity,
