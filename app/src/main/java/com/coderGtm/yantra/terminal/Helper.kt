@@ -593,9 +593,6 @@ fun showSuggestions(
                                 cmdMetadata.helpTitle,
                                 cmdMetadata.description,
                                 terminal.activity.getString(R.string.ok),
-                                "",
-                                { },
-                                { }
                             )
                         }
                     }

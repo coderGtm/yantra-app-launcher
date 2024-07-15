@@ -14,10 +14,12 @@ import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.DEFAULT_AI_API_DOMAIN
 import com.coderGtm.yantra.DEFAULT_SYSINFO_ART
 import com.coderGtm.yantra.R
+import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.databinding.ActivitySettingsBinding
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.openURL
 import com.coderGtm.yantra.setUserNamePrefix
+import com.coderGtm.yantra.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 fun setOrientationTvText(activity: Activity, binding: ActivitySettingsBinding, orientation: Int) {
@@ -59,23 +61,20 @@ fun changedSettingsCallback(activity: Activity) {
 }
 
 fun openUsernamePrefixSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
-    val usernamePrefixBuilder = MaterialAlertDialogBuilder(activity)
-        .setTitle(activity.getString(R.string.username_prefix))
-        .setMessage(activity.getString(R.string.username_prefix_description))
-        .setView(R.layout.username_prefix_dialog)
-        .setPositiveButton(activity.getString(R.string.save)) { dialog, _ ->
-            val prefix = (dialog as AlertDialog).findViewById<EditText>(R.id.usernameET)?.text.toString()
+    val usernamePrefixBuilder = YantraLauncherDialog(activity)
+    usernamePrefixBuilder.takeInput(
+        title = activity.getString(R.string.username_prefix),
+        message = activity.getString(R.string.username_prefix_description),
+        initialInput = getUserNamePrefix(preferenceObject),
+        positiveButton = activity.getString(R.string.save),
+        positiveAction = {
+            val prefix = it
             setUserNamePrefix(prefix, preferenceEditObject)
             binding.usernamePrefix.text = getUserNamePrefix(preferenceObject)
-            Toast.makeText(activity,
-                activity.getString(R.string.username_prefix_updated), Toast.LENGTH_SHORT).show()
+            toast(activity, activity.getString(R.string.username_prefix_updated))
             changedSettingsCallback(activity)
-        }
-        .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
-            dialog.dismiss()
-        }
-        .show()
-    usernamePrefixBuilder.findViewById<EditText>(R.id.usernameET)?.setText(getUserNamePrefix(preferenceObject))
+        },
+    )
 }
 
 fun openDoubleTapActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
