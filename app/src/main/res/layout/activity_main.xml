@@ -47,12 +47,14 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/newPrompt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
                     android:gravity="center_vertical"
+                    android:visibility="gone"
                     android:background="@drawable/round_corner_blue">
 
                     <FrameLayout
@@ -68,7 +70,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_launcher"
+                            android:src="@drawable/ic_new_prompt"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="8dp"/>
 
@@ -81,7 +83,7 @@
                         android:backgroundTint="#FFFFFF"/>
 
                     <TextView
-                        android:id="@+id/username"
+                        android:id="@+id/usernameNew"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="root"
@@ -93,20 +95,31 @@
                 </LinearLayout>
 
                 <View
+                    android:id="@+id/triangle"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
                     android:background="@drawable/right_triangle" />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="root>"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <com.coderGtm.yantra.terminal.TerminalEditText
                     android:id="@+id/cmdInput"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginStart="5dp"
                     android:imeOptions="actionSend"
                     android:background="@null"
                     android:textSize="16sp"
-                    android:layout_gravity="center_vertical"
                     android:textCursorDrawable="@drawable/cursor_drawable"
                     android:inputType="textMultiLine" />
             </LinearLayout>

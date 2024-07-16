@@ -59,6 +59,7 @@ import java.util.Locale
 
 class SettingsActivity : AppCompatActivity() {
 
+    private var useNewPromptView = false
     private var getPrimarySuggestions = true
     private var getSecondarySuggestions = true
     private var fullscreenLauncher = false
@@ -130,6 +131,7 @@ class SettingsActivity : AppCompatActivity() {
 
         splitInstallManager = SplitInstallManagerFactory.create(this)
 
+        useNewPromptView = preferenceObject.getBoolean("useNewPromptView",false)
         getPrimarySuggestions = preferenceObject.getBoolean("getPrimarySuggestions",true)
         getSecondarySuggestions = preferenceObject.getBoolean("getSecondarySuggestions",true)
         fullscreenLauncher = preferenceObject.getBoolean("fullScreen",false)
@@ -259,6 +261,13 @@ class SettingsActivity : AppCompatActivity() {
                         .show()
                 }
                 .show()
+        }
+
+        binding.newPrompt.isChecked = useNewPromptView
+        binding.newPrompt.setOnCheckedChangeListener { _, isChecked ->
+            useNewPromptView = isChecked
+            preferenceEditObject.putBoolean("useNewPromptView",isChecked).apply()
+            changedSettingsCallback(this@SettingsActivity)
         }
 
         binding.primarySugSwitch.isChecked = getPrimarySuggestions

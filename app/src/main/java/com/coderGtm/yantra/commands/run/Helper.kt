@@ -17,7 +17,7 @@ import com.coderGtm.yantra.terminal.Terminal
 fun requestInput(luaExecutor: LuaExecutor, terminal: Terminal, scriptName: String, callback: (String) -> Unit) {
     val luaInput = EditText(terminal.activity)
     val terminateBtn = TextView(terminal.activity)
-    val originalUsernameText = terminal.binding.username.text.toString()
+    val originalUsernameText = terminal.username.text.toString()
     switchToLuaInput(terminal, luaExecutor, scriptName, luaInput, terminateBtn, originalUsernameText)
     luaInput.setOnEditorActionListener { _, actionId, _ ->
         if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -31,7 +31,7 @@ fun requestInput(luaExecutor: LuaExecutor, terminal: Terminal, scriptName: Strin
 
 private fun switchToLuaInput(terminal: Terminal, luaExecutor: LuaExecutor, scriptName: String, luaInput: EditText, terminateBtn: TextView, originalUsernameText: String) {
     terminal.binding.cmdInput.isEnabled = false
-    terminal.binding.username.text = "$scriptName>"
+    terminal.username.text = "$scriptName>"
 
     luaInput.imeOptions = EditorInfo.IME_ACTION_DONE
     luaInput.isSingleLine = true
@@ -60,7 +60,7 @@ private fun switchToLuaInput(terminal: Terminal, luaExecutor: LuaExecutor, scrip
         terminal.binding.inputLineLayout.removeView(luaInput)
         terminal.binding.cmdInput.visibility = View.VISIBLE
         terminal.binding.cmdInput.isEnabled = true
-        terminal.binding.username.text = originalUsernameText
+        terminal.username.text = originalUsernameText
         terminal.binding.cmdInput.requestFocus()
         // terminate the lua script
         luaExecutor.terminate()
@@ -76,6 +76,6 @@ private fun switchToCmdInput(terminal: Terminal, luaInput: EditText, terminateBt
     terminal.binding.inputLineLayout.removeView(luaInput)
     terminal.binding.cmdInput.visibility = View.VISIBLE
     terminal.binding.cmdInput.isEnabled = true
-    terminal.binding.username.text = originalUsernameText
+    terminal.username.text = originalUsernameText
     terminal.binding.cmdInput.requestFocus()
 }
