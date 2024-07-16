@@ -65,7 +65,7 @@ As you saw, the script creation process is the same. But the difference lies in 
 run -lua jokeNotifier
 ```
 
-Also, note that the embedded Lua language may not have the modules you are loking for. This is because most modules are written in C while this embedding is based on Java ([LuaJ](http://www.luaj.org/luaj.html)). But worry not, I have included 2 custom modules for the embedding using which you can do amazing things. The first one is the `http` module to create and send HTTP requests and parse their responses. The second one is a `binding` module to execute Yantra Launcher commands from Lua scripts. Also, there are custom `input` and `print` functions to facilitate IO operations in the absence of an stdout. Here are some code snipperts to show the usage:
+Also, note that the embedded Lua language may not have the modules you are loking for. This is because most modules are written in C while this embedding is based on Java ([LuaJ](http://www.luaj.org/luaj.html)). But worry not, I have included 2 custom modules for the embedding using which you can do amazing things. The first one is the `http` module to create and send HTTP requests and parse their responses. The second one is a `binding` module to execute Yantra Launcher commands from Lua scripts. Also, there are custom `input` and `print` functions to facilitate IO operations in the absence of an stdout. Here are some code snippets to show the usage:
 
 ```lua
 -- A script to ask for a name and wait for 5 seconds before using a Yantra Launcher command
