@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
@@ -12,9 +13,14 @@ import android.os.Handler
 import android.os.Looper
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
@@ -51,6 +57,7 @@ import com.coderGtm.yantra.showRatingAndCommunityPopups
 import com.coderGtm.yantra.vibrate
 import io.noties.markwon.Markwon
 import java.util.TimerTask
+import kotlin.math.roundToInt
 
 class Terminal(
     val activity: Activity,
@@ -80,6 +87,7 @@ class Terminal(
     var shortcutListFetched: Boolean = false
     var workingDir = ""
     var cmdHistory = ArrayList<String>()
+    var username = binding.username
 
     lateinit var appList: ArrayList<AppBlock>
     lateinit var shortcutList: ArrayList<ShortcutBlock>
@@ -87,6 +95,13 @@ class Terminal(
     lateinit var aliasList: MutableList<Alias>
 
     fun initialize() {
+        if (preferenceObject.getBoolean("useNewPromptView", false)) {
+            binding.newPrompt.visibility = View.VISIBLE
+            binding.triangle.visibility = View.VISIBLE
+            binding.username.visibility = View.GONE
+            username = binding.usernameNew
+        }
+
         activity.requestedOrientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         goFullScreen()
         enforceThemeComponents()
@@ -117,14 +132,13 @@ class Terminal(
     }
 
     private fun enforceThemeComponents() {
-        binding.username.textSize = fontSize
-        binding.cmdInput.textSize = fontSize
+        username.textSize = fontSize
         binding.cmdInput.textSize = fontSize
         activity.window.statusBarColor = Color.TRANSPARENT
         activity.window.navigationBarColor = theme.bgColor
         setPromptText()
         binding.suggestionsTab.background = theme.bgColor.toDrawable()
-        binding.username.setTextColor(theme.inputLineTextColor)
+        username.setTextColor(theme.inputLineTextColor)
         binding.cmdInput.setTextColor(theme.inputLineTextColor)
         val unwrappedCursorDrawable = AppCompatResources.getDrawable(activity,
             R.drawable.cursor_drawable
@@ -152,7 +166,7 @@ class Terminal(
             override fun onTypefaceRetrieved(rTypeface: Typeface) {
                 //set font as retrieved cliTypeface
                 typeface = rTypeface
-                binding.username.setTypeface(typeface, Typeface.BOLD)
+                username.setTypeface(typeface, Typeface.BOLD)
                 binding.cmdInput.typeface = typeface
                 finishInitialization()
             }
@@ -160,7 +174,7 @@ class Terminal(
             override fun onTypefaceRequestFailed(reason: Int) {
                 //set font as source code pro from res folder
                 typeface = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
-                binding.username.setTypeface(typeface, Typeface.BOLD)
+                username.setTypeface(typeface, Typeface.BOLD)
                 binding.cmdInput.typeface = typeface
                 finishInitialization()
             }
@@ -304,12 +318,22 @@ class Terminal(
     fun setPromptText() {
         if (preferenceObject.getBoolean("showCurrentFolderInPrompt", false) && !workingDir.isEmpty()) {
             val splitOfWorkingDir = workingDir.split("/")
-            binding.username.text =
+            if (preferenceObject.getBoolean("useNewPromptView", false)) {
+                username.text =
+                    "${getUserName(preferenceObject)}/../${splitOfWorkingDir[splitOfWorkingDir.size - 1]}"
+                return
+            }
+            username.text =
                 "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}/../${splitOfWorkingDir[splitOfWorkingDir.size - 1]}>"
             return
         }
 
-        binding.username.text =
+        if (preferenceObject.getBoolean("useNewPromptView", false)) {
+            username.text = getUserName(preferenceObject)
+            return
+        }
+
+        username.text =
             "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}>"
     }
     private fun getCommandInstance(commandName: String): BaseCommand? {
@@ -380,7 +404,11 @@ class Terminal(
         val commandName = command.trim().split(" ").firstOrNull()
         if (!isAlias) {
             if (logCmd && !NO_LOG_COMMANDS.contains(commandName?.lowercase())) {
-                output(getUserNamePrefix(preferenceObject)+getUserName(preferenceObject)+"> $command", theme.commandColor, null)
+                if (preferenceObject.getBoolean("useNewPromptView", false)) {
+                    addChatBubble(getUserName(preferenceObject), command)
+                } else {
+                    output(getUserNamePrefix(preferenceObject)+getUserName(preferenceObject)+"> $command", theme.commandColor, null)
+                }
             }
             if (command.trim()!="") {
                 cmdHistory.add(command)
@@ -401,8 +429,8 @@ class Terminal(
         if (commandInstance != null) {
             commandInstance.execute(command.trim())
         }
-        else if (command.trim() == "") {}
         else {
+            if (command.trim() == "") return
             // find most similar command and recommend
             var maxScore = 0.0
             var matchingName = "help"
@@ -416,6 +444,115 @@ class Terminal(
             output("$commandName is not a recognized command or alias. Did you mean $matchingName?", theme.errorTextColor, null)
         }
     }
+
+    private fun addChatBubble(username: String, command: String) {
+        val mainLayout = LinearLayout(activity).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                setMargins(0, 2.dpToPx(), 0, 2.dpToPx())
+                marginEnd = 8.dpToPx()
+            }
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            background = ContextCompat.getDrawable(activity, R.drawable.round_corner_blue)
+        }
+
+        val frameLayout = FrameLayout(activity).apply {
+            layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+        }
+
+        val whiteBackground = View(activity).apply {
+            layoutParams = FrameLayout.LayoutParams(40.spToPX(), FrameLayout.LayoutParams.MATCH_PARENT)
+            background = ContextCompat.getDrawable(context, R.drawable.round_corner_white)
+        }
+        frameLayout.addView(whiteBackground)
+
+        val imageView = ImageView(activity).apply {
+            layoutParams = FrameLayout.LayoutParams(24.dpToPx(), 24.dpToPx()).apply {
+                gravity = Gravity.CENTER_VERTICAL
+                marginStart = 8.dpToPx()
+            }
+            setImageResource(R.drawable.ic_new_prompt)
+        }
+        frameLayout.addView(imageView)
+
+        mainLayout.addView(frameLayout)
+
+        val whiteTriangle = View(activity).apply {
+            layoutParams = LinearLayout.LayoutParams(24.dpToPx(), 24.dpToPx())
+            background = ContextCompat.getDrawable(activity, R.drawable.right_triangle)
+            backgroundTintList = ColorStateList.valueOf(Color.WHITE)
+        }
+        mainLayout.addView(whiteTriangle)
+
+        val usernameTextView = TextView(activity).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                marginStart = (-8).dpToPx()
+                gravity = Gravity.CENTER_VERTICAL
+            }
+            text = username
+            setTextColor(theme.commandColor)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
+            Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")?.let { setTypeface(it, Typeface.BOLD) }
+        }
+
+        mainLayout.addView(usernameTextView)
+
+        val finalLayout = LinearLayout(activity).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            orientation = LinearLayout.HORIZONTAL
+        }
+        finalLayout.addView(mainLayout)
+
+        val bottomTriangle = View(activity).apply {
+            layoutParams = LinearLayout.LayoutParams(24.dpToPx(), 24.dpToPx()).apply {
+                setMargins(0, 2.dpToPx(), 0, 2.dpToPx())
+                marginStart = (-8).dpToPx()
+            }
+            background = ContextCompat.getDrawable(activity, R.drawable.right_triangle)
+        }
+        finalLayout.addView(bottomTriangle)
+
+        val commandTextView = TextView(activity).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                gravity = Gravity.CENTER_VERTICAL
+            }
+            text = command
+            setTextColor(theme.commandColor)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
+            Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")?.let { setTypeface(it) }
+        }
+
+        finalLayout.addView(commandTextView)
+
+        activity.runOnUiThread {
+            binding.terminalOutput.addView(finalLayout)
+        }
+    }
+
+    private fun Int.dpToPx(): Int {
+        return (this * activity.resources.displayMetrics.density).toInt()
+    }
+
+    private fun Int.spToPX(): Int {
+        val scaledDensity = activity.resources.displayMetrics.scaledDensity
+        return (this * scaledDensity).roundToInt()
+    }
+
 }
 
 private fun TextView.setFont(typeface: Typeface?, style: Int?, state: Int, fontSize: Float) {

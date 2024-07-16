@@ -16,16 +16,6 @@
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintStart_toEndOf="parent"/>
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="100dp"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--    </LinearLayout>-->
-
     <com.coderGtm.yantra.views.TerminalScrollView
         android:id="@+id/scrollView"
         android:background="#00ffffff"
@@ -55,6 +45,62 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="200dp"
                 android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/newPrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    android:background="@drawable/round_corner_blue">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <View
+                            android:layout_width="40sp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/round_corner_white"
+                            android:backgroundTint="#FFFFFF"/>
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_new_prompt"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"/>
+
+                    </FrameLayout>
+
+                    <View
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/right_triangle"
+                        android:backgroundTint="#FFFFFF"/>
+
+                    <TextView
+                        android:id="@+id/usernameNew"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="root"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="-8dp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/triangle"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:background="@drawable/right_triangle" />
 
                 <TextView
                     android:id="@+id/username"
@@ -113,17 +159,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/downBtn" />
 
-
     <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-            <LinearLayout
-                android:id="@+id/suggestionsTab"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal" />
+        <LinearLayout
+            android:id="@+id/suggestionsTab"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" />
     </HorizontalScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
