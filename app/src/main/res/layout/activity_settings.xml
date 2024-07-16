@@ -55,26 +55,6 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/newPrompt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="20sp"
-                    android:text="New prompt view (Beta)" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingVertical="8dp"
-                android:orientation="horizontal">
-
-                <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/primarySugSwitch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

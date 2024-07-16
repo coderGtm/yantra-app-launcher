@@ -36,12 +36,12 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             terminal.binding.terminalOutput.addView(terminal.wakeBtn)
         }
         terminal.wakeBtn.updateLayoutParams { width = ViewGroup.LayoutParams.WRAP_CONTENT }
-        terminal.cmdInput.isEnabled = false
+        terminal.binding.cmdInput.isEnabled = false
         terminal.sleepTimer = Timer().schedule(milliseconds) {
             terminal.isSleeping = false
             terminal.activity.runOnUiThread {
                 terminal.binding.terminalOutput.removeView(terminal.wakeBtn)
-                terminal.cmdInput.isEnabled = true
+                terminal.binding.cmdInput.isEnabled = true
                 terminal.executeCommandsInQueue()
             }
         }

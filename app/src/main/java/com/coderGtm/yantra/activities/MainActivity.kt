@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     override fun onSingleTap() {
         val oneTapKeyboardActivation = app.preferenceObject.getBoolean("oneTapKeyboardActivation",true)
         if (oneTapKeyboardActivation) {
-            requestCmdInputFocusAndShowKeyboard(this@MainActivity, primaryTerminal.cmdInput)
+            requestCmdInputFocusAndShowKeyboard(this@MainActivity, binding)
         }
     }
     override fun onDoubleTap() {
@@ -190,7 +190,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             primaryTerminal.cmdDown()
         }
         else if (event.keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-            val inputReceived = primaryTerminal.cmdInput.text.toString().trim()
+            val inputReceived = binding.cmdInput.text.toString().trim()
             primaryTerminal.handleInput(inputReceived)
         }
         return super.dispatchKeyEvent(event)

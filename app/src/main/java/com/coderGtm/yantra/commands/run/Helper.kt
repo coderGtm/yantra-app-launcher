@@ -30,7 +30,7 @@ fun requestInput(luaExecutor: LuaExecutor, terminal: Terminal, scriptName: Strin
 }
 
 private fun switchToLuaInput(terminal: Terminal, luaExecutor: LuaExecutor, scriptName: String, luaInput: EditText, terminateBtn: TextView, originalUsernameText: String) {
-    terminal.cmdInput.isEnabled = false
+    terminal.binding.cmdInput.isEnabled = false
     terminal.binding.username.text = "$scriptName>"
 
     luaInput.imeOptions = EditorInfo.IME_ACTION_DONE
@@ -58,14 +58,14 @@ private fun switchToLuaInput(terminal: Terminal, luaExecutor: LuaExecutor, scrip
     terminateBtn.setOnClickListener {
         terminal.binding.terminalOutput.removeView(terminateBtn)
         terminal.binding.inputLineLayout.removeView(luaInput)
-        terminal.cmdInput.visibility = View.VISIBLE
-        terminal.cmdInput.isEnabled = true
+        terminal.binding.cmdInput.visibility = View.VISIBLE
+        terminal.binding.cmdInput.isEnabled = true
         terminal.binding.username.text = originalUsernameText
-        terminal.cmdInput.requestFocus()
+        terminal.binding.cmdInput.requestFocus()
         // terminate the lua script
         luaExecutor.terminate()
     }
-    terminal.cmdInput.visibility = View.GONE
+    terminal.binding.cmdInput.visibility = View.GONE
     terminal.binding.inputLineLayout.addView(luaInput)
     terminal.binding.terminalOutput.addView(terminateBtn)
     luaInput.requestFocus()
@@ -74,8 +74,8 @@ private fun switchToLuaInput(terminal: Terminal, luaExecutor: LuaExecutor, scrip
 private fun switchToCmdInput(terminal: Terminal, luaInput: EditText, terminateBtn: TextView, originalUsernameText: String) {
     terminal.binding.terminalOutput.removeView(terminateBtn)
     terminal.binding.inputLineLayout.removeView(luaInput)
-    terminal.cmdInput.visibility = View.VISIBLE
-    terminal.cmdInput.isEnabled = true
+    terminal.binding.cmdInput.visibility = View.VISIBLE
+    terminal.binding.cmdInput.isEnabled = true
     terminal.binding.username.text = originalUsernameText
-    terminal.cmdInput.requestFocus()
+    terminal.binding.cmdInput.requestFocus()
 }
