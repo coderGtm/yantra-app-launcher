@@ -65,7 +65,7 @@ private fun getFileExtension(fileName: String?): String {
     return fileName?.substringAfterLast('.', "") ?: ""
 }
 
-private fun copyFileToInternalStorage(activity: Activity, uri: Uri) {
+fun copyFileToInternalStorage(activity: Activity, uri: Uri) {
     var inputStream: InputStream? = null
     var outputStream: OutputStream? = null
     try {

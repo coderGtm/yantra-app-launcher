@@ -56,6 +56,7 @@ import com.coderGtm.yantra.runInitTasks
 import com.coderGtm.yantra.showRatingAndCommunityPopups
 import com.coderGtm.yantra.vibrate
 import io.noties.markwon.Markwon
+import java.io.File
 import java.util.TimerTask
 import kotlin.math.roundToInt
 
@@ -154,6 +155,16 @@ class Terminal(
         }
         else {
             DEFAULT_TERMINAL_FONT_NAME
+        }
+        if (fontName.endsWith(".ttf")) {
+            val fontFile = File(activity.filesDir, fontName)
+            if (fontFile.exists()) {
+                typeface = Typeface.createFromFile(fontFile)
+                username.setTypeface(typeface, Typeface.BOLD)
+                binding.cmdInput.typeface = typeface
+                finishInitialization()
+            }
+            return
         }
         val request = FontRequest(
             "com.google.android.gms.fonts",
