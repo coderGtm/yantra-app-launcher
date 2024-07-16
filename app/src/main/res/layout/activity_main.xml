@@ -47,7 +47,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/newPrompt"
+                    android:id="@+id/modernPrompt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -70,7 +70,7 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_new_prompt"
+                            android:src="@drawable/ic_android"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="8dp"/>
 
@@ -83,7 +83,7 @@
                         android:backgroundTint="#FFFFFF"/>
 
                     <TextView
-                        android:id="@+id/usernameNew"
+                        android:id="@+id/modernPromptUsername"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="root"

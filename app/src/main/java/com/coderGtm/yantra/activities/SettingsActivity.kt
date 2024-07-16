@@ -59,7 +59,6 @@ import java.util.Locale
 
 class SettingsActivity : AppCompatActivity() {
 
-    private var useNewPromptView = false
     private var getPrimarySuggestions = true
     private var getSecondarySuggestions = true
     private var fullscreenLauncher = false
@@ -77,6 +76,7 @@ class SettingsActivity : AppCompatActivity() {
     private var appSugOrderingMode = AppSortMode.A_TO_Z.value
     private var fontName = "Source Code Pro"
     private var appLocale = "en"
+    private var useModernPromptDesign = false
 
     private lateinit var binding: ActivitySettingsBinding
 
@@ -131,7 +131,6 @@ class SettingsActivity : AppCompatActivity() {
 
         splitInstallManager = SplitInstallManagerFactory.create(this)
 
-        useNewPromptView = preferenceObject.getBoolean("useNewPromptView",false)
         getPrimarySuggestions = preferenceObject.getBoolean("getPrimarySuggestions",true)
         getSecondarySuggestions = preferenceObject.getBoolean("getSecondarySuggestions",true)
         fullscreenLauncher = preferenceObject.getBoolean("fullScreen",false)
@@ -154,6 +153,7 @@ class SettingsActivity : AppCompatActivity() {
             DEFAULT_TERMINAL_FONT_NAME
         }
         appLocale = AppCompatDelegate.getApplicationLocales().toLanguageTags()
+        useModernPromptDesign = preferenceObject.getBoolean("useModernPromptDesign",false)
 
 
         binding.usernamePrefix.text = getUserNamePrefix(preferenceObject)
@@ -263,12 +263,6 @@ class SettingsActivity : AppCompatActivity() {
                 .show()
         }
 
-        binding.newPrompt.isChecked = useNewPromptView
-        binding.newPrompt.setOnCheckedChangeListener { _, isChecked ->
-            useNewPromptView = isChecked
-            preferenceEditObject.putBoolean("useNewPromptView",isChecked).apply()
-            changedSettingsCallback(this@SettingsActivity)
-        }
 
         binding.primarySugSwitch.isChecked = getPrimarySuggestions
         binding.primarySugSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -298,6 +292,12 @@ class SettingsActivity : AppCompatActivity() {
         binding.showArrowSwitch.setOnCheckedChangeListener { _, isChecked ->
             showArrowKeys = isChecked
             preferenceEditObject.putBoolean("showArrowKeys",isChecked).apply()
+            changedSettingsCallback(this@SettingsActivity)
+        }
+        binding.modernPrompt.isChecked = useModernPromptDesign
+        binding.modernPrompt.setOnCheckedChangeListener { _, isChecked ->
+            useModernPromptDesign = isChecked
+            preferenceEditObject.putBoolean("useModernPromptDesign",isChecked).apply()
             changedSettingsCallback(this@SettingsActivity)
         }
         binding.showCurrentFolderInPrompt.isChecked = showCurrentFolderInPrompt

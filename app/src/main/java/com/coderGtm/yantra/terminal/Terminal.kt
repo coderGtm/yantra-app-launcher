@@ -95,11 +95,11 @@ class Terminal(
     lateinit var aliasList: MutableList<Alias>
 
     fun initialize() {
-        if (preferenceObject.getBoolean("useNewPromptView", false)) {
-            binding.newPrompt.visibility = View.VISIBLE
+        if (preferenceObject.getBoolean("useModernPromptDesign", false)) {
+            binding.modernPrompt.visibility = View.VISIBLE
             binding.triangle.visibility = View.VISIBLE
             binding.username.visibility = View.GONE
-            username = binding.usernameNew
+            username = binding.modernPromptUsername
         }
 
         activity.requestedOrientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
@@ -318,7 +318,7 @@ class Terminal(
     fun setPromptText() {
         if (preferenceObject.getBoolean("showCurrentFolderInPrompt", false) && !workingDir.isEmpty()) {
             val splitOfWorkingDir = workingDir.split("/")
-            if (preferenceObject.getBoolean("useNewPromptView", false)) {
+            if (preferenceObject.getBoolean("useModernPromptDesign", false)) {
                 username.text =
                     "${getUserName(preferenceObject)}/../${splitOfWorkingDir[splitOfWorkingDir.size - 1]}"
                 return
@@ -328,7 +328,7 @@ class Terminal(
             return
         }
 
-        if (preferenceObject.getBoolean("useNewPromptView", false)) {
+        if (preferenceObject.getBoolean("useModernPromptDesign", false)) {
             username.text = getUserName(preferenceObject)
             return
         }
@@ -404,7 +404,7 @@ class Terminal(
         val commandName = command.trim().split(" ").firstOrNull()
         if (!isAlias) {
             if (logCmd && !NO_LOG_COMMANDS.contains(commandName?.lowercase())) {
-                if (preferenceObject.getBoolean("useNewPromptView", false)) {
+                if (preferenceObject.getBoolean("useModernPromptDesign", false)) {
                     addChatBubble(getUserName(preferenceObject), command)
                 } else {
                     output(getUserNamePrefix(preferenceObject)+getUserName(preferenceObject)+"> $command", theme.commandColor, null)
@@ -477,7 +477,7 @@ class Terminal(
                 gravity = Gravity.CENTER_VERTICAL
                 marginStart = 8.dpToPx()
             }
-            setImageResource(R.drawable.ic_new_prompt)
+            setImageResource(R.drawable.ic_android)
         }
         frameLayout.addView(imageView)
 
