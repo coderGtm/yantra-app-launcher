@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/titleText"
-            android:layout_width="200dp"
+            android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sanchez"
             android:text="Yantra Launcher Scripts"
@@ -89,7 +89,7 @@
                 android:text="Add Script"
                 android:textAllCaps="false"
                 android:textColor="#010101"
-                android:textSize="15dp"
+                android:textSize="16dp"
                 android:textStyle="bold"
                 app:cornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -110,7 +110,7 @@
                 android:text="Clear"
                 android:textAllCaps="false"
                 android:textColor="#010101"
-                android:textSize="15dp"
+                android:textSize="16dp"
                 android:textStyle="bold"
                 app:cornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
