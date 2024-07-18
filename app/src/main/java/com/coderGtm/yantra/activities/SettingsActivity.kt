@@ -405,7 +405,7 @@ class SettingsActivity : AppCompatActivity() {
         val fonts = mutableListOf<String>()
         val files = filesDir.listFiles()
         files?.forEach { file ->
-            if (!file.isDirectory) {
+            if (!file.isDirectory && file.name.endsWith(".ttf")) {
                 fonts.add(file.name)
             }
         }
