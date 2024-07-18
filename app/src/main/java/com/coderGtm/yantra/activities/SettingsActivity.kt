@@ -26,10 +26,9 @@ import com.android.volley.toolbox.Volley
 import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.DEFAULT_TERMINAL_FONT_NAME
 import com.coderGtm.yantra.R
-import com.coderGtm.yantra.commands.backup.copyFile
-import com.coderGtm.yantra.commands.backup.copyFileToInternalStorage
-import com.coderGtm.yantra.commands.backup.getFullName
+import com.coderGtm.yantra.copyFileToInternalStorage
 import com.coderGtm.yantra.databinding.ActivitySettingsBinding
+import com.coderGtm.yantra.getFullName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.misc.changedSettingsCallback

@@ -3,18 +3,14 @@ package com.coderGtm.yantra.commands.backup
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.net.Uri
-import android.provider.OpenableColumns
 import android.widget.Toast
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
+import com.coderGtm.yantra.copyFileToInternalStorage
+import com.coderGtm.yantra.getFullName
 import com.coderGtm.yantra.toast
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
 import java.util.Locale
 
 
@@ -63,50 +59,6 @@ fun extractZip(activity: Activity, name: String): Boolean {
 
 private fun getFileExtension(fileName: String?): String {
     return fileName?.substringAfterLast('.', "") ?: ""
-}
-
-fun copyFileToInternalStorage(activity: Activity, uri: Uri) {
-    var inputStream: InputStream? = null
-    var outputStream: OutputStream? = null
-    try {
-        inputStream = activity.contentResolver.openInputStream(uri) ?: return
-        val fileName = getFullName(uri, activity) ?: return
-        val outputFile = File(activity.filesDir, fileName)
-        outputStream = FileOutputStream(outputFile)
-        val buffer = ByteArray(1024)
-        var bytesRead: Int
-        while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-            outputStream.write(buffer, 0, bytesRead)
-        }
-        outputStream.flush()
-    } catch (ignored: IOException) {
-    } finally {
-        try {
-            inputStream?.close()
-            outputStream?.close()
-        } catch (ignored: IOException) {
-        }
-    }
-}
-
-fun getFullName(uri: Uri, activity: Activity): String? {
-    val contentResolver = activity.contentResolver
-    val cursor: Cursor? = contentResolver.query(
-        uri, null, null, null, null, null)
-
-    cursor?.use {
-        if (it.moveToFirst()) {
-            val name = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-
-            if (name >= 0) {
-                val displayName: String =
-                    it.getString(name)
-                return displayName
-            }
-        }
-    }
-
-    return null
 }
 
 fun copyFile(activity: Activity, selectedFileUri: Uri) {
