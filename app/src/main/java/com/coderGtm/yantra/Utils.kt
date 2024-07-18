@@ -342,7 +342,7 @@ fun vibrate(millis: Long? = 100, activity: Activity) {
 fun getCustomThemeColors(preferenceObject: SharedPreferences): ArrayList<String> {
     return preferenceObject.getString(
         "customThemeClrs",
-        "#FF000000,#FFA0A0A0,#FFE1BEE7,#FFFAEBD7,#FFEBEBEB,#FFF00000,#FF00C853,#FFFFD600"
+        "#FF121212,#FFA0A0A0,#FF121212,#FFFAEBD7,#FFE1BEE7,#FFEBEBEB,#FFF00000,#FF00C853,#FFFFD600"
     )!!.split(",").toMutableList() as ArrayList<String>
 }
 fun getCurrentTheme(activity: Activity, preferenceObject: SharedPreferences): Theme {
@@ -355,12 +355,13 @@ fun getCurrentTheme(activity: Activity, preferenceObject: SharedPreferences): Th
         return Theme(
             bgColor = Color.parseColor(customThemeColors[0]),
             commandColor = Color.parseColor(customThemeColors[1]),
-            suggestionTextColor = Color.parseColor(customThemeColors[2]),
-            inputLineTextColor = Color.parseColor(customThemeColors[3]),
-            resultTextColor = Color.parseColor(customThemeColors[4]),
-            errorTextColor = Color.parseColor(customThemeColors[5]),
-            successTextColor = Color.parseColor(customThemeColors[6]),
-            warningTextColor = Color.parseColor(customThemeColors[7])
+            suggestionBgColor = Color.parseColor(customThemeColors[2]),
+            suggestionTextColor = Color.parseColor(customThemeColors[3]),
+            inputLineTextColor = Color.parseColor(customThemeColors[4]),
+            resultTextColor = Color.parseColor(customThemeColors[5]),
+            errorTextColor = Color.parseColor(customThemeColors[6]),
+            successTextColor = Color.parseColor(customThemeColors[7]),
+            warningTextColor = Color.parseColor(customThemeColors[8])
         )
     }
     else if (Themes.entries.indices.contains(id)) {

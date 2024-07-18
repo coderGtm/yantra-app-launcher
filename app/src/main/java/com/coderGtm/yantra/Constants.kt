@@ -8,6 +8,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF121212.toInt(),
             commandColor = 0xFFA0A0A0.toInt(),
+            suggestionBgColor = 0xFF121212.toInt(),
             suggestionTextColor = 0xFFE1BEE7.toInt(),
             inputLineTextColor = 0xFFFAEBD7.toInt(),
             resultTextColor = 0xFFEBEBEB.toInt(),
@@ -20,6 +21,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFFFFFFFF.toInt(),
             commandColor = 0xFF000000.toInt(),
+            suggestionBgColor = 0xFFFFFFFF.toInt(),
             suggestionTextColor = 0xFF000000.toInt(),
             inputLineTextColor = 0xFF000000.toInt(),
             resultTextColor = 0xFF000000.toInt(),
@@ -32,6 +34,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF000000.toInt(),
             commandColor = 0xFF00FF00.toInt(),
+            suggestionBgColor = 0xFF000000.toInt(),
             suggestionTextColor = 0xFFFF0000.toInt(),
             inputLineTextColor = 0xFFFFFF00.toInt(),
             resultTextColor = 0xFF00C855.toInt(),
@@ -44,6 +47,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF2B303B.toInt(),
             commandColor = 0xFF00E5FF.toInt(),
+            suggestionBgColor = 0xFF2B303B.toInt(),
             suggestionTextColor = 0xFF00E5FF.toInt(),
             inputLineTextColor = 0xFF00E5FF.toInt(),
             resultTextColor = 0xFF00E5FF.toInt(),
@@ -56,6 +60,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF282828.toInt(),
             commandColor = 0xFFEBDBB2.toInt(),
+            suggestionBgColor = 0xFF282828.toInt(),
             suggestionTextColor = 0xFFEBDBB2.toInt(),
             inputLineTextColor = 0xFFEBDBB2.toInt(),
             resultTextColor = 0xFFEBDBB2.toInt(),
@@ -68,6 +73,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF191919.toInt(),
             commandColor = 0xFFFFFFFF.toInt(),
+            suggestionBgColor = 0xFF191919.toInt(),
             suggestionTextColor = 0xFFFFFFFF.toInt(),
             inputLineTextColor = 0xFFFFFFFF.toInt(),
             resultTextColor = 0xFFFFFFFF.toInt(),
@@ -80,6 +86,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF000000.toInt(),
             commandColor = 0xFFA0A0A0.toInt(),
+            suggestionBgColor = 0xFF000000.toInt(),
             suggestionTextColor = 0xFFE1BEE7.toInt(),
             inputLineTextColor = 0xFFFAEBD7.toInt(),
             resultTextColor = 0xFFEBEBEB.toInt(),
@@ -92,6 +99,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF002B36.toInt(),
             commandColor = 0xFF839496.toInt(),
+            suggestionBgColor = 0xFF002B36.toInt(),
             suggestionTextColor = 0xFF268BD2.toInt(),
             inputLineTextColor = 0xFFB58900.toInt(),
             resultTextColor = 0xFFfdf6e3.toInt(),
@@ -104,6 +112,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF282A36.toInt(),
             commandColor = 0xFFF8F8F2.toInt(),
+            suggestionBgColor = 0xFF282A36.toInt(),
             suggestionTextColor = 0xFF50FA7B.toInt(),
             inputLineTextColor = 0xFF6272A4.toInt(),
             resultTextColor = 0xFFF8F8F2.toInt(),
@@ -116,6 +125,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF272822.toInt(),
             commandColor = 0xFFF8F8F2.toInt(),
+            suggestionBgColor = 0xFF272822.toInt(),
             suggestionTextColor = 0xFF66D9EF.toInt(),
             inputLineTextColor = 0xFFAE81FF.toInt(),
             resultTextColor = 0xFFF8F8F2.toInt(),
@@ -128,6 +138,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF000000.toInt(),
             commandColor = 0xFF00FF00.toInt(),
+            suggestionBgColor = 0xFF000000.toInt(),
             suggestionTextColor = 0xFF00FF00.toInt(),
             inputLineTextColor = 0xFF00FF00.toInt(),
             resultTextColor = 0xFF00FF00.toInt(),
@@ -140,6 +151,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF000000.toInt(),
             commandColor = 0xFFFF0000.toInt(),
+            suggestionBgColor = 0xFF000000.toInt(),
             suggestionTextColor = 0xFFFF0000.toInt(),
             inputLineTextColor = 0xFFFF0000.toInt(),
             resultTextColor = 0xFFFF0000.toInt(),
@@ -152,6 +164,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF000000.toInt(),
             commandColor = 0xFF0000FF.toInt(),
+            suggestionBgColor = 0xFF000000.toInt(),
             suggestionTextColor = 0xFF0000FF.toInt(),
             inputLineTextColor = 0xFF0000FF.toInt(),
             resultTextColor = 0xFF0000FF.toInt(),
@@ -164,6 +177,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF000000.toInt(),
             commandColor = 0xFFFFFF00.toInt(),
+            suggestionBgColor = 0xFF000000.toInt(),
             suggestionTextColor = 0xFFFFFF00.toInt(),
             inputLineTextColor = 0xFFFFFF00.toInt(),
             resultTextColor = 0xFFFFFF00.toInt(),
@@ -176,6 +190,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF000000.toInt(),
             commandColor = 0xFF800080.toInt(),
+            suggestionBgColor = 0xFF000000.toInt(),
             suggestionTextColor = 0xFF800080.toInt(),
             inputLineTextColor = 0xFF800080.toInt(),
             resultTextColor = 0xFF800080.toInt(),
@@ -188,6 +203,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF000000.toInt(),
             commandColor = 0xFFFFA500.toInt(),
+            suggestionBgColor = 0xFF000000.toInt(),
             suggestionTextColor = 0xFFFFA500.toInt(),
             inputLineTextColor = 0xFFFFA500.toInt(),
             resultTextColor = 0xFFFFA500.toInt(),
@@ -200,6 +216,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF000000.toInt(),
             commandColor = 0xFFFFC0CB.toInt(),
+            suggestionBgColor = 0xFF000000.toInt(),
             suggestionTextColor = 0xFFFFC0CB.toInt(),
             inputLineTextColor = 0xFFFFC0CB.toInt(),
             resultTextColor = 0xFFFFC0CB.toInt(),
@@ -212,6 +229,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF300A24.toInt(),
             commandColor = 0xFFE95420.toInt(),
+            suggestionBgColor = 0xFF300A24.toInt(),
             suggestionTextColor = 0xFFE95420.toInt(),
             inputLineTextColor = 0xFFE95420.toInt(),
             resultTextColor = 0xFFE95420.toInt(),
@@ -224,6 +242,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF1A1B26.toInt(),
             commandColor = 0xFFC0CAF5.toInt(),
+            suggestionBgColor = 0xFF1A1B26.toInt(),
             suggestionTextColor = 0xFFC0CAF5.toInt(),
             inputLineTextColor = 0xFFC0CAF5.toInt(),
             resultTextColor = 0xFFC0CAF5.toInt(),
@@ -236,6 +255,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF272E33.toInt(),
             commandColor = 0xFFD3C6AA.toInt(),
+            suggestionBgColor = 0xFF272E33.toInt(),
             suggestionTextColor = 0xFFD699B6.toInt(),
             inputLineTextColor = 0xFFA7C080.toInt(),
             resultTextColor = 0xFFD3C6AA.toInt(),
@@ -248,6 +268,7 @@ enum class Themes(val theme: Theme) {
         Theme(
             bgColor = 0xFF012456.toInt(),
             commandColor = 0xFFCCCCCC.toInt(),
+            suggestionBgColor = 0xFF012456.toInt(),
             suggestionTextColor = 0xFFF9F1A5.toInt(),
             inputLineTextColor = 0xFFCCCCCC.toInt(),
             resultTextColor = 0xFFCCCCCC.toInt(),

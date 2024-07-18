@@ -34,6 +34,7 @@ fun openCustomThemeDesigner(terminal: Terminal) {
     val dialogView = LayoutInflater.from(terminal.activity).inflate(R.layout.custom_theme_dialog, null)
     val bgColorBtn = dialogView?.findViewById<ImageButton>(R.id.bgColorBtn)
     val cmdColorBtn = dialogView?.findViewById<ImageButton>(R.id.cmdColorBtn)
+    val suggestionsBgColorBtn = dialogView?.findViewById<ImageButton>(R.id.suggestionsBgColorBtn)
     val suggestionsColorBtn = dialogView?.findViewById<ImageButton>(R.id.suggestionsColorBtn)
     val inputAndBtnsColorBtn = dialogView?.findViewById<ImageButton>(R.id.inputAndBtnsColorBtn)
     val resultColorBtn = dialogView?.findViewById<ImageButton>(R.id.resultColorBtn)
@@ -42,7 +43,7 @@ fun openCustomThemeDesigner(terminal: Terminal) {
     val warnColorBtn = dialogView?.findViewById<ImageButton>(R.id.warnColorBtn)
     val customThemeColors = getCustomThemeColors(terminal.preferenceObject)
     var i = 0
-    listOf(bgColorBtn, cmdColorBtn, suggestionsColorBtn, inputAndBtnsColorBtn, resultColorBtn, errorColorBtn, successColorBtn, warnColorBtn).forEach { imgBtn ->
+    listOf(bgColorBtn, cmdColorBtn, suggestionsBgColorBtn, suggestionsColorBtn, inputAndBtnsColorBtn, resultColorBtn, errorColorBtn, successColorBtn, warnColorBtn).forEach { imgBtn ->
         imgBtn?.setImageDrawable(ColorDrawable(Color.parseColor(customThemeColors[i])))
         imgBtn?.tag = customThemeColors[i]
         imgBtn?.setOnClickListener {
@@ -104,13 +105,14 @@ fun openCustomThemeDesigner(terminal: Terminal) {
         //get all colors in hex format
         val bgColor = bgColorBtn?.tag.toString()
         val cmdColor = cmdColorBtn?.tag.toString()
+        val suggestionsBgColor = suggestionsBgColorBtn?.tag.toString()
         val suggestionsColor = suggestionsColorBtn?.tag.toString()
         val inputAndBtnsColor = inputAndBtnsColorBtn?.tag.toString()
         val resultColor = resultColorBtn?.tag.toString()
         val errorColor = errorColorBtn?.tag.toString()
         val successColor = successColorBtn?.tag.toString()
         val warnColor = warnColorBtn?.tag.toString()
-        val customTheme = listOf(bgColor, cmdColor, suggestionsColor, inputAndBtnsColor, resultColor, errorColor, successColor, warnColor)
+        val customTheme = listOf(bgColor, cmdColor, suggestionsBgColor, suggestionsColor, inputAndBtnsColor, resultColor, errorColor, successColor, warnColor)
         //addToPrevTxt(customTheme.toString().drop(1).dropLast(1),4)
         //return@setPositiveButton
         terminal.preferenceObject.edit().putString("customThemeClrs", customTheme.toString().drop(1).dropLast(1).replace(" ","")).commit()
