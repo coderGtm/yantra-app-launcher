@@ -1,5 +1,6 @@
 package com.coderGtm.yantra.activities
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.graphics.Typeface
@@ -11,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
@@ -24,7 +26,9 @@ import com.android.volley.toolbox.Volley
 import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.DEFAULT_TERMINAL_FONT_NAME
 import com.coderGtm.yantra.R
+import com.coderGtm.yantra.copyFileToInternalStorage
 import com.coderGtm.yantra.databinding.ActivitySettingsBinding
+import com.coderGtm.yantra.getFullName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.misc.changedSettingsCallback
@@ -54,6 +58,7 @@ import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
 import org.json.JSONObject
+import java.io.File
 import java.util.Locale
 
 
@@ -194,12 +199,22 @@ class SettingsActivity : AppCompatActivity() {
                             names.add(jsonArray.getJSONObject(i).getString("family"))
                         }
 
+                        for (name in getAllFonts()) {
+                            names.add(name)
+                        }
+
+                        names.sort()
+
                         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, names)
                         val dialogView = layoutInflater.inflate(R.layout.dialog_font_list, null) as View
 
                         val fontSelector = MaterialAlertDialogBuilder(this)
                             .setTitle(getString(R.string.select_a_font))
                             .setView(dialogView)
+                            .setPositiveButton("Import form file") { dialog, _ ->
+                                importFontFromFile()
+                                dialog.dismiss()
+                            }
                             .setNegativeButton(getString(R.string.close)) { dialog, _ ->
                                 dialog.cancel()
                             }
@@ -210,6 +225,16 @@ class SettingsActivity : AppCompatActivity() {
                             listView.adapter = adapter
                             listView.setOnItemClickListener { _, _, position, _ ->
                                 val selectedFontName = adapter.getItem(position) ?: DEFAULT_TERMINAL_FONT_NAME
+
+                                if (selectedFontName.endsWith(".ttf")) {
+                                    preferenceEditObject.putString("font",selectedFontName).apply()
+                                    binding.tvFontName.text = selectedFontName.replace(".ttf","")
+                                    Toast.makeText(this@SettingsActivity,
+                                        getString(R.string.terminal_font_updated_to, selectedFontName), Toast.LENGTH_SHORT).show()
+                                    changedSettingsCallback(this@SettingsActivity)
+                                    fontSelector.cancel()
+                                    return@setOnItemClickListener
+                                }
                                 downloadFont(selectedFontName)
                                 fontSelector.cancel()
                             }
@@ -336,6 +361,55 @@ class SettingsActivity : AppCompatActivity() {
             preferenceEditObject.putBoolean("initCmdLog", isChecked).apply()
             changedSettingsCallback(this@SettingsActivity)
         }
+    }
+
+    private fun importFontFromFile() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "*/*"
+        }
+
+        selectFontLauncher.launch(
+            Intent.createChooser(intent,
+            "Select Font"))
+    }
+
+    private val selectFontLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            if (result.data != null) {
+                val name = getFullName(result.data!!.data!!, this)
+                if (name!!.endsWith(".ttf")){
+                    copyFileToInternalStorage(this, result.data!!.data!!)
+                    if (name.let { File(filesDir, it).exists() }) {
+                        preferenceEditObject.putString("font",name).apply()
+                        binding.tvFontName.text = name.replace(".ttf","")
+                        Toast.makeText(this@SettingsActivity,
+                            getString(R.string.terminal_font_updated_to, name), Toast.LENGTH_SHORT).show()
+                        changedSettingsCallback(this@SettingsActivity)
+                        return@registerForActivityResult
+                    }
+                } else {
+                    Toast.makeText(this,
+                        getString(R.string.incorrect_file), Toast.LENGTH_SHORT).show()
+                    return@registerForActivityResult
+                }
+            }
+        }
+
+        Toast.makeText(this,
+            getString(R.string.an_error_occurred_please_try_again), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getAllFonts(): List<String> {
+        val fonts = mutableListOf<String>()
+        val files = filesDir.listFiles()
+        files?.forEach { file ->
+            if (!file.isDirectory && file.name.endsWith(".ttf")) {
+                fonts.add(file.name)
+            }
+        }
+
+        return fonts
     }
 
     private fun downloadFont(name: String) {

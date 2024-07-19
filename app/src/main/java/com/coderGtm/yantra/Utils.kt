@@ -8,6 +8,7 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Typeface
@@ -19,6 +20,7 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.provider.ContactsContract
+import android.provider.OpenableColumns
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
@@ -30,7 +32,12 @@ import com.coderGtm.yantra.terminal.Terminal
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.UpdateAvailability
+import java.io.File
 import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 import java.util.Timer
 import kotlin.concurrent.timerTask
 
@@ -447,4 +454,48 @@ fun getStoreUrl(activity: Activity): String {
     else {
         PLAY_STORE_URL
     }
+}
+
+fun copyFileToInternalStorage(activity: Activity, uri: Uri) {
+    var inputStream: InputStream? = null
+    var outputStream: OutputStream? = null
+    try {
+        inputStream = activity.contentResolver.openInputStream(uri) ?: return
+        val fileName = getFullName(uri, activity) ?: return
+        val outputFile = File(activity.filesDir, fileName)
+        outputStream = FileOutputStream(outputFile)
+        val buffer = ByteArray(1024)
+        var bytesRead: Int
+        while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+            outputStream.write(buffer, 0, bytesRead)
+        }
+        outputStream.flush()
+    } catch (ignored: IOException) {
+    } finally {
+        try {
+            inputStream?.close()
+            outputStream?.close()
+        } catch (ignored: IOException) {
+        }
+    }
+}
+
+fun getFullName(uri: Uri, activity: Activity): String? {
+    val contentResolver = activity.contentResolver
+    val cursor: Cursor? = contentResolver.query(
+        uri, null, null, null, null, null)
+
+    cursor?.use {
+        if (it.moveToFirst()) {
+            val name = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+
+            if (name >= 0) {
+                val displayName: String =
+                    it.getString(name)
+                return displayName
+            }
+        }
+    }
+
+    return null
 }
