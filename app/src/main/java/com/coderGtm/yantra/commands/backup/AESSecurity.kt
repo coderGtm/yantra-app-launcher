@@ -1,8 +1,8 @@
 package com.coderGtm.yantra.commands.backup
 
 import java.io.File
-import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.io.FileInputStream
 import java.security.SecureRandom
 import java.security.spec.KeySpec
 import javax.crypto.Cipher
@@ -83,5 +83,22 @@ object AESSecurity {
                 }
             }
         }
+    }
+
+    fun encryptStringToFile(data: String, password: CharArray, encryptedFile: File) {
+        val tempFile = File.createTempFile("temp", ".txt")
+        tempFile.writeText(data)
+        encryptFile(tempFile, password, encryptedFile)
+        tempFile.delete()
+    }
+
+    fun decryptFileToString(encryptedFile: File, password: CharArray?): String {
+        val tempFile = File.createTempFile("temp", ".txt")
+        if (password != null) {
+            decryptFile(encryptedFile, password, tempFile)
+        }
+        val result = tempFile.readText()
+        tempFile.delete()
+        return result
     }
 }

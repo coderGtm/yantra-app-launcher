@@ -4,6 +4,7 @@ import android.content.Intent
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
 
@@ -31,6 +32,24 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             val mainAct = terminal.activity as MainActivity
             mainAct.selectFileLauncher.launch(Intent.createChooser(intent,
                 terminal.activity.getString(R.string.select_backup_file)))
+
+            return
+        }
+
+        if (args.isNotEmpty() && args[0] == "-t") {
+            if (!isPro(terminal.activity)) {
+                output("Sorry, but import of themes is only in Pro version", terminal.theme.errorTextColor)
+                return
+            }
+
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "*/*"
+            }
+
+            val mainAct = terminal.activity as MainActivity
+            mainAct.selectThemeLauncher.launch(Intent.createChooser(intent,
+                "Select theme"))
 
             return
         }

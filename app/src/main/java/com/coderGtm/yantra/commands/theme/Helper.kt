@@ -1,5 +1,6 @@
 package com.coderGtm.yantra.commands.theme
 
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
@@ -8,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import com.coderGtm.yantra.R
+import com.coderGtm.yantra.commands.backup.AESSecurity
 import com.coderGtm.yantra.getCustomThemeColors
 import com.coderGtm.yantra.misc.CustomFlag
 import com.coderGtm.yantra.terminal.Terminal
@@ -15,6 +17,7 @@ import com.coderGtm.yantra.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
+import java.io.File
 
 fun printCustomThemeFeatures(command: Command) {
     with(command) {
@@ -129,4 +132,20 @@ fun isValidHexCode(hexCode: String): Boolean {
     catch (e: Exception) {
         false
     }
+}
+
+fun encrypt(command: Command, name: String, text: String): String {
+    val packageManager = command.terminal.activity.packageManager
+    val applicationInfo = packageManager.getApplicationInfo(command.terminal.activity.packageName, PackageManager.GET_META_DATA)
+    val metaData = applicationInfo.metaData
+    val password = metaData.getString("BACKUP_PASSWORD")?.toCharArray()
+
+    val fileName = "Theme.ylt"
+    val encryptedFile = File(command.terminal.activity.filesDir, fileName)
+
+    if (password != null) {
+        AESSecurity.encryptStringToFile("$name.$text", password, encryptedFile)
+    }
+
+    return fileName
 }

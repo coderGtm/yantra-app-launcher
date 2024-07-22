@@ -430,8 +430,14 @@ fun showSuggestions(
                     overrideLastWord = true
                 }
                 val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val themeArgs = mutableListOf("Custom")
+                val themeArgs = mutableListOf("-s", "-d" , "Custom")
                 Themes.entries.forEach { themeArgs.add(it.name) }
+
+                (terminal.preferenceObject.getStringSet(
+                    "savedThemesList",
+                    emptySet())?.toMutableSet() ?: mutableSetOf())
+                    .forEach { themeArgs.add(it) }
+
                 themeArgs.filterTo(suggestions) { regex.containsMatchIn(it) }
                 isPrimary = false
             }
@@ -495,7 +501,7 @@ fun showSuggestions(
                     overrideLastWord = true
                 }
                 val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val backupArgs = listOf("-i")
+                val backupArgs = listOf("-i", "-t")
                 for (arg in backupArgs) {
                     if (regex.containsMatchIn(arg)) {
                         suggestions.add(arg)

@@ -22,10 +22,14 @@ import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
+import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.YantraLauncher
+import com.coderGtm.yantra.commands.backup.AESSecurity
 import com.coderGtm.yantra.commands.backup.copyFile
 import com.coderGtm.yantra.commands.termux.handleTermuxResult
+import com.coderGtm.yantra.copyFileToInternalStorage
 import com.coderGtm.yantra.databinding.ActivityMainBinding
+import com.coderGtm.yantra.getFullName
 import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.informOfProVersionIfOldUser
 import com.coderGtm.yantra.isPro
@@ -267,10 +271,70 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         }
     }
 
+
+    val sendThemeLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            result.data?.data?.also { uri ->
+                val file = File(filesDir, "Theme.ylt")
+                if (file.exists()) {
+                    val inputStream = FileInputStream(file)
+
+                    contentResolver.openOutputStream(uri)?.use { outputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+
+                    inputStream.close()
+
+                    if (file.exists()) {
+                        file.delete()
+                    }
+                } else {
+                    Toast.makeText(this, getString(R.string.file_not_found), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
     val selectFileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
             if (result.data != null) {
                 copyFile(this, result.data!!.data!!)
+            }
+        }
+    }
+
+    val selectThemeLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            if (result.data != null) {
+                copyFileToInternalStorage(this, result.data!!.data!!)
+
+                val fileName = getFullName(result.data!!.data!!, this).toString()
+                if (!fileName.endsWith(".ylt")) {
+                    Toast.makeText(this, getString(R.string.incorrect_file), Toast.LENGTH_SHORT).show()
+                    return@registerForActivityResult
+                }
+
+                val packageManager = packageManager
+                val applicationInfo = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
+                val metaData = applicationInfo.metaData
+                val password = metaData?.getString("BACKUP_PASSWORD")?.toCharArray()
+
+                val text = AESSecurity.decryptFileToString(File(filesDir,
+                    fileName
+                ), password).split(".")
+
+                val saved = primaryTerminal.preferenceObject.getString("theme" + text[0],null)
+                if (Themes.entries.any { it.name.lowercase() == text[0] } || text[0] == "custom" || saved != null || text[0] == "-s" || text[0] == "-d") {
+                    Toast.makeText(this, "Theme already exists", Toast.LENGTH_SHORT).show()
+                    return@registerForActivityResult
+                }
+
+                primaryTerminal.preferenceObject.edit().putString("theme" + text[0], text[1]).apply()
+                val savedThemesList = primaryTerminal.preferenceObject.getStringSet("savedThemesList", emptySet())?.toMutableSet() ?: mutableSetOf()
+
+                savedThemesList.add(text[0])
+
+                primaryTerminal.preferenceObject.edit().putStringSet("savedThemesList", savedThemesList).apply()
             }
         }
     }
