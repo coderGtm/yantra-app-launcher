@@ -33,9 +33,21 @@ See the [FAQs Page](/faq.md) for answers to Frequently Asked Questions!
 ## Support
 See the [Support Page](/support.md) if you'd like to support the project.
 
+## Star History
+
+<a href="https://star-history.com/#coderGtm/yantra-app-launcher&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=coderGtm/yantra-app-launcher&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=coderGtm/yantra-app-launcher&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=coderGtm/yantra-app-launcher&type=Date" />
+ </picture>
+</a>
+
 ## Contributors
 <a href="https://github.com/coderGtm/yantra-app-launcher/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=coderGtm/yantra-app-launcher" />
 </a>
+
+
 
 ***LIVE THE CLI EXPERIENCE :heart_eyes:***
