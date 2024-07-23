@@ -34,25 +34,9 @@ See the [FAQs Page](/faq.md) for answers to Frequently Asked Questions!
 See the [Support Page](/support.md) if you'd like to support the project.
 
 ## Contributors
-_(This section is not complete and updated yet)_
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/coderGtm"><img src="https://avatars.githubusercontent.com/u/66418526?v=4?s=100" width="100px;" alt="Gautam Mehta"/><br /><sub><b>Gautam Mehta</b></sub></a><br /><a href="#code-coderGtm" title="Code">💻</a> <a href="#review-coderGtm" title="Reviewed Pull Requests">👀</a> <a href="#research-coderGtm" title="Research">🔬</a> <a href="#projectManagement-coderGtm" title="Project Management">📆</a> <a href="#doc-coderGtm" title="Documentation">📖</a> <a href="#design-coderGtm" title="Design">🎨</a> <a href="#ideas-coderGtm" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-coderGtm" title="Maintenance">🚧</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/axolotl-git"><img src="https://avatars.githubusercontent.com/u/131001318?v=4?s=100" width="100px;" alt="axolotl-git"/><br /><sub><b>axolotl-git</b></sub></a><br /><a href="#translation-axolotl-git" title="Translation">🌍</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://codersanx.netlify.app/"><img src="https://avatars.githubusercontent.com/u/104269567?v=4?s=100" width="100px;" alt="Anready"/><br /><sub><b>Anready</b></sub></a><br /><a href="#code-Anready" title="Code">💻</a> <a href="#translation-Anready" title="Translation">🌍</a></td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+<a href="https://github.com/coderGtm/yantra-app-launcher/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=coderGtm/yantra-app-launcher" />
+</a>
 
 ***LIVE THE CLI EXPERIENCE :heart_eyes:***
 
