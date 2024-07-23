@@ -1,5 +1,8 @@
 # yantra-app-launcher
 
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/coderGtm/yantra-app-launcher)
+
+
 ![Yantra Launcher Store Cover](https://github.com/coderGtm/yantra-app-launcher/assets/66418526/1e998174-5481-4b5d-96bb-3ebc7e4d857e)
 
 A Minimal CLI-based Android App Launcher.
