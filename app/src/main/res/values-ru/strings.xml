@@ -541,4 +541,5 @@
     <string name="playing_next_track">Воспроизведение следующего трека...</string>
     <string name="playing_previous_track">Воспроизведение предидущего трека...</string>
     <string name="invalid_parameter_see_help_to_see_usage_info">Неверный параметр! Смотрите \'help %1$s\' чтобы посмотреть информацию об использовании.</string>
+    <string name="suggestion_bar_color">Цвет панели предложений</string>
 </resources>

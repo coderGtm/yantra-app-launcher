@@ -541,4 +541,5 @@
     <string name="playing_next_track">Riproduzione della traccia successiva in corso...</string>
     <string name="playing_previous_track">Riproduzione della traccia precedente in corso...</string>
     <string name="invalid_parameter_see_help_to_see_usage_info">Parametro non valido! Vedi \'help %1$s\' per vedere le informazioni sull\'uso.</string>
+    <string name="suggestion_bar_color">Colore della barra delle suggerimenti</string>
 </resources>

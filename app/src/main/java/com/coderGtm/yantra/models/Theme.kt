@@ -3,6 +3,7 @@ package com.coderGtm.yantra.models
 data class Theme (
     val bgColor: Int,
     val commandColor: Int,
+    val suggestionBgColor: Int,
     val suggestionTextColor: Int,
     val inputLineTextColor: Int,
     val resultTextColor: Int,

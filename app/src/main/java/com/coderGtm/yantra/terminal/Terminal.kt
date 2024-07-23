@@ -138,7 +138,7 @@ class Terminal(
         activity.window.statusBarColor = Color.TRANSPARENT
         activity.window.navigationBarColor = theme.bgColor
         setPromptText()
-        binding.suggestionsTab.background = theme.bgColor.toDrawable()
+        binding.suggestionsTab.background = theme.suggestionBgColor.toDrawable()
         username.setTextColor(theme.inputLineTextColor)
         binding.cmdInput.setTextColor(theme.inputLineTextColor)
         val unwrappedCursorDrawable = AppCompatResources.getDrawable(activity,
