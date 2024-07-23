@@ -51,6 +51,6 @@ See the [Support Page](/support.md) if you'd like to support the project.
   <img src="https://contrib.rocks/image?repo=coderGtm/yantra-app-launcher" />
 </a>
 
-
+<br/><br/>
 
 ***LIVE THE CLI EXPERIENCE :heart_eyes:***
