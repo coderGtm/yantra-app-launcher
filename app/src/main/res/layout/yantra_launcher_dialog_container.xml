@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/titleText"
-            android:layout_width="340dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sanchez"
             android:text="Yantra Launcher Scripts"
