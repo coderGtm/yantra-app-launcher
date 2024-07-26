@@ -347,10 +347,14 @@ fun vibrate(millis: Long? = 100, activity: Activity) {
     }
 }
 fun getCustomThemeColors(preferenceObject: SharedPreferences): ArrayList<String> {
-    return preferenceObject.getString(
+    var colors =  preferenceObject.getString(
         "customThemeClrs",
         "#FF121212,#FFA0A0A0,#FF121212,#FFFAEBD7,#FFE1BEE7,#FFEBEBEB,#FFF00000,#FF00C853,#FFFFD600"
     )!!.split(",").toMutableList() as ArrayList<String>
+    if (colors.size != 9) {
+        colors = arrayListOf("#FF121212","#FFA0A0A0","#FF121212","#FFFAEBD7","#FFE1BEE7","#FFEBEBEB","#FFF00000","#FF00C853","#FFFFD600")
+    }
+    return colors
 }
 fun getCurrentTheme(activity: Activity, preferenceObject: SharedPreferences): Theme {
     if (!isPro(activity)) {
