@@ -215,7 +215,7 @@
     <string name="error_no_matching_directory_found">Error! No matching directory found!</string>
     <string name="cmd_clear_help">Clears the console</string>
     <string name="cmd_takes_no_params">\'%1$s\' command does not take any parameters.</string>
-    <string name="cmd_cmdrequest_help">In case you want any new commands to be added to Yantra Launcher, run this command to open email template for command request. Note that it is not guaranteed that the command request will be accepted but I\'ll try my best to see if I could accommodate it in the upcoming versions of Yantra Launcher, if suitable.</string>
+    <string name="cmd_cmdrequest_help">In case you want any new commands to be added to Yantra Launcher, run this command to open the GitHub issue template for command request. Note that it is not guaranteed that the command request will be accepted but I\'ll try my best to see if I could accommodate it in the upcoming versions of Yantra Launcher, if suitable.</string>
     <string name="cmdrequest_no_args">\'cmdrequest\' command does not take any parameters.</string>
     <string name="send_manual_mail_with_title">Could not launch an email app. Please send the mail to coderGtm@gmail.com with title \'%1$s\'</string>
     <string name="oops">Oops!</string>
@@ -542,4 +542,7 @@
     <string name="playing_previous_track">Playing previous track...</string>
     <string name="invalid_parameter_see_help_to_see_usage_info">Invalid parameter! See \'help %1$s\' to see usage info.</string>
     <string name="suggestion_bar_color">Suggestion Bar Color</string>
+    <string name="modern_prompt_design">Modern Prompt Design</string>
+    <string name="import_local_font">Import Local Font</string>
+    <string name="select_a_font_file">Select a Font File</string>
 </resources>

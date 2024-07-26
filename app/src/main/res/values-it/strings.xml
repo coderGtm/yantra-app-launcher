@@ -542,4 +542,7 @@
     <string name="playing_previous_track">Riproduzione della traccia precedente in corso...</string>
     <string name="invalid_parameter_see_help_to_see_usage_info">Parametro non valido! Vedi \'help %1$s\' per vedere le informazioni sull\'uso.</string>
     <string name="suggestion_bar_color">Colore della barra delle suggerimenti</string>
+    <string name="modern_prompt_design">Modern Prompt Design</string>
+    <string name="import_local_font">Import Local Font</string>
+    <string name="select_a_font_file">Select a Font File</string>
 </resources>

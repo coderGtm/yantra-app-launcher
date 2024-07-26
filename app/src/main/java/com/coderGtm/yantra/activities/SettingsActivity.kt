@@ -211,7 +211,7 @@ class SettingsActivity : AppCompatActivity() {
                         val fontSelector = MaterialAlertDialogBuilder(this)
                             .setTitle(getString(R.string.select_a_font))
                             .setView(dialogView)
-                            .setPositiveButton("Import form file") { dialog, _ ->
+                            .setPositiveButton(getString(R.string.import_local_font)) { dialog, _ ->
                                 importFontFromFile()
                                 dialog.dismiss()
                             }
@@ -371,7 +371,7 @@ class SettingsActivity : AppCompatActivity() {
 
         selectFontLauncher.launch(
             Intent.createChooser(intent,
-            "Select Font"))
+                getString(R.string.select_a_font_file)))
     }
 
     private val selectFontLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

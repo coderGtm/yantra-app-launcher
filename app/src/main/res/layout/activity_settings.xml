@@ -157,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Modern Prompt Design" />
+                    android:text="@string/modern_prompt_design" />
             </LinearLayout>
 
             <View

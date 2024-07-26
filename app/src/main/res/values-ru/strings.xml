@@ -542,4 +542,7 @@
     <string name="playing_previous_track">Воспроизведение предидущего трека...</string>
     <string name="invalid_parameter_see_help_to_see_usage_info">Неверный параметр! Смотрите \'help %1$s\' чтобы посмотреть информацию об использовании.</string>
     <string name="suggestion_bar_color">Цвет панели предложений</string>
+    <string name="modern_prompt_design">Modern Prompt Design</string>
+    <string name="import_local_font">Import Local Font</string>
+    <string name="select_a_font_file">Select a Font File</string>
 </resources>

@@ -542,4 +542,7 @@
     <string name="playing_previous_track">Playing previous track...</string>
     <string name="invalid_parameter_see_help_to_see_usage_info">Invalid parameter! See \'help %1$s\' to see usage info.</string>
     <string name="suggestion_bar_color">Javaslatok sáv színe</string>
+    <string name="modern_prompt_design">Modern Prompt Design</string>
+    <string name="import_local_font">Import Local Font</string>
+    <string name="select_a_font_file">Select a Font File</string>
 </resources>
