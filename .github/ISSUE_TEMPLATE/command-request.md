@@ -1,5 +1,5 @@
 ---
-name: Command Request template
+name: Command Request
 about: Requesting a new command for Yantra Launcher
 title: ''
 labels: command-request
