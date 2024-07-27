@@ -22,7 +22,7 @@ class YantraLauncher : Application() {
             buildConfigClass = BuildConfig::class.java
             reportFormat = StringFormat.JSON
 
-            reportContent = listOf(ReportField.APP_VERSION_CODE,ReportField.APP_VERSION_NAME,ReportField.ANDROID_VERSION,ReportField.BRAND,ReportField.PHONE_MODEL,ReportField.USER_COMMENT,ReportField.STACK_TRACE,ReportField.DISPLAY,ReportField.DEVICE_FEATURES)
+            reportContent = listOf(ReportField.PACKAGE_NAME, ReportField.APP_VERSION_CODE,ReportField.APP_VERSION_NAME,ReportField.ANDROID_VERSION,ReportField.BRAND,ReportField.PHONE_MODEL,ReportField.USER_COMMENT,ReportField.STACK_TRACE)
 
             dialog {
                 //required
