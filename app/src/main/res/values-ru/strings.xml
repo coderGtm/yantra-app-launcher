@@ -215,7 +215,7 @@
     <string name="error_no_matching_directory_found">Ошибка! Соответствующий каталог не найден!</string>
     <string name="cmd_clear_help">Очищает консоль</string>
     <string name="cmd_takes_no_params">\'%1$s\' команда не принимает никаких параметров.</string>
-    <string name="cmd_cmdrequest_help">Если вы хотите добавить новые команды в Yantra Launcher, выполните эту команду, чтобы открыть Github Issues для запроса команды. Имейте ввиду, что выполнение запроса на добавление команды не гарантируется, но я постараюсь сделать все возможное, чтобы включить ее в будущие версии Yantra Launcher, если она будет подходящей.</string> <!-- ага, например остановка внешних процессов невозможно впринципе -->
+    <string name="cmd_cmdrequest_help">Если вы хотите добавить новые команды в Yantra Launcher, выполните эту команду, чтобы открыть Github Issues для запроса команды. Имейте ввиду, что выполнение запроса на добавление команды не гарантируется, но я постараюсь сделать все возможное, чтобы включить ее в будущие версии Yantra Launcher, если она будет подходящей.</string>
     <string name="cmdrequest_no_args">\'cmdrequest\' команда не принимает никаких параметров.</string>
     <string name="send_manual_mail_with_title">Не удалось запустить приложение электронной почты. Отправьте письмо на адрес coderGtm@gmail.com с названием \'%1$s\'</string>
     <string name="oops">Упсс!</string>
@@ -542,7 +542,7 @@
     <string name="playing_previous_track">Воспроизведение предидущего трека...</string>
     <string name="invalid_parameter_see_help_to_see_usage_info">Неверный параметр! Смотрите \'help %1$s\' чтобы посмотреть информацию об использовании.</string>
     <string name="suggestion_bar_color">Цвет панели предложений</string>
-    <string name="modern_prompt_design">Новый дизайн promt</string>
+    <string name="modern_prompt_design">Модернизированный дизайн промпта</string>
     <string name="import_local_font">Импорт локального шрифта</string>
     <string name="select_a_font_file">Выберите файл шрифта</string>
 </resources>
