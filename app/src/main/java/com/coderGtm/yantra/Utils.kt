@@ -25,6 +25,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.toDrawable
+import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.models.Contacts
 import com.coderGtm.yantra.models.Theme
@@ -142,46 +143,40 @@ fun contactsManager(terminal: Terminal, callingIntent: Boolean = false, callTo: 
             terminal.activity.startActivity(intent)
         }
         else {
-            val dialog = MaterialAlertDialogBuilder(terminal.activity,
-                R.style.Theme_AlertDialog
-            )
-                .setTitle(terminal.activity.getString(R.string.multiple_phone_numbers_found))
-                .setMessage(
-                    terminal.activity.getString(
-                        R.string.multiple_contacts_description,
-                        callTo
-                    ))
-                .setCancelable(false)
-                .setPositiveButton(terminal.activity.getString(R.string.select)) { dialogInterface, _ ->
-                    dialogInterface.dismiss()
-                    val dialog2 = MaterialAlertDialogBuilder(terminal.activity,
-                        R.style.Theme_AlertDialog
-                    )
-                        .setTitle(terminal.activity.getString(R.string.select_phone_number))
-                        .setCancelable(false)
-                        .setItems(callingCandidates.toTypedArray()) { dialogInterface2, i ->
-                            terminal.output(terminal.activity.getString(R.string.calling, callTo), terminal.theme.successTextColor, null)
-                            val intent = Intent(
-                                Intent.ACTION_CALL,
-                                Uri.parse("tel:${Uri.encode(callingCandidates[i])}")
-                            )
-                            terminal.activity.startActivity(intent)
-                            dialogInterface2.dismiss()
-                        }
-                        .setNegativeButton(terminal.activity.getString(R.string.cancel)) { dialogInterface2, _ ->
-                            terminal.output(terminal.activity.getString(R.string.cancelled), terminal.theme.errorTextColor, null)
-                            dialogInterface2.dismiss()
-                        }
-                    if (!terminal.activity.isFinishing) {
-                        terminal.activity.runOnUiThread { dialog2.show() }
-                    }
-                }
-                .setNegativeButton(terminal.activity.getString(R.string.cancel)) { dialogInterface, _ ->
-                    terminal.output(terminal.activity.getString(R.string.cancelled), terminal.theme.errorTextColor, null)
-                    dialogInterface.dismiss()
-                }
             if (!terminal.activity.isFinishing) {
-                terminal.activity.runOnUiThread { dialog.show() }
+                terminal.activity.runOnUiThread {
+                    YantraLauncherDialog(terminal.activity).showInfo(
+                        title = terminal.activity.getString(R.string.multiple_phone_numbers_found),
+                        message = terminal.activity.getString(R.string.multiple_contacts_description, callTo),
+                        cancellable = false,
+                        positiveButton = terminal.activity.getString(R.string.select),
+                        negativeButton = terminal.activity.getString(R.string.cancel),
+                        positiveAction = {
+                            val dialog2 = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
+                                .setTitle(terminal.activity.getString(R.string.select_phone_number))
+                                .setCancelable(false)
+                                .setItems(callingCandidates.toTypedArray()) { dialogInterface2, i ->
+                                    terminal.output(terminal.activity.getString(R.string.calling, callTo), terminal.theme.successTextColor, null)
+                                    val intent = Intent(
+                                        Intent.ACTION_CALL,
+                                        Uri.parse("tel:${Uri.encode(callingCandidates[i])}")
+                                    )
+                                    terminal.activity.startActivity(intent)
+                                    dialogInterface2.dismiss()
+                                }
+                                .setNegativeButton(terminal.activity.getString(R.string.cancel)) { dialogInterface2, _ ->
+                                    terminal.output(terminal.activity.getString(R.string.cancelled), terminal.theme.errorTextColor, null)
+                                    dialogInterface2.dismiss()
+                                }
+                            if (!terminal.activity.isFinishing) {
+                                terminal.activity.runOnUiThread { dialog2.show() }
+                            }
+                        },
+                        negativeAction = {
+                            terminal.output(terminal.activity.getString(R.string.cancelled), terminal.theme.errorTextColor, null)
+                        }
+                    )
+                }
             }
         }
     }
@@ -197,19 +192,19 @@ fun requestUpdateIfAvailable(preferenceObject: SharedPreferences, activity: Acti
     val appUpdateInfoTask = appUpdateManager.appUpdateInfo
     appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
         if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
-            val builder = MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog)
-                .setCancelable(false)
-                .setTitle(activity.getString(R.string.update_available))
-                .setMessage(activity.getString(R.string.update_available_description))
-                .setPositiveButton(activity.getString(R.string.update)) { dialogInterface, _ ->
-                    dialogInterface.dismiss()
-                    activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getStoreUrl(activity))))
-                }
-                .setNegativeButton(activity.getString(R.string.not_now)) { dialogInterface, _ ->
-                    dialogInterface.dismiss()
-                }
             if (!activity.isFinishing) {
-                activity.runOnUiThread { builder.show() }
+                activity.runOnUiThread {
+                    YantraLauncherDialog(activity).showInfo(
+                        title = activity.getString(R.string.update_available),
+                        message = activity.getString(R.string.update_available_description),
+                        cancellable = false,
+                        positiveButton = activity.getString(R.string.update),
+                        negativeButton = activity.getString(R.string.not_now),
+                        positiveAction = {
+                            openURL(getStoreUrl(activity), activity)
+                        }
+                    )
+                }
             }
         }
         preferenceObject.edit().putLong("lastUpdateCheck", System.currentTimeMillis()/60000).apply()
@@ -219,25 +214,24 @@ private fun askRating(preferenceObject: SharedPreferences, preferenceEditObject:
     if (activity.isFinishing || !preferenceObject.getBoolean("ratePrompt",true)) {
         return
     }
-    MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog)
-        .setTitle(activity.getString(R.string.rate_app))
-        .setMessage(activity.getString(R.string.rate_app_description))
-        .setPositiveButton("Rate") { dialogInterface, _ ->
-            dialogInterface.dismiss()
+    YantraLauncherDialog(activity).showInfo(
+        title = activity.getString(R.string.rate_app),
+        message = activity.getString(R.string.rate_app_description),
+        cancellable = false,
+        positiveButton = "Rate",
+        negativeButton = activity.getString(R.string.don_t_ask_again),
+        positiveAction = {
             openURL(getStoreUrl(activity), activity)
             preferenceEditObject.putBoolean("ratePrompt",false).apply()
-        }
-        .setNegativeButton(activity.getString(R.string.maybe_later)) { dialogInterface, _ ->
-            dialogInterface.dismiss()
-            toast(activity.baseContext, activity.getString(R.string.ok_with_face))
-        }
-        .setNeutralButton(activity.getString(R.string.don_t_ask_again)) { dialogInterface, _ ->
-            dialogInterface.dismiss()
+        },
+        negativeAction = {
             preferenceEditObject.putBoolean("ratePrompt",false).apply()
             toast(activity.baseContext, activity.getString(R.string.done_will_never_ask_again))
+        },
+        dismissAction = {
+            toast(activity.baseContext, activity.getString(R.string.ok_with_face))
         }
-        .setCancelable(false)
-        .show()
+    )
 }
 private fun showCommunityPopup(preferenceEditObject: SharedPreferences.Editor, activity: Activity) {
     val communityPopup = MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog).setTitle(activity.getString(R.string.join_the_community))
@@ -297,7 +291,7 @@ fun showRatingAndCommunityPopups(preferenceObject: SharedPreferences, preference
     }
 }
 
-fun marketProVersion(terminal: Terminal, preferenceObject: SharedPreferences) {
+fun promoteProVersion(terminal: Terminal, preferenceObject: SharedPreferences) {
     if (isPro(terminal.activity))   return
     val n = preferenceObject.getLong("numOfCmdsEntered",0)
     if ((n+1)%50 == 0L) {
@@ -435,19 +429,16 @@ fun informOfProVersionIfOldUser(activity: Activity) {
     val oldUser = (prefObject.getInt("theme", 0) != 0 || prefObject.getString("initList", "") != "" || prefObject.getString("scripts", "") != "" || prefObject.getStringSet("todoList", setOf())?.size != 0 || prefObject.getString("newsWebsite", "") != "") && !prefObject.getBoolean("minimalPromptShown", false)
 
     if (!activity.isFinishing && oldUser) {
-        MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog)
-            .setTitle(activity.getString(R.string.yantra_launcher_has_been_trimmed))
-            .setMessage(activity.getString(R.string.yantra_trim_description))
-            .setCancelable(false)
-            .setPositiveButton(activity.getString(R.string.upgrade)) { dialogInterface, _ ->
-                dialogInterface.dismiss()
+        YantraLauncherDialog(activity).showInfo(
+            title = activity.getString(R.string.yantra_launcher_has_been_trimmed),
+            message = activity.getString(R.string.yantra_trim_description),
+            cancellable = false,
+            positiveButton = activity.getString(R.string.upgrade),
+            negativeButton = activity.getString(R.string.later),
+            positiveAction = {
                 openURL(PLAY_STORE_URL_PRO, activity)
             }
-            .setNegativeButton(activity.getString(R.string.later)) { dialogInterface, _ ->
-                dialogInterface.dismiss()
-            }
-            .setCancelable(false)
-            .show()
+        )
         prefObject.edit().putBoolean("minimalPromptShown", true).apply()
     }
 }

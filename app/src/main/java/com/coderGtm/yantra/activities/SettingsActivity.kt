@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley
 import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.DEFAULT_TERMINAL_FONT_NAME
 import com.coderGtm.yantra.R
+import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.copyFileToInternalStorage
 import com.coderGtm.yantra.databinding.ActivitySettingsBinding
 import com.coderGtm.yantra.getFullName
@@ -272,12 +273,12 @@ class SettingsActivity : AppCompatActivity() {
         binding.languageLay.setOnClickListener {
             val keys = supportedLocales.keys.toTypedArray()
             val values = supportedLocales.values.toTypedArray()
-            MaterialAlertDialogBuilder(this)
-                .setCancelable(false)
-                .setTitle(getString(R.string.attention))
-                .setMessage(getString(R.string.language_change_disclaimer))
-                .setPositiveButton(getString(R.string.i_understand)) { dialog, _ ->
-                    dialog.dismiss()
+
+            YantraLauncherDialog(this).showInfo(
+                title = getString(R.string.attention),
+                message = getString(R.string.language_change_disclaimer),
+                positiveButton = getString(R.string.i_understand),
+                positiveAction = {
                     MaterialAlertDialogBuilder(this)
                         .setTitle(getString(R.string.select_a_language))
                         .setItems(keys) { _, which ->
@@ -285,7 +286,7 @@ class SettingsActivity : AppCompatActivity() {
                         }
                         .show()
                 }
-                .show()
+            )
         }
 
 

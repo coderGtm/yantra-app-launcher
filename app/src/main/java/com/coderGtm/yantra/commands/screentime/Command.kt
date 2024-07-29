@@ -5,9 +5,9 @@ import android.os.Build
 import android.provider.Settings
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Calendar
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
@@ -29,19 +29,21 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val endTime = System.currentTimeMillis()
 
         if (!checkUsageStatsPermission(terminal)) {
-            MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                .setTitle(terminal.activity.getString(R.string.permission_required))
-                .setMessage(terminal.activity.getString(R.string.screentime_permission))
-                .setPositiveButton(terminal.activity.getString(R.string.grant)) { _, _ ->
+            YantraLauncherDialog(terminal.activity).showInfo(
+                title = terminal.activity.getString(R.string.permission_required),
+                message = terminal.activity.getString(R.string.screentime_permission),
+                positiveButton = terminal.activity.getString(R.string.grant),
+                negativeButton = terminal.activity.getString(R.string.cancel),
+                positiveAction = {
                     // Navigate the user to the permission settings
                     Intent( Settings.ACTION_USAGE_ACCESS_SETTINGS ).apply {
                         terminal.activity.startActivity( this )
                     }
-                }
-                .setNegativeButton(terminal.activity.getString(R.string.cancel)) { _, _ ->
+                },
+                negativeAction = {
                     output(terminal.activity.getString(R.string.missing_usage_access_permission), terminal.theme.errorTextColor)
                 }
-                .show()
+            )
             return
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {

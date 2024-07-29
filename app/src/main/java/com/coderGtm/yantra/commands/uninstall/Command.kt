@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -32,25 +33,28 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             terminal.activity.startActivity(intent)
         }
         else if (candidates.size > 1) {
-            val b1 = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                .setTitle(terminal.activity.getString(R.string.multiple_apps_found))
-                .setMessage(terminal.activity.getString(R.string.multiple_apps_found_with_name_please_select_one, name))
-                .setPositiveButton(terminal.activity.getString(R.string.ok)) { _, _ ->
-                    val items = mutableListOf<String>()
-                    for (app in candidates) {
-                        items.add(app.packageName)
-                    }
-                    val b2 = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                        .setTitle(terminal.activity.getString(R.string.select_package_name))
-                        .setItems(items.toTypedArray()) { _, which ->
-                            output(terminal.activity.getString(R.string.requested_to_uninstall, candidates[which].appName))
-                            val intent = Intent(Intent.ACTION_DELETE)
-                            intent.data = Uri.parse("package:"+candidates[which].packageName)
-                            terminal.activity.startActivity(intent)
+            terminal.activity.runOnUiThread {
+                YantraLauncherDialog(terminal.activity).showInfo(
+                    title = terminal.activity.getString(R.string.multiple_apps_found),
+                    message = terminal.activity.getString(R.string.multiple_apps_found_with_name_please_select_one, name),
+                    positiveButton = terminal.activity.getString(R.string.ok),
+                    positiveAction = {
+                        val items = mutableListOf<String>()
+                        for (app in candidates) {
+                            items.add(app.packageName)
                         }
-                    terminal.activity.runOnUiThread { b2.show() }
-                }
-            terminal.activity.runOnUiThread { b1.show() }
+                        val b2 = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
+                            .setTitle(terminal.activity.getString(R.string.select_package_name))
+                            .setItems(items.toTypedArray()) { _, which ->
+                                output(terminal.activity.getString(R.string.requested_to_uninstall, candidates[which].appName))
+                                val intent = Intent(Intent.ACTION_DELETE)
+                                intent.data = Uri.parse("package:"+candidates[which].packageName)
+                                terminal.activity.startActivity(intent)
+                            }
+                        terminal.activity.runOnUiThread { b2.show() }
+                    }
+                )
+            }
         }
         else {
             output(terminal.activity.getString(R.string.app_not_found, name), terminal.theme.warningTextColor)

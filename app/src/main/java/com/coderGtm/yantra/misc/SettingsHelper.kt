@@ -318,7 +318,7 @@ fun openTermuxCmdSessionActionSelector(activity: Activity, preferenceObject: Sha
             toast(activity, activity.getString(R.string.termux_command_session_action_updated))
             changedSettingsCallback(activity)
         },
-        negativeButton = "TermuxConstants.java",
+        negativeButton = "GitHub",
         negativeAction = {
             openURL("https://github.com/termux/termux-app/blob/master/termux-shared/src/main/java/com/termux/shared/termux/TermuxConstants.java#L1052-L1083", activity)
         }

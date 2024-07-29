@@ -4,6 +4,7 @@ import android.graphics.Typeface
 import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.models.ShortcutBlock
@@ -67,10 +68,11 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             }
             else if (candidates.size > 1) {
                 output(terminal.activity.getString(R.string.multiple_entries_found_for_opening_selection_dialog, shortcutLabel), terminal.theme.warningTextColor)
-                MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                    .setTitle(terminal.activity.getString(R.string.multiple_shortcuts_found))
-                    .setMessage(terminal.activity.getString(R.string.multiple_shortcuts_found_with_label_please_select_one, shortcutLabel))
-                    .setPositiveButton(terminal.activity.getString(R.string.ok)) { _, _ ->
+                YantraLauncherDialog(terminal.activity).showInfo(
+                    title = terminal.activity.getString(R.string.multiple_shortcuts_found),
+                    message = terminal.activity.getString(R.string.multiple_shortcuts_found_with_label_please_select_one, shortcutLabel),
+                    positiveButton = terminal.activity.getString(R.string.ok),
+                    positiveAction = {
                         val items = mutableListOf<String>()
                         for (candidate in candidates) {
                             items.add(candidate.packageName)
@@ -84,7 +86,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                             }
                             .show()
                     }
-                    .show()
+                )
                 return
             }
             output(terminal.activity.getString(R.string.shortcut_not_found, shortcutLabel), terminal.theme.warningTextColor)
@@ -118,10 +120,11 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         else if (candidates.size > 1) {
             output(terminal.activity.getString(R.string.multiple_entries_found_for_opening_selection_dialog, name), terminal.theme.warningTextColor)
-            MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                .setTitle(terminal.activity.getString(R.string.multiple_apps_found))
-                .setMessage(terminal.activity.getString(R.string.multiple_apps_found_with_name_please_select_one, name))
-                .setPositiveButton(terminal.activity.getString(R.string.ok)) { _, _ ->
+            YantraLauncherDialog(terminal.activity).showInfo(
+                title = terminal.activity.getString(R.string.multiple_apps_found),
+                message = terminal.activity.getString(R.string.multiple_apps_found_with_name_please_select_one, name),
+                positiveButton = terminal.activity.getString(R.string.ok),
+                positiveAction = {
                     val items = mutableListOf<String>()
                     for (app in candidates) {
                         items.add(app.packageName)
@@ -154,7 +157,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                         }
                         .show()
                 }
-                .show()
+            )
         }
         else {
             output(terminal.activity.getString(R.string.app_not_found, name), terminal.theme.warningTextColor)

@@ -4,10 +4,9 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
-import android.widget.EditText
 import android.widget.ImageButton
-import androidx.appcompat.app.AlertDialog
 import com.coderGtm.yantra.R
+import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.getCustomThemeColors
 import com.coderGtm.yantra.misc.CustomFlag
 import com.coderGtm.yantra.terminal.Terminal
@@ -74,24 +73,22 @@ fun openCustomThemeDesigner(terminal: Terminal) {
                         }
                         1 -> {
                             terminal.activity.runOnUiThread {
-                                val hexDialog = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                                    .setTitle(terminal.activity.getString(R.string.enter_8_digit_hex_code_without_hash))
-                                    .setView(R.layout.dialog_singleline_input)
-                                    .setPositiveButton(terminal.activity.getString(R.string.set)) { dialog, _ ->
-                                        val hexCode = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString().trim()
+                                YantraLauncherDialog(terminal.activity).takeInput(
+                                    title = terminal.activity.getString(R.string.enter_8_digit_hex_code_without_hash),
+                                    message = terminal.activity.getString(R.string.enter_8_digit_hex_code_without_hash),
+                                    initialInput = imgBtn.tag.toString().drop(1),
+                                    positiveButton = terminal.activity.getString(R.string.set),
+                                    negativeButton = terminal.activity.getString(R.string.cancel),
+                                    positiveAction = {
+                                        val hexCode = it.trim()
                                         if (!isValidHexCode(hexCode)) {
                                             toast(terminal.activity.baseContext, terminal.activity.getString(R.string.invalid_hex_code))
-                                            return@setPositiveButton
+                                            return@takeInput
                                         }
                                         imgBtn.setImageDrawable(ColorDrawable(Color.parseColor("#$hexCode")))
                                         imgBtn.tag = "#$hexCode"
                                     }
-                                    .setNegativeButton(terminal.activity.getString(R.string.cancel)) { dialogInterface, i ->
-                                        dialogInterface.dismiss()
-                                    }
-                                    .show()
-                                // prefilled hex code, without the #
-                                hexDialog.findViewById<EditText>(R.id.bodyText)?.setText(imgBtn.tag.toString().drop(1))
+                                )
                             }
                         }
                     }

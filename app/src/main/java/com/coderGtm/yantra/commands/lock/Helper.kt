@@ -9,10 +9,10 @@ import android.os.PowerManager
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import com.coderGtm.yantra.R
+import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.listeners.AdminReceiver
 import com.coderGtm.yantra.services.YantraAccessibilityService
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 // function to check if Accessibility service is enabled (source: https://stackoverflow.com/a/56970606)
 fun isAccessibilityServiceEnabled(context: Context): Boolean {
@@ -28,16 +28,15 @@ fun lockDeviceByAccessibilityService(activity: Activity, binding: ActivityMainBi
         binding.lockView.performClick()
     }
     else {
-        MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog).setTitle(activity.getString(R.string.enable_locking_device))
-            .setMessage(activity.getString(R.string.lock_by_accessibility_explainer))
-            .setPositiveButton(activity.getString(R.string.launch_settings)) { dialog, _ ->
+        YantraLauncherDialog(activity).showInfo(
+            title = activity.getString(R.string.enable_locking_device),
+            message = activity.getString(R.string.lock_by_accessibility_explainer),
+            positiveButton = activity.getString(R.string.launch_settings),
+            negativeButton = activity.getString(R.string.cancel),
+            positiveAction = {
                 activity.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-                dialog.dismiss()
             }
-            .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
+        )
     }
 }
 
@@ -48,9 +47,12 @@ fun lockDeviceByAdmin(activity: Activity) {
         try {
             policy.lockNow()
         } catch (ex: SecurityException) {
-            MaterialAlertDialogBuilder(activity, R.style.Theme_AlertDialog).setTitle(activity.getString(R.string.enable_locking_device))
-                .setMessage(activity.getString(R.string.lock_by_device_admin_explainer))
-                .setPositiveButton(activity.getString(R.string.launch_settings)) { dialog, _ ->
+            YantraLauncherDialog(activity).showInfo(
+                title = activity.getString(R.string.enable_locking_device),
+                message = activity.getString(R.string.lock_by_device_admin_explainer),
+                positiveButton = activity.getString(R.string.launch_settings),
+                negativeButton = activity.getString(R.string.cancel),
+                positiveAction = {
                     val admin = ComponentName(activity.baseContext, AdminReceiver::class.java)
                     val intent: Intent = Intent(
                         DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN
@@ -58,12 +60,8 @@ fun lockDeviceByAdmin(activity: Activity) {
                         DevicePolicyManager.EXTRA_DEVICE_ADMIN, admin
                     )
                     activity.startActivity(intent)
-                    dialog.dismiss()
                 }
-                .setNegativeButton(activity.getString(R.string.cancel)) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
+            )
         }
     }
 }

@@ -1,13 +1,11 @@
 package com.coderGtm.yantra.commands.init
 
-import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -24,35 +22,31 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         output(terminal.activity.getString(R.string.opening_init_tasks))
         val initListString = getInit(terminal.preferenceObject)
-        val initDialog = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-            .setTitle(terminal.activity.getString(R.string.initialization_tasks))
-            .setMessage(terminal.activity.getString(R.string.init_disclaimer))
-            .setView(R.layout.dialog_multiline_input)
-            .setCancelable(false)
-            .setPositiveButton(terminal.activity.getString(R.string.save)) { dialog, _ ->
-                val initTextBody = (dialog as AlertDialog).findViewById<EditText>(R.id.bodyText)?.text.toString()
-                val initListBody = initTextBody.trim()
+        YantraLauncherDialog(terminal.activity).takeInput(
+            title = terminal.activity.getString(R.string.initialization_tasks),
+            message = terminal.activity.getString(R.string.init_disclaimer),
+            initialInput = initListString,
+            cancellable = false,
+            positiveButton = terminal.activity.getString(R.string.save),
+            negativeButton = terminal.activity.getString(R.string.clear),
+            positiveAction = {
+                val initListBody = it.trim()
                 terminal.preferenceObject.edit().putString("initList",initListBody).apply()
                 output(terminal.activity.getString(R.string.init_list_saved),terminal.theme.successTextColor)
-            }
-            .setNegativeButton(terminal.activity.getString(R.string.clear)) { _, _ ->
-                MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                    .setTitle(terminal.activity.getString(R.string.clear_init_list))
-                    .setMessage(terminal.activity.getString(R.string.clear_init_list_confirmation))
-                    .setCancelable(false)
-                    .setPositiveButton(terminal.activity.getString(R.string.clear)) { _, _ ->
+            },
+            negativeAction = {
+                YantraLauncherDialog(terminal.activity).showInfo(
+                    title = terminal.activity.getString(R.string.clear_init_list),
+                    message = terminal.activity.getString(R.string.clear_init_list_confirmation),
+                    cancellable = false,
+                    positiveButton = terminal.activity.getString(R.string.clear),
+                    negativeButton = terminal.activity.getString(R.string.cancel),
+                    positiveAction = {
                         terminal.preferenceObject.edit().putString("initList","").apply()
                         output(terminal.activity.getString(R.string.init_list_cleared),terminal.theme.successTextColor)
                     }
-                    .setNeutralButton(terminal.activity.getString(R.string.cancel)) { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    .show()
+                )
             }
-            .setNeutralButton(terminal.activity.getString(R.string.cancel)) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
-        initDialog.findViewById<EditText>(R.id.bodyText)?.setText(initListString)
+        )
     }
 }

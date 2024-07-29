@@ -46,10 +46,10 @@ import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.isPro
-import com.coderGtm.yantra.marketProVersion
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.ShortcutBlock
+import com.coderGtm.yantra.promoteProVersion
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
@@ -426,7 +426,7 @@ class Terminal(
                 cmdHistoryCursor = cmdHistory.size
                 incrementNumOfCommandsEntered(preferenceObject, preferenceObject.edit())
                 showRatingAndCommunityPopups(preferenceObject, preferenceObject.edit(), activity)
-                marketProVersion(this@Terminal, preferenceObject)
+                promoteProVersion(this@Terminal, preferenceObject)
             }
         }
         commandName?.let { _ ->

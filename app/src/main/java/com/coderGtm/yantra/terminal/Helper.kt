@@ -582,17 +582,10 @@ fun showSuggestions(
                         val commandClass = terminal.commands[sug]
                         if (commandClass != null) {
                             val cmdMetadata = commandClass.getDeclaredConstructor(Terminal::class.java).newInstance(terminal).metadata
-                            /*MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                                .setTitle(cmdMetadata.helpTitle)
-                                .setMessage(cmdMetadata.description)
-                                .setPositiveButton(terminal.activity.getString(R.string.ok)) { helpDialog, _ ->
-                                    helpDialog.dismiss()
-                                }
-                                    .show()*/
                             YantraLauncherDialog(terminal.activity).showInfo(
-                                cmdMetadata.helpTitle,
-                                cmdMetadata.description,
-                                terminal.activity.getString(R.string.ok),
+                                title = cmdMetadata.helpTitle,
+                                message = cmdMetadata.description,
+                                positiveButton = terminal.activity.getString(R.string.ok),
                             )
                         }
                     }
