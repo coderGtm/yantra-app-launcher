@@ -160,7 +160,12 @@ class Terminal(
             val fontFile = File(activity.filesDir, fontName)
             if (fontFile.exists()) {
                 typeface = Typeface.createFromFile(fontFile)
-                username.setTypeface(typeface, Typeface.BOLD)
+                if (preferenceObject.getBoolean("useModernPromptDesign", false)) {
+                    username.setTypeface(Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf"))
+                }
+                else {
+                    username.setTypeface(typeface, Typeface.BOLD)
+                }
                 binding.cmdInput.typeface = typeface
                 finishInitialization()
             }
@@ -177,7 +182,12 @@ class Terminal(
             override fun onTypefaceRetrieved(rTypeface: Typeface) {
                 //set font as retrieved cliTypeface
                 typeface = rTypeface
-                username.setTypeface(typeface, Typeface.BOLD)
+                if (preferenceObject.getBoolean("useModernPromptDesign", false)) {
+                    username.setTypeface(Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf"))
+                }
+                else {
+                    username.setTypeface(typeface, Typeface.BOLD)
+                }
                 binding.cmdInput.typeface = typeface
                 finishInitialization()
             }
