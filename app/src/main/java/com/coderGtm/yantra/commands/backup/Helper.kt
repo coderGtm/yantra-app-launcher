@@ -48,7 +48,9 @@ fun extractZip(activity: Activity, name: String): Boolean {
     val decryptedFile = File("${activity.filesDir.parent}/shared_prefs/", "$SHARED_PREFS_FILE_NAME.xml")
 
     if (password != null) {
-        AESSecurity.decryptFile(oldFile, password, decryptedFile)
+        if (!AESSecurity.decryptFile(oldFile, password, decryptedFile)) {
+            return false
+        }
     }
 
     File("${activity.filesDir}/$oldFile").delete()

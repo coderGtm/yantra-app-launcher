@@ -57,7 +57,7 @@ object AESSecurity {
         }
     }
 
-    fun decryptFile(encryptedFile: File, password: CharArray, decryptedFile: File) {
+    fun decryptFile(encryptedFile: File, password: CharArray, decryptedFile: File): Boolean {
         val cipher = Cipher.getInstance(TRANSFORMATION)
         FileInputStream(encryptedFile).use { inputStream ->
             val nonce = ByteArray(GCM_NONCE_LENGTH)
@@ -77,11 +77,15 @@ object AESSecurity {
                         outputStream.write(decryptedBytes)
                     }
                 }
-                val finalBytes = cipher.doFinal()
+                val finalBytes = try { cipher.doFinal() } catch (e: Exception) { null }
                 if (finalBytes != null) {
                     outputStream.write(finalBytes)
                 }
+                else {
+                    return false
+                }
             }
         }
+        return true
     }
 }

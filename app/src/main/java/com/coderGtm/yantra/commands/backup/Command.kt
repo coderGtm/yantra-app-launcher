@@ -28,6 +28,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 type = "*/*"
             }
 
+            output(terminal.activity.getString(R.string.select_backup_file))
+
             val mainAct = terminal.activity as MainActivity
             mainAct.selectFileLauncher.launch(Intent.createChooser(intent,
                 terminal.activity.getString(R.string.select_backup_file)))
@@ -37,12 +39,13 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
         val fileName = packFile(this@Command)
 
-
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "*/*"
             putExtra(Intent.EXTRA_TITLE, fileName)
         }
+
+        output(terminal.activity.getString(R.string.save_backup_file))
 
         val mainAct = terminal.activity as MainActivity
         mainAct.sendFileLauncher.launch(Intent.createChooser(intent,
