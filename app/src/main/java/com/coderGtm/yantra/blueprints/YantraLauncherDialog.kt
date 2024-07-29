@@ -17,6 +17,7 @@ class YantraLauncherDialog(val context: Context) {
     fun showInfo(
         title: String,
         message: String,
+        cancellable: Boolean = true,
         positiveButton: String,
         negativeButton: String = "",
         positiveAction: () -> Unit = {},
@@ -67,12 +68,14 @@ class YantraLauncherDialog(val context: Context) {
             dialogNegativeButton.visibility = MaterialButton.GONE
         }
 
+        dialog.setCancelable(cancellable)
         dialog.show()
     }
 
     fun takeInput(
         title: String,
         message: String,
+        cancellable: Boolean = true,
         positiveButton: String,
         negativeButton: String = "",
         positiveAction: (String) -> Unit = {},
@@ -106,6 +109,10 @@ class YantraLauncherDialog(val context: Context) {
         dialogPositiveButton.text = positiveButton
         dialogNegativeButton.text = negativeButton
         dialogInput.inputType = inputType
+        if (inputType == InputType.TYPE_TEXT_FLAG_MULTI_LINE) {
+            dialogInput.isSingleLine = false
+            dialogInput.setLines(10)
+        }
 
         dialogPositiveButton.setOnClickListener {
             positiveAction(dialogInput.text.toString())
@@ -126,6 +133,7 @@ class YantraLauncherDialog(val context: Context) {
             dialogNegativeButton.visibility = MaterialButton.GONE
         }
 
+        dialog.setCancelable(cancellable)
         dialog.show()
     }
 }
