@@ -1,17 +1,10 @@
 package com.coderGtm.yantra.commands.cmdrequest
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.openURL
 import com.coderGtm.yantra.terminal.Terminal
-import com.coderGtm.yantra.toast
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
