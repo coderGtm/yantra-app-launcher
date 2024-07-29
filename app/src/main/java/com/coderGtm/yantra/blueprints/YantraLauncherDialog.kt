@@ -21,7 +21,8 @@ class YantraLauncherDialog(val context: Context) {
         positiveButton: String,
         negativeButton: String = "",
         positiveAction: () -> Unit = {},
-        negativeAction: () -> Unit = {}
+        negativeAction: () -> Unit = {},
+        dismissAction: () -> Unit = {}
     ) {
         // Show dialog with the given title, message, positiveButton, negativeButton
         // and perform the actions when the buttons are clicked
@@ -60,6 +61,9 @@ class YantraLauncherDialog(val context: Context) {
         closeButton.setOnClickListener {
             dialog.dismiss()
         }
+        dialog.setOnDismissListener {
+            dismissAction()
+        }
 
         if (positiveButton.isEmpty()) {
             dialogPositiveButton.visibility = MaterialButton.GONE
@@ -80,6 +84,7 @@ class YantraLauncherDialog(val context: Context) {
         negativeButton: String = "",
         positiveAction: (String) -> Unit = {},
         negativeAction: () -> Unit = {},
+        dismissAction: () -> Unit = {},
         inputType: Int = InputType.TYPE_CLASS_TEXT,
         initialInput: String = ""
     ) {
@@ -124,6 +129,9 @@ class YantraLauncherDialog(val context: Context) {
         }
         closeButton.setOnClickListener {
             dialog.dismiss()
+        }
+        dialog.setOnDismissListener {
+            dismissAction()
         }
 
         if (positiveButton.isEmpty()) {
