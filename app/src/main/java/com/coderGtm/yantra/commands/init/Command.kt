@@ -1,5 +1,6 @@
 package com.coderGtm.yantra.commands.init
 
+import android.text.InputType
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
@@ -27,6 +28,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             message = terminal.activity.getString(R.string.init_disclaimer),
             initialInput = initListString,
             cancellable = false,
+            inputType = InputType.TYPE_TEXT_FLAG_MULTI_LINE,
             positiveButton = terminal.activity.getString(R.string.save),
             negativeButton = terminal.activity.getString(R.string.clear),
             positiveAction = {
