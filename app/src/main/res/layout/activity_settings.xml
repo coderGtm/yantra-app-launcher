@@ -141,11 +141,13 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/pUi15"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
 
             <LinearLayout
+                android:id="@+id/pUi16"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingVertical="8dp"

@@ -489,6 +489,8 @@ class SettingsActivity : AppCompatActivity() {
         binding.pUi12.visibility = View.GONE
         binding.pUi13.visibility = View.GONE
         binding.pUi14.visibility = View.GONE
+        binding.pUi15.visibility = View.GONE
+        binding.pUi16.visibility = View.GONE
         binding.rightSwipeActionLayout.visibility = View.GONE
         binding.leftSwipeActionLayout.visibility = View.GONE
         binding.newsWebsiteLayout.visibility = View.GONE
