@@ -31,10 +31,11 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output(terminal.activity.getString(R.string.feature_permission_missing, terminal.activity.getString(R.string.file)), terminal.theme.warningTextColor)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                /*val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
                 val uri = Uri.fromParts("package", terminal.activity.packageName, null)
                 intent.data = uri
-                terminal.activity.startActivity(intent)
+                terminal.activity.startActivity(intent)*/
+                output("This command is temporarily disabled in Android 11 and higher due to Google Play policy.", terminal.theme.warningTextColor)
             } else {
                 ActivityCompat.requestPermissions(terminal.activity,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),

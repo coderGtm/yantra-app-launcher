@@ -1,5 +1,6 @@
 package com.coderGtm.yantra.commands.open
 
+import android.os.Build
 import android.os.Environment
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
@@ -30,5 +31,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
 
         output(terminal.activity.getString(R.string.error_not_a_file, fullPath), terminal.theme.errorTextColor)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            output("This command is temporarily disabled in Android 11 and higher due to Google Play policy.", terminal.theme.warningTextColor)
+        }
     }
 }
