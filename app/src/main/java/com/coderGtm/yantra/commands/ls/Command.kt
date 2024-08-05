@@ -1,22 +1,18 @@
 package com.coderGtm.yantra.commands.ls
 
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
+import android.app.Activity
+import android.content.ContentResolver
+import android.database.Cursor
 import android.graphics.Typeface
 import android.net.Uri
-import android.os.Build
-import android.os.Environment
-import android.provider.Settings
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.checkCroissantPermission
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.models.DirectoryContents
 import com.coderGtm.yantra.terminal.Terminal
-import java.io.File
+import org.json.JSONArray
+import org.json.JSONException
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -43,43 +39,18 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
 
-        if (!checkPermission(this@Command)) {
-            output(terminal.activity.getString(R.string.feature_permission_missing, terminal.activity.getString(R.string.file)), terminal.theme.warningTextColor)
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                /*val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-                val uri = Uri.fromParts("package", terminal.activity.packageName, null)
-                intent.data = uri
-                terminal.activity.startActivity(intent)*/
-                output("This command is temporarily disabled in Android 11 and higher due to Google Play policy.", terminal.theme.warningTextColor)
-            } else {
-                ActivityCompat.requestPermissions(terminal.activity,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    PermissionRequestCodes.STORAGE.code)
-            }
+        if (!checkCroissantPermission(terminal.activity)) {
+            output("Croissant app does not seem to have the required permissions.", terminal.theme.warningTextColor)
             return
         }
 
-        val files = File(Environment.getExternalStorageDirectory().absolutePath + terminal.workingDir).listFiles()
+        val files = getListOfObjects(terminal.activity, terminal.workingDir)
 
-        if (files == null) {
+        if (files.isEmpty()) {
             return
         }
 
-        val fullList = mutableListOf<DirectoryContents>()
-
-        for (file in files) {
-            fullList.add(
-                DirectoryContents(
-                    name = file.name,
-                    isDirectory = file.isDirectory,
-                    isHidden = file.isHidden
-                )
-            )
-        }
-
-        fullList.sortBy { it.name }
-        for (obj in fullList) {
+        for (obj in files) {
             if (obj.isHidden && !showHidden) {
                 continue
             }
@@ -92,12 +63,64 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
     }
 
-    private fun checkPermission(command: Command): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            Environment.isExternalStorageManager()
-        } else {
-            ContextCompat.checkSelfPermission(command.terminal.activity,
-                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+
+    private fun getListOfObjects(ac: Activity, path: String): MutableList<DirectoryContents> {
+        val contentResolver: ContentResolver = ac.contentResolver
+        val uri = Uri.parse("content://com.anready.croissant.files")
+            .buildUpon()
+            .appendQueryParameter("path", path) // Providing path
+            .appendQueryParameter("command", "list") // Set command to list
+            .build()
+
+        var cursor: Cursor? = null
+        try {
+            cursor = contentResolver.query(uri, null, null, null, null)
+            if (cursor != null && cursor.moveToFirst()) {
+                val dataIndex = cursor.getColumnIndex("response")
+                if (dataIndex == -1) {
+                    //println("Data column not found")
+                    return mutableListOf()
+                }
+
+                val jsonArray = JSONArray(cursor.getString(dataIndex))
+                if (error(jsonArray)) { //Checking response on error
+                    //println("Error: " + jsonArray.getJSONObject(0).getString("error"))
+                    return mutableListOf()
+                }
+
+                val fullList = mutableListOf<DirectoryContents>()
+
+                for (i in 0 until jsonArray.length()) {
+                    val fileInfo = jsonArray.getJSONObject(i)
+                    fullList.add(
+                        DirectoryContents(
+                            name = fileInfo.getString("name"),
+                            isDirectory = fileInfo.getBoolean("type"),
+                            isHidden = fileInfo.getBoolean("visibility")
+                        )
+                    )
+                }
+
+                return fullList
+            } else {
+                //println("Error while getting data!")
+            }
+        } catch (e: Exception) {
+            //println("Error while getting data!\n" + e.message)
+        } finally {
+            cursor?.close()
+        }
+
+        return mutableListOf()
+    }
+
+    private fun error(jsonArray: JSONArray): Boolean { //Method of getting error
+        try {
+            val error = jsonArray.getJSONObject(0)
+            error.getString("error")
+            return true
+        } catch (e: JSONException) {
+            return false
         }
     }
 }

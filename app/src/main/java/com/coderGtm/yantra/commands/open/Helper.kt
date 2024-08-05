@@ -1,32 +1,18 @@
 package com.coderGtm.yantra.commands.open
 
 import android.content.Intent
-import android.net.Uri
-import androidx.core.content.FileProvider
-import com.coderGtm.yantra.BuildConfig
-import java.io.File
 
 fun isExists(path: String): Boolean {
-    val file = File(path)
-    return file.isFile
+    // no check as of now
+    return true
 }
 
-fun openFiles(file: File, command: Command) {
-    val fileUri = Uri.fromFile(file)
-
-    val contentResolver = command.terminal.activity.contentResolver
-    val mimeType = contentResolver.getType(fileUri)
-
-    val uri = FileProvider.getUriForFile(
-        command.terminal.activity,
-        "${BuildConfig.APPLICATION_ID}.provider",
-        file
+fun openFile(pathToFile: String, command: Command) {
+    val intent = Intent()
+    intent.setClassName(
+        "com.anready.croissant",
+        "com.anready.croissant.providers.OpenFile"
     )
-
-    val intent = Intent(Intent.ACTION_VIEW).apply {
-        setDataAndType(uri, mimeType)
-        flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-    }
-
+    intent.putExtra("path", pathToFile) // pathToFile = "/DCIM/Camera/img.jpg"
     command.terminal.activity.startActivity(intent)
 }

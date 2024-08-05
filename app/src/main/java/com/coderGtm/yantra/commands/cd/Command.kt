@@ -1,14 +1,8 @@
 package com.coderGtm.yantra.commands.cd
 
-import android.Manifest
-import android.content.Intent
-import android.net.Uri
-import android.os.Build
-import android.provider.Settings
-import androidx.core.app.ActivityCompat
-import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.checkCroissantPermission
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
 
@@ -27,20 +21,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
 
-        if (!checkPermission(this@Command)) {
-            output(terminal.activity.getString(R.string.feature_permission_missing, terminal.activity.getString(R.string.file)), terminal.theme.warningTextColor)
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                /*val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-                val uri = Uri.fromParts("package", terminal.activity.packageName, null)
-                intent.data = uri
-                terminal.activity.startActivity(intent)*/
-                output("This command is temporarily disabled in Android 11 and higher due to Google Play policy.", terminal.theme.warningTextColor)
-            } else {
-                ActivityCompat.requestPermissions(terminal.activity,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    PermissionRequestCodes.STORAGE.code)
-            }
+        if (!checkCroissantPermission(terminal.activity)) {
+            output("Croissant app does not seem to have the required permissions.", terminal.theme.warningTextColor)
             return
         }
 
@@ -54,7 +36,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             }
         }
 
-        val newPath = getPathIfExists(pathN)
+        val newPath = getPathIfExists(terminal.activity, pathN)
 
         if (newPath != null) {
             terminal.workingDir = newPath

@@ -1,12 +1,10 @@
 package com.coderGtm.yantra.commands.open
 
-import android.os.Build
 import android.os.Environment
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
-import java.io.File
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -23,16 +21,12 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val name = command.removePrefix(args[0]).trim()
 
         val fullPath = Environment.getExternalStorageDirectory().absolutePath + "${terminal.workingDir}/$name"
-        val file = File(fullPath)
 
         if (isExists(fullPath)) {
-            openFiles(file,this@Command)
+            openFile(fullPath,this@Command)
             return
         }
 
         output(terminal.activity.getString(R.string.error_not_a_file, fullPath), terminal.theme.errorTextColor)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            output("This command is temporarily disabled in Android 11 and higher due to Google Play policy.", terminal.theme.warningTextColor)
-        }
     }
 }

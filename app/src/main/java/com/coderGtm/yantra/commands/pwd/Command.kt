@@ -27,8 +27,5 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             "${Environment.getExternalStorageDirectory().absolutePath}$wd"
         }
         output(wd)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            output("This command is temporarily disabled in Android 11 and higher due to Google Play policy.", terminal.theme.warningTextColor)
-        }
     }
 }
