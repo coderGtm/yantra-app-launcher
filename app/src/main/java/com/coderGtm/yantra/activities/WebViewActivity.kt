@@ -63,7 +63,6 @@ class WebViewActivity : AppCompatActivity() {
             //simple ad block
             override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse? {
                 val url = request.url.toString()
-                println(url)
 
                 if (url.contains("ads") || url.contains("banner")) {
                     return WebResourceResponse("text/plain", "utf-8", null)
