@@ -1,6 +1,5 @@
 package com.coderGtm.yantra.commands.cd
 
-import android.app.Activity
 import android.content.ContentResolver
 import android.database.Cursor
 import android.net.Uri
@@ -8,12 +7,12 @@ import org.json.JSONArray
 import org.json.JSONException
 
 
-fun getPathIfExists(activity: Activity, path: String): String? {
-    val contentResolver: ContentResolver = activity.contentResolver
+fun isPathExist(command: Command, path: String): Boolean {
+    val contentResolver: ContentResolver = command.terminal.activity.contentResolver
     val uri = Uri.parse("content://com.anready.croissant.files")
         .buildUpon()
-        .appendQueryParameter("path", path) // Providing path
-        .appendQueryParameter("command", "list") // Set command to list
+        .appendQueryParameter("path", path)
+        .appendQueryParameter("command", "pathExist")
         .build()
 
     var cursor: Cursor? = null
@@ -22,34 +21,27 @@ fun getPathIfExists(activity: Activity, path: String): String? {
         if (cursor != null && cursor.moveToFirst()) {
             val dataIndex = cursor.getColumnIndex("response")
             if (dataIndex == -1) {
-                println("Data column not found")
-                return null
+                command.output("Data not found", command.terminal.theme.errorTextColor)
+                return false
             }
 
             val jsonArray = JSONArray(cursor.getString(dataIndex))
-            if (error(jsonArray)) { //Checking response on error
-                println("Error: " + jsonArray.getJSONObject(0).getString("error"))
-                return null
+            if (error(jsonArray)) {
+                command.output(jsonArray.getJSONObject(0).getString("error").toString(), command.terminal.theme.errorTextColor)
+                return false
             }
 
-            for (i in 0 until jsonArray.length()) {
-                val fileInfo = jsonArray.getJSONObject(i)
-                if (fileInfo.getString("name") == path && fileInfo.getBoolean("type")) {
-                    return path
-                }
-            }
-
-            return null
+            val fileInfo = jsonArray.getJSONObject(0)
+            return fileInfo.getBoolean("result")
         } else {
-            println("Error while getting data!")
+            command.output("Error while getting data!", command.terminal.theme.errorTextColor)
         }
     } catch (e: Exception) {
-        println("Error while getting data!\n" + e.message)
+        command.output("Error while getting data!\n" + e.message, command.terminal.theme.errorTextColor)
     } finally {
         cursor?.close()
     }
-
-    return null
+    return false
 }
 
 private fun error(jsonArray: JSONArray): Boolean { //Method of getting error

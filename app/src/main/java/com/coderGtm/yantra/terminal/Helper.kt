@@ -2,11 +2,14 @@ package com.coderGtm.yantra.terminal
 
 import android.app.Activity
 import android.app.WallpaperManager
+import android.content.ContentResolver
 import android.content.Context
 import android.content.SharedPreferences
+import android.database.Cursor
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Environment
 import android.util.TypedValue
 import android.widget.TextView
@@ -15,14 +18,18 @@ import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
+import com.coderGtm.yantra.commands.ls.Command
 import com.coderGtm.yantra.commands.todo.getToDo
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.models.Alias
+import com.coderGtm.yantra.models.DirectoryContents
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.setSystemWallpaper
+import org.json.JSONArray
+import org.json.JSONException
 import java.io.File
 import java.util.Locale
 import java.util.regex.Pattern
@@ -639,12 +646,68 @@ fun showSuggestions(
     }.start()
 }
 
-fun getFolders(terminal: Terminal): List<String> {
-    val files = File(Environment.getExternalStorageDirectory().absolutePath + terminal.workingDir).listFiles()
+fun getListOfObjects(terminal: Terminal, path: String): MutableList<DirectoryContents> {
+    val contentResolver: ContentResolver = terminal.activity.contentResolver
+    val uri = Uri.parse("content://com.anready.croissant.files")
+        .buildUpon()
+        .appendQueryParameter("path", path) // Providing path
+        .appendQueryParameter("command", "list") // Set command to list
+        .build()
 
-    if (files == null) {
-        return listOf()
+    var cursor: Cursor? = null
+    try {
+        cursor = contentResolver.query(uri, null, null, null, null)
+        if (cursor != null && cursor.moveToFirst()) {
+            val dataIndex = cursor.getColumnIndex("response")
+            if (dataIndex == -1) {
+                terminal.output("Data not found", terminal.theme.errorTextColor, null, false)
+                return mutableListOf()
+            }
+
+            val jsonArray = JSONArray(cursor.getString(dataIndex))
+            if (error(jsonArray)) { //Checking response on error
+                terminal.output(jsonArray.getJSONObject(0).getString("error").toString(), terminal.theme.errorTextColor, null, false)
+                return mutableListOf()
+            }
+
+            val fullList = mutableListOf<DirectoryContents>()
+
+            for (i in 0 until jsonArray.length()) {
+                val fileInfo = jsonArray.getJSONObject(i)
+                fullList.add(
+                    DirectoryContents(
+                        name = fileInfo.getString("name"),
+                        isDirectory = fileInfo.getBoolean("type"),
+                        isHidden = fileInfo.getBoolean("visibility")
+                    )
+                )
+            }
+
+            return fullList
+        } else {
+            terminal.output("Error while getting data!", terminal.theme.errorTextColor, null, false)
+        }
+    } catch (e: Exception) {
+        terminal.output("Error while getting data!\n" + e.message, terminal.theme.errorTextColor, null, false)
+    } finally {
+        cursor?.close()
     }
+
+    return mutableListOf()
+}
+
+fun error(jsonArray: JSONArray): Boolean { //Method of getting error
+    try {
+        val error = jsonArray.getJSONObject(0)
+        error.getString("error")
+        return true
+    } catch (e: JSONException) {
+        return false
+    }
+}
+
+fun getFolders(terminal: Terminal): List<String> {
+    val files = getListOfObjects(terminal, terminal.workingDir)
 
     val fullList = mutableListOf<String>()
 
@@ -659,16 +722,12 @@ fun getFolders(terminal: Terminal): List<String> {
 }
 
 fun getFiles(terminal: Terminal): List<String> {
-    val files = File(Environment.getExternalStorageDirectory().absolutePath + terminal.workingDir).listFiles()
-
-    if (files == null) {
-        return listOf()
-    }
+    val files = getListOfObjects(terminal, terminal.workingDir)
 
     val fullList = mutableListOf<String>()
 
     for (file in files) {
-        if (file.isFile) {
+        if (!file.isDirectory) {
             fullList.add(file.name)
         }
     }
