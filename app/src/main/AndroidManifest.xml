@@ -29,11 +29,22 @@
             android:exported="false"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.Material3.Dark" />
+
         <activity
             android:name=".activities.WebViewActivity"
             android:configChanges="orientation|screenSize|screenLayout"
             android:excludeFromRecents="true"
-            android:exported="false" />
+            android:exported="true"
+            android:label="GUPT">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".activities.MainActivity"
             android:configChanges="orientation|screenSize|screenLayout"

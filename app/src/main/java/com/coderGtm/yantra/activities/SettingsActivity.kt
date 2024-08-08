@@ -83,6 +83,7 @@ class SettingsActivity : AppCompatActivity() {
     private var fontName = "Source Code Pro"
     private var appLocale = "en"
     private var useModernPromptDesign = false
+    private var disableAds = false
 
     private lateinit var binding: ActivitySettingsBinding
 
@@ -160,7 +161,7 @@ class SettingsActivity : AppCompatActivity() {
         }
         appLocale = AppCompatDelegate.getApplicationLocales().toLanguageTags()
         useModernPromptDesign = preferenceObject.getBoolean("useModernPromptDesign",false)
-
+        disableAds = preferenceObject.getBoolean("disableAds",false)
 
         binding.usernamePrefix.text = getUserNamePrefix(preferenceObject)
         binding.fontSizeBtn.text = fontSize.toString()
@@ -362,6 +363,12 @@ class SettingsActivity : AppCompatActivity() {
             preferenceEditObject.putBoolean("initCmdLog", isChecked).apply()
             changedSettingsCallback(this@SettingsActivity)
         }
+        binding.adBlocker.isChecked = disableAds
+        binding.adBlocker.setOnCheckedChangeListener { _, isChecked ->
+            disableAds = isChecked
+            preferenceEditObject.putBoolean("disableAds", isChecked).apply()
+            changedSettingsCallback(this@SettingsActivity)
+        }
     }
 
     private fun importFontFromFile() {
@@ -492,6 +499,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.pUi14.visibility = View.GONE
         binding.pUi15.visibility = View.GONE
         binding.pUi16.visibility = View.GONE
+        binding.pUi17.visibility = View.GONE
         binding.rightSwipeActionLayout.visibility = View.GONE
         binding.leftSwipeActionLayout.visibility = View.GONE
         binding.newsWebsiteLayout.visibility = View.GONE
@@ -502,5 +510,6 @@ class SettingsActivity : AppCompatActivity() {
         binding.aiProviderLayout.visibility = View.GONE
         binding.aiApiKeyLayout.visibility = View.GONE
         binding.aiSystemPromptLayout.visibility = View.GONE
+        binding.adBlocker.visibility = View.GONE
     }
 }
