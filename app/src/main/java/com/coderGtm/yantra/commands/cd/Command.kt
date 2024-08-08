@@ -36,10 +36,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             }
         }
 
-        val newPath = getPathIfExists(terminal.activity, pathN)
-
-        if (newPath != null) {
-            terminal.workingDir = newPath
+        if (isPathExist(this@Command, pathN)) {
+            terminal.workingDir = pathN
             terminal.setPromptText()
             return
         }
