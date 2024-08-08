@@ -21,6 +21,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.coderGtm.yantra.R
+import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.google.android.material.button.MaterialButton
 
 
@@ -37,6 +38,12 @@ class WebViewActivity : AppCompatActivity() {
         if (urlPassed == null) {
             urlPassed = "https://www.google.com"
         }
+
+        if (intent.data != null) {
+            urlPassed = intent.data.toString()
+        }
+
+        val preference = applicationContext.getSharedPreferences(SHARED_PREFS_FILE_NAME,0)
 
         webView = findViewById(R.id.webView)
         val closeBtn: MaterialButton = findViewById(R.id.closeBtn)
@@ -65,14 +72,17 @@ class WebViewActivity : AppCompatActivity() {
                 val url = request.url.toString()
 
                 if (url.contains("ads") || url.contains("banner")) {
-                    return WebResourceResponse("text/plain", "utf-8", null)
+                    if (preference.getBoolean("disableAds", false)) {
+                        return WebResourceResponse("text/plain", "utf-8", null)
+                    }
                 }
+
                 return super.shouldInterceptRequest(view, request)
             }
 
             override fun shouldOverrideUrlLoading(
                 view: WebView,
-                request: WebResourceRequest
+                request: WebResourceRequest,
             ): Boolean {
                 progressBar.visibility = ProgressBar.VISIBLE
                 progressBar.progress = 0
@@ -84,6 +94,10 @@ class WebViewActivity : AppCompatActivity() {
             // also simple ad block
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
+                if (!preference.getBoolean("disableAds", false)) {
+                    return
+                }
+
                 val jsCode = """
                     (function() {
                         var elements = document.querySelectorAll('*');
