@@ -215,7 +215,7 @@
     <string name="error_no_matching_directory_found">Errore! Nessuna directory corrispondente trovata!</string>
     <string name="cmd_clear_help">Pulisce la console</string>
     <string name="cmd_takes_no_params">Il comando \'%1$s\' non accetta parametri.</string>
-    <string name="cmd_cmdrequest_help">Nel caso in cui desideri che vengano aggiunti nuovi comandi a Yantra Launcher, esegui questo comando per aprire un modello di email per la richiesta di comandi. Da notare che non è garantito che la richiesta di comando sarà accettata, ma farò del mio meglio per vedere se posso includerla nelle prossime versioni di Yantra Launcher, se appropriato.</string>
+    <string name="cmd_cmdrequest_help">Nel caso in cui desideri che vengano aggiunti nuovi comandi a Yantra Launcher, esegui questo comando per aprire il modello di un issue su GitHub per la richiesta di comandi. Da notare che non è garantito che la richiesta di comando sarà accettata, ma farò del mio meglio per vedere se posso includerla nelle prossime versioni di Yantra Launcher, se appropriato.</string>
     <string name="cmdrequest_no_args">Il comando \'cmdrequest\' non accetta parametri.</string>
     <string name="send_manual_mail_with_title">Impossibile avviare un\'app di posta elettronica. Si prega di inviare la mail a coderGtm@gmail.com con titolo \'%1$s\'</string>
     <string name="oops">Oops!</string>
@@ -542,7 +542,7 @@
     <string name="playing_previous_track">Riproduzione della traccia precedente in corso...</string>
     <string name="invalid_parameter_see_help_to_see_usage_info">Parametro non valido! Vedi \'help %1$s\' per vedere le informazioni sull\'uso.</string>
     <string name="suggestion_bar_color">Colore della barra delle suggerimenti</string>
-    <string name="modern_prompt_design">Modern Prompt Design</string>
-    <string name="import_local_font">Import Local Font</string>
-    <string name="select_a_font_file">Select a Font File</string>
+    <string name="modern_prompt_design">Prompt Design Moderno</string>
+    <string name="import_local_font">Importa Font Locale</string>
+    <string name="select_a_font_file">Seleziona un Font File</string>
 </resources>
