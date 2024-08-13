@@ -1,6 +1,5 @@
 package com.coderGtm.yantra.commands.open
 
-import android.os.Environment
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
@@ -20,9 +19,9 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         val name = command.removePrefix(args[0]).trim()
 
-        val fullPath = Environment.getExternalStorageDirectory().absolutePath + "${terminal.workingDir}/$name"
+        val fullPath = "${terminal.workingDir}/$name"
 
-        if (isExists(fullPath)) {
+        if (isPathExist(this@Command, fullPath)) {
             openFile(fullPath,this@Command)
             return
         }
