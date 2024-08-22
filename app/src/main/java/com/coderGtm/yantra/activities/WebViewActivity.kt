@@ -54,10 +54,10 @@ class WebViewActivity : AppCompatActivity() {
         webView.settings.cacheMode = WebSettings.LOAD_NO_CACHE
 
         // no ask-of-cookies
-        val cookieManager = CookieManager.getInstance()
-        cookieManager.setAcceptCookie(false)
-        cookieManager.removeAllCookies(null)
-        cookieManager.flush()
+        //val cookieManager = CookieManager.getInstance()
+        //cookieManager.setAcceptCookie(false)
+        //cookieManager.removeAllCookies(null)
+        //cookieManager.flush()
 
         webView.clearHistory()
         webView.clearFormData()
