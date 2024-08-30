@@ -640,6 +640,13 @@ fun showSuggestions(
                 terminal.binding.suggestionsTab.removeAllViews()
                 suggestions.clear()
 
+                // clear input now and after 100ms delay
+                Thread {
+                    Thread.sleep(500)
+                    terminal.activity.runOnUiThread {
+                        terminal.binding.cmdInput.setText("")
+                    }
+                }.start()
                 terminal.binding.cmdInput.setText("")
             }
         }
