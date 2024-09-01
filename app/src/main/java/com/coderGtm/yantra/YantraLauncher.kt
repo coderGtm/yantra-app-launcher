@@ -47,7 +47,7 @@ class YantraLauncher : Application() {
 
             mailSender {
                 mailTo = "coderGtm@gmail.com"
-                reportFileName = "crash.txt"
+                reportFileName = "crash.json"
                 subject = "Crash Report for Yantra Launcher"
                 body = "Yantra Launcher Crashed. Crash Report is attached."
             }
