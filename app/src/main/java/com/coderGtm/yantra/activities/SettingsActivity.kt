@@ -40,6 +40,7 @@ import com.coderGtm.yantra.misc.openAppSugOrderingSetter
 import com.coderGtm.yantra.misc.openArrowSizeSetter
 import com.coderGtm.yantra.misc.openDoubleTapActionSetter
 import com.coderGtm.yantra.misc.openFontSizeSetter
+import com.coderGtm.yantra.misc.openLauncherSelection
 import com.coderGtm.yantra.misc.openNewsWebsiteSetter
 import com.coderGtm.yantra.misc.openOrientationSetter
 import com.coderGtm.yantra.misc.openSwipeLeftActionSetter
@@ -185,6 +186,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.aiProviderLayout.setOnClickListener { openAiApiProviderSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.aiApiKeyLayout.setOnClickListener { openAiApiKeySetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.aiSystemPromptLayout.setOnClickListener { openAiSystemPromptSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
+        binding.launcherSelectionLayout.setOnClickListener { openLauncherSelection(this@SettingsActivity) }
 
         binding.fontLay.setOnClickListener {
             if (preferenceObject.getBoolean("fontpack___purchased",true)) {

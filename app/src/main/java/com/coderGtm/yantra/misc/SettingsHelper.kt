@@ -1,9 +1,11 @@
 package com.coderGtm.yantra.misc
 
 import android.app.Activity
+import android.content.ComponentName
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.text.InputType
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +14,7 @@ import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.DEFAULT_AI_API_DOMAIN
 import com.coderGtm.yantra.DEFAULT_SYSINFO_ART
 import com.coderGtm.yantra.R
+import com.coderGtm.yantra.activities.FakeLauncherActivity
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.databinding.ActivitySettingsBinding
 import com.coderGtm.yantra.getUserNamePrefix
@@ -19,6 +22,7 @@ import com.coderGtm.yantra.openURL
 import com.coderGtm.yantra.setUserNamePrefix
 import com.coderGtm.yantra.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+
 
 fun setOrientationTvText(activity: Activity, binding: ActivitySettingsBinding, orientation: Int) {
     binding.tvOrientation.text = when (orientation) {
@@ -371,5 +375,29 @@ fun openAiSystemPromptSetter(activity: Activity, preferenceObject: SharedPrefere
             toast(activity, activity.getString(R.string.ai_system_prompt_updated))
             changedSettingsCallback(activity)
         },
+    )
+}
+
+fun openLauncherSelection(activity: Activity) {
+    resetPreferredLauncherAndOpenChooser(activity)
+}
+fun resetPreferredLauncherAndOpenChooser(activity: Activity) {
+    val packageManager = activity.packageManager
+    val componentName = ComponentName(activity, FakeLauncherActivity::class.java)
+    packageManager.setComponentEnabledSetting(
+        componentName,
+        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+        PackageManager.DONT_KILL_APP
+    )
+
+    val selector = Intent(Intent.ACTION_MAIN)
+    selector.addCategory(Intent.CATEGORY_HOME)
+    selector.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    activity.startActivity(selector)
+
+    packageManager.setComponentEnabledSetting(
+        componentName,
+        PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
+        PackageManager.DONT_KILL_APP
     )
 }
