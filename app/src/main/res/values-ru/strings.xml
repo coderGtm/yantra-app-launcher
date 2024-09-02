@@ -545,5 +545,5 @@
     <string name="modern_prompt_design">Модернизированный дизайн промпта</string>
     <string name="import_local_font">Импорт локального шрифта</string>
     <string name="select_a_font_file">Выберите файл шрифта</string>
-    <string name="select_default_launcher">Select Default Launcher</string>
+    <string name="select_default_launcher">Выбрать основной лаунчер</string>
 </resources>
