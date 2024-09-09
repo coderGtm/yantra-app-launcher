@@ -527,6 +527,7 @@ fun showSuggestions(
                 try {
                     val runArgs = getScripts(terminal.preferenceObject).toMutableList()
                     runArgs.add(0, "-lua")
+                    runArgs.add(0, "-clean")
                     if (args.size>1) {
                         overrideLastWord = true
                         val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
