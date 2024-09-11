@@ -546,4 +546,5 @@
     <string name="import_local_font">Импорт локального шрифта</string>
     <string name="select_a_font_file">Выберите файл шрифта</string>
     <string name="select_default_launcher">Выбрать основной лаунчер</string>
+    <string name="cannot_alias_to_itself">Cannot alias %1$s to itself!</string>
 </resources>

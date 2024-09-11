@@ -63,7 +63,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             }
             if (aliasComponents.size >= 2) {
                 val aliasName = aliasComponents[0].trim()
-                if (aliasName.trim() in terminal.commands.keys) {
+                if (aliasName in terminal.commands.keys) {
                     output(terminal.activity.getString(R.string.alias_name_cmd_name), terminal.theme.errorTextColor)
                     return
                 }
@@ -73,6 +73,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     return
                 }
                 val aliasCmd = aliasComponents.drop(1).joinToString("=").trim()
+                if (aliasName == aliasCmd) {
+                    output(terminal.activity.getString(R.string.cannot_alias_to_itself, aliasName), terminal.theme.errorTextColor)
+                    return
+                }
                 for (i in terminal.aliasList.indices) {
                     if (terminal.aliasList[i].key == aliasName) {
                         terminal.aliasList[i] = Alias(aliasName, aliasCmd)
