@@ -344,7 +344,7 @@
     <string name="cmd_quote_help">¡Muestra una cita aleatoria! ¿Qué más esperas?</string>
     <string name="cmd_reset_help">Reinicia la consola (Launcher) completamente.</string>
     <string name="cmd_run_title">run script_name</string>
-    <string name="cmd_run_help">Se usa para ejecutar tus scripts personalizados.</string>
+    <string name="cmd_run_help">Se usa para ejecutar tus scripts personalizados. Usa el flag \'-lua\' para ejecutar el script como código Lua. Los scripts normales pueden ejecutarse con el flag \'-clean\' para no imprimir los registros de comandos durante la ejecución y solo registrar la salida de los comandos.</string>
     <string name="specify_script_to_run">Por favor, especifica el nombre de un script para ejecutar.</string>
     <string name="run_only_one_param">El comando \'run\' solo acepta 1 parámetro: el nombre del script a ejecutar.</string>
     <string name="script_not_found">El script \'%1$s\' no está definido. Usa el comando \'scripts\' para crear tus propios Yantra Scripts.</string>
