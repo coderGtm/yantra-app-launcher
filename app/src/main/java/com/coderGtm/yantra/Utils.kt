@@ -41,6 +41,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.Timer
+import kotlin.concurrent.schedule
 import kotlin.concurrent.timerTask
 
 fun openURL(url: String, activity: Activity) {
@@ -81,6 +82,9 @@ fun requestCmdInputFocusAndShowKeyboard(activity: Activity, binding: ActivityMai
     binding.cmdInput.requestFocus()
     val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.showSoftInput(binding.cmdInput, InputMethodManager.SHOW_IMPLICIT)
+    Timer().schedule(250) {
+        binding.scrollView.scrollToBottom()
+    }
 }
 @SuppressLint("Range")
 fun contactsManager(terminal: Terminal, callingIntent: Boolean = false, callTo: String = ""): List<Contacts> {

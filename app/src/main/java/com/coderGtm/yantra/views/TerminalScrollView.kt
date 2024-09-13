@@ -69,4 +69,10 @@ class TerminalScrollView(context: Context, attrs: AttributeSet) : ScrollView(con
             return result
         }
     }
+    fun scrollToBottom() {
+        val lastChild = this.getChildAt(this.childCount - 1)
+        val bottom = lastChild.bottom + this.paddingBottom
+        val delta = bottom - (this.scrollY+ this.height)
+        this.smoothScrollBy(0, delta)
+    }
 }
