@@ -193,16 +193,18 @@ fun showPrimarySuggestionsReorderPopup(activity: Activity, preferenceObject: Sha
 
     // Create and show the popup dialog with the RecyclerView
     val dialog = MaterialAlertDialogBuilder(activity)
-        .setTitle("Reorder Primary Suggestions")
+        .setTitle(activity.getString(R.string.reorder_primary_suggestions))
         .setView(recyclerView)
-        .setPositiveButton("Save") { _, _ ->
+        .setPositiveButton(activity.getString(R.string.save)) { _, _ ->
             onReorderComplete(adapter.suggestions)  // Save the reordered commands
+            toast(activity, activity.getString(R.string.saved_configuration_for_primary_suggestions))
             changedSettingsCallback(activity)
         }
-        .setNegativeButton("Reset") { _, _ ->
+        .setNegativeButton(activity.getString(R.string.reset)) { _, _ ->
             val originalSuggestions = getPrimarySuggestionsList(getAvailableCommands(activity), getAliases(preferenceObject))
             adapter.updateCommands(originalSuggestions)  // Reset the adapter to the original order
             savePrimarySuggestionsOrder(preferenceEditObject, originalSuggestions)  // Save the reset order
+            toast(activity, activity.getString(R.string.saved_configuration_for_primary_suggestions))
             changedSettingsCallback(activity)
         }
         .create()

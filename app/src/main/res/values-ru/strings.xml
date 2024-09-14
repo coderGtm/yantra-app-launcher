@@ -547,4 +547,7 @@
     <string name="select_a_font_file">Выберите файл шрифта</string>
     <string name="select_default_launcher">Выбрать основной лаунчер</string>
     <string name="cannot_alias_to_itself">Невозможно сделать псевдоним %1$s который ссылается на самого себя!</string>
+    <string name="reorder_primary_suggestions">Reorder Primary Suggestions</string>
+    <string name="reset">Reset</string>
+    <string name="saved_configuration_for_primary_suggestions">Saved configuration for Primary Suggestions!</string>
 </resources>

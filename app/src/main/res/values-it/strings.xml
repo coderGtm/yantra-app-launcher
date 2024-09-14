@@ -547,4 +547,7 @@
     <string name="select_a_font_file">Seleziona un Font File</string>
     <string name="select_default_launcher">Seleziona il Launcher Predefinito</string>
     <string name="cannot_alias_to_itself">Cannot alias %1$s to itself!</string>
+    <string name="reorder_primary_suggestions">Reorder Primary Suggestions</string>
+    <string name="reset">Reset</string>
+    <string name="saved_configuration_for_primary_suggestions">Saved configuration for Primary Suggestions!</string>
 </resources>
