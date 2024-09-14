@@ -55,7 +55,7 @@ fun showSuggestions(
             val regex = Regex(Pattern.quote(args[0]), RegexOption.IGNORE_CASE)
             val allPrimarySuggestions: MutableList<Suggestion> = terminal.primarySuggestions
             for (ps in allPrimarySuggestions) {
-                if (regex.containsMatchIn(ps.text) && !suggestions.contains(ps.text) && !ps.isHidden) {
+                if (!ps.isHidden && regex.containsMatchIn(ps.text) && !suggestions.contains(ps.text)) {
                     suggestions.add(ps.text)
                 }
             }
@@ -754,7 +754,7 @@ fun reorderPrimarySuggestions(preferenceObject: SharedPreferences, suggestionLis
     if (savedOrder != null) {
         for (sug in savedOrder) {
             suggestionList.firstOrNull { it.text == sug.text }?.let {
-                reorderedSuggestions.add(it)
+                reorderedSuggestions.add(sug)
             }
         }
         // Add any remaining commands that weren't reordered by the user

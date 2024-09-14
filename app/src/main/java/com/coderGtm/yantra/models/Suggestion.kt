@@ -4,5 +4,5 @@ data class Suggestion(
     val text: String,
     val depth: Int,
     val isEndOfCommand: Boolean,
-    val isHidden: Boolean
+    var isHidden: Boolean
 )
