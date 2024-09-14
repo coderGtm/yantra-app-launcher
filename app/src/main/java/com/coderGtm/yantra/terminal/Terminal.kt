@@ -41,6 +41,7 @@ import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.findSimilarity
+import com.coderGtm.yantra.getAliases
 import com.coderGtm.yantra.getCurrentTheme
 import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.getUserName
@@ -49,6 +50,7 @@ import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.ShortcutBlock
+import com.coderGtm.yantra.models.Suggestion
 import com.coderGtm.yantra.promoteProVersion
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
@@ -78,6 +80,7 @@ class Terminal(
 
     val theme = getCurrentTheme(activity, preferenceObject)
     val commands = getAvailableCommands(activity)
+    var primarySuggestions: MutableList<Suggestion> = mutableListOf()
     var initialized = false
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var isSleeping = false
@@ -114,7 +117,8 @@ class Terminal(
         createWakeButton()
         setTextChangedListener()
         createTouchListeners()
-        aliasList = getAliases()
+        aliasList = getAliases(preferenceObject)
+        primarySuggestions = reorderPrimarySuggestions(preferenceObject, getPrimarySuggestionsList(getAvailableCommands(activity), aliasList))
         checkAliasNames()
         setInputListener()
         setLauncherAppsListener(this@Terminal)
@@ -288,19 +292,6 @@ class Terminal(
         }
     }
 
-    private fun getAliases(): MutableList<Alias> {
-        //get alias list from shared preferences
-        val defaultStringSet = mutableSetOf<String>()
-        for (i in DEFAULT_ALIAS_LIST.indices) {
-            defaultStringSet.add(DEFAULT_ALIAS_LIST[i].key + "=" + DEFAULT_ALIAS_LIST[i].value)
-        }
-        val aliasList = preferenceObject.getStringSet("aliasList", defaultStringSet)?.toMutableList()
-        val aliasList2 = mutableListOf<Alias>() //convert to list of list
-        for (i in aliasList!!.indices) {
-            aliasList2.add(Alias(aliasList[i].split("=")[0],aliasList[i].split("=").drop(1).joinToString("=")))
-        }
-        return aliasList2
-    }
     private fun checkAliasNames() {
         val commandNames = commands.keys
         for (i in aliasList.indices) {

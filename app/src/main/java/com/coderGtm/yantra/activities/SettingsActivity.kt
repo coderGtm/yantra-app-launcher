@@ -43,6 +43,7 @@ import com.coderGtm.yantra.misc.openFontSizeSetter
 import com.coderGtm.yantra.misc.openLauncherSelection
 import com.coderGtm.yantra.misc.openNewsWebsiteSetter
 import com.coderGtm.yantra.misc.openOrientationSetter
+import com.coderGtm.yantra.misc.openPrimarySuggestionsOrderSetter
 import com.coderGtm.yantra.misc.openSwipeLeftActionSetter
 import com.coderGtm.yantra.misc.openSwipeRightActionSetter
 import com.coderGtm.yantra.misc.openSysinfoArtSetter
@@ -174,6 +175,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.doubleTapActionLayout.setOnClickListener { openDoubleTapActionSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.rightSwipeActionLayout.setOnClickListener { openSwipeRightActionSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.leftSwipeActionLayout.setOnClickListener { openSwipeLeftActionSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
+        binding.reorderPrimSugLayout.setOnClickListener { openPrimarySuggestionsOrderSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.newsWebsiteLayout.setOnClickListener { openNewsWebsiteSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.fontSizeBtn.setOnClickListener { openFontSizeSetter(this@SettingsActivity, binding, preferenceObject, preferenceEditObject) }
         binding.arrowSizeBtn.setOnClickListener { openArrowSizeSetter(this@SettingsActivity, binding, preferenceObject, preferenceEditObject) }

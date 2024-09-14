@@ -27,7 +27,9 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.toDrawable
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.databinding.ActivityMainBinding
+import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Contacts
+import com.coderGtm.yantra.models.Suggestion
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.terminal.Terminal
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -530,4 +532,34 @@ fun checkCroissantPermission(activity: Activity): Boolean {
         cursor?.close()
     }
     return false
+}
+
+fun loadPrimarySuggestionsOrder(preferenceObject: SharedPreferences): MutableList<Suggestion>? {
+    val savedOrder = preferenceObject.getString("ps_order", null)
+    // saved as "text 1" (1 for hidden, 0 for visible) separated by ,
+    if (savedOrder != null) {
+        val order = savedOrder.split(",").toMutableList()
+        val suggestions = mutableListOf<Suggestion>()
+        for (i in order.indices) {
+            val text = order[i].split(" ")[0]
+            val isHidden = order[i].split(" ")[1] == "1"
+            suggestions.add(Suggestion(text, 0, false, isHidden))
+        }
+        return suggestions
+    }
+    return null
+}
+
+fun getAliases(preferenceObject: SharedPreferences): MutableList<Alias> {
+    //get alias list from shared preferences
+    val defaultStringSet = mutableSetOf<String>()
+    for (i in DEFAULT_ALIAS_LIST.indices) {
+        defaultStringSet.add(DEFAULT_ALIAS_LIST[i].key + "=" + DEFAULT_ALIAS_LIST[i].value)
+    }
+    val aliasList = preferenceObject.getStringSet("aliasList", defaultStringSet)?.toMutableList()
+    val aliasList2 = mutableListOf<Alias>() //convert to list of list
+    for (i in aliasList!!.indices) {
+        aliasList2.add(Alias(aliasList[i].split("=")[0],aliasList[i].split("=").drop(1).joinToString("=")))
+    }
+    return aliasList2
 }

@@ -10,7 +10,6 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
-import android.os.Environment
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.core.graphics.drawable.toBitmap
@@ -18,19 +17,19 @@ import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
-import com.coderGtm.yantra.commands.ls.Command
 import com.coderGtm.yantra.commands.todo.getToDo
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.isPro
+import com.coderGtm.yantra.loadPrimarySuggestionsOrder
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.DirectoryContents
+import com.coderGtm.yantra.models.Suggestion
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.setSystemWallpaper
 import org.json.JSONArray
 import org.json.JSONException
-import java.io.File
 import java.util.Locale
 import java.util.regex.Pattern
 
@@ -54,13 +53,10 @@ fun showSuggestions(
         if ((args.isEmpty() || (args.size == 1 && terminal.binding.cmdInput.text.toString().lastOrNull() != ' ')) && getPrimarySuggestions) {
             overrideLastWord = true
             val regex = Regex(Pattern.quote(args[0]), RegexOption.IGNORE_CASE)
-            val allPrimarySuggestions: MutableSet<String> = terminal.commands.keys.toMutableSet()
-            terminal.aliasList.forEach {
-                allPrimarySuggestions.add(it.key)
-            }
+            val allPrimarySuggestions: MutableList<Suggestion> = terminal.primarySuggestions
             for (ps in allPrimarySuggestions) {
-                if (regex.containsMatchIn(ps)) {
-                    suggestions.add(ps)
+                if (regex.containsMatchIn(ps.text) && !suggestions.contains(ps.text) && !ps.isHidden) {
+                    suggestions.add(ps.text)
                 }
             }
         }
@@ -751,6 +747,42 @@ fun setWallpaperIfNeeded(preferenceObject: SharedPreferences, applicationContext
         setSystemWallpaper(wallpaperManager, colorDrawable.toBitmap(applicationContext.resources.displayMetrics.widthPixels, applicationContext.resources.displayMetrics.heightPixels))
     }
 }
+
+fun reorderPrimarySuggestions(preferenceObject: SharedPreferences, suggestionList: List<Suggestion>): MutableList<Suggestion> {
+    val savedOrder = loadPrimarySuggestionsOrder(preferenceObject)
+    val reorderedSuggestions = mutableListOf<Suggestion>()
+    if (savedOrder != null) {
+        for (sug in savedOrder) {
+            suggestionList.firstOrNull { it.text == sug.text }?.let {
+                reorderedSuggestions.add(it)
+            }
+        }
+        // Add any remaining commands that weren't reordered by the user
+        suggestionList.forEach { (command) ->
+            if (!reorderedSuggestions.any { it.text == command }) {
+                suggestionList.firstOrNull { it.text == command }?.let {
+                    reorderedSuggestions.add(it)
+                }
+            }
+        }
+        return reorderedSuggestions
+    }
+
+    return suggestionList.toMutableList() // No reorder exists, return as-is
+}
+
+fun getPrimarySuggestionsList(commands:  Map<String, Class<out BaseCommand>>, aliasList: MutableList<Alias>): MutableList<Suggestion> {
+    val all: MutableList<Suggestion> = mutableListOf()
+    commands.forEach {
+        all.add(Suggestion(it.key, 0, false, false))
+    }
+    aliasList.forEach {
+        all.add(Suggestion(it.key, 0, false, false))
+    }
+
+    return all
+}
+
 
 fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand>> {
     if (isPro(activity)) {

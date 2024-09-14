@@ -4,11 +4,15 @@ import android.app.Activity
 import android.content.ComponentName
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.SharedPreferences.Editor
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.text.InputType
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.coderGtm.yantra.AI_SYSTEM_PROMPT
 import com.coderGtm.yantra.AppSortMode
 import com.coderGtm.yantra.DEFAULT_AI_API_DOMAIN
@@ -17,9 +21,16 @@ import com.coderGtm.yantra.R
 import com.coderGtm.yantra.activities.FakeLauncherActivity
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.databinding.ActivitySettingsBinding
+import com.coderGtm.yantra.getAliases
 import com.coderGtm.yantra.getUserNamePrefix
+import com.coderGtm.yantra.loadPrimarySuggestionsOrder
+import com.coderGtm.yantra.models.Suggestion
 import com.coderGtm.yantra.openURL
 import com.coderGtm.yantra.setUserNamePrefix
+import com.coderGtm.yantra.terminal.PrimarySuggestionsReorderAdapter
+import com.coderGtm.yantra.terminal.ItemTouchHelperAdapter
+import com.coderGtm.yantra.terminal.getAvailableCommands
+import com.coderGtm.yantra.terminal.getPrimarySuggestionsList
 import com.coderGtm.yantra.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -125,6 +136,86 @@ fun openSwipeLeftActionSetter(activity: Activity, preferenceObject: SharedPrefer
             changedSettingsCallback(activity)
         },
     )
+}
+
+fun openPrimarySuggestionsOrderSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+    val allPrimarySuggestions = getPrimarySuggestionsList(getAvailableCommands(activity), getAliases(preferenceObject))
+
+    showPrimarySuggestionsReorderPopup(activity, preferenceObject, preferenceEditObject, allPrimarySuggestions) { reorderedPrimarySuggestions ->
+        // Handle saving the reordered commands here
+        savePrimarySuggestionsOrder(preferenceEditObject, reorderedPrimarySuggestions)
+    }
+}
+
+fun showPrimarySuggestionsReorderPopup(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor, allPrimarySuggestions: MutableList<Suggestion>, onReorderComplete: (List<Suggestion>) -> Unit) {
+    // Load the previously saved order
+    val reorderedPrimarySuggestions = loadPrimarySuggestionsOrder(preferenceObject) ?: allPrimarySuggestions
+
+    // Create the RecyclerView and set its layout manager
+    val recyclerView = RecyclerView(activity)
+    recyclerView.layoutManager = LinearLayoutManager(activity)
+
+    // Create the adapter for the RecyclerView
+    val adapter = PrimarySuggestionsReorderAdapter(reorderedPrimarySuggestions) {
+        onReorderComplete(it)  // Handle reordering
+    }
+    recyclerView.adapter = adapter
+
+    // Create and attach the ItemTouchHelper for drag-and-drop functionality
+    val callback = object : ItemTouchHelper.Callback() {
+        override fun isLongPressDragEnabled() = true // Enables dragging on long press
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder
+        ): Int {
+            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+            return makeMovementFlags(dragFlags, 0)
+        }
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            source: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            // Call the adapter's onItemMove to handle the move
+            val adapter = recyclerView.adapter as ItemTouchHelperAdapter
+            return adapter.onItemMove(source.adapterPosition, target.adapterPosition)
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            // No swipe functionality, so this is left empty
+        }
+    }
+
+    // Attach the ItemTouchHelper to the RecyclerView
+    val itemTouchHelper = ItemTouchHelper(callback)
+    itemTouchHelper.attachToRecyclerView(recyclerView)
+
+    // Create and show the popup dialog with the RecyclerView
+    val dialog = MaterialAlertDialogBuilder(activity)
+        .setTitle("Reorder Primary Suggestions")
+        .setView(recyclerView)
+        .setPositiveButton("Save") { _, _ ->
+            onReorderComplete(adapter.suggestions)  // Save the reordered commands
+            changedSettingsCallback(activity)
+        }
+        .setNegativeButton("Reset") { _, _ ->
+            val originalSuggestions = getPrimarySuggestionsList(getAvailableCommands(activity), getAliases(preferenceObject))
+            adapter.updateCommands(originalSuggestions)  // Reset the adapter to the original order
+            savePrimarySuggestionsOrder(preferenceEditObject, originalSuggestions)  // Save the reset order
+            changedSettingsCallback(activity)
+        }
+        .create()
+
+    dialog.show()
+}
+
+
+fun savePrimarySuggestionsOrder(preferenceEditObject: Editor, reorderedSuggestions: List<Suggestion>) {
+    // save suggestion text and hidden state as "text 1" (1 for hidden, 0 for not hidden)
+    val orderString = reorderedSuggestions.joinToString(",") { "${it.text} ${if (it.isHidden) 1 else 0}" }
+    preferenceEditObject.putString("ps_order", orderString)
+    preferenceEditObject.apply()
 }
 
 fun openNewsWebsiteSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
