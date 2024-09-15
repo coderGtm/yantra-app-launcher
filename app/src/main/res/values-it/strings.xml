@@ -550,6 +550,6 @@
     <string name="reorder_primary_suggestions">Riordina i Suggerimenti Principali</string>
     <string name="reset">Ripristina</string>
     <string name="saved_configuration_for_primary_suggestions">Configurazione salvata per i Suggerimenti Principali!</string>
-    <string name="this_cmd_handled_via_third_party_app">Yantra Launcher handles this command via a 3rd party open-source app called %1$s. You can download it from %2$s</string>
-    <string name="app_does_not_have_reqd_perms">%1$s app does not seem to have the required permissions.</string>
+    <string name="this_cmd_handled_via_third_party_app">Yantra Launcher gestisce questo comando tramite un\'app open-source di terze parti chiamata %1$s. Puoi scaricarla da %2$s</string>
+    <string name="app_does_not_have_reqd_perms">L\'app %1$s sembra non avere le autorizzazioni necessarie.</string>
 </resources>
