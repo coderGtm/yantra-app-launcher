@@ -503,6 +503,13 @@ fun getFullName(uri: Uri, activity: Activity): String? {
     return null
 }
 
+fun isCroissantInstalled(terminal: Terminal): Boolean {
+    terminal.appList.firstOrNull { it.packageName == "com.anready.croissant" }?.let {
+        return true
+    }
+    return false
+}
+
 fun checkCroissantPermission(activity: Activity): Boolean {
     val contentResolver: ContentResolver = activity.contentResolver
     val uri = Uri.parse("content://com.anready.croissant.files")

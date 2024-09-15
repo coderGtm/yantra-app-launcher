@@ -4,6 +4,7 @@ import android.graphics.Typeface
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.checkCroissantPermission
+import com.coderGtm.yantra.isCroissantInstalled
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.terminal.getListOfObjects
@@ -16,6 +17,20 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     )
 
     override fun execute(command: String) {
+        if (!isCroissantInstalled(terminal)) {
+            val releasePageUrl = "https://github.com/Anready/Croissant/releases"
+            val appName = "Croissant"
+            output(
+                terminal.activity.getString(R.string.this_cmd_handled_via_third_party_app, appName, releasePageUrl), terminal.theme.warningTextColor, null, true)
+            return
+        }
+
+        if (!checkCroissantPermission(terminal.activity)) {
+            val appName = "Croissant"
+            output(terminal.activity.getString(R.string.app_does_not_have_reqd_perms, appName), terminal.theme.warningTextColor)
+            return
+        }
+
         val args = command.split(" ").drop(1)
         var showHidden = false
 
@@ -30,11 +45,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         if (args.size > 1) {
             output(terminal.activity.getString(R.string.ls_many_args), terminal.theme.errorTextColor)
-            return
-        }
-
-        if (!checkCroissantPermission(terminal.activity)) {
-            output("Croissant app does not seem to have the required permissions.", terminal.theme.warningTextColor)
             return
         }
 
