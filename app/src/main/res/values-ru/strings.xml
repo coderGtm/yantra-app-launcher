@@ -2,8 +2,8 @@
 <resources>
     <string name="accessibility_service_description">Это разрешение требуется и используется только для применения блокировки экрана из Yantra Launcher.</string>
     <string name="username_prefix">Префикс юзернейма</string>
-    <string name="primary_suggestions">Основные предложения</string>
-    <string name="secondary_suggestions">Второстепенные предложения</string>
+    <string name="primary_suggestions">Основные подсказки</string>
+    <string name="secondary_suggestions">Второстепенные подсказки</string>
     <string name="fullscreen_launcher">Полноэкранный лаунчер</string>
     <string name="vibrate_on_error">Вибрация при ошибке</string>
     <string name="show_arrow_keys">Показать стрелки</string>
@@ -547,7 +547,7 @@
     <string name="select_a_font_file">Выберите файл шрифта</string>
     <string name="select_default_launcher">Выбрать основной лаунчер</string>
     <string name="cannot_alias_to_itself">Невозможно сделать псевдоним %1$s который ссылается на самого себя!</string>
-    <string name="reorder_primary_suggestions">Reorder Primary Suggestions</string>
-    <string name="reset">Reset</string>
-    <string name="saved_configuration_for_primary_suggestions">Saved configuration for Primary Suggestions!</string>
+    <string name="reorder_primary_suggestions">Переупорядочить Основные подсказки</string>
+    <string name="reset">Сбоосить</string>
+    <string name="saved_configuration_for_primary_suggestions">Настройки для основных подсказок сохранены!</string>
 </resources>
