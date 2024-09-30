@@ -50,9 +50,11 @@ import com.coderGtm.yantra.misc.openSysinfoArtSetter
 import com.coderGtm.yantra.misc.openTermuxCmdPathSelector
 import com.coderGtm.yantra.misc.openTermuxCmdSessionActionSelector
 import com.coderGtm.yantra.misc.openTermuxCmdWorkingDirSelector
+import com.coderGtm.yantra.misc.openTranslationApiProviderSelector
 import com.coderGtm.yantra.misc.openUsernamePrefixSetter
 import com.coderGtm.yantra.misc.setAppSugOrderTvText
 import com.coderGtm.yantra.misc.setOrientationTvText
+import com.coderGtm.yantra.misc.setTranslateApiProviderTvText
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.ktx.languages
 import com.google.android.play.core.splitinstall.SplitInstallManager
@@ -86,6 +88,7 @@ class SettingsActivity : AppCompatActivity() {
     private var appLocale = "en"
     private var useModernPromptDesign = false
     private var disableAds = false
+    private var translateApiProvider = "google"
 
     private lateinit var binding: ActivitySettingsBinding
 
@@ -163,12 +166,15 @@ class SettingsActivity : AppCompatActivity() {
         appLocale = AppCompatDelegate.getApplicationLocales().toLanguageTags()
         useModernPromptDesign = preferenceObject.getBoolean("useModernPromptDesign",false)
         disableAds = preferenceObject.getBoolean("disableAds",false)
+        translateApiProvider = preferenceObject.getString("translateApiProvider","google") ?: "google"
 
         binding.usernamePrefix.text = getUserNamePrefix(preferenceObject)
         binding.fontSizeBtn.text = fontSize.toString()
         binding.arrowSizeBtn.text = arrowSize.toString()
         setOrientationTvText(this@SettingsActivity, binding, orientation)
         setAppSugOrderTvText(this@SettingsActivity, binding, appSugOrderingMode)
+        setTranslateApiProviderTvText(binding, translateApiProvider)
+
         binding.tvFontName.text = fontName
         binding.currentLocale.text = supportedLocales.filterValues { it == appLocale }.keys.firstOrNull() ?: "English"
         binding.prefixLayout.setOnClickListener { openUsernamePrefixSetter(this@SettingsActivity, binding, preferenceObject, preferenceEditObject) }
@@ -188,6 +194,8 @@ class SettingsActivity : AppCompatActivity() {
         binding.aiProviderLayout.setOnClickListener { openAiApiProviderSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.aiApiKeyLayout.setOnClickListener { openAiApiKeySetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.aiSystemPromptLayout.setOnClickListener { openAiSystemPromptSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
+        binding.translateLay.setOnClickListener { openTranslationApiProviderSelector(this@SettingsActivity, binding, preferenceEditObject) }
+        binding.aiApiKeyLayout.setOnClickListener { openAiApiKeySetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.launcherSelectionLayout.setOnClickListener { openLauncherSelection(this@SettingsActivity) }
 
         binding.fontLay.setOnClickListener {
@@ -504,6 +512,8 @@ class SettingsActivity : AppCompatActivity() {
         binding.pUi16.visibility = View.GONE
         binding.pUi17.visibility = View.GONE
         binding.pUi18.visibility = View.GONE
+        binding.pUi19.visibility = View.GONE
+        binding.pUi20.visibility = View.GONE
         binding.rightSwipeActionLayout.visibility = View.GONE
         binding.leftSwipeActionLayout.visibility = View.GONE
         binding.newsWebsiteLayout.visibility = View.GONE
@@ -514,5 +524,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.aiProviderLayout.visibility = View.GONE
         binding.aiApiKeyLayout.visibility = View.GONE
         binding.aiSystemPromptLayout.visibility = View.GONE
+        binding.translateLay.visibility = View.GONE
+        binding.translateApiKeyLayout.visibility = View.GONE
     }
 }
