@@ -6,11 +6,11 @@ import com.android.volley.VolleyError
 import com.coderGtm.yantra.R
 import org.json.JSONArray
 import org.json.JSONException
-import org.json.JSONObject
 
-fun handleGoogleResponse(response: JSONArray, command: Command) {
+fun handleResponse(response: JSONArray, command: Command) {
     try {
         val translationsArray = response.getJSONArray(0)
+        println(translationsArray)
 
         var translatedText = ""
 
@@ -32,28 +32,7 @@ fun handleGoogleResponse(response: JSONArray, command: Command) {
     }
 }
 
-fun handleDeepLResponse(response: JSONObject, command: Command) {
-    try {
-        val translationsArray = response.getJSONArray("translations")
-
-
-        var translatedText = translationsArray.getJSONObject(0).getString("text")
-
-        command.output(
-            translatedText,
-            command.terminal.theme.resultTextColor,
-            Typeface.ITALIC,
-            markdown = true
-        )
-    } catch (e: JSONException) {
-        command.output(
-            command.terminal.activity.getString(R.string.error_please_try_again),
-            command.terminal.theme.errorTextColor
-        )
-    }
-}
-
-fun handleGoogleError(error: VolleyError, command: Command) {
+fun handleError(error: VolleyError, command: Command) {
     when (error) {
         is NoConnectionError -> {
             command.output(command.terminal.activity.getString(R.string.no_internet_connection), command.terminal.theme.errorTextColor)
@@ -65,15 +44,8 @@ fun handleGoogleError(error: VolleyError, command: Command) {
     }
 }
 
-fun handleDeeplError(error: com.androidnetworking.error.ANError, command: Command) {
-    command.output(
-        command.terminal.activity.getString(R.string.an_error_occurred, error.errorCode.toString()),
-        command.terminal.theme.errorTextColor
-    )
-}
-
-fun incorrectLanguage(language: String, provider: String): Boolean {
-    val googleLangCodes = arrayOf(
+fun incorrectLanguage(language: String): Boolean {
+    val correctLanguage = arrayOf(
         "az", "ay", "sq", "am", "chk", "en", "ar", "hy", "as", "af", "bm", "eu", "be", "bn", "my",
         "bg", "bs", "bho", "cy", "hu", "vi", "haw", "gl", "el", "ka", "gn", "gu", "da", "doi", "zu",
         "he", "ig", "yi", "ilo", "id", "ga", "is", "es", "it", "yo", "kk", "kn", "ca", "qu", "ky",
@@ -85,10 +57,6 @@ fun incorrectLanguage(language: String, provider: String): Boolean {
         "ur", "tl", "ph", "fi", "fr", "fy", "ha", "hi", "hmn", "hr", "cv", "ce", "cs", "sv", "sn",
         "gd", "ee", "eo", "et", "jv", "ja"
     )
-    if (provider == "google") {
-        return !googleLangCodes.contains(language)
-    }
-    else {
-        return false
-    }
+
+    return language !in correctLanguage
 }

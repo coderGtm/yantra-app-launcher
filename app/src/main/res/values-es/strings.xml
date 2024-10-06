@@ -552,9 +552,4 @@
     <string name="saved_configuration_for_primary_suggestions">¡Configuración guardada para sugerencias principales!</string>
     <string name="this_cmd_handled_via_third_party_app">Yantra Launcher maneja este comando a través de una aplicación de código abierto de terceros llamada %1$s. Puedes descargarla desde %2$s</string>
     <string name="app_does_not_have_reqd_perms">La aplicación %1$s no parece tener los permisos necesarios.</string>
-    <string name="change_translate_api_provider">Change \'translate\' API provider</string>
-    <string name="change_translate_api_key">Change \'translate\' API Key</string>
-    <string name="translation_api_provider_updated">Translation API Provider updated!</string>
-    <string name="translate_api_key_description">Enter the API key for use in the \'translate\' command, if necessary</string>
-    <string name="translation_api_key_updated">Translation API key updated</string>
 </resources>

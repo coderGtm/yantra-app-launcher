@@ -449,7 +449,7 @@
     <string name="added_to_todo_list">Added \'%1$s\' to TODO List</string>
     <string name="item_already_present_in_todo">Item already present in todo list</string>
     <string name="cmd_translate_title"><![CDATA[translate <-language> <text>]]></string>
-    <string name="cmd_translate_help">Translator tool to translate text to a target language. Provide a valid language code flag and the text to translate. The source language is automatically detected. You need to provide an API key in settings if necessary. Example:\n translate -fr Hello.</string>
+    <string name="cmd_translate_help">Translator based on Google Translate. Provide a valid language code flag and the text to translate. The source language is automatically detected. Example:\n translate -fr Hello</string>
     <string name="translate_give_lang_code">Please provide the language code flag and the text to translate.</string>
     <string name="language_code_not_found">Language code not found. Please provide a valid language code.</string>
     <string name="translating">:: Translating...</string>
@@ -552,9 +552,4 @@
     <string name="saved_configuration_for_primary_suggestions">Saved configuration for Primary Suggestions!</string>
     <string name="this_cmd_handled_via_third_party_app">Yantra Launcher handles this command via a 3rd party open-source app called %1$s. You can download it from %2$s</string>
     <string name="app_does_not_have_reqd_perms">%1$s app does not seem to have the required permissions.</string>
-    <string name="change_translate_api_provider">Change \'translate\' API provider</string>
-    <string name="change_translate_api_key">Change \'translate\' API Key</string>
-    <string name="translation_api_provider_updated">Translation API Provider updated!</string>
-    <string name="translate_api_key_description">Enter the API key for use in the \'translate\' command, if necessary</string>
-    <string name="translation_api_key_updated">Translation API key updated</string>
 </resources>

@@ -67,27 +67,13 @@ fun setAppSugOrderTvText(activity: Activity, binding: ActivitySettingsBinding, a
         }
     }
 }
-fun setTranslateApiProviderTvText(binding: ActivitySettingsBinding, provider: String) {
-    binding.translateApiName.text = when (provider) {
-        "google" -> {
-            "Google"
-        }
-        "deepl" -> {
-            "DeepL"
-        }
-        else -> {
-            "Google"
-        }
-    }
-}
-
 fun changedSettingsCallback(activity: Activity) {
     val finishIntent = Intent()
     finishIntent.putExtra("settingsChanged",true)
     activity.setResult(AppCompatActivity.RESULT_OK,finishIntent)
 }
 
-fun openUsernamePrefixSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+fun openUsernamePrefixSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val usernamePrefixDialog = YantraLauncherDialog(activity)
     usernamePrefixDialog.takeInput(
         title = activity.getString(R.string.username_prefix),
@@ -104,7 +90,7 @@ fun openUsernamePrefixSetter(activity: Activity, binding: ActivitySettingsBindin
     )
 }
 
-fun openDoubleTapActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+fun openDoubleTapActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val doubleTapActionDialog = YantraLauncherDialog(activity)
     doubleTapActionDialog.takeInput(
         title = activity.getString(R.string.change_double_tap_command),
@@ -120,7 +106,7 @@ fun openDoubleTapActionSetter(activity: Activity, preferenceObject: SharedPrefer
     )
 }
 
-fun openSwipeRightActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+fun openSwipeRightActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val swipeRightActionDialog = YantraLauncherDialog(activity)
     swipeRightActionDialog.takeInput(
         title = activity.getString(R.string.change_right_swipe_command),
@@ -136,7 +122,7 @@ fun openSwipeRightActionSetter(activity: Activity, preferenceObject: SharedPrefe
     )
 }
 
-fun openSwipeLeftActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+fun openSwipeLeftActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val swipeLeftActionDialog = YantraLauncherDialog(activity)
     swipeLeftActionDialog.takeInput(
         title = activity.getString(R.string.change_left_swipe_command),
@@ -234,7 +220,7 @@ fun savePrimarySuggestionsOrder(preferenceEditObject: Editor, reorderedSuggestio
     preferenceEditObject.apply()
 }
 
-fun openNewsWebsiteSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+fun openNewsWebsiteSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val newsWebsiteDialog = YantraLauncherDialog(activity)
     newsWebsiteDialog.takeInput(
         title = activity.getString(R.string.change_news_website),
@@ -250,7 +236,7 @@ fun openNewsWebsiteSetter(activity: Activity, preferenceObject: SharedPreference
     )
 }
 
-fun openFontSizeSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+fun openFontSizeSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val fontSizeDialog = YantraLauncherDialog(activity)
     fontSizeDialog.takeInput(
         title = activity.getString(R.string.terminal_font_size),
@@ -272,7 +258,7 @@ fun openFontSizeSetter(activity: Activity, binding: ActivitySettingsBinding, pre
     )
 }
 
-fun openArrowSizeSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+fun openArrowSizeSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val arrowSizeDialog = YantraLauncherDialog(activity)
     arrowSizeDialog.takeInput(
         title = activity.getString(R.string.arrow_keys_size),
@@ -294,7 +280,7 @@ fun openArrowSizeSetter(activity: Activity, binding: ActivitySettingsBinding, pr
     )
 }
 
-fun openOrientationSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceEditObject: Editor) {
+fun openOrientationSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceEditObject: SharedPreferences.Editor) {
     MaterialAlertDialogBuilder(activity)
         .setTitle(activity.getString(R.string.orientation))
         .setItems(arrayOf(activity.getString(R.string.portrait),
@@ -340,7 +326,7 @@ fun openOrientationSetter(activity: Activity, binding: ActivitySettingsBinding, 
         .show()
 }
 
-fun openAppSugOrderingSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceEditObject: Editor) {
+fun openAppSugOrderingSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceEditObject: SharedPreferences.Editor) {
     MaterialAlertDialogBuilder(activity)
         .setTitle(activity.getString(R.string.app_suggestions_order))
         .setItems(arrayOf(activity.getString(R.string.alphabetically),
@@ -362,7 +348,7 @@ fun openAppSugOrderingSetter(activity: Activity, binding: ActivitySettingsBindin
         .show()
 }
 
-fun openSysinfoArtSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+fun openSysinfoArtSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val sysinfoArtDialog = YantraLauncherDialog(activity)
     sysinfoArtDialog.takeInput(
         title = activity.getString(R.string.change_sysinfo_art),
@@ -379,7 +365,7 @@ fun openSysinfoArtSetter(activity: Activity, preferenceObject: SharedPreferences
     )
 }
 
-fun openTermuxCmdPathSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+fun openTermuxCmdPathSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val termuxCmdPathDialog = YantraLauncherDialog(activity)
     termuxCmdPathDialog.takeInput(
         title = activity.getString(R.string.termux_command_path),
@@ -395,7 +381,7 @@ fun openTermuxCmdPathSelector(activity: Activity, preferenceObject: SharedPrefer
     )
 }
 
-fun openTermuxCmdWorkingDirSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+fun openTermuxCmdWorkingDirSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val termuxCmdWorkDirDialog = YantraLauncherDialog(activity)
     termuxCmdWorkDirDialog.takeInput(
         title = activity.getString(R.string.termux_command_working_directory),
@@ -411,7 +397,7 @@ fun openTermuxCmdWorkingDirSelector(activity: Activity, preferenceObject: Shared
     )
 }
 
-fun openTermuxCmdSessionActionSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+fun openTermuxCmdSessionActionSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val termuxCmdSessionActionDialog = YantraLauncherDialog(activity)
     termuxCmdSessionActionDialog.takeInput(
         title = activity.getString(R.string.termux_command_session_action),
@@ -436,7 +422,7 @@ fun openTermuxCmdSessionActionSelector(activity: Activity, preferenceObject: Sha
     )
 }
 
-fun openAiApiProviderSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+fun openAiApiProviderSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val aiApiProviderDialog = YantraLauncherDialog(activity)
     aiApiProviderDialog.takeInput(
         title = activity.getString(R.string.change_ai_api_provider),
@@ -452,7 +438,7 @@ fun openAiApiProviderSetter(activity: Activity, preferenceObject: SharedPreferen
     )
 }
 
-fun openAiApiKeySetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+fun openAiApiKeySetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val aiApiKeyDialog = YantraLauncherDialog(activity)
     aiApiKeyDialog.takeInput(
         title = activity.getString(R.string.change_ai_api_key),
@@ -468,7 +454,7 @@ fun openAiApiKeySetter(activity: Activity, preferenceObject: SharedPreferences, 
     )
 }
 
-fun openAiSystemPromptSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
+fun openAiSystemPromptSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val aiSystemPromptDialog = YantraLauncherDialog(activity)
     aiSystemPromptDialog.takeInput(
         title = activity.getString(R.string.change_ai_system_prompt),
@@ -480,44 +466,6 @@ fun openAiSystemPromptSetter(activity: Activity, preferenceObject: SharedPrefere
             val prompt = it
             preferenceEditObject.putString("aiSystemPrompt",prompt.trim()).apply()
             toast(activity, activity.getString(R.string.ai_system_prompt_updated))
-            changedSettingsCallback(activity)
-        },
-    )
-}
-
-fun openTranslationApiProviderSelector(activity: Activity, binding: ActivitySettingsBinding, preferenceEditObject: Editor) {
-    // options: Google and DeepL
-    MaterialAlertDialogBuilder(activity)
-        .setTitle(activity.getString(R.string.change_translate_api_provider))
-        .setItems(arrayOf("Google","DeepL")) { dialog, which ->
-            when (which) {
-                0 -> {
-                    preferenceEditObject.putString("translationApiProvider","google").apply()
-                    binding.translateApiName.text = "Google"
-                }
-                1 -> {
-                    preferenceEditObject.putString("translationApiProvider","deepl").apply()
-                    binding.translateApiName.text = "DeepL"
-                }
-            }
-            Toast.makeText(activity,
-                activity.getString(R.string.translation_api_provider_updated), Toast.LENGTH_SHORT).show()
-            changedSettingsCallback(activity)
-        }
-        .show()
-}
-
-fun openTranslateApiKeySetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
-    val translateApiKeyDialog = YantraLauncherDialog(activity)
-    translateApiKeyDialog.takeInput(
-        title = activity.getString(R.string.change_translate_api_key),
-        message = activity.getString(R.string.translate_api_key_description),
-        initialInput = preferenceObject.getString("translationApiKey","")!!,
-        positiveButton = activity.getString(R.string.save),
-        positiveAction = {
-            val key = it
-            preferenceEditObject.putString("translationApiKey",key.trim()).apply()
-            toast(activity, activity.getString(R.string.translation_api_key_updated))
             changedSettingsCallback(activity)
         },
     )
