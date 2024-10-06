@@ -808,6 +808,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "web" to com.coderGtm.yantra.commands.web.Command::class.java,
             "gupt" to com.coderGtm.yantra.commands.gupt.Command::class.java,
             "tts" to com.coderGtm.yantra.commands.tts.Command::class.java,
+            "sfx" to com.coderGtm.yantra.commands.sfx.Command::class.java,
             "news" to com.coderGtm.yantra.commands.news.Command::class.java,
             "bored" to com.coderGtm.yantra.commands.bored.Command::class.java,
             "time" to com.coderGtm.yantra.commands.time.Command::class.java,
