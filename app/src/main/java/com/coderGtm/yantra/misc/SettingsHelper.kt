@@ -151,6 +151,19 @@ fun showPrimarySuggestionsReorderPopup(activity: Activity, preferenceObject: Sha
     // Load the previously saved order
     val reorderedPrimarySuggestions = loadPrimarySuggestionsOrder(preferenceObject) ?: allPrimarySuggestions
 
+    for (i in allPrimarySuggestions) {
+        if (i !in reorderedPrimarySuggestions) {
+            reorderedPrimarySuggestions.add(i)
+        }
+    }
+
+    val reorderedPrimarySuggestionsCopy = reorderedPrimarySuggestions.toMutableList()
+    for (i in reorderedPrimarySuggestionsCopy) {
+        if (i !in allPrimarySuggestions) {
+            reorderedPrimarySuggestions.remove(i)
+        }
+    }
+
     // Create the RecyclerView and set its layout manager
     val recyclerView = RecyclerView(activity)
     recyclerView.layoutManager = LinearLayoutManager(activity)
