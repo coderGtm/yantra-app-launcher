@@ -10,7 +10,7 @@
     <string name="show_current_folder_in_prompt">Показувати поточну папку в підказках</string>
     <string name="tap_anywhere_to_open_keyboard">Торкатися де завгодно щоб відкрити клавіатуру</string>
     <string name="hide_keyboard_on_command_enter">Заховати клавіатуру після введення команди </string>
-    <string name="auto_execute_command_when_secondary_suggestion_is_selected"Автоматичне виконання команди коли другорядна пропозиція вибрана</string>
+    <string name="auto_execute_command_when_secondary_suggestion_is_selected">Автоматичне виконання команди коли другорядна пропозиція вибрана</string>
     <string name="log_commands_in_the_init_script">Журнал команд у \'init\' script</string>
     <string name="change_double_tap_command">Змінити команду подвійний дотик</string>
     <string name="change_right_swipe_command">Змінити команду провести праворуч</string>
