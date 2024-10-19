@@ -1,5 +1,5 @@
-site_name: Yantra Launcher Docs
-site_description: 'A wiki for using Yantra Launcher'
+site_name: Yantra Launcher Wiki
+site_description: 'Documentation for using Yantra Launcher'
 site_author: 'The Yantra Launcher Community'
 docs_dir: docs/
 repo_name: 'coderGtm/yantra-app-launcher'
