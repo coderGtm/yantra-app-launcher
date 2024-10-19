@@ -1,0 +1,10 @@
+site_name: Yantra Launcher Docs
+site_description: 'A wiki for using Yantra Launcher'
+site_author: 'The Yantra Launcher Community'
+docs_dir: docs/
+repo_name: 'coderGtm/yantra-app-launcher'
+repo_url: 'https://github.com/coderGtm/yantra-app-launcher'
+nav:
+    - Home: index.md
+theme:
+  name: 'material'
