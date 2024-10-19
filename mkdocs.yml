@@ -10,3 +10,12 @@ theme:
   name: 'material'
   favicon: img/favicon.ico
   logo: img/logo.png
+
+extra:
+  social:
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/YW7hYbPrTh
+      name: Discord Community
+    - icon: fontawesome/brands/reddit 
+      link: https://www.reddit.com/r/YantraLauncher/
+      name: Yantra Launcher on Reddit
