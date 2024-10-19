@@ -13,9 +13,12 @@ theme:
 
 extra:
   social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/coderGtm/yantra-app-launcher
+      name: View on GitHub
     - icon: fontawesome/brands/discord
       link: https://discord.gg/YW7hYbPrTh
-      name: Discord Community
+      name: Official Discord Community
     - icon: fontawesome/brands/reddit-alien
       link: https://www.reddit.com/r/YantraLauncher/
-      name: Yantra Launcher on Reddit
+      name: Yantra Launcher subreddit
