@@ -6,6 +6,7 @@ repo_name: 'coderGtm/yantra-app-launcher'
 repo_url: 'https://github.com/coderGtm/yantra-app-launcher'
 nav:
     - Home: index.md
+    - Quickstart: quickstart.md
 theme:
   name: 'material'
   favicon: img/favicon.ico
