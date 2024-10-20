@@ -8,7 +8,7 @@ nav:
     - Home: index.md
     - Quickstart: quickstart.md
     - Commands
-        - launch: commands/launch.md
+        - launch: /commands/launch.md
 theme:
   name: 'material'
   favicon: img/favicon.ico
