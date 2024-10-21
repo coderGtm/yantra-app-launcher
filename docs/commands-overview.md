@@ -1,7 +1,8 @@
 # Commands Overview
 This page provides a quick overview of all commands in Yantra Launcher that you can glance. It does not try to explain every concept in detail. For getting a detailed perspective, see the individual command documentation.
 
-> NOTE: You may not see all these commands in the Minimal version of Yantra Launcher.
+!!! note
+    You may not see all these commands in the Minimal version of Yantra Launcher.
 
 ## launch [-p/-s] [app/package name/shortcut label]
 Launches specified app or shortcut. Example: 'launch Chrome'. Use the '-p' flag to launch app by package name. Example: 'launch com.android.chrome'. Use the '-s' flag to launch a Shortcut. Example: 'launch -s Chats'

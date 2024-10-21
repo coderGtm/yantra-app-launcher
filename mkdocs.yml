@@ -39,3 +39,6 @@ plugins:
       repository: coderGtm/yantra-app-launcher
       branch: main
   - search
+
+markdown_extensions:
+  - admonition
