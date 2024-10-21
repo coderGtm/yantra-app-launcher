@@ -33,5 +33,5 @@ extra:
       name: Yantra Launcher subreddit
 
 plugins:
-  - git-revision-date-localized:
-      enable_creation_date: true
+  - git-revision-date-localized
+  - git-authors
