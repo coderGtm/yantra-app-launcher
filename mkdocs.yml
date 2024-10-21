@@ -4,6 +4,7 @@ site_author: 'The Yantra Launcher Community'
 docs_dir: docs/
 repo_name: 'coderGtm/yantra-app-launcher'
 repo_url: 'https://github.com/coderGtm/yantra-app-launcher'
+edit_uri: 'edit/main/docs/'
 nav:
     - Home: index.md
     - Quickstart: quickstart.md
@@ -16,6 +17,8 @@ theme:
   logo: img/logo.png
   icon:
     repo: fontawesome/brands/github
+  features:
+    - content.action.edit
 
 extra:
   social:
@@ -28,3 +31,7 @@ extra:
     - icon: fontawesome/brands/reddit-alien
       link: https://www.reddit.com/r/YantraLauncher/
       name: Yantra Launcher subreddit
+
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
