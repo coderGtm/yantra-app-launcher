@@ -35,4 +35,7 @@ extra:
 plugins:
   - git-revision-date-localized:
       type: timeago
-  - git-authors
+  - git-committers:
+      repository: coderGtm/yantra-app-launcher
+      branch: main
+  - search
