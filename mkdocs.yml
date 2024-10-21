@@ -14,6 +14,8 @@ theme:
   name: 'material'
   favicon: img/favicon.ico
   logo: img/logo.png
+  icon:
+    repo: fontawesome/brands/github
 
 extra:
   social:
