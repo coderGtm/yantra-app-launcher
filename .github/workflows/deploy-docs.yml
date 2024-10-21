@@ -21,4 +21,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           EXTRA_PACKAGES: build-base
-          REQUIREMENTS: requirements.txt
+          REQUIREMENTS: docs-requirements.txt
