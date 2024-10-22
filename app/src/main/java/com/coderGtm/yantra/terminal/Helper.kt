@@ -152,6 +152,26 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
+            else if (effectivePrimaryCmd == "sfx") {
+                if (args.size > 1) {
+                    overrideLastWord = true
+                    val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                    for (file in terminal.activity.filesDir.listFiles()) {
+                        if ((file.name.endsWith(".mp3") || file.name.endsWith(".wav") || file.name.endsWith(".ogg")) && file.isFile) {
+                            if (regex.containsMatchIn(file.name) && !suggestions.contains(file.name)) {
+                                suggestions.add(file.name.removeSuffix(".mp3").removeSuffix(".wav").removeSuffix(".ogg"))
+                            }
+                        }
+                    }
+                }
+                else {
+                    for (file in terminal.activity.filesDir.listFiles()) {
+                        if ((file.name.endsWith(".mp3") || file.name.endsWith(".wav") || file.name.endsWith(".ogg")) && file.isFile) {
+                            suggestions.add(file.name.removeSuffix(".mp3").removeSuffix(".wav").removeSuffix(".ogg"))
+                        }
+                    }
+                }
+            }
             else if (effectivePrimaryCmd == "ls") {
                 if (args.size > 1) {
                     overrideLastWord = true

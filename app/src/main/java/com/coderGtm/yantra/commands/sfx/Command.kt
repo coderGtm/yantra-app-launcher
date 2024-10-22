@@ -10,8 +10,8 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "sfx",
-        helpTitle = "sfx",
-        description = "Play sound effects"
+        helpTitle = "sfx [sound_effect]",
+        description = "Play sound effects! Use without arguments to play the default sound effect. Use with an argument to play a specific sound effect added to the internal storage of the app via 'settings'.",
     )
 
     override fun execute(command: String) {
@@ -35,7 +35,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                         return
                     }
                 }
-                output("The sound effect $sound is not found. Add it to the internal storage of the app.", terminal.theme.errorTextColor, null)
+                output("The sound effect '$sound' is not found. Add it to the internal storage of the app via 'settings'", terminal.theme.errorTextColor, null)
             }
         }
     }

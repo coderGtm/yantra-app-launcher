@@ -568,6 +568,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.pUi16.visibility = View.GONE
         binding.pUi17.visibility = View.GONE
         binding.pUi18.visibility = View.GONE
+        binding.pUi19.visibility = View.GONE
         binding.rightSwipeActionLayout.visibility = View.GONE
         binding.leftSwipeActionLayout.visibility = View.GONE
         binding.newsWebsiteLayout.visibility = View.GONE
@@ -578,5 +579,6 @@ class SettingsActivity : AppCompatActivity() {
         binding.aiProviderLayout.visibility = View.GONE
         binding.aiApiKeyLayout.visibility = View.GONE
         binding.aiSystemPromptLayout.visibility = View.GONE
+        binding.soundEffectsLay.visibility = View.GONE
     }
 }
