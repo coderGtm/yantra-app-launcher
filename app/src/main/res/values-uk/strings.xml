@@ -4,7 +4,7 @@
     <string name="username_prefix">Префкс імені користувача</string>
     <string name="primary_suggestions">Основні пропозиції</string>
     <string name="secondary_suggestions">Другорядні пропозиції</string>
-    <string name="fullscreen_launcher">Повноекранний запускstring>
+    <string name="fullscreen_launcher">Повноекранний запуск</string>
     <string name="vibrate_on_error">Вібрувати на помилку</string>
     <string name="show_arrow_keys">Показувати клавіші зі стрілками</string>
     <string name="show_current_folder_in_prompt">Показувати поточну папку в підказках</string>
@@ -71,7 +71,7 @@
     <string name="no_internet_connection">Немає з\'єднання з інтернетом</string>
     <string name="an_error_occurred_please_try_again">Сталася помилкаю Будьласка спробуйте ще раз .</string>
     <string name="font_pack_is_not_purchased">Пакет шрифтів не купується!</string>
-    <string name="font_pack_not_purchased_description"Вам потрібно придбати Font Pack, щоб отримати доступ до цього налаштування.\n\nFont Pack — це доповнення для Yantra Launcher, яке дозволяє використовувати будь-який шрифт із усієї колекції Google Fonts із понад 1550 шрифтів для вашого терміналу Yantra Launcher.\n\nВи можете придбати пакет шрифтів за допомогою команди \'fontpack\'.</string>
+    <string name="font_pack_not_purchased_description">Вам потрібно придбати Font Pack, щоб отримати доступ до цього налаштування.\n\nFont Pack — це доповнення для Yantra Launcher, яке дозволяє використовувати будь-який шрифт із усієї колекції Google Fonts із понад 1550 шрифтів для вашого терміналу Yantra Launcher.\n\nВи можете придбати пакет шрифтів за допомогою команди \'fontpack\'.</string>
     <string name="cool">Круто</string>
     <string name="terminal_font_updated_to">Шрифт терміналу оновлено до %1$s!</string>
     <string name="error_downloading_font">Помилка завантаження шрифту! Перевірте підключення до Інтернету та повторіть спробу.</string>
@@ -118,7 +118,7 @@
     <string name="crash_message">Вибачте, Yantra Launcher, здається, вийшов з ладу! Будь ласка, надішліть звіт розробнику, щоб допомогти усунути збій. Натиснувши OK, ви перейдете до клієнта електронної пошти.</string>
     <string name="crash_comment_prompt">Ви можете додати тут необов’язковий коментар, щоб описати збій:</string>
     <string name="background_color">Колір фону</string>
-    <string name="pick_color"Рожевий колір</string>
+    <string name="pick_color">Рожевий колір</string>
     <string name="input_color">Колір введення</string>
     <string name="command_color">Колір команди</string>
     <string name="normal_text_and_arrow_color">Звичайний колір тексту та стрілки</string>
@@ -207,7 +207,7 @@
     <string name="call_no_args">Будь ласка, вкажіть ім\'я контактної особи або номер телефону для дзвінка</string>
     <string name="contacts">Контакти</string>
     <string name="call">Дзвінок</string>
-    <string name="resolving_name">Розв'язання імені...</string>
+    <string name="resolving_name">Розв\'язання імені...</string>
     <string name="cmd_cd_title">cd [шлях]</string>
     <string name="cmd_cd_help">Змінює поточний каталог на вказаний шлях.\nПриклад: \'cd DCIM\'</string>
     <string name="please_provide_a_path">Будь ласка, вкажіть шлях!</string>
@@ -221,7 +221,7 @@
     <string name="oops">Ой!</string>
     <string name="command_request_for_yantra_launcher">Запит команди для Yantra Launcher</string>
     <string name="copied_title_to_clipboard">Копіювання заголовка в буфер обміну</string>
-    <string name="cmd_community_help">Перенаправляє на сервер Discord Yantra Launcher. Тут ви можете поділитися та отримати відгуки, пропозиції, поради та CLI-емоції від інших користувачів, як ви! Використовуйте необов'язкові параметри \'discord\' або \'reddit\' для переходу до конкретної платформи.</string>
+    <string name="cmd_community_help">Перенаправляє на сервер Discord Yantra Launcher. Тут ви можете поділитися та отримати відгуки, пропозиції, поради та CLI-емоції від інших користувачів, як ви! Використовуйте необов\'язкові параметри \'discord\' або \'reddit\' для переходу до конкретної платформи.</string>
     <string name="community_no_args">Команда \'community\' не приймає жодних параметрів.</string>
     <string name="opened_community_discord_server">Відкрито сервер Discord спільноти</string>
     <string name="cmd_dict_title"><![CDATA[ dict [-urban] <слово> ]]></string>
@@ -235,7 +235,7 @@
     <string name="dict_example">\nПриклад: %1$s\n</string>
     <string name="dict_no_internet">Немає підключення до Інтернету! Ця команда залежить від онлайн Dictionary API, тому для доступу до неї потрібне підключення до Інтернету.</string>
     <string name="cmd_echo_title"><![CDATA[ echo [-mode] <текст> ]]></string>
-    <string name="cmd_echo_help">Друкує вказаний текст у терміналі з заданим режимом. Режим є необов'язковим аргументом (e: Текст помилки, s: Текст успіху, w: Текст попередження), що представляє природу текстового виводу. Якщо режим не вказано, текст друкується (звичайно)\nПриклади:\n\'echo -e Сталася помилка.\'\n\'echo Привіт, світ\'</string>
+    <string name="cmd_echo_help">Друкує вказаний текст у терміналі з заданим режимом. Режим є необов\'язковим аргументом (e: Текст помилки, s: Текст успіху, w: Текст попередження), що представляє природу текстового виводу. Якщо режим не вказано, текст друкується (звичайно)\nПриклади:\n\'echo -e Сталася помилка.\'\n\'echo Привіт, світ\'</string>
     <string name="echo_invalid_syntax">Некоректний синтаксис. Дивіться \'help echo\' для інформації про використання.</string>
     <string name="echo_invalid_mode">Некоректний режим. Використовуйте \'e\', \'w\' або \'s\'.</string>
     <string name="cmd_email_title"><![CDATA[ email <email-id> ]]></string>
@@ -268,7 +268,7 @@
     <string name="cmd_not_found">Команду не знайдено. Використовуйте \'help\' для отримання списку доступних команд.</string>
     <string name="invalid_help_cmd">Некоректне використання команди. Дивіться \'help\' для інформації про використання</string>
     <string name="cmd_info_title">info [-p] [додаток/назва пакету]</string>
-    <string name="cmd_info_help">Відкриває сторінку налаштувань додатку для вказаного додатку. Приклад: \'info Big Battery Display\' або \'i Farty Orbit\'. Використовуйте необов'язковий прапор \'-p\' для відкриття налаштувань додатку за назвою пакету. Приклад: \'info com.android.chrome\'</string>
+    <string name="cmd_info_help">Відкриває сторінку налаштувань додатку для вказаного додатку. Приклад: \'info Big Battery Display\' або \'i Farty Orbit\'. Використовуйте необов\'язковий прапор \'-p\' для відкриття налаштувань додатку за назвою пакету. Приклад: \'info com.android.chrome\'</string>
     <string name="specify_app_name">Будь ласка, вкажіть назву додатку.</string>
     <string name="locating_app">Знаходження \'%1$s\'...</string>
     <string name="found_app">+ Знайдено %1$s</string>
@@ -374,7 +374,7 @@
     <string name="script_name_another_validation">Ім\'я скрипта має починатися з літери і не може містити пробілів</string>
     <string name="name_already_taken">Це ім\'я вже зайняте</string>
     <string name="script_created">Скрипт \'%1$s\' успішно створено! Тепер ви можете його редагувати.</string>
-    <string name="cmd_search_help">Шукає в інтернеті за вказаним запитом. Пошукову систему можна вказати за допомогою прапорця -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore). За замовчуванням використовується google. Ви можете використовувати власну пошукову систему, вказавши URL з прапорцем -u (-u=https://example.com/search?q=). Запит є єдиним обов'язковим аргументом, який надається в кінці команди. Він автоматично кодується URL під час виконання команди. Приклади:\n\'search Yantra Launcher\'\n\'search -e=duckduckgo Yantra Launcher\'\n\'search -u=https://example.com/search?q= Yantra Launcher\'</string>
+    <string name="cmd_search_help">Шукає в інтернеті за вказаним запитом. Пошукову систему можна вказати за допомогою прапорця -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore). За замовчуванням використовується google. Ви можете використовувати власну пошукову систему, вказавши URL з прапорцем -u (-u=https://example.com/search?q=). Запит є єдиним обов\'язковим аргументом, який надається в кінці команди. Він автоматично кодується URL під час виконання команди. Приклади:\n\'search Yantra Launcher\'\n\'search -e=duckduckgo Yantra Launcher\'\n\'search -u=https://example.com/search?q= Yantra Launcher\'</string>
     <string name="missing_query">Будь ласка, надайте запит.</string>
     <string name="invalid_search_engine">Неправильна пошукова система. Дивіться \'help search\', щоб отримати інформацію про ключові слова пошукових систем.</string>
     <string name="searching_for_with">Шукаю \'%1$s\' з %2$s...</string>
@@ -390,7 +390,7 @@
     <string name="cmd_support_help">Про підтримку Yantra Launcher.</string>
     <string name="support_no_args">Команда \'support\' не приймає жодних **аргументів**. _Це дружня команда... :)_</string>
     <string name="support_chunk_1">Yantra Launcher - потужний та безкоштовний інструмент з відкритим кодом для підвищення вашої продуктивності і для того, щоб бути крутим. Розробка цього лаунчера та його підтримка дійсно вимагає великої кількості зусиль, ресурсів та безцінного часу. Якщо Yantra Launcher приніс будь-які позитивні зміни у вашому житті, я закликаю вас перевірити розділ Підтримка на сторінці проекту на GitHub.</string>
-    <string name="support_chunk_2">\nПам'ятайте, що Yantra Launcher є абсолютно безкоштовним і з відкритим кодом. Ви можете підтримати розробника, зробивши внесок у проект, повідомивши про проблеми, пропонуючи нові функції та поділившись ним з вашими друзями та родиною.</string>
+    <string name="support_chunk_2">\nПам\'ятайте, що Yantra Launcher є абсолютно безкоштовним і з відкритим кодом. Ви можете підтримати розробника, зробивши внесок у проект, повідомивши про проблеми, пропонуючи нові функції та поділившись ним з вашими друзями та родиною.</string>
     <string name="redirecting_to_support_page">:: Перенаправляю вас до розділу Підтримка на сторінці проекту на GitHub...</string>
     <string name="cmd_sysinfo_title">sysinfo | sysinfo -component</string>
     <string name="cmd_sysinfo_help">Відображає інформацію про систему, подібно до \'Neofetch\'</string>
@@ -434,7 +434,7 @@
     <string name="setting_timer"><![CDATA[ => Встановлення таймера... ]]></string>
     <string name="timer_set_successfully">Таймер успішно встановлено.</string>
     <string name="no_supported_timer_app_found">Не знайдено підтримуваного додатку таймера на вашому пристрої.</string>
-    <string name="cmd_todo_help">Простий утиліта TODO. Використовуйте \'todo\' для отримання списку завдань з їхніми індексами та прогресом. Додайте завдання, як \'todo Go for a brisk walk\'. Позначте завдання як виконане, використовуючи їх індекс, повернутий командою \'todo\', наприклад, \'todo 2\' позначає 3-тє завдання як виконане. Використовуйте \'todo -1\' для очищення списку.\n\nВикористовуйте аргумент -p для позначення необов'язкового прогресу для будь-якого завдання, наприклад, \'todo -p 1 30\' позначає 2-ге завдання як 30% виконане (Синтаксис: todo -p taskIndex progress). Використовуйте \'todo -p -1\' для скидання прогресу для всіх завдань.</string>
+    <string name="cmd_todo_help">Простий утиліта TODO. Використовуйте \'todo\' для отримання списку завдань з їхніми індексами та прогресом. Додайте завдання, як \'todo Go for a brisk walk\'. Позначте завдання як виконане, використовуючи їх індекс, повернутий командою \'todo\', наприклад, \'todo 2\' позначає 3-тє завдання як виконане. Використовуйте \'todo -1\' для очищення списку.\n\nВикористовуйте аргумент -p для позначення необов\'язкового прогресу для будь-якого завдання, наприклад, \'todo -p 1 30\' позначає 2-ге завдання як 30% виконане (Синтаксис: todo -p taskIndex progress). Використовуйте \'todo -p -1\' для скидання прогресу для всіх завдань.</string>
     <string name="enjoy_nothing_to_do">Смачного! Немає нічого для виконання. ¯\\_(ツ)_/¯</string>
     <string name="try_adding_an_item">Спробуйте додати пункт, наприклад: todo Finish Game server config</string>
     <string name="todo_list">TODO Список:</string>
