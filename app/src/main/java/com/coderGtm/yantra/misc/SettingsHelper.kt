@@ -507,3 +507,17 @@ fun resetPreferredLauncherAndOpenChooser(activity: Activity) {
         PackageManager.DONT_KILL_APP
     )
 }
+
+fun getSoundEffects(activity: Activity): MutableList<String> {
+    val sfx = mutableListOf<String>()
+    val files = activity.filesDir.listFiles()
+    if (!files.isNullOrEmpty()) {
+        for (file in files) {
+            if (file.isFile && (file.name.endsWith(".mp3") || file.name.endsWith(".wav") || file.name.endsWith(".ogg"))) {
+                val name = file.name.substringBeforeLast(".")
+                sfx.add(name)
+            }
+        }
+    }
+    return sfx
+}
