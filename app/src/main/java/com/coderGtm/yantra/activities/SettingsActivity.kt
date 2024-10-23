@@ -1,6 +1,5 @@
 package com.coderGtm.yantra.activities
 
-import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
@@ -192,7 +191,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.aiApiKeyLayout.setOnClickListener { openAiApiKeySetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.aiSystemPromptLayout.setOnClickListener { openAiSystemPromptSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.launcherSelectionLayout.setOnClickListener { openLauncherSelection(this@SettingsActivity) }
-        binding.soundEffectsLay.setOnClickListener { openSoundEffectsList(this@SettingsActivity, preferenceObject, preferenceEditObject) }
+        binding.soundEffectsLay.setOnClickListener { openSoundEffectsList() }
 
         binding.fontLay.setOnClickListener {
             if (preferenceObject.getBoolean("fontpack___purchased",true)) {
@@ -509,40 +508,34 @@ class SettingsActivity : AppCompatActivity() {
         Toast.makeText(this, "Downloading language...", Toast.LENGTH_LONG).show()
     }
 
-    fun openSoundEffectsList(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
-        MaterialAlertDialogBuilder(activity)
-            .setTitle("Sound Effects")
-            .setItems(getSoundEffects(activity).toTypedArray()) { dialog, which ->
-                val sound = getSoundEffects(activity)[which]
-                MaterialAlertDialogBuilder(activity)
-                    .setTitle("Sound Effect: $sound")
-                    .setMessage("Do you want to delete this sound effect?")
-                    .setPositiveButton("Delete") { _, _ ->
+    private fun openSoundEffectsList() {
+        MaterialAlertDialogBuilder(this@SettingsActivity)
+            .setTitle(getString(R.string.manage_sound_effects))
+            .setItems(getSoundEffects(this@SettingsActivity).toTypedArray()) { dialog, which ->
+                val sound = getSoundEffects(this@SettingsActivity)[which]
+                MaterialAlertDialogBuilder(this@SettingsActivity)
+                    .setTitle(sound)
+                    .setMessage(getString(R.string.delete_sound_effect))
+                    .setPositiveButton(getString(R.string.delete)) { _, _ ->
                         val files = listOf("$sound.mp3", "$sound.wav", "$sound.ogg")
-                        val file = activity.filesDir.listFiles()?.find { it.name in files }
-                        if (file != null) {
-                            file.delete()
-                            toast(activity, "Sound effect $sound deleted")
-                        } else {
-                            toast(activity, "Sound effect $sound not found")
-                        }
+                        filesDir.listFiles()?.find { it.name in files }?.delete()
                     }
-                    .setNegativeButton("Cancel") { _, _ -> }
+                    .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
                     .show()
             }
-            .setPositiveButton("Add") { _, _ ->
-                MaterialAlertDialogBuilder(activity)
-                    .setTitle("Add Sound Effect")
-                    .setMessage("Add a sound effect to the internal storage of the app. Supported formats: mp3, wav, ogg")
-                    .setPositiveButton("Add") { _, _ ->
+            .setPositiveButton(getString(R.string.add)) { _, _ ->
+                MaterialAlertDialogBuilder(this@SettingsActivity)
+                    .setTitle(getString(R.string.add_sound_effect))
+                    .setMessage(getString(R.string.add_sfx_desc))
+                    .setPositiveButton(getString(R.string.add)) { _, _ ->
                         selectSfxLauncher.launch(
                             Intent.createChooser(Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                                 addCategory(Intent.CATEGORY_OPENABLE)
                                 type = "audio/*"
-                            }, "Select a sound effect file")
+                            }, getString(R.string.select_sfx_file))
                         )
                     }
-                    .setNegativeButton("Cancel") { _, _ -> }
+                    .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
                     .show()
             }
             .show()

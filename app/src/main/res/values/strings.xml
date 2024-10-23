@@ -552,4 +552,13 @@
     <string name="saved_configuration_for_primary_suggestions">Saved configuration for Primary Suggestions!</string>
     <string name="this_cmd_handled_via_third_party_app">Yantra Launcher handles this command via a 3rd party open-source app called %1$s. You can download it from %2$s</string>
     <string name="app_does_not_have_reqd_perms">%1$s app does not seem to have the required permissions.</string>
+    <string name="manage_sound_effects">Manage Sound Effects</string>
+    <string name="delete_sound_effect">Do you want to delete this sound effect?</string>
+    <string name="add_sound_effect">Add Sound Effect</string>
+    <string name="add_sfx_desc">Add a sound effect to the internal storage of the app. Supported formats: mp3, wav, ogg</string>
+    <string name="select_sfx_file">Select a sound effect file</string>
+    <string name="cmd_sfx_title">sfx [sound_effect]</string>
+    <string name="cmd_sfx_help">Play sound effects! Use without arguments to play the default sound effect. Use with an argument to play a specific sound effect added to the internal storage of the app via \'settings\'.</string>
+    <string name="playing_sound_effect">Playing sound effect: %1$s...</string>
+    <string name="sfx_not_found">The specified sound effect (\'%1$s\') is not found. Add it to the internal storage of the app via \'settings\'.</string>
 </resources>

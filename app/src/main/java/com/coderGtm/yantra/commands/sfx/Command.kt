@@ -10,8 +10,8 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "sfx",
-        helpTitle = "sfx [sound_effect]",
-        description = "Play sound effects! Use without arguments to play the default sound effect. Use with an argument to play a specific sound effect added to the internal storage of the app via 'settings'.",
+        helpTitle = terminal.activity.getString(R.string.cmd_sfx_title),
+        description = terminal.activity.getString(R.string.cmd_sfx_help),
     )
 
     override fun execute(command: String) {
@@ -27,7 +27,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             if (!files.isNullOrEmpty()) {
                 for (file in files) {
                     if ((file.name == sound + ".mp3" || file.name == sound + ".wav" || file.name == sound + ".ogg") && file.isFile) {
-                        output("Playing sound effect $sound...", terminal.theme.successTextColor, Typeface.ITALIC)
+                        output(terminal.activity.getString(R.string.playing_sound_effect, sound), terminal.theme.successTextColor, Typeface.ITALIC)
                         val mediaPlayer = MediaPlayer()
                         mediaPlayer.setDataSource(file.absolutePath)
                         mediaPlayer.prepare()
@@ -35,7 +35,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                         return
                     }
                 }
-                output("The sound effect '$sound' is not found. Add it to the internal storage of the app via 'settings'", terminal.theme.errorTextColor, null)
+                output(terminal.activity.getString(R.string.sfx_not_found, sound), terminal.theme.errorTextColor, null)
             }
         }
     }
