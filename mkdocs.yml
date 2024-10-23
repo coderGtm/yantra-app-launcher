@@ -12,6 +12,7 @@ nav:
     - Commands:
         - launch: commands/launch.md
         - scripts: commands/scripts.md
+        - search: commands/search.md
 theme:
   name: 'material'
   favicon: img/favicon.ico
@@ -43,3 +44,6 @@ plugins:
 
 markdown_extensions:
   - admonition
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
