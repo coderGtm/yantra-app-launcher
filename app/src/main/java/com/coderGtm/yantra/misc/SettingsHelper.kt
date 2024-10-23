@@ -151,6 +151,19 @@ fun showPrimarySuggestionsReorderPopup(activity: Activity, preferenceObject: Sha
     // Load the previously saved order
     val reorderedPrimarySuggestions = loadPrimarySuggestionsOrder(preferenceObject) ?: allPrimarySuggestions
 
+    for (i in allPrimarySuggestions) {
+        if (i !in reorderedPrimarySuggestions) {
+            reorderedPrimarySuggestions.add(i)
+        }
+    }
+
+    val reorderedPrimarySuggestionsCopy = reorderedPrimarySuggestions.toMutableList()
+    for (i in reorderedPrimarySuggestionsCopy) {
+        if (i !in allPrimarySuggestions) {
+            reorderedPrimarySuggestions.remove(i)
+        }
+    }
+
     // Create the RecyclerView and set its layout manager
     val recyclerView = RecyclerView(activity)
     recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -493,4 +506,18 @@ fun resetPreferredLauncherAndOpenChooser(activity: Activity) {
         PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
         PackageManager.DONT_KILL_APP
     )
+}
+
+fun getSoundEffects(activity: Activity): MutableList<String> {
+    val sfx = mutableListOf<String>()
+    val files = activity.filesDir.listFiles()
+    if (!files.isNullOrEmpty()) {
+        for (file in files) {
+            if (file.isFile && (file.name.endsWith(".mp3") || file.name.endsWith(".wav") || file.name.endsWith(".ogg"))) {
+                val name = file.name.substringBeforeLast(".")
+                sfx.add(name)
+            }
+        }
+    }
+    return sfx
 }

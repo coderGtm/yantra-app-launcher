@@ -33,6 +33,7 @@ import com.coderGtm.yantra.getFullName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.misc.changedSettingsCallback
+import com.coderGtm.yantra.misc.getSoundEffects
 import com.coderGtm.yantra.misc.openAiApiKeySetter
 import com.coderGtm.yantra.misc.openAiApiProviderSetter
 import com.coderGtm.yantra.misc.openAiSystemPromptSetter
@@ -53,6 +54,7 @@ import com.coderGtm.yantra.misc.openTermuxCmdWorkingDirSelector
 import com.coderGtm.yantra.misc.openUsernamePrefixSetter
 import com.coderGtm.yantra.misc.setAppSugOrderTvText
 import com.coderGtm.yantra.misc.setOrientationTvText
+import com.coderGtm.yantra.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.ktx.languages
 import com.google.android.play.core.splitinstall.SplitInstallManager
@@ -189,6 +191,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.aiApiKeyLayout.setOnClickListener { openAiApiKeySetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.aiSystemPromptLayout.setOnClickListener { openAiSystemPromptSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.launcherSelectionLayout.setOnClickListener { openLauncherSelection(this@SettingsActivity) }
+        binding.soundEffectsLay.setOnClickListener { openSoundEffectsList() }
 
         binding.fontLay.setOnClickListener {
             if (preferenceObject.getBoolean("fontpack___purchased",true)) {
@@ -411,6 +414,27 @@ class SettingsActivity : AppCompatActivity() {
             getString(R.string.an_error_occurred_please_try_again), Toast.LENGTH_SHORT).show()
     }
 
+    val selectSfxLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            if (result.data != null) {
+                val name = getFullName(result.data!!.data!!, this)
+                if (name!!.endsWith(".mp3") || name.endsWith(".wav") || name.endsWith(".ogg")){
+                    copyFileToInternalStorage(this, result.data!!.data!!)
+                    if (name.let { File(filesDir, it).exists() }) {
+                        toast(baseContext, "Added sound effect $name")
+                        return@registerForActivityResult
+                    }
+                } else {
+                    toast(baseContext, getString(R.string.incorrect_file))
+                    return@registerForActivityResult
+                }
+            }
+        }
+
+        Toast.makeText(this,
+            getString(R.string.an_error_occurred_please_try_again), Toast.LENGTH_SHORT).show()
+    }
+
     private fun getAllFonts(): List<String> {
         val fonts = mutableListOf<String>()
         val files = filesDir.listFiles()
@@ -484,6 +508,39 @@ class SettingsActivity : AppCompatActivity() {
         Toast.makeText(this, "Downloading language...", Toast.LENGTH_LONG).show()
     }
 
+    private fun openSoundEffectsList() {
+        MaterialAlertDialogBuilder(this@SettingsActivity)
+            .setTitle(getString(R.string.manage_sound_effects))
+            .setItems(getSoundEffects(this@SettingsActivity).toTypedArray()) { dialog, which ->
+                val sound = getSoundEffects(this@SettingsActivity)[which]
+                MaterialAlertDialogBuilder(this@SettingsActivity)
+                    .setTitle(sound)
+                    .setMessage(getString(R.string.delete_sound_effect))
+                    .setPositiveButton(getString(R.string.delete)) { _, _ ->
+                        val files = listOf("$sound.mp3", "$sound.wav", "$sound.ogg")
+                        filesDir.listFiles()?.find { it.name in files }?.delete()
+                    }
+                    .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
+                    .show()
+            }
+            .setPositiveButton(getString(R.string.add)) { _, _ ->
+                MaterialAlertDialogBuilder(this@SettingsActivity)
+                    .setTitle(getString(R.string.add_sound_effect))
+                    .setMessage(getString(R.string.add_sfx_desc))
+                    .setPositiveButton(getString(R.string.add)) { _, _ ->
+                        selectSfxLauncher.launch(
+                            Intent.createChooser(Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                                addCategory(Intent.CATEGORY_OPENABLE)
+                                type = "audio/*"
+                            }, getString(R.string.select_sfx_file))
+                        )
+                    }
+                    .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
+                    .show()
+            }
+            .show()
+    }
+
     private fun hideProForNonProUsers() {
         if (isPro(this@SettingsActivity))  return
         binding.pUi1.visibility = View.GONE
@@ -504,6 +561,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.pUi16.visibility = View.GONE
         binding.pUi17.visibility = View.GONE
         binding.pUi18.visibility = View.GONE
+        binding.pUi19.visibility = View.GONE
         binding.rightSwipeActionLayout.visibility = View.GONE
         binding.leftSwipeActionLayout.visibility = View.GONE
         binding.newsWebsiteLayout.visibility = View.GONE
@@ -514,5 +572,6 @@ class SettingsActivity : AppCompatActivity() {
         binding.aiProviderLayout.visibility = View.GONE
         binding.aiApiKeyLayout.visibility = View.GONE
         binding.aiSystemPromptLayout.visibility = View.GONE
+        binding.soundEffectsLay.visibility = View.GONE
     }
 }

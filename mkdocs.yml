@@ -1,0 +1,49 @@
+site_name: Yantra Launcher Wiki
+site_description: 'Documentation for using Yantra Launcher'
+site_author: 'The Yantra Launcher Community'
+docs_dir: docs/
+repo_name: 'coderGtm/yantra-app-launcher'
+repo_url: 'https://github.com/coderGtm/yantra-app-launcher'
+edit_uri: 'edit/main/docs/'
+nav:
+    - Home: index.md
+    - Quickstart: quickstart.md
+    - Commands Overview: commands-overview.md
+    - Commands:
+        - launch: commands/launch.md
+        - scripts: commands/scripts.md
+        - search: commands/search.md
+theme:
+  name: 'material'
+  favicon: img/favicon.ico
+  logo: img/logo.png
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - content.action.edit
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/coderGtm/yantra-app-launcher
+      name: View on GitHub
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/YW7hYbPrTh
+      name: Official Discord Community
+    - icon: fontawesome/brands/reddit-alien
+      link: https://www.reddit.com/r/YantraLauncher/
+      name: Yantra Launcher subreddit
+
+plugins:
+  - git-revision-date-localized:
+      type: timeago
+  - git-committers:
+      repository: coderGtm/yantra-app-launcher
+      branch: main
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
