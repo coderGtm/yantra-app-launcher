@@ -28,9 +28,9 @@ search -e=<engine_name> -u=<URL>
     - `qwant` 
     - `you` 
     - `playstore`
-=== "`-u` (unknown)"
-    If your favorite search engine is not listed for `-e` flag, you may tweak this flag
-    to set a custom search engine to use.
+=== "`-u` (url)"
+    If your favorite search engine is not listed for `-e` flag, you can use this flag
+    to provide a custom search engine to use.
 
     Your search query will be inserted into the end of the URL.
 
