@@ -3,7 +3,7 @@
 Query search engines then open the link on your default browser.
 
 !!! tip
-    You can use [`alias`](/commands/alias) feature to set your favorite engine as the
+    You can use [`alias`](../commands/alias) feature to set your favorite engine as the
     default.
 
 ## Syntax
@@ -35,6 +35,7 @@ search -e=<engine_name> -u=<URL>
     Your search query will be inserted into the end of the URL.
 
     **Example**:
+
         - `-u=https://example.com/search?q=`
 
     !!! info
