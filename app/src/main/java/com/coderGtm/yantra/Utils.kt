@@ -510,37 +510,6 @@ fun isCroissantInstalled(terminal: Terminal): Boolean {
     return false
 }
 
-fun checkCroissantPermission(activity: Activity): Boolean {
-    val contentResolver: ContentResolver = activity.contentResolver
-    val uri = Uri.parse("content://com.anready.croissant.files")
-        .buildUpon()
-        .appendQueryParameter("command", "isPermissionsGranted") // Adding parameter command
-        .build()
-
-    var cursor: Cursor? = null
-    try {
-        cursor = contentResolver.query(uri, null, null, null, null)
-        if (cursor != null && cursor.moveToFirst()) {
-            val dataIndex = cursor.getColumnIndex("response")
-            if (dataIndex == -1) {
-                println("Error while getting data!")
-                return false
-            }
-
-            val jsonArray = JSONArray(cursor.getString(dataIndex))
-            val fileInfo = jsonArray.getJSONObject(0)
-            return fileInfo.getBoolean("result")
-        } else {
-            println("Error while getting data!")
-        }
-    } catch (e: Exception) {
-        println("Error while getting data!\n" + e.message)
-    } finally {
-        cursor?.close()
-    }
-    return false
-}
-
 fun loadPrimarySuggestionsOrder(preferenceObject: SharedPreferences): MutableList<Suggestion>? {
     val savedOrder = preferenceObject.getString("ps_order", null)
     // saved as "text 1" (1 for hidden, 0 for visible) separated by ,

@@ -274,4 +274,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             }
         }
     }
+
+    val openResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == 6) {
+            val errorMessage: String = result.data?.getStringExtra("ERR").toString()
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+        }
+    }
 }

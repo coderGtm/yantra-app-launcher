@@ -3,11 +3,10 @@ package com.coderGtm.yantra.commands.ls
 import android.graphics.Typeface
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.checkCroissantPermission
+import com.coderGtm.yantra.croissant.Croissant
 import com.coderGtm.yantra.isCroissantInstalled
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
-import com.coderGtm.yantra.terminal.getListOfObjects
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -25,7 +24,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
 
-        if (!checkCroissantPermission(terminal.activity)) {
+        if (!Croissant().checkCroissantPermission(terminal.activity)) {
             val appName = "Croissant"
             output(terminal.activity.getString(R.string.app_does_not_have_reqd_perms, appName), terminal.theme.warningTextColor)
             return
@@ -48,7 +47,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
 
-        val files = getListOfObjects(terminal, terminal.workingDir)
+        val files = Croissant().getListOfObjects(terminal, terminal.workingDir)
 
         if (files.isEmpty()) {
             return
