@@ -2,7 +2,7 @@ package com.coderGtm.yantra.commands.cd
 
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.checkCroissantPermission
+import com.coderGtm.yantra.croissant.Croissant
 import com.coderGtm.yantra.isCroissantInstalled
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
@@ -23,7 +23,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
 
-        if (!checkCroissantPermission(terminal.activity)) {
+        if (!Croissant().checkCroissantPermission(terminal.activity)) {
             val appName = "Croissant"
             output(terminal.activity.getString(R.string.app_does_not_have_reqd_perms, appName), terminal.theme.warningTextColor)
             return
@@ -46,7 +46,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             }
         }
 
-        if (isPathExist(this@Command, pathN)) {
+        if (Croissant().isPathExist(terminal, pathN)) {
             terminal.workingDir = pathN
             terminal.setPromptText()
             return
