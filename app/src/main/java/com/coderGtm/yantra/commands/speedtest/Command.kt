@@ -3,7 +3,7 @@ package com.coderGtm.yantra.commands.speedtest
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.webkit.WebView
-import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
@@ -45,7 +45,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 return true
             }
         }
-        dialog.findViewById<Button>(R.id.closeBtn)?.setOnClickListener {
+        dialog.findViewById<ImageView>(R.id.closeBtn)?.setOnClickListener {
             dialog.dismiss()
         }
         webView?.loadUrl("file:///android_asset/speedtest.html")

@@ -10,7 +10,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="26dp"
         android:text="@string/internet_speed_test"
         android:textAlignment="center"
         android:textSize="20dp"
@@ -38,21 +38,16 @@
         app:layout_constraintTop_toBottomOf="@+id/loadingText"
         android:layout_marginTop="12dp" />
 
-    <Button
+    <ImageView
         android:id="@+id/closeBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/close"
         android:text="@string/close"
-        android:textStyle="bold|italic"
-        android:backgroundTint="#E57373"
-        android:fontFamily="@font/source_code_pro"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/webView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
