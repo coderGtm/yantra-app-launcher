@@ -29,7 +29,11 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     return
                 }
                 val luaScriptName = args[2].trim()
-                val scriptBody = terminal.preferenceObject.getString("script_$luaScriptName","") ?: ""
+                val scriptBody = terminal.preferenceObject.getString("script_$luaScriptName","")
+                if (scriptBody.isNullOrEmpty()) {
+                    output(terminal.activity.getString(R.string.script_not_found, luaScriptName), terminal.theme.errorTextColor)
+                    return
+                }
                 val luaExecutor = LuaExecutor(luaScriptName, terminal)
 
                 Thread {
