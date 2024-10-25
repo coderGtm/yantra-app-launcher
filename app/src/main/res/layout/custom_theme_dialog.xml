@@ -29,6 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="25dp"
+                    android:textColor="@color/white"
                     android:text="@string/background_color" />
 
                 <ImageButton
@@ -52,7 +53,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/input_color"
-                    android:textSize="25dp" />
+                    android:textSize="25dp"
+                    android:textColor="@color/white" />
 
                 <ImageButton
                     android:id="@+id/inputAndBtnsColorBtn"
@@ -75,6 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="25dp"
+                    android:textColor="@color/white"
                     android:text="@string/command_color" />
 
                 <ImageButton
@@ -98,7 +101,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/normal_text_and_arrow_color"
-                    android:textSize="25dp" />
+                    android:textSize="25dp"
+                    android:textColor="@color/white" />
 
                 <ImageButton
                     android:id="@+id/resultColorBtn"
@@ -121,6 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="25dp"
+                    android:textColor="@color/white"
                     android:text="@string/error_text_color" />
 
                 <ImageButton
@@ -143,6 +148,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="25dp"
+                    android:textColor="@color/white"
                     android:text="@string/positive_text_color" />
 
                 <ImageButton
@@ -165,6 +171,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="25dp"
+                    android:textColor="@color/white"
                     android:text="@string/warning_text_color" />
 
                 <ImageButton
@@ -188,7 +195,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/suggestions_color"
-                    android:textSize="25dp" />
+                    android:textSize="25dp"
+                    android:textColor="@color/white" />
 
                 <ImageButton
                     android:id="@+id/suggestionsColorBtn"
@@ -211,7 +219,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/suggestion_bar_color"
-                    android:textSize="25dp" />
+                    android:textSize="25dp"
+                    android:textColor="@color/white" />
 
                 <ImageButton
                     android:id="@+id/suggestionsBgColorBtn"

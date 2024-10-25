@@ -19,6 +19,7 @@ fun requestInput(luaExecutor: LuaExecutor, terminal: Terminal, scriptName: Strin
     val terminateBtn = TextView(terminal.activity)
     val originalUsernameText = terminal.username.text.toString()
     switchToLuaInput(terminal, luaExecutor, scriptName, luaInput, terminateBtn, originalUsernameText)
+    luaInput.setTextColor(terminal.theme.inputLineTextColor)
     luaInput.setOnEditorActionListener { _, actionId, _ ->
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             val input = luaInput.text.toString()
