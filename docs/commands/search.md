@@ -3,7 +3,7 @@
 Query search engines then open the link on your default browser.
 
 !!! tip
-    You can use [`alias`](../commands/alias) feature to set your favorite engine as the
+    You can use [`alias`](../alias) feature to set your favorite engine as the
     default.
 
 ## Syntax
