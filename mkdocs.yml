@@ -11,7 +11,7 @@ nav:
     - Commands Overview: commands-overview.md
     - Commands:
         - launch: commands/launch.md
-        - scripts: commands/scripts.md
+        - alias: commands/alias.md
         - search: commands/search.md
 theme:
   name: 'material'
