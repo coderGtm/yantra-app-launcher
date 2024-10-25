@@ -2,7 +2,7 @@ package com.coderGtm.yantra.commands.open
 
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
-import com.coderGtm.yantra.croissant.Croissant
+import com.coderGtm.yantra.Croissant
 import com.coderGtm.yantra.isCroissantInstalled
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal

@@ -1,4 +1,4 @@
-package com.coderGtm.yantra.croissant
+package com.coderGtm.yantra
 
 import android.app.Activity
 import android.content.ContentResolver
@@ -6,7 +6,6 @@ import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import com.coderGtm.yantra.activities.MainActivity
-import com.coderGtm.yantra.commands.open.Command
 import com.coderGtm.yantra.models.DirectoryContents
 import com.coderGtm.yantra.terminal.Terminal
 import org.json.JSONArray

@@ -2,14 +2,11 @@ package com.coderGtm.yantra.terminal
 
 import android.app.Activity
 import android.app.WallpaperManager
-import android.content.ContentResolver
 import android.content.Context
 import android.content.SharedPreferences
-import android.database.Cursor
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.util.TypedValue
 import android.widget.TextView
 import androidx.core.graphics.drawable.toBitmap
@@ -18,19 +15,16 @@ import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.commands.todo.getToDo
-import com.coderGtm.yantra.croissant.Croissant
+import com.coderGtm.yantra.Croissant
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.loadPrimarySuggestionsOrder
 import com.coderGtm.yantra.models.Alias
-import com.coderGtm.yantra.models.DirectoryContents
 import com.coderGtm.yantra.models.Suggestion
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.setSystemWallpaper
-import org.json.JSONArray
-import org.json.JSONException
 import java.util.Locale
 import java.util.regex.Pattern
 
