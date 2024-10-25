@@ -3,7 +3,7 @@
 Create short-hand commands for longer or frequently used commands.
 
 !!! note annotate
-    Yantra Launcher are retained even after restarting the launcher session, unlike the aliases in _usual or conventional_ shells (1).
+    Yantra Launcher aliases are retained even after restarting the launcher session, unlike the aliases in _usual or conventional_ shells (1).
 
 1.  In this context _usual or conventional shells_ refer to [shells](https://en.m.wikipedia.org/wiki/Shell_%28computing%29) like Bash, Zsh, CMD, Powershell, etc. Yantra is unusual in this regard because of its unique features for aliases, which is persistency.
 
