@@ -13,6 +13,7 @@ nav:
         - launch: commands/launch.md
         - alias: commands/alias.md
         - search: commands/search.md
+        - exit: commands/exit.md
 theme:
   name: 'material'
   favicon: img/favicon.ico
