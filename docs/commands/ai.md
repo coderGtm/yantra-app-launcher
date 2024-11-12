@@ -9,6 +9,7 @@ ai [message/reset]
 
 ## Setup
 To use the `ai` command, you need 2 things:
+
 1. An AI provider, and
 2. An API Key
 3. _(Optional) System prompt_
@@ -32,5 +33,5 @@ Now you can have a great conversation with your AI assistant right from your hom
 ai why should i use a command line launcher?
 ```
 Use the `ai reset` command to clear the conversation history from Yantra Launcher
-!!! warn
+!!! warning
     Keep in mind that the API you are using is charged by your provider based on the tokens used. The more you chat with `ai`, the more tokens are used as the entire conversation is being evaluated by the model. So, to keep usage minimum, consider using the `ai reset` command to clear the conversation history from Yantra Launcher when you no longer need the model to remember past conversations.
