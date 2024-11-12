@@ -752,6 +752,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "internet" to com.coderGtm.yantra.commands.internet.Command::class.java,
             "ai" to com.coderGtm.yantra.commands.ai.Command::class.java,
             "todo" to com.coderGtm.yantra.commands.todo.Command::class.java,
+            "notepad" to com.coderGtm.yantra.commands.notepad.Command::class.java,
             "alias" to com.coderGtm.yantra.commands.alias.Command::class.java,
             "weather" to com.coderGtm.yantra.commands.weather.Command::class.java,
             "username" to com.coderGtm.yantra.commands.username.Command::class.java,
