@@ -9,9 +9,9 @@ ai [message/reset]
 
 ## Setup
 To use the `ai` command, you need 2 things:
-    1. An AI provider, and
-    2. An API Key
-    3. _(Optional) System prompt_
+1. An AI provider, and
+2. An API Key
+3. _(Optional) System prompt_
 
 An AI provider is a service that follows the [OpenAI API Reference](https://platform.openai.com/docs/api-reference/making-requests). Although you can use the ChatGPT API directly, keep in mind that it is a paid service.
 
@@ -24,10 +24,10 @@ Try out a simple message like
 ```
 ai hi
 ```
-If a response is received by the AI model then you have successfully setup the command!
+If a response is received from the AI model then you have successfully setup the command!
 
 ## Usage
-Now you can have a great conversation with your AI assistant write from your home screen!
+Now you can have a great conversation with your AI assistant right from your home screen!
 ```
 ai why should i use a command line launcher?
 ```
