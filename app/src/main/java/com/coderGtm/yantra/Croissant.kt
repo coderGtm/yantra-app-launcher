@@ -48,8 +48,13 @@ class Croissant {
     fun getListOfObjects(terminal: Terminal, path: String): MutableList<DirectoryContents> {
         val jsonArray = main(terminal.activity, "list", path)
 
-        if (jsonArray.length() > 0 && jsonArray.getJSONObject(0).equals("Error while getting data!")) {
-            terminal.output("Data not found", terminal.theme.errorTextColor, null, false)
+        if (jsonArray.length() > 0 && jsonArray.getString(0).equals("Error while getting data!")) {
+            if (!isCroissantInstalled(terminal)) {
+                val releasePageUrl = "https://github.com/Anready/Croissant/releases"
+                val appName = "Croissant"
+                terminal.output(
+                    terminal.activity.getString(R.string.this_cmd_handled_via_third_party_app, appName, releasePageUrl), terminal.theme.warningTextColor, null, true)
+            }
             return mutableListOf()
         }
 
@@ -106,7 +111,7 @@ class Croissant {
             val error = jsonArray.getJSONObject(0)
             error.getString("error")
             return true
-        } catch (e: JSONException) {
+        } catch (_: JSONException) {
             return false
         }
     }
