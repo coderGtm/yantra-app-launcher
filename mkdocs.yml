@@ -16,6 +16,8 @@ nav:
         - ai: commands/ai.md
         - reset: commands/reset.md
         - exit: commands/exit.md
+    - Frequently Asked Questions: faq.md
+    
 theme:
   name: 'material'
   favicon: img/favicon.ico
