@@ -14,6 +14,7 @@ nav:
         - alias: commands/alias.md
         - search: commands/search.md
         - ai: commands/ai.md
+        - reset: commands/reset.md
         - exit: commands/exit.md
 theme:
   name: 'material'
