@@ -20,22 +20,19 @@ nav:
     - Frequently Asked Questions: faq.md
     
 theme:
-  name: 'material'
-  pallete:
-    # Palette toggle for light mode
-    - scheme: default
-      primary: indigo
-      toggle:
-        icon: material/brightness-7 
-        name: Switch to dark mode
-
-    # Palette toggle for dark mode
+  name: material
+  palette:
     - scheme: slate
       primary: deep purple
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
-            
+    - scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
   favicon: img/favicon.ico
   logo: img/logo.png
   icon:
