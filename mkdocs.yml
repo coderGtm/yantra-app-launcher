@@ -14,8 +14,10 @@ nav:
         - alias: commands/alias.md
         - search: commands/search.md
         - ai: commands/ai.md
-        - internet: commands/internet.md
+        - reset: commands/reset.md
         - exit: commands/exit.md
+    - Frequently Asked Questions: faq.md
+    
 theme:
   name: 'material'
   favicon: img/favicon.ico
