@@ -22,16 +22,16 @@ nav:
 theme:
   name: material
   palette:
-    - scheme: slate
-      primary: deep purple
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
     - scheme: default
       primary: indigo
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
+    - scheme: slate
+      primary: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
 
   favicon: img/favicon.ico
   logo: img/logo.png
