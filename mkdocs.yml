@@ -15,6 +15,7 @@ nav:
         - alias: commands/alias.md
         - search: commands/search.md
         - ai: commands/ai.md
+        - theme: commands/theme.md
         - internet: commands/internet.md
         - reset: commands/reset.md
         - exit: commands/exit.md
