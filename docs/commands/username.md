@@ -4,7 +4,7 @@ This command is used to change the username of your terminal home screen. It is 
 
 ## Syntax
 ```
-username _<new_username>_
+username <new_username>
 ```
 
 ## Example
