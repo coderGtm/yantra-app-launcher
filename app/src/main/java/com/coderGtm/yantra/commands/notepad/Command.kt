@@ -1,6 +1,7 @@
 package com.coderGtm.yantra.commands.notepad
 
 import android.graphics.Typeface
+import android.text.InputType
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
@@ -10,8 +11,8 @@ import com.coderGtm.yantra.terminal.Terminal
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "notepad",
-        helpTitle = "notepad [list / new <name> / read <name> / delete <name>]",
-        description = "A simple in-app notepad to keep important notes. The 'notepad list' command lists all notes. To create a new note, use the 'notepad new <note_name>' command. To read an existing note, use the 'notepad read <note_name>' command. Use the 'notepad delete <note_name>' command to delete a note."
+        helpTitle = terminal.activity.getString(R.string.cmd_notepad_title),
+        description = terminal.activity.getString(R.string.cmd_notepad_help)
     )
 
     override fun execute(command: String) {
@@ -22,11 +23,14 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         if (args.size == 2) {
             if (args[1].trim() == "list") {
-                val notes = terminal.preferenceObject.getString("notepad_notes","")?.split(",") ?: listOf()
+                var notes = terminal.preferenceObject.getString("notepad_notes","")?.split(",") ?: listOf()
+                if (notes.isNotEmpty() && notes[0].isEmpty()) {
+                    notes = notes.drop(1)
+                }
                 if (notes.isEmpty()) {
-                    output("No notes found...", terminal.theme.warningTextColor, Typeface.ITALIC)
+                    output(terminal.activity.getString(R.string.no_notes_found), terminal.theme.warningTextColor, Typeface.ITALIC)
                 } else {
-                    output("Notepad:", terminal.theme.resultTextColor, Typeface.BOLD)
+                    output(terminal.activity.getString(R.string.notepad), terminal.theme.resultTextColor, Typeface.BOLD)
                     notes.forEach {
                         output("--> $it")
                     }
@@ -42,21 +46,22 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             val notes = terminal.preferenceObject.getString("notepad_notes","")?.split(",") ?: listOf()
             if (action == "new") {
                 if (notes.contains(name)) {
-                    output("A note by this name already exists! please use a different name.", terminal.theme.errorTextColor)
+                    output(terminal.activity.getString(R.string.note_exists), terminal.theme.errorTextColor)
                     return
                 }
                 YantraLauncherDialog(terminal.activity).takeInput(
-                    title = "New Note ($name)",
-                    message = "Enter the note content below:",
+                    title = terminal.activity.getString(R.string.new_note, name),
+                    message = terminal.activity.getString(R.string.enter_note_content),
                     cancellable = false,
-                    positiveButton = "Save",
+                    inputType = InputType.TYPE_TEXT_FLAG_MULTI_LINE,
+                    positiveButton = terminal.activity.getString(R.string.save),
                     positiveAction = {
                         val note_text = it.trim()
                         terminal.preferenceObject.edit().putString("notepad_note_${name}", note_text).apply()
                         val newNotes = notes.toMutableList()
                         newNotes.add(name)
                         terminal.preferenceObject.edit().putString("notepad_notes", newNotes.joinToString(",")).apply()
-                        output("Note '$name' saved to notepad.", terminal.theme.successTextColor)
+                        output(terminal.activity.getString(R.string.note_saved_to_notepad, name), terminal.theme.successTextColor)
                     }
                 )
                 return
@@ -66,7 +71,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     val note_text = terminal.preferenceObject.getString("notepad_note_${name}", "") ?: ""
                     output(note_text)
                 } else {
-                    output("No note fond by the name ${name}!", terminal.theme.errorTextColor)
+                    output(terminal.activity.getString(R.string.no_note_fond_by_the_name, name), terminal.theme.errorTextColor)
                 }
                 return
             }
@@ -76,9 +81,9 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     val newNotes = notes.toMutableList()
                     newNotes.remove(name)
                     terminal.preferenceObject.edit().putString("notepad_notes", newNotes.joinToString(",")).apply()
-                    output("Deleted '$name' from notepad.", terminal.theme.successTextColor)
+                    output(terminal.activity.getString(R.string.deleted_from_notepad, name), terminal.theme.successTextColor)
                 } else {
-                    output("No note fond by the name ${name}!", terminal.theme.errorTextColor)
+                    output(terminal.activity.getString(R.string.no_note_fond_by_the_name, name), terminal.theme.errorTextColor)
                 }
                 return
             }
