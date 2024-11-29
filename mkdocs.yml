@@ -16,6 +16,7 @@ nav:
         - search: commands/search.md
         - ai: commands/ai.md
         - theme: commands/theme.md
+        - quote: commands/quote.md
         - internet: commands/internet.md
         - reset: commands/reset.md
         - exit: commands/exit.md
