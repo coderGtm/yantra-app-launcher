@@ -15,4 +15,5 @@ web reddit.com
 ```
 
 ??? note
+    
     This command will only work if you have a browser installed on your device which handles requests to open URLs. Ofcourse, how will it work without a "web" browser?
