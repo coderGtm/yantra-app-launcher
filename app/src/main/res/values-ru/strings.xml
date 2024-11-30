@@ -561,14 +561,14 @@
     <string name="cmd_sfx_help">Возпроизводит звуковой эффект! Используйте без аргумента чтобы воспроизвести эффект по умолчанию. Используйте с аргументом чтобы воспроизвести определенный звуковой эффект добавленный во внутреннюю память через \'settings\'.</string>
     <string name="playing_sound_effect">Играет звуковой эффект: %1$s...</string>
     <string name="sfx_not_found">Указанный звуковой эффект (\'%1$s\') не найден. Добавьте его во внутреннюю память через \'settings\'.</string>
-    <string name="cmd_notepad_title"><![CDATA[notepad [list / new <name> / read <name> / delete <name>]]]></string>
-    <string name="cmd_notepad_help"><![CDATA[A simple in-app notepad to take quick notes on the go. Use the `notepad list` command to view all your notes. To create a new note, type `notepad new <note_name>`. To read an existing note, use `notepad read <note_name>`. If you want to delete a note, use the `notepad delete <note_name>` command.]]></string>
-    <string name="no_notes_found">No notes found...</string>
-    <string name="notepad">Notepad:</string>
-    <string name="note_exists">A note by this name already exists! Please use a different name.</string>
-    <string name="new_note">New Note (%1$s)</string>
-    <string name="enter_note_content">Enter the note content below:</string>
-    <string name="note_saved_to_notepad">Note \'%1$s\' saved to notepad.</string>
-    <string name="no_note_fond_by_the_name">No note fond by the name %1$s!</string>
-    <string name="deleted_from_notepad">Deleted \'%1$s\' from notepad.</string>
+    <string name="cmd_notepad_title"><![CDATA[notepad [list / new <имя> / read <имя> / delete <имя>]]]></string>
+    <string name="cmd_notepad_help"><![CDATA[Простой блокнот чтобы записывать заметки на ходу. Используйте команду `notepad list` чтобы посмотреть все ваши заметки. Чтобы создать новую заметку, введите `notepad new <имя_заметки>`. Чтобы прочитать существующую заметку, используйте `notepad read <имя_заметки>`. Если вам нужно ужалить заметку, используйте команду `notepad delete <имя_заметки>`.]]></string>
+    <string name="no_notes_found">Заметок не найдено...</string>
+    <string name="notepad">Блокнот:</string>
+    <string name="note_exists">Заметка с этим именем уде существует! Пожалуйста, используйте другое имя.</string>
+    <string name="new_note">Новая заметка (%1$s)</string>
+    <string name="enter_note_content">Введите содержание замтеки внизу:</string>
+    <string name="note_saved_to_notepad">Заметка \'%1$s\' сохранена в блокнот.</string>
+    <string name="no_note_fond_by_the_name">Заметка с именем %1$s не обнаженна!</string>
+    <string name="deleted_from_notepad">\'%1$s\' удалена из блокнота.</string>
 </resources>
