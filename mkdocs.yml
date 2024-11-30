@@ -18,6 +18,7 @@ nav:
         - theme: commands/theme.md
         - quote: commands/quote.md
         - internet: commands/internet.md
+        - web: commands/web.md
         - reset: commands/reset.md
         - exit: commands/exit.md
     - Frequently Asked Questions: faq.md
