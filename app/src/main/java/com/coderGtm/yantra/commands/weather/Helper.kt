@@ -10,6 +10,7 @@ import kotlin.math.roundToInt
 fun handleResponse(response: String, command: Command) {
     command.output("-------------------------")
     val json = JSONObject(response)
+    command.output(json.toString())
     try {
         val weather_location = json.getJSONObject("location").getString("name") + ", " + json.getJSONObject("location").getString("country")
         val current = json.getJSONObject("current")
@@ -22,6 +23,8 @@ fun handleResponse(response: String, command: Command) {
         val wind_mph = current.getDouble("wind_mph")
         val wind_dir = current.getString("wind_dir")
         val humidity = current.getDouble("humidity")
+        val air_quality = current.getJSONObject("air_quality")
+        val air_quality_index = air_quality.getInt("us-epa-index")
         val forecast = json.getJSONObject("forecast")
         val forecastDay = forecast.getJSONArray("forecastday").getJSONObject(0)
         val day = forecastDay.getJSONObject("day")
@@ -41,6 +44,7 @@ fun handleResponse(response: String, command: Command) {
         command.output(command.terminal.activity.getString(R.string.weather_max_c_f, maxtemp_c, maxtemp_f))
         command.output(command.terminal.activity.getString(R.string.weather_humidity, humidity.roundToInt()))
         command.output(command.terminal.activity.getString(R.string.weather_wind, wind_kph, wind_mph, wind_dir))
+        command.output(command.terminal.activity.getString(R.string.weather_air_quality, getAqiText(air_quality_index)))
         if (will_it_rain == 1) {
             command.output(command.terminal.activity.getString(R.string.precipitation_chance, precipitation_chance))
         }
@@ -63,5 +67,17 @@ fun handleError(error: VolleyError, command: Command) {
     }
     else {
         command.output(command.terminal.activity.getString(R.string.an_error_occurred_no_reason),command.terminal.theme.errorTextColor)
+    }
+}
+
+fun getAqiText(index: Int): String {
+    return when (index) {
+        1 -> "Good"
+        2 -> "Moderate"
+        3 -> "Unhealthy for sensitive group"
+        4 -> "Unhealthy"
+        5 -> "Very Unhealthy"
+        6 -> "Hazardous"
+        else -> "Unknown"
     }
 }

@@ -28,7 +28,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val langCode = AppCompatDelegate.getApplicationLocales().toLanguageTags()
         output(terminal.activity.getString(R.string.fetching_weather_report_of, location), terminal.theme.resultTextColor, Typeface.ITALIC)
         val apiKey = terminal.activity.packageManager.getApplicationInfo(terminal.activity.packageName, PackageManager.GET_META_DATA).metaData.getString("WEATHER_API_KEY")
-        val url = "https://api.weatherapi.com/v1/forecast.json?key=$apiKey&q=$location&lang=$langCode"
+        val url = "https://api.weatherapi.com/v1/forecast.json?key=$apiKey&q=$location&lang=$langCode&aqi=yes"
         val queue = Volley.newRequestQueue(terminal.activity)
         val stringRequest = StringRequest(
             Request.Method.GET, url,
