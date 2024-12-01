@@ -571,5 +571,5 @@
     <string name="note_saved_to_notepad">Заметка \'%1$s\' сохранена в блокнот.</string>
     <string name="no_note_fond_by_the_name">Заметка с именем %1$s не обнаженна!</string>
     <string name="deleted_from_notepad">\'%1$s\' удалена из блокнота.</string>
-    <string name="weather_air_quality"><![CDATA[==> Air Quality: %1$s]]></string>
+    <string name="weather_air_quality"><![CDATA[=> Air Quality: %1$s]]></string>
 </resources>

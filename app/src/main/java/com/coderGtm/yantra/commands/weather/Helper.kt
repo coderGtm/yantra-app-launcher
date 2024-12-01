@@ -10,7 +10,6 @@ import kotlin.math.roundToInt
 fun handleResponse(response: String, command: Command) {
     command.output("-------------------------")
     val json = JSONObject(response)
-    command.output(json.toString())
     try {
         val weather_location = json.getJSONObject("location").getString("name") + ", " + json.getJSONObject("location").getString("country")
         val current = json.getJSONObject("current")

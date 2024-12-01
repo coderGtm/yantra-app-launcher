@@ -571,5 +571,5 @@
     <string name="note_saved_to_notepad">Nota \'%1$s\' salvata nel blocco note.</string>
     <string name="no_note_fond_by_the_name">Nessuna nota trovata con il nome %1$s!</string>
     <string name="deleted_from_notepad">Eliminata \'%1$s\' dal blocco note.</string>
-    <string name="weather_air_quality"><![CDATA[==> Air Quality: %1$s]]></string>
+    <string name="weather_air_quality"><![CDATA[=> Air Quality: %1$s]]></string>
 </resources>

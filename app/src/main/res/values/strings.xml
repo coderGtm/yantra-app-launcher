@@ -571,5 +571,5 @@
     <string name="note_saved_to_notepad">Note \'%1$s\' saved to notepad.</string>
     <string name="no_note_fond_by_the_name">No note fond by the name %1$s!</string>
     <string name="deleted_from_notepad">Deleted \'%1$s\' from notepad.</string>
-    <string name="weather_air_quality"><![CDATA[==> Air Quality: %1$s]]></string>
+    <string name="weather_air_quality"><![CDATA[=> Air Quality: %1$s]]></string>
 </resources>
