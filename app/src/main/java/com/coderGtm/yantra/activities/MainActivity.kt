@@ -41,6 +41,8 @@ import com.coderGtm.yantra.views.TerminalGestureListenerCallback
 import java.io.File
 import java.io.FileInputStream
 import java.util.Locale
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalGestureListenerCallback {
@@ -104,6 +106,13 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         Thread {
             requestUpdateIfAvailable(app.preferenceObject, this@MainActivity)
         }.start()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timer().schedule(250) {
+            binding.scrollView.scrollToBottom()
+        }
     }
 
     override fun onDestroy() {
