@@ -343,7 +343,7 @@
     <string name="cmd_pwd_help">Друкує поточний/робочий каталог.</string>
     <string name="cmd_quote_help">Відображає випадкову цитату! Що ще ви очікуєте?</string>
     <string name="cmd_reset_help">Повністю перезавантажує консоль (Launcher).</string>
-    <string name="cmd_run_title">run script_name</string>
+    <string name="cmd_run_title">run [-lua/-clean] script_name</string>
     <string name="cmd_run_help">Використовується для запуску ваших власних скриптів. Використовуйте прапорець \'-lua\', щоб запустити скрипт як Lua код.</string>
     <string name="specify_script_to_run">Будь ласка, вкажіть ім\'я скрипта для запуску.</string>
     <string name="run_only_one_param">Команда \'run\' приймає лише 1 параметр: Ім\'я скрипта для запуску.</string>

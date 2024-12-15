@@ -343,7 +343,7 @@
     <string name="cmd_pwd_help">Stampa la directory corrente/di lavoro.</string>
     <string name="cmd_quote_help">Visualizza una citazione casuale! Cosa ti aspetti?</string>
     <string name="cmd_reset_help">Riavvia completamente la console (Launcher).</string>
-    <string name="cmd_run_title">run nome_script</string>
+    <string name="cmd_run_title">run [-lua/-clean] nome_script</string>
     <string name="cmd_run_help">Usato per eseguire i tuoi script personalizzati. Usa il flag \'-lua\' per eseguire lo script come codice Lua. Gli script normali possono essere eseguiti con il flag \'-clean\' per non mostrare i log dei comandi durante l\'esecuzione e mostrera soltanto i log di output dei comandi</string>
     <string name="specify_script_to_run">Si prega di specificare il nome dello script da eseguire.</string>
     <string name="run_only_one_param">Il comando \'run\' accetta solo 1 parametro: Il nome dello script da eseguire.</string>

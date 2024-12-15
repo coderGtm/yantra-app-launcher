@@ -343,7 +343,7 @@
     <string name="cmd_pwd_help">Prints the current/working directory.</string>
     <string name="cmd_quote_help">Displays a random quote! What else do you expect?</string>
     <string name="cmd_reset_help">Restarts the console (Launcher) completely.</string>
-    <string name="cmd_run_title">run script_name</string>
+    <string name="cmd_run_title">run [-lua/-clean] script_name</string>
     <string name="cmd_run_help">Used to run your custom scripts. Use the \'-lua\' flag to run the script as Lua code. Normal scripts can be run with the \'-clean\' flag to not print the command logs while execution and just log the output of the commands.</string>
     <string name="specify_script_to_run">Please specify a script name to run.</string>
     <string name="run_only_one_param">\'run\' command takes only 1 parameter: The script name to run.</string>
