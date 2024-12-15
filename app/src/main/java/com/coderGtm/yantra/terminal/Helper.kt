@@ -639,7 +639,7 @@ fun showSuggestions(
                 args[0].lowercase()
             }
             // dont auto execute for some commands
-            if (effectivePrimaryCmd == "call" || effectivePrimaryCmd == "time") {
+            if (effectivePrimaryCmd == "call" || effectivePrimaryCmd == "time" || effectivePrimaryCmd == "bg" || effectivePrimaryCmd == "notepad" || effectivePrimaryCmd == "todo" || effectivePrimaryCmd == "run") {
                 return@Thread
             }
             // dont auto execute if only flag suggestion
