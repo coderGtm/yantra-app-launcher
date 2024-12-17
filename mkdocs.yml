@@ -13,6 +13,7 @@ nav:
         - launch: commands/launch.md
         - username: commands/username.md
         - alias: commands/alias.md
+        - call: commands/call.md
         - search: commands/search.md
         - ai: commands/ai.md
         - theme: commands/theme.md
