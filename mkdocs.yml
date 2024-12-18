@@ -21,6 +21,7 @@ nav:
         - internet: commands/internet.md
         - web: commands/web.md
         - tts: commands/tts.md
+        - bored: commands/bored.md
         - reset: commands/reset.md
         - exit: commands/exit.md
     - Frequently Asked Questions: faq.md
