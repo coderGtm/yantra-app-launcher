@@ -785,6 +785,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "timer" to com.coderGtm.yantra.commands.timer.Command::class.java,
             "settings" to com.coderGtm.yantra.commands.settings.Command::class.java,
             "sysinfo" to com.coderGtm.yantra.commands.sysinfo.Command::class.java,
+            "setclr" to com.coderGtm.yantra.commands.setclr.Command::class.java,
             "screentime" to com.coderGtm.yantra.commands.screentime.Command::class.java,
             "scripts" to com.coderGtm.yantra.commands.scripts.Command::class.java,
             "quote" to com.coderGtm.yantra.commands.quote.Command::class.java,
