@@ -32,7 +32,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
 import com.coderGtm.yantra.BuildConfig
-import com.coderGtm.yantra.DEFAULT_ALIAS_LIST
 import com.coderGtm.yantra.DEFAULT_TERMINAL_FONT_NAME
 import com.coderGtm.yantra.NO_LOG_COMMANDS
 import com.coderGtm.yantra.R
@@ -51,18 +50,13 @@ import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.ShortcutBlock
 import com.coderGtm.yantra.models.Suggestion
-import com.coderGtm.yantra.openURL
 import com.coderGtm.yantra.promoteProVersion
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
 import com.coderGtm.yantra.showRatingAndCommunityPopups
 import com.coderGtm.yantra.vibrate
-import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
-import io.noties.markwon.MarkwonConfiguration
-import io.noties.markwon.core.factory.LinkSpanFactory
-import io.noties.markwon.core.spans.LinkSpan
 import java.io.File
 import java.util.TimerTask
 import kotlin.math.roundToInt
