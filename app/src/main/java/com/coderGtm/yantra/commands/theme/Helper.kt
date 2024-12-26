@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.getCustomThemeColors
+import com.coderGtm.yantra.isValidHexCode
 import com.coderGtm.yantra.misc.CustomFlag
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.toast
@@ -118,14 +119,4 @@ fun openCustomThemeDesigner(terminal: Terminal) {
         terminal.activity.recreate()
     }
     terminal.activity.runOnUiThread { dialog.show() }
-}
-
-fun isValidHexCode(hexCode: String): Boolean {
-    return try {
-        Color.parseColor("#$hexCode")
-        true
-    }
-    catch (e: Exception) {
-        false
-    }
 }

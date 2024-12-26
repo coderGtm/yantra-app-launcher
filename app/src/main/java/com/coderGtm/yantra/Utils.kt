@@ -539,3 +539,12 @@ fun getAliases(preferenceObject: SharedPreferences): MutableList<Alias> {
     }
     return aliasList2
 }
+fun isValidHexCode(hexCode: String): Boolean {
+    return try {
+        Color.parseColor("#$hexCode")
+        true
+    }
+    catch (e: Exception) {
+        false
+    }
+}
