@@ -82,6 +82,7 @@ class Terminal(
     var primarySuggestions: MutableList<Suggestion> = mutableListOf()
     var initialized = false
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
+    var dominantFontColor: Int? = null
     var isSleeping = false
     var sleepTimer: TimerTask? = null
     var contactsFetched: Boolean = false
@@ -307,14 +308,15 @@ class Terminal(
         preferenceEditObject.putLong("numOfCmdsEntered",n+1).apply()
     }
     fun output(text: String, color: Int, style: Int?, markdown: Boolean = false) {
+        val renderColor = dominantFontColor ?: color
         val t = TextView(activity)
         if (markdown) {
-            t.setFont(typeface, null, color, fontSize)
+            t.setFont(typeface, null, renderColor, fontSize)
             val markwon = Markwon.create(activity)
             markwon.setMarkdown(t, text)
         }
         else {
-            t.setFont(typeface, style, color, fontSize)
+            t.setFont(typeface, style, renderColor, fontSize)
             t.text = text
         }
         t.setTextIsSelectable(true)
@@ -322,7 +324,7 @@ class Terminal(
             binding.terminalOutput.addView(t)
         }
         // if error then vibrate
-        if (color == theme.errorTextColor && vibrationPermission) {
+        if (renderColor == theme.errorTextColor && vibrationPermission) {
             vibrate(activity = activity)
         }
     }
