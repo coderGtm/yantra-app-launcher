@@ -2,7 +2,7 @@
 
 ## 1. How to integrate Yantra Launcher with Termux?
 
-Ensure that termux is installed on your device. Follow the steps below to integrate Yantra Launcher with Termux:
+Ensure that termux is installed on your device from github or f-droid. Follow the steps below to integrate Yantra Launcher with Termux:
 
   1. Open Yantra Launcher.
   2. Type any termux command to invoke the Permission Dialog. For example, enter
