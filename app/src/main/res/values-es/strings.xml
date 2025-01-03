@@ -572,7 +572,7 @@
     <string name="no_note_fond_by_the_name">¡No se encontró una nota con el nombre %1$s!</string>
     <string name="deleted_from_notepad">\'%1$s\' eliminado del bloc de notas.</string>
     <string name="weather_air_quality"><![CDATA[=> Calidad del aire: %1$s]]></string>
-    <string name="command_takes_at_least_1_parameter_0_provided">"'%1$s' command takes at least 1 parameter. 0 provided! "</string>
-    <string name="terminal_text_color_reset">Terminal text color reset to theme.</string>
-    <string name="terminal_text_color_set_to">Terminal text color set to #%1$s</string>
+    <string name="command_takes_at_least_1_parameter_0_provided">"'%1$s' el comando recibe al menos un parametro. 0 parametros suministrados! "</string>
+    <string name="terminal_text_color_reset">Reiniciar color del tema del texto de la terminal.</string>
+    <string name="terminal_text_color_set_to"> Color del texto de la terminal establecido a #%1$s</string>
 </resources>
