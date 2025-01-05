@@ -21,6 +21,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.provider.ContactsContract
 import android.provider.OpenableColumns
+import android.util.TypedValue
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
@@ -547,4 +548,10 @@ fun isValidHexCode(hexCode: String): Boolean {
     catch (e: Exception) {
         false
     }
+}
+
+fun dpToPx(dp: Int, context: Context): Int {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics
+    ).toInt()
 }
