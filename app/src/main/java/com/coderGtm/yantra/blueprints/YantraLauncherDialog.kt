@@ -11,9 +11,10 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.graphics.alpha
 import androidx.core.graphics.drawable.toDrawable
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
@@ -48,7 +49,30 @@ class YantraLauncherDialog(val context: Context) {
         }
     }
 
+    private fun applyColorScheme(dialogContainer: ConstraintLayout, dialogBodyContainer: ViewGroup, dialogTitle: TextView, dialogBody: TextView, dialogPositiveButton: MaterialButton, dialogNegativeButton: MaterialButton, closeButton: ImageButton, dialogInput: EditText? = null) {
+        dialogContainer.backgroundTintList = ColorStateList.valueOf(Color.HSVToColor(dialogBorderColor))
+        dialogBodyContainer.backgroundTintList = ColorStateList.valueOf(Color.HSVToColor(dialogBgColor))
+        dialogTitle.setTextColor(textColor)
+        dialogBody.setTextColor(bodyTextColor)
+        dialogPositiveButton.backgroundTintList = ColorStateList.valueOf(positiveColor)
+        dialogNegativeButton.backgroundTintList = ColorStateList.valueOf(negativeColor)
+        closeButton.imageTintList = ColorStateList.valueOf(negativeColor)
+        dialogPositiveButton.setTextColor(Color.HSVToColor(dialogBgColor))
+        dialogNegativeButton.setTextColor(Color.HSVToColor(dialogBgColor))
 
+        if (dialogInput != null) {
+            val inputShape = GradientDrawable()
+            inputShape.shape = GradientDrawable.RECTANGLE
+            inputShape.setColor(Color.HSVToColor(dialogBgColor))
+            inputShape.setStroke(dpToPx(1, context), textColor)
+            val inputShapeCornerRadii = dpToPx(25, context).toFloat()
+            val inputShapePadding = dpToPx(10, context)
+            inputShape.cornerRadii = floatArrayOf(inputShapeCornerRadii, inputShapeCornerRadii, inputShapeCornerRadii, inputShapeCornerRadii, inputShapeCornerRadii, inputShapeCornerRadii, inputShapeCornerRadii, inputShapeCornerRadii)
+            dialogInput.background = inputShape
+            dialogInput.setPadding(inputShapePadding, inputShapePadding, inputShapePadding, inputShapePadding)
+            dialogInput.setTextColor(textColor)
+        }
+    }
 
     fun showInfo(
         title: String,
@@ -110,15 +134,7 @@ class YantraLauncherDialog(val context: Context) {
             dialogNegativeButton.visibility = MaterialButton.GONE
         }
 
-        dialogContainer.backgroundTintList = ColorStateList.valueOf(Color.HSVToColor(dialogBorderColor))
-        dialogBodyContainer.backgroundTintList = ColorStateList.valueOf(Color.HSVToColor(dialogBgColor))
-        dialogTitle.setTextColor(textColor)
-        dialogBody.setTextColor(bodyTextColor)
-        dialogPositiveButton.backgroundTintList = ColorStateList.valueOf(positiveColor)
-        dialogNegativeButton.backgroundTintList = ColorStateList.valueOf(negativeColor)
-        closeButton.imageTintList = ColorStateList.valueOf(negativeColor)
-        dialogPositiveButton.setTextColor(Color.HSVToColor(dialogBgColor))
-        dialogNegativeButton.setTextColor(Color.HSVToColor(dialogBgColor))
+        applyColorScheme(dialogContainer, dialogBodyContainer, dialogTitle, dialogBody, dialogPositiveButton, dialogNegativeButton, closeButton)
 
         dialog.setCancelable(cancellable)
         dialog.show()
@@ -191,27 +207,87 @@ class YantraLauncherDialog(val context: Context) {
             dialogNegativeButton.visibility = MaterialButton.GONE
         }
 
-        val inputShape = GradientDrawable()
-        inputShape.shape = GradientDrawable.RECTANGLE
-        inputShape.setColor(Color.HSVToColor(dialogBgColor))
-        inputShape.setStroke(dpToPx(1, context), textColor)
-        val inputShapeCornerRadii = dpToPx(25, context).toFloat()
-        val inputShapePadding = dpToPx(10, context)
-        inputShape.cornerRadii = floatArrayOf(inputShapeCornerRadii, inputShapeCornerRadii, inputShapeCornerRadii, inputShapeCornerRadii, inputShapeCornerRadii, inputShapeCornerRadii, inputShapeCornerRadii, inputShapeCornerRadii)
+        applyColorScheme(dialogContainer, dialogBodyContainer, dialogTitle, dialogBody, dialogPositiveButton, dialogNegativeButton, closeButton)
 
-        dialogContainer.backgroundTintList = ColorStateList.valueOf(Color.HSVToColor(dialogBorderColor))
-        dialogBodyContainer.backgroundTintList = ColorStateList.valueOf(Color.HSVToColor(dialogBgColor))
-        dialogTitle.setTextColor(textColor)
-        dialogBody.setTextColor(bodyTextColor)
-        dialogInput.background = inputShape
-        dialogInput.setPadding(inputShapePadding, inputShapePadding, inputShapePadding, inputShapePadding)
-        dialogInput.setTextColor(textColor)
+        dialog.setCancelable(cancellable)
+        dialog.show()
+    }
 
-        dialogPositiveButton.backgroundTintList = ColorStateList.valueOf(positiveColor)
-        dialogNegativeButton.backgroundTintList = ColorStateList.valueOf(negativeColor)
-        closeButton.imageTintList = ColorStateList.valueOf(negativeColor)
-        dialogPositiveButton.setTextColor(Color.HSVToColor(dialogBgColor))
-        dialogNegativeButton.setTextColor(Color.HSVToColor(dialogBgColor))
+    fun selectItem(
+        title: String,
+        items: Array<String>,
+        cancellable: Boolean = true,
+        clickAction: (Int) -> Unit = {},
+        positiveButton: String,
+        negativeButton: String = "",
+        positiveAction: () -> Unit = {},
+        negativeAction: () -> Unit = {},
+        dismissAction: () -> Unit = {}
+    ) {
+        // Show dialog with the given title, items and perform the action when an item is selected
+
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.yantra_launcher_dialog_container)
+
+        val width = (context.resources.displayMetrics.widthPixels * 0.90).toInt()
+        val height = (context.resources.displayMetrics.heightPixels * 0.90).toInt()
+
+        dialog.window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+        dialog.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        val dialogContainer: ConstraintLayout = dialog.findViewById(R.id.dialogContainer)
+        val dialogTitle: TextView = dialog.findViewById(R.id.titleText)
+        val dialogBodyContainer = dialog.findViewById<ViewGroup>(R.id.bodyContainer)
+        val dialogBody: TextView = dialog.findViewById(R.id.bodyText)
+        val dialogScrollView: ScrollView = dialog.findViewById(R.id.scrollView)
+        val dialogItemsParent: LinearLayout = dialog.findViewById(R.id.itemsParent)
+        val dialogInput: EditText = dialog.findViewById(R.id.input)
+        val dialogPositiveButton: MaterialButton = dialog.findViewById(R.id.positiveButton)
+        val dialogNegativeButton: MaterialButton = dialog.findViewById(R.id.negativeButton)
+        val closeButton: ImageButton = dialog.findViewById(R.id.closeButton)
+
+        dialogTitle.text = title
+        dialogBody.visibility = TextView.GONE
+        dialogScrollView.visibility = ScrollView.VISIBLE
+        dialogItemsParent.removeAllViews()
+        items.forEachIndexed { index, item ->
+            val itemTextView = TextView(context)
+            itemTextView.text = item
+            itemTextView.setTextColor(textColor)
+            itemTextView.setPadding(dpToPx(10, context), dpToPx(10, context), dpToPx(10, context), dpToPx(10, context))
+            itemTextView.setOnClickListener {
+                clickAction(index)
+                dialog.dismiss()
+            }
+            dialogItemsParent.addView(itemTextView)
+        }
+        dialogPositiveButton.text = positiveButton
+        dialogNegativeButton.text = negativeButton
+
+        dialogPositiveButton.setOnClickListener {
+            positiveAction()
+            dialog.dismiss()
+        }
+        dialogNegativeButton.setOnClickListener {
+            negativeAction()
+            dialog.dismiss()
+        }
+        closeButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.setOnDismissListener {
+            dismissAction()
+        }
+
+        if (positiveButton.isEmpty()) {
+            dialogPositiveButton.visibility = MaterialButton.GONE
+        }
+        if (negativeButton.isEmpty()) {
+            dialogNegativeButton.visibility = MaterialButton.GONE
+        }
+
+        applyColorScheme(dialogContainer, dialogBodyContainer, dialogTitle, dialogBody, dialogPositiveButton, dialogNegativeButton, closeButton)
 
         dialog.setCancelable(cancellable)
         dialog.show()
