@@ -36,10 +36,6 @@ import com.coderGtm.yantra.terminal.Terminal
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.UpdateAvailability
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import org.json.JSONArray
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -160,24 +156,24 @@ fun contactsManager(terminal: Terminal, callingIntent: Boolean = false, callTo: 
                         negativeButton = terminal.activity.getString(R.string.cancel),
                         positiveAction = {
                             val candidatesArray = callingCandidates.toTypedArray()
-                            val dialog2 = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                                .setTitle(terminal.activity.getString(R.string.select_phone_number))
-                                .setCancelable(false)
-                                .setItems(candidatesArray) { dialogInterface2, i ->
-                                    terminal.output(terminal.activity.getString(R.string.calling, callTo), terminal.theme.successTextColor, null)
-                                    val intent = Intent(
-                                        Intent.ACTION_CALL,
-                                        Uri.parse("tel:${Uri.encode(candidatesArray[i])}")
-                                    )
-                                    terminal.activity.startActivity(intent)
-                                    dialogInterface2.dismiss()
-                                }
-                                .setNegativeButton(terminal.activity.getString(R.string.cancel)) { dialogInterface2, _ ->
-                                    terminal.output(terminal.activity.getString(R.string.cancelled), terminal.theme.errorTextColor, null)
-                                    dialogInterface2.dismiss()
-                                }
                             if (!terminal.activity.isFinishing) {
-                                terminal.activity.runOnUiThread { dialog2.show() }
+                                YantraLauncherDialog(terminal.activity).selectItem(
+                                    title = terminal.activity.getString(R.string.select_phone_number),
+                                    cancellable = false,
+                                    items = candidatesArray,
+                                    negativeButton = terminal.activity.getString(R.string.cancel),
+                                    clickAction = { i ->
+                                        terminal.output(terminal.activity.getString(R.string.calling, callTo), terminal.theme.successTextColor, null)
+                                        val intent = Intent(
+                                            Intent.ACTION_CALL,
+                                            Uri.parse("tel:${Uri.encode(candidatesArray[i])}")
+                                        )
+                                        terminal.activity.startActivity(intent)
+                                    },
+                                    negativeAction = {
+                                        terminal.output(terminal.activity.getString(R.string.cancelled), terminal.theme.errorTextColor, null)
+                                    }
+                                )
                             }
                         },
                         negativeAction = {

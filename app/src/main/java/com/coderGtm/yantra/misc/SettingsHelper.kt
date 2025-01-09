@@ -294,11 +294,12 @@ fun openArrowSizeSetter(activity: Activity, binding: ActivitySettingsBinding, pr
 }
 
 fun openOrientationSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceEditObject: SharedPreferences.Editor) {
-    MaterialAlertDialogBuilder(activity)
-        .setTitle(activity.getString(R.string.orientation))
-        .setItems(arrayOf(activity.getString(R.string.portrait),
+    YantraLauncherDialog(activity).selectItem(
+        title = activity.getString(R.string.orientation),
+        items = arrayOf(activity.getString(R.string.portrait),
             activity.getString(R.string.landscape),
-            activity.getString(R.string.system), activity.getString(R.string.full_sensor))) { dialog, which ->
+            activity.getString(R.string.system), activity.getString(R.string.full_sensor)),
+        clickAction = { which ->
             when (which) {
                 0 -> {
                     preferenceEditObject.putInt(
@@ -336,14 +337,15 @@ fun openOrientationSetter(activity: Activity, binding: ActivitySettingsBinding, 
                 activity.getString(R.string.orientation_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
-        .show()
+    )
 }
 
 fun openAppSugOrderingSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceEditObject: SharedPreferences.Editor) {
-    MaterialAlertDialogBuilder(activity)
-        .setTitle(activity.getString(R.string.app_suggestions_order))
-        .setItems(arrayOf(activity.getString(R.string.alphabetically),
-            activity.getString(R.string.recency))) { dialog, which ->
+    YantraLauncherDialog(activity).selectItem(
+        title = activity.getString(R.string.app_suggestions_order),
+        items = arrayOf(activity.getString(R.string.alphabetically),
+            activity.getString(R.string.recency)),
+        clickAction = { which ->
             when (which) {
                 0 -> {
                     preferenceEditObject.putInt("appSortMode", AppSortMode.A_TO_Z.value).apply()
@@ -358,7 +360,7 @@ fun openAppSugOrderingSetter(activity: Activity, binding: ActivitySettingsBindin
                 activity.getString(R.string.app_suggestions_ordering_updated), Toast.LENGTH_SHORT).show()
             changedSettingsCallback(activity)
         }
-        .show()
+    )
 }
 
 fun openSysinfoArtSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {

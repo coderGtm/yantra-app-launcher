@@ -7,7 +7,6 @@ import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -25,10 +24,11 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         // for user-defined scripts
         output(terminal.activity.getString(R.string.opening_yantra_scripts))
         val scripts = getScripts(terminal.preferenceObject)
-        val scriptsMainDialog = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-            .setTitle(terminal.activity.getString(R.string.yantra_scripts))
-        if (scripts.isNotEmpty()) {
-            scriptsMainDialog.setItems(scripts.toTypedArray()) { _, which ->
+        YantraLauncherDialog(terminal.activity).selectItem(
+            title = terminal.activity.getString(R.string.yantra_scripts),
+            items = scripts.toTypedArray(),
+            emptyMessage = terminal.activity.getString(R.string.no_scripts_found),
+            clickAction = { which ->
                 val scriptName = scripts.elementAt(which)
                 YantraLauncherDialog(terminal.activity).takeInput(
                     title = scriptName,
@@ -50,40 +50,35 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                         output(terminal.activity.getString(R.string.script_deleted, scriptName),terminal.theme.successTextColor)
                     }
                 )
+            },
+            positiveButton = terminal.activity.getString(R.string.add),
+            negativeButton = terminal.activity.getString(R.string.cancel),
+            positiveAction = {
+                YantraLauncherDialog(terminal.activity).takeInput(
+                    title = terminal.activity.getString(R.string.new_script),
+                    message = terminal.activity.getString(R.string.enter_script_name),
+                    cancellable = false,
+                    positiveButton = terminal.activity.getString(R.string.create),
+                    negativeButton = terminal.activity.getString(R.string.cancel),
+                    positiveAction = {
+                        val name = it.trim()
+                        if (name.contains(";") || name == "") {
+                            output(terminal.activity.getString(R.string.script_name_validation), terminal.theme.errorTextColor)
+                        }
+                        else if (!name[0].isLetter() || name.contains(' ')) {
+                            output(terminal.activity.getString(R.string.script_name_another_validation),terminal.theme.errorTextColor)
+                        }
+                        else if (scripts.contains(name)) {
+                            output(terminal.activity.getString(R.string.name_already_taken),terminal.theme.warningTextColor)
+                        }
+                        else {
+                            scripts.add(name)
+                            terminal.preferenceObject.edit().putString("scripts",scripts.joinToString(";")).apply()
+                            output(terminal.activity.getString(R.string.script_created, name),terminal.theme.successTextColor)
+                        }
+                    }
+                )
             }
-        }
-        else {
-            scriptsMainDialog.setMessage(terminal.activity.getString(R.string.no_scripts_found))
-        }
-        scriptsMainDialog.setPositiveButton(terminal.activity.getString(R.string.add)) { _, _ ->
-            YantraLauncherDialog(terminal.activity).takeInput(
-                title = terminal.activity.getString(R.string.new_script),
-                message = terminal.activity.getString(R.string.enter_script_name),
-                cancellable = false,
-                positiveButton = terminal.activity.getString(R.string.create),
-                negativeButton = terminal.activity.getString(R.string.cancel),
-                positiveAction = {
-                    val name = it.trim()
-                    if (name.contains(";") || name == "") {
-                        output(terminal.activity.getString(R.string.script_name_validation), terminal.theme.errorTextColor)
-                    }
-                    else if (!name[0].isLetter() || name.contains(' ')) {
-                        output(terminal.activity.getString(R.string.script_name_another_validation),terminal.theme.errorTextColor)
-                    }
-                    else if (scripts.contains(name)) {
-                        output(terminal.activity.getString(R.string.name_already_taken),terminal.theme.warningTextColor)
-                    }
-                    else {
-                        scripts.add(name)
-                        terminal.preferenceObject.edit().putString("scripts",scripts.joinToString(";")).apply()
-                        output(terminal.activity.getString(R.string.script_created, name),terminal.theme.successTextColor)
-                    }
-                }
-            )
-        }
-            .setNeutralButton(terminal.activity.getString(R.string.cancel)) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
+        )
     }
 }

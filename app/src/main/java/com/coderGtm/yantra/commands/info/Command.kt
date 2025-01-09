@@ -7,7 +7,6 @@ import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -85,13 +84,16 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                                 }
                             }
                         }
-                        val b2 = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                            .setTitle(terminal.activity.getString(R.string.select_package_name))
-                            .setItems(items.toTypedArray()) { _, which ->
-                                output(terminal.activity.getString(R.string.launching_settings_for, candidates[which].appName, candidates[which].packageName), terminal.theme.successTextColor)
-                                launchAppInfo(this@Command, candidates[which])
-                            }
-                        terminal.activity.runOnUiThread { b2.show() }
+                        terminal.activity.runOnUiThread {
+                            YantraLauncherDialog(terminal.activity).selectItem(
+                                title = terminal.activity.getString(R.string.select_package_name),
+                                items = items.toTypedArray(),
+                                clickAction = { which ->
+                                    output(terminal.activity.getString(R.string.launching_settings_for, candidates[which].appName, candidates[which].packageName), terminal.theme.successTextColor)
+                                    launchAppInfo(this@Command, candidates[which])
+                                }
+                            )
+                        }
                     }
                 )
             }

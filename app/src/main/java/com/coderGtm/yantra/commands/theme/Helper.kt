@@ -47,8 +47,10 @@ fun openCustomThemeDesigner(terminal: Terminal) {
         imgBtn?.setImageDrawable(ColorDrawable(Color.parseColor(customThemeColors[i])))
         imgBtn?.tag = customThemeColors[i]
         imgBtn?.setOnClickListener {
-            MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                .setItems(arrayOf(terminal.activity.getString(R.string.color_picker), terminal.activity.getString(R.string.hex_code))) { _, which ->
+            YantraLauncherDialog(terminal.activity).selectItem(
+                title = terminal.activity.getString(R.string.select_color),
+                items = arrayOf(terminal.activity.getString(R.string.color_picker), terminal.activity.getString(R.string.hex_code)),
+                clickAction = { which ->
                     when (which) {
                         0 -> {
                             val colorDialogBuilder = ColorPickerDialog.Builder(terminal.activity, R.style.Theme_AlertDialog)
@@ -94,7 +96,7 @@ fun openCustomThemeDesigner(terminal: Terminal) {
                         }
                     }
                 }
-                .show()
+            )
         }
         i++
     }

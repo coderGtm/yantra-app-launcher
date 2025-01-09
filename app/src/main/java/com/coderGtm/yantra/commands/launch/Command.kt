@@ -9,7 +9,6 @@ import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.models.ShortcutBlock
 import com.coderGtm.yantra.terminal.Terminal
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -77,14 +76,15 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                         for (candidate in candidates) {
                             items.add(candidate.packageName)
                         }
-                        MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                            .setTitle(terminal.activity.getString(R.string.select_package_name))
-                            .setItems(items.toTypedArray()) { _, which ->
+                        YantraLauncherDialog(terminal.activity).selectItem(
+                            title = terminal.activity.getString(R.string.select_package_name),
+                            items = items.toTypedArray(),
+                            clickAction = { which ->
                                 shortcut = candidates[which]
                                 output(terminal.activity.getString(R.string.launching_app, shortcut!!.label, shortcut!!.packageName), terminal.theme.successTextColor)
                                 launchShortcut(this@Command, shortcut!!)
                             }
-                            .show()
+                        )
                     }
                 )
                 return
@@ -145,9 +145,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                             }
                         }
                     }
-                    MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
-                        .setTitle(terminal.activity.getString(R.string.select_package_name))
-                        .setItems(items.toTypedArray()) { _, which ->
+                    YantraLauncherDialog(terminal.activity).selectItem(
+                        title = terminal.activity.getString(R.string.select_package_name),
+                        items = items.toTypedArray(),
+                        clickAction = { which ->
                             output(terminal.activity.getString(R.string.launching_app, candidates[which].appName, candidates[which].packageName), terminal.theme.successTextColor)
                             launchApp(this@Command, candidates[which])
                             if (terminal.preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value) == AppSortMode.RECENT.value) {
@@ -155,7 +156,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                                 terminal.appList.add(0, candidates[which])
                             }
                         }
-                        .show()
+                    )
                 }
             )
         }

@@ -287,12 +287,13 @@ class SettingsActivity : AppCompatActivity() {
                 message = getString(R.string.language_change_disclaimer),
                 positiveButton = getString(R.string.i_understand),
                 positiveAction = {
-                    MaterialAlertDialogBuilder(this)
-                        .setTitle(getString(R.string.select_a_language))
-                        .setItems(keys) { _, which ->
+                    YantraLauncherDialog(this).selectItem(
+                        title = getString(R.string.select_a_language),
+                        items = keys,
+                        clickAction = { which ->
                             downloadLanguage(values[which])
                         }
-                        .show()
+                    )
                 }
             )
         }
@@ -510,36 +511,42 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun openSoundEffectsList() {
-        MaterialAlertDialogBuilder(this@SettingsActivity)
-            .setTitle(getString(R.string.manage_sound_effects))
-            .setItems(getSoundEffects(this@SettingsActivity).toTypedArray()) { dialog, which ->
-                val sound = getSoundEffects(this@SettingsActivity)[which]
-                MaterialAlertDialogBuilder(this@SettingsActivity)
-                    .setTitle(sound)
-                    .setMessage(getString(R.string.delete_sound_effect))
-                    .setPositiveButton(getString(R.string.delete)) { _, _ ->
+        val effects = getSoundEffects(this@SettingsActivity)
+        YantraLauncherDialog(this@SettingsActivity).selectItem(
+            title = getString(R.string.manage_sound_effects),
+            items = effects.toTypedArray(),
+            emptyMessage = getString(R.string.no_sound_effects_found),
+            clickAction = { which ->
+                val sound = effects[which]
+                YantraLauncherDialog(this@SettingsActivity).showInfo(
+                    title = sound,
+                    message = getString(R.string.delete_sound_effect),
+                    positiveButton = getString(R.string.delete),
+                    positiveAction = {
                         val files = listOf("$sound.mp3", "$sound.wav", "$sound.ogg")
                         filesDir.listFiles()?.find { it.name in files }?.delete()
-                    }
-                    .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
-                    .show()
-            }
-            .setPositiveButton(getString(R.string.add)) { _, _ ->
-                MaterialAlertDialogBuilder(this@SettingsActivity)
-                    .setTitle(getString(R.string.add_sound_effect))
-                    .setMessage(getString(R.string.add_sfx_desc))
-                    .setPositiveButton(getString(R.string.add)) { _, _ ->
+                    },
+                    negativeButton = getString(R.string.cancel)
+                )
+            },
+            positiveButton = getString(R.string.add),
+            positiveAction = {
+                YantraLauncherDialog(this@SettingsActivity).showInfo(
+                    title = getString(R.string.add_sound_effect),
+                    message = getString(R.string.add_sfx_desc),
+                    positiveButton = getString(R.string.add),
+                    positiveAction = {
                         selectSfxLauncher.launch(
                             Intent.createChooser(Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
                                 addCategory(Intent.CATEGORY_OPENABLE)
                                 type = "audio/*"
                             }, getString(R.string.select_sfx_file))
                         )
-                    }
-                    .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
-                    .show()
-            }
-            .show()
+                    },
+                )
+            },
+            negativeButton = getString(R.string.cancel)
+        )
     }
 
     private fun hideProForNonProUsers() {
