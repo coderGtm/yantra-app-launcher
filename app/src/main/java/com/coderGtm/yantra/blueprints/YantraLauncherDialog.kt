@@ -207,7 +207,7 @@ class YantraLauncherDialog(val context: Context) {
             dialogNegativeButton.visibility = MaterialButton.GONE
         }
 
-        applyColorScheme(dialogContainer, dialogBodyContainer, dialogTitle, dialogBody, dialogPositiveButton, dialogNegativeButton, closeButton)
+        applyColorScheme(dialogContainer, dialogBodyContainer, dialogTitle, dialogBody, dialogPositiveButton, dialogNegativeButton, closeButton, dialogInput)
 
         dialog.setCancelable(cancellable)
         dialog.show()
@@ -218,7 +218,7 @@ class YantraLauncherDialog(val context: Context) {
         items: Array<String>,
         cancellable: Boolean = true,
         clickAction: (Int) -> Unit = {},
-        positiveButton: String,
+        positiveButton: String = "",
         negativeButton: String = "",
         positiveAction: () -> Unit = {},
         negativeAction: () -> Unit = {},
@@ -249,6 +249,7 @@ class YantraLauncherDialog(val context: Context) {
 
         dialogTitle.text = title
         dialogBody.visibility = TextView.GONE
+        dialogInput.visibility = EditText.GONE
         dialogScrollView.visibility = ScrollView.VISIBLE
         dialogItemsParent.removeAllViews()
         items.forEachIndexed { index, item ->
