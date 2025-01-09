@@ -575,4 +575,5 @@
     <string name="command_takes_at_least_1_parameter_0_provided">"'%1$s' command takes at least 1 parameter. 0 provided! "</string>
     <string name="terminal_text_color_reset">Terminal text color reset to theme.</string>
     <string name="terminal_text_color_set_to">Terminal text color set to #%1$s</string>
+    <string name="no_sound_effects_found">No custom sound effects found!</string>
 </resources>

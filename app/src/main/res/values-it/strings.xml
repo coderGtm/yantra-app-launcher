@@ -575,4 +575,5 @@
     <string name="command_takes_at_least_1_parameter_0_provided">"'%1$s' il comando prende almeno 1 parametro. ne sono stati forniti 0! "</string>
     <string name="terminal_text_color_reset">Il colore del testo del terminale è stato reimpostato al tema.</string>
     <string name="terminal_text_color_set_to">Il colore del testo del terminale è stato impostato a #%1$s</string>
+    <string name="no_sound_effects_found">No custom sound effects found!</string>
 </resources>
