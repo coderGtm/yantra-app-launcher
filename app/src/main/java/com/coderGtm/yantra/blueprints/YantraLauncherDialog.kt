@@ -15,6 +15,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
@@ -216,6 +217,7 @@ class YantraLauncherDialog(val context: Context) {
     fun selectItem(
         title: String,
         items: Array<String>,
+        emptyMessage: String = "",
         cancellable: Boolean = true,
         clickAction: (Int) -> Unit = {},
         positiveButton: String = "",
@@ -248,15 +250,20 @@ class YantraLauncherDialog(val context: Context) {
         val closeButton: ImageButton = dialog.findViewById(R.id.closeButton)
 
         dialogTitle.text = title
-        dialogBody.visibility = TextView.GONE
         dialogInput.visibility = EditText.GONE
-        dialogScrollView.visibility = ScrollView.VISIBLE
+        dialogBody.text = emptyMessage
+        if (items.isNotEmpty()) {
+            dialogBody.visibility = TextView.GONE
+            dialogScrollView.visibility = ScrollView.VISIBLE
+        }
         dialogItemsParent.removeAllViews()
         items.forEachIndexed { index, item ->
             val itemTextView = TextView(context)
             itemTextView.text = item
-            itemTextView.setTextColor(textColor)
-            itemTextView.setPadding(dpToPx(10, context), dpToPx(10, context), dpToPx(10, context), dpToPx(10, context))
+            itemTextView.typeface = ResourcesCompat.getFont(context, R.font.sanchez)
+            itemTextView.setTextColor(bodyTextColor)
+            itemTextView.textSize = dpToPx(8, context).toFloat()
+            itemTextView.setPadding(dpToPx(8, context), dpToPx(8, context), dpToPx(8, context), dpToPx(8, context))
             itemTextView.setOnClickListener {
                 clickAction(index)
                 dialog.dismiss()
