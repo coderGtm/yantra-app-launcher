@@ -23,6 +23,7 @@ nav:
         - web: commands/web.md
         - tts: commands/tts.md
         - bored: commands/bored.md
+        - text: commands/text.md
         - reset: commands/reset.md
         - exit: commands/exit.md
     - Frequently Asked Questions: faq.md
