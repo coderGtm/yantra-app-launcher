@@ -29,7 +29,7 @@
             android:id="@+id/closeButton"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:background="@null"
+            android:background="@drawable/exit_button_bg"
             android:scaleType="fitXY"
             android:src="@drawable/ic_close"
             app:layout_constraintEnd_toEndOf="parent"
