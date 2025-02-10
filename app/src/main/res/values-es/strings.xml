@@ -576,4 +576,5 @@
     <string name="terminal_text_color_reset">Reiniciar color del tema del texto de la terminal.</string>
     <string name="terminal_text_color_set_to"> Color del texto de la terminal establecido a #%1$s</string>
     <string name="no_sound_effects_found">No se encontraron efectos de sonido personalizados!</string>
+    <string name="edit_note">Edit Note (%1$s)</string>
 </resources>

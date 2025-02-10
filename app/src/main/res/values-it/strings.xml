@@ -576,4 +576,5 @@
     <string name="terminal_text_color_reset">Il colore del testo del terminale è stato reimpostato al tema.</string>
     <string name="terminal_text_color_set_to">Il colore del testo del terminale è stato impostato a #%1$s</string>
     <string name="no_sound_effects_found">Nessun suono personalizzato è stato trovato!</string>
+    <string name="edit_note">Edit Note (%1$s)</string>
 </resources>
