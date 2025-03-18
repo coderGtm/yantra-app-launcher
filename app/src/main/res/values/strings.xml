@@ -562,7 +562,7 @@
     <string name="playing_sound_effect">Playing sound effect: %1$s...</string>
     <string name="sfx_not_found">The specified sound effect (\'%1$s\') is not found. Add it to the internal storage of the app via \'settings\'.</string>
     <string name="cmd_notepad_title"><![CDATA[notepad [list / new <name> / read <name> / delete <name>]]]></string>
-    <string name="cmd_notepad_help"><![CDATA[A simple in-app notepad to take quick notes on the go. Use the `notepad list` command to view all your notes. To create a new note, type `notepad new <note_name>`. To read an existing note, use `notepad read <note_name>`. If you want to delete a note, use the `notepad delete <note_name>` command.]]></string>
+    <string name="cmd_notepad_help"><![CDATA[A simple in-app notepad to take quick notes on the go. Use the `notepad list` command to view all your notes. To create a new note, type `notepad new <note_name>`. To read an existing note, use `notepad read <note_name>` and to edit a note, use the `notepad edit <note_name>` command. If you want to delete a note, use the `notepad delete <note_name>` command.]]></string>
     <string name="no_notes_found">No notes found...</string>
     <string name="notepad">Notepad:</string>
     <string name="note_exists">A note by this name already exists! Please use a different name.</string>
@@ -576,4 +576,5 @@
     <string name="terminal_text_color_reset">Terminal text color reset to theme.</string>
     <string name="terminal_text_color_set_to">Terminal text color set to #%1$s</string>
     <string name="no_sound_effects_found">No custom sound effects found!</string>
+    <string name="edit_note">Edit Note (%1$s)</string>
 </resources>

@@ -75,6 +75,26 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 }
                 return
             }
+            if (action == "edit") {
+                if (notes.contains(name)) {
+                    YantraLauncherDialog(terminal.activity).takeInput(
+                        title = terminal.activity.getString(R.string.edit_note, name),
+                        message = terminal.activity.getString(R.string.enter_note_content),
+                        cancellable = false,
+                        inputType = InputType.TYPE_TEXT_FLAG_MULTI_LINE,
+                        initialInput = terminal.preferenceObject.getString("notepad_note_${name}", "") ?: "",
+                        positiveButton = terminal.activity.getString(R.string.save),
+                        positiveAction = {
+                            val note_text = it.trim()
+                            terminal.preferenceObject.edit().putString("notepad_note_${name}", note_text).apply()
+                            output(terminal.activity.getString(R.string.note_saved_to_notepad, name), terminal.theme.successTextColor)
+                        }
+                    )
+                } else {
+                    output(terminal.activity.getString(R.string.no_note_fond_by_the_name, name), terminal.theme.errorTextColor)
+                }
+                return
+            }
             if (action == "delete") {
                 if (notes.contains(name)) {
                     terminal.preferenceObject.edit().remove("notepad_note_${name}").apply()
