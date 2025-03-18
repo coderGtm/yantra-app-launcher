@@ -18,6 +18,7 @@
     <string name="change_news_website">Змінити сайт новин</string>
     <string name="terminal_font_size">Розмір шрифту терміналу</string>
     <string name="arrow_keys_size">Розмір клавіш зі стрілками</string>
+    <string name="suggestion_font_size">"Розмір шрифту пропозиції"</string>
     <string name="orientation">Орієнтація терміналу</string>
     <string name="app_suggestions_order">Пропозиції порятку додатків</string>
     <string name="terminal_font">Шрифт термінлу</string>

@@ -18,6 +18,7 @@
     <string name="change_news_website">Cambiar sitio web de noticias</string>
     <string name="terminal_font_size">Tamaño de fuente de la terminal</string>
     <string name="arrow_keys_size">Tamaño de las teclas de flechas</string>
+    <string name="suggestion_font_size">"Tamaño de fuente de sugerencia"</string>
     <string name="orientation">Orientación de la terminal</string>
     <string name="app_suggestions_order">Orden de sugerencias de aplicaciones</string>
     <string name="terminal_font">Fuente de la terminal </string>

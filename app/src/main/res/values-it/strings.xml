@@ -17,6 +17,7 @@
     <string name="change_left_swipe_command">Modifica il Comando di Swipe a Sinistra</string>
     <string name="change_news_website">Modifica il Sito Web delle Notizie</string>
     <string name="terminal_font_size">Dimensione del Font del Terminale</string>
+    <string name="suggestion_font_size">"Dimensione carattere suggerimento"</string>
     <string name="arrow_keys_size">Dimensione dei Tasti Freccia</string>
     <string name="orientation">Orientamento</string>
     <string name="app_suggestions_order">Ordine delle App Suggerite</string>

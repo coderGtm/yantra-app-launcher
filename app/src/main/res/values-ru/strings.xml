@@ -18,6 +18,7 @@
     <string name="change_news_website">Изменить новостной сайт</string>
     <string name="terminal_font_size">Размер шрифта в терминале</string>
     <string name="arrow_keys_size">Размер стрелок</string>
+    <string name="suggestion_font_size">"Рекомендуемый размер шрифта"</string>
     <string name="orientation">Ориентация терминала</string>
     <string name="app_suggestions_order">Порядок предложений приложений</string>
     <string name="terminal_font">Шрифт терминала</string>
