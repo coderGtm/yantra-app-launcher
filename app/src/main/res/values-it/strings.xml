@@ -17,6 +17,7 @@
     <string name="change_left_swipe_command">Modifica il Comando di Swipe a Sinistra</string>
     <string name="change_news_website">Modifica il Sito Web delle Notizie</string>
     <string name="terminal_font_size">Dimensione del Font del Terminale</string>
+    <string name="suggestion_font_size">"Dimensione carattere suggerimento"</string>
     <string name="arrow_keys_size">Dimensione dei Tasti Freccia</string>
     <string name="orientation">Orientamento</string>
     <string name="app_suggestions_order">Ordine delle App Suggerite</string>
@@ -45,6 +46,9 @@
     <string name="arrow_size_description">Inserisci una dimensione per i Tasti Freccia del terminale:</string>
     <string name="invalid_arrow_size">Dimensione Tasti Freccia non valida!</string>
     <string name="arrow_size_updated">Dimensione Tasti Freccia aggiornata!</string>
+    <string name="suggestion_font_size_description">Enter a font size for suggestions:</string>
+    <string name="invalid_suggestion_font_size">Invalid font size!</string>
+    <string name="suggestion_font_size_updated">Font size updated!</string>
     <string name="portrait">Verticale</string>
     <string name="landscape">Orizzontale</string>
     <string name="system">Sistema</string>

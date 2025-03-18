@@ -293,6 +293,28 @@ fun openArrowSizeSetter(activity: Activity, binding: ActivitySettingsBinding, pr
     )
 }
 
+fun openSuggestionFontSizeSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+    val fontSizeDialog = YantraLauncherDialog(activity)
+    fontSizeDialog.takeInput(
+        title = activity.getString(R.string.suggestion_font_size),
+        message = activity.getString(R.string.suggestion_font_size_description),
+        initialInput = preferenceObject.getInt("suggestionFontSize",18).toString(),
+        inputType = InputType.TYPE_CLASS_NUMBER,
+        positiveButton = activity.getString(R.string.save),
+        positiveAction = {
+            val size = it
+            if (size.toIntOrNull() == null || size.toInt() <= 0 ) {
+                toast(activity, activity.getString(R.string.invalid_suggestion_font_size))
+                return@takeInput
+            }
+            preferenceEditObject.putInt("suggestionFontSize",size.toInt()).apply()
+            binding.suggestionFontSizeBtn.text = size
+            toast(activity, activity.getString(R.string.suggestion_font_size_updated))
+            changedSettingsCallback(activity)
+        },
+    )
+}
+
 fun openOrientationSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceEditObject: SharedPreferences.Editor) {
     YantraLauncherDialog(activity).selectItem(
         title = activity.getString(R.string.orientation),
