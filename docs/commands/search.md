@@ -18,16 +18,17 @@ search -e=<engine_name> -u=<URL>
 
     **Available Search Engines**:
 
-    - `google` 
-    - `duckduckgo` 
-    - `brave` 
-    - `bing` 
-    - `yahoo` 
-    - `ecosia` 
-    - `startpage` 
-    - `qwant` 
-    - `you` 
+    - `google`
+    - `duckduckgo`
+    - `brave`
+    - `bing`
+    - `yahoo`
+    - `ecosia`
+    - `startpage`
+    - `qwant`
+    - `you`
     - `playstore`
+    - `maps`
 === "`-u` (url)"
     If your favorite search engine is not listed for `-e` flag, you can use this flag
     to provide a custom search engine to use.
@@ -39,7 +40,7 @@ search -e=<engine_name> -u=<URL>
         - `-u=https://example.com/search?q=`
 
     !!! info
-        Queries are URL-encoded before substitution. 
+        Queries are URL-encoded before substitution.
 
 ## Examples
 

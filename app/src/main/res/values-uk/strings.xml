@@ -580,4 +580,5 @@
     <string name="terminal_text_color_reset">Terminal text color reset to theme.</string>
     <string name="terminal_text_color_set_to">Terminal text color set to #%1$s</string>
     <string name="no_sound_effects_found">No custom sound effects found!</string>
+    <string name="edit_note">Edit Note (%1$s)</string>
 </resources>

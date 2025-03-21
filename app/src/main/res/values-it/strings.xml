@@ -566,7 +566,7 @@
     <string name="playing_sound_effect">Riproduzione degli effetti sonori: %1$s...</string>
     <string name="sfx_not_found">Effetto sonoro dell\'app specifica  (\'%1$s\') non è stato trovato. Aggiungilo dalla memoria interna dell\'app dalle \'impostazioni\'.</string>
     <string name="cmd_notepad_title"><![CDATA[notepad [list / new <nome> / read <nome> / delete <nome>]]]></string>
-    <string name="cmd_notepad_help"><![CDATA[Un semplice blocco note in-app per prendere appunti al volo. Usa il comando `notepad list` per visualizzare tutte le tue note. Per creare una nuova nota, digita `notepad new <nome_nota>`. Per leggere una nota esistente, usa il comando `notepad read <nome_nota>`. Se vuoi eliminare una nota, usa il comando `notepad delete <nome_nota>`.]]></string>
+    <string name="cmd_notepad_help"><![CDATA[Un semplice blocco note in-app per prendere appunti al volo. Usa il comando `notepad list` per visualizzare tutte le tue note. Per creare una nuova nota, digita `notepad new <nome_nota>`. Per leggere una nota esistente, usa il comando `notepad read <nome_nota>`, e per modificare una nota, usa il comando `notepad edit <nome_nota>`. Se vuoi eliminare una nota, usa il comando `notepad delete <nome_nota>`.]]></string>
     <string name="no_notes_found">Nessuna nota trovata...</string>
     <string name="notepad">Blocco note:</string>
     <string name="note_exists">Una nota con questo nome esiste già! Perfavore, usa un nome diverso.</string>
@@ -580,4 +580,5 @@
     <string name="terminal_text_color_reset">Il colore del testo del terminale è stato reimpostato al tema.</string>
     <string name="terminal_text_color_set_to">Il colore del testo del terminale è stato impostato a #%1$s</string>
     <string name="no_sound_effects_found">Nessun suono personalizzato è stato trovato!</string>
+    <string name="edit_note">Modifica la nota (%1$s)</string>
 </resources>

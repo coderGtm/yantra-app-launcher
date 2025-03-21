@@ -580,4 +580,5 @@
     <string name="terminal_text_color_reset">Цвет текста терминала сброшен до темы.</string>
     <string name="terminal_text_color_set_to">Цвет текста треминала был изменён на #%1$s</string>
     <string name="no_sound_effects_found">Пользовательские звуковые эффекты не найдены!</string>
+    <string name="edit_note">Edit Note (%1$s)</string>
 </resources>

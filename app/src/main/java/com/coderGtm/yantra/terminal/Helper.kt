@@ -333,7 +333,7 @@ fun showSuggestions(
                     overrideLastWord = true
                 }
                 val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val notepadArgs = listOf("list","read","new","delete")
+                val notepadArgs = listOf("list","read","new","edit","delete")
                 for (arg in notepadArgs) {
                     if (regex.containsMatchIn(arg)) {
                         suggestions.add(arg)
