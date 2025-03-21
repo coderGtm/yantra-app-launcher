@@ -32,7 +32,7 @@ fun showSuggestions(
     rawInput: String,
     getPrimarySuggestions: Boolean,
     getSecondarySuggestions: Boolean,
-    terminal: Terminal,
+    terminal: Terminal
 ) {
     Thread {
         terminal.activity.runOnUiThread {
