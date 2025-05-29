@@ -33,6 +33,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 return
             }
             val url = when (engine) {
+
                 "google" -> "https://www.google.com/search?q="
                 "duckduckgo" -> "https://duckduckgo.com/?q="
                 "brave" -> "https://search.brave.com/search?q="
@@ -43,6 +44,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 "qwant" -> "https://www.qwant.com/?q="
                 "you" -> "https://you.com/search?q="
                 "playstore" -> "https://play.google.com/store/search?q="
+                "maps" -> "https://www.google.com/maps?output=search&q="
                 else -> {
                     output(terminal.activity.getString(R.string.invalid_search_engine), terminal.theme.errorTextColor)
                     return
