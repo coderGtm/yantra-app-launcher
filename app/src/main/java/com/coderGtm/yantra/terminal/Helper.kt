@@ -358,7 +358,7 @@ fun showSuggestions(
                     overrideLastWord = true
                 }
                 val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                val listArgs = listOf("-e=google","-e=duckduckgo","-e=brave","-e=bing","-e=yahoo","-e=ecosia","-e=startpage","-e=qwant","-e=you","-e=playstore","-e=maps","-u=")
+                val listArgs = listOf("-e=google","-e=duckduckgo","-e=brave","-e=bing","-e=yahoo","-e=ecosia","-e=startpage","-e=qwant","-e=you","-e=playstore","-e=maps", "-e=youtube","-u=")
                 for (arg in listArgs) {
                     if (regex.containsMatchIn(arg)) {
                         suggestions.add(arg)
