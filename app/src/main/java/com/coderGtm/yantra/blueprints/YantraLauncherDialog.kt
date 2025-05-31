@@ -36,7 +36,7 @@ class YantraLauncherDialog(val context: Context) {
         Color.colorToHSV(theme.bgColor, dialogBgColor)
         Color.colorToHSV(theme.bgColor, dialogBorderColor)
 
-        textColor = if (dialogBgColor[2] > 0.5) {
+        textColor = if (dialogBgColor[2] > 0.5 && dialogBgColor[1] < 0.5 ) {
             Color.BLACK
         } else {
             Color.WHITE
