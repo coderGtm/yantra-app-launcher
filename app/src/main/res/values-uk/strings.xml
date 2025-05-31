@@ -580,4 +580,5 @@
     <string name="change_ai_model">Change AI Model</string>
     <string name="ai_model_description">Enter the model slug for your AI</string>
     <string name="ai_model_updated">AI model updated!</string>
+    <string name="cannot_bt_restrictions">Cannot toggle Bluetooth state on this version of Android due to system restrictions.</string>
 </resources>

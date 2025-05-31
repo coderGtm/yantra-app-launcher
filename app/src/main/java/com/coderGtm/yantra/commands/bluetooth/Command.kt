@@ -45,7 +45,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         // code for Android 13 and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            output("Cannot toggle Bluetooth state on this version of Android due to system restrictions.", terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.cannot_bt_restrictions), terminal.theme.errorTextColor)
             return
 
         }
