@@ -577,4 +577,7 @@
     <string name="terminal_text_color_set_to">Terminal text color set to #%1$s</string>
     <string name="no_sound_effects_found">No custom sound effects found!</string>
     <string name="edit_note">Edit Note (%1$s)</string>
+    <string name="change_ai_model">Change AI Model</string>
+    <string name="ai_model_description">Enter the model slug for your AI</string>
+    <string name="ai_model_updated">AI model updated!</string>
 </resources>

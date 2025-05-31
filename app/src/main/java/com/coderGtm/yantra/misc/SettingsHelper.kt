@@ -469,6 +469,22 @@ fun openAiApiKeySetter(activity: Activity, preferenceObject: SharedPreferences, 
     )
 }
 
+fun openAiModelSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+    val aiModelDialog = YantraLauncherDialog(activity)
+    aiModelDialog.takeInput(
+        title = activity.getString(R.string.change_ai_model),
+        message = activity.getString(R.string.ai_model_description),
+        initialInput = preferenceObject.getString("aiModel","chatgpt-4o-latest")!!,
+        positiveButton = activity.getString(R.string.save),
+        positiveAction = {
+            val key = it
+            preferenceEditObject.putString("aiModel",key.trim()).apply()
+            toast(activity, activity.getString(R.string.ai_model_updated))
+            changedSettingsCallback(activity)
+        },
+    )
+}
+
 fun openAiSystemPromptSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
     val aiSystemPromptDialog = YantraLauncherDialog(activity)
     aiSystemPromptDialog.takeInput(

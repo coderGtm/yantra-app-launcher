@@ -36,6 +36,7 @@ import com.coderGtm.yantra.misc.changedSettingsCallback
 import com.coderGtm.yantra.misc.getSoundEffects
 import com.coderGtm.yantra.misc.openAiApiKeySetter
 import com.coderGtm.yantra.misc.openAiApiProviderSetter
+import com.coderGtm.yantra.misc.openAiModelSetter
 import com.coderGtm.yantra.misc.openAiSystemPromptSetter
 import com.coderGtm.yantra.misc.openAppSugOrderingSetter
 import com.coderGtm.yantra.misc.openArrowSizeSetter
@@ -190,6 +191,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.termuxCmdSessionActionLayout.setOnClickListener { openTermuxCmdSessionActionSelector(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.aiProviderLayout.setOnClickListener { openAiApiProviderSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.aiApiKeyLayout.setOnClickListener { openAiApiKeySetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
+        binding.aiModelLayout.setOnClickListener { openAiModelSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.aiSystemPromptLayout.setOnClickListener { openAiSystemPromptSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
         binding.launcherSelectionLayout.setOnClickListener { openLauncherSelection(this@SettingsActivity) }
         binding.soundEffectsLay.setOnClickListener { openSoundEffectsList() }
@@ -570,6 +572,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.pUi17.visibility = View.GONE
         binding.pUi18.visibility = View.GONE
         binding.pUi19.visibility = View.GONE
+        binding.pUi20.visibility = View.GONE
         binding.rightSwipeActionLayout.visibility = View.GONE
         binding.leftSwipeActionLayout.visibility = View.GONE
         binding.newsWebsiteLayout.visibility = View.GONE
@@ -579,6 +582,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.termuxCmdSessionActionLayout.visibility = View.GONE
         binding.aiProviderLayout.visibility = View.GONE
         binding.aiApiKeyLayout.visibility = View.GONE
+        binding.aiModelLayout.visibility = View.GONE
         binding.aiSystemPromptLayout.visibility = View.GONE
         binding.soundEffectsLay.visibility = View.GONE
     }
