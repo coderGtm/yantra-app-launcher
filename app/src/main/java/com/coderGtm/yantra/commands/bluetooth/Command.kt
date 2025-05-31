@@ -43,8 +43,14 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 return
             }
         }
-        // code for android 12 and above
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        // code for Android 13 and above
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            output("Cannot toggle Bluetooth state on this version of Android due to system restrictions.", terminal.theme.errorTextColor)
+            return
+
+        }
+        // code for android 12
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val bluetoothManager: BluetoothManager = terminal.activity.getSystemService(BluetoothManager::class.java)
             val bluetoothAdapter: BluetoothAdapter? = bluetoothManager.adapter
             if (bluetoothAdapter == null) {
