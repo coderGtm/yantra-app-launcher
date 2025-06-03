@@ -29,7 +29,7 @@
     <string name="change_ai_system_prompt">Промени AI \'system\' упут</string>
     <string name="username_prefix_description">Унеси префикс за своје корисничко име. Ово ће бити приказано пре вашег корисничког имена у терминалу.</string>
     <string name="save">Сачувај</string>
-    <string name="username_prefix_updated">Префикс корисничког имена ажуриран!</string>
+    <string name="username_prefix_updated">Префикс корисничког имена је ажуриран!</string>
     <string name="cancel">Откажи</string>
     <string name="double_tap_command_description">Унеси команду која ће се извршити када двоструко додирнете терминал.</string>
     <string name="double_tap_command_updated">Команда за двоструки додир ажурирана!</string>
@@ -50,8 +50,8 @@
     <string name="system">Систем</string>
     <string name="full_sensor">Пуни сензор</string>
     <string name="orientation_updated">Оријентација ажурирана!</string>
-    <string name="alphabetically">Абецедним редоследом</string>
-    <string name="recency">Према новијим</string>
+    <string name="alphabetically">Абецедни редослед</string>
+    <string name="recency">Скорашњост</string>
     <string name="app_suggestions_ordering_updated">Редослед предлога апликација ажуриран!</string>
     <string name="termux_cmd_path_description">Унеси путању до директоријума где се налази Termux команда.</string>
     <string name="termux_command_path_updated">Путања Termux команде ажурирана!</string>
