@@ -374,7 +374,7 @@
     <string name="script_name_another_validation">Имя скрипта должно начинаться с буквы и не должно содержать пробелов</string>
     <string name="name_already_taken">Это имя уже занято</string>
     <string name="script_created">Скрипт \'%1$s\' успешно создан! Теперь вы можете его отредактировать.</string>
-    <string name="cmd_search_help">Выполняет поиск в Интернете по указанному запросу. Поисковая система может быть указана с помощью флага -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore). По умолчанию используется google. Вы можете использовать пользовательскую поисковую систему, указав URL с флагом -u (-u=https://example.com/search?q=). Запрос - единственный обязательный аргумент, который указывается в конце команды. Он автоматически кодируется в URL-адрес при выполнении команды. Примеры:\n\'search Yantra Launcher\'\n\'search -e=duckduckgo Yantra Launcher\'\n\'search -u=https://example.com/search?q=Yantra Launcher\'</string>
+    <string name="cmd_search_help">Выполняет поиск в Интернете по указанному запросу. Поисковая система может быть указана с помощью флага -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore|maps|youtube). По умолчанию используется google. Вы можете использовать пользовательскую поисковую систему, указав URL с флагом -u (-u=https://example.com/search?q=). Запрос - единственный обязательный аргумент, который указывается в конце команды. Он автоматически кодируется в URL-адрес при выполнении команды. Примеры:\n\'search Yantra Launcher\'\n\'search -e=duckduckgo Yantra Launcher\'\n\'search -u=https://example.com/search?q=Yantra Launcher\'</string>
     <string name="missing_query">Пожалуйста, введите запрос.</string>
     <string name="invalid_search_engine">Неверная поисковая система. См. \'help search\', чтобы получить информацию о ключевых словах поисковых систем.</string>
     <string name="searching_for_with">Поиск \'%1$s\' с помощью %2$s...</string>
@@ -577,4 +577,8 @@
     <string name="terminal_text_color_set_to">Цвет текста треминала был изменён на #%1$s</string>
     <string name="no_sound_effects_found">Пользовательские звуковые эффекты не найдены!</string>
     <string name="edit_note">Edit Note (%1$s)</string>
+    <string name="change_ai_model">Change AI Model</string>
+    <string name="ai_model_description">Enter the model slug for your AI</string>
+    <string name="ai_model_updated">AI model updated!</string>
+    <string name="cannot_bt_restrictions">Cannot toggle Bluetooth state on this version of Android due to system restrictions.</string>
 </resources>

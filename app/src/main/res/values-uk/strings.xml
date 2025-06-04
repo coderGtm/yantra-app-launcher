@@ -374,7 +374,7 @@
     <string name="script_name_another_validation">Ім\'я скрипта має починатися з літери і не може містити пробілів</string>
     <string name="name_already_taken">Це ім\'я вже зайняте</string>
     <string name="script_created">Скрипт \'%1$s\' успішно створено! Тепер ви можете його редагувати.</string>
-    <string name="cmd_search_help">Шукає в інтернеті за вказаним запитом. Пошукову систему можна вказати за допомогою прапорця -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore). За замовчуванням використовується google. Ви можете використовувати власну пошукову систему, вказавши URL з прапорцем -u (-u=https://example.com/search?q=). Запит є єдиним обов\'язковим аргументом, який надається в кінці команди. Він автоматично кодується URL під час виконання команди. Приклади:\n\'search Yantra Launcher\'\n\'search -e=duckduckgo Yantra Launcher\'\n\'search -u=https://example.com/search?q= Yantra Launcher\'</string>
+    <string name="cmd_search_help">Шукає в інтернеті за вказаним запитом. Пошукову систему можна вказати за допомогою прапорця -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore|maps|youtube). За замовчуванням використовується google. Ви можете використовувати власну пошукову систему, вказавши URL з прапорцем -u (-u=https://example.com/search?q=). Запит є єдиним обов\'язковим аргументом, який надається в кінці команди. Він автоматично кодується URL під час виконання команди. Приклади:\n\'search Yantra Launcher\'\n\'search -e=duckduckgo Yantra Launcher\'\n\'search -u=https://example.com/search?q= Yantra Launcher\'</string>
     <string name="missing_query">Будь ласка, надайте запит.</string>
     <string name="invalid_search_engine">Неправильна пошукова система. Дивіться \'help search\', щоб отримати інформацію про ключові слова пошукових систем.</string>
     <string name="searching_for_with">Шукаю \'%1$s\' з %2$s...</string>
@@ -577,4 +577,8 @@
     <string name="terminal_text_color_set_to">Terminal text color set to #%1$s</string>
     <string name="no_sound_effects_found">No custom sound effects found!</string>
     <string name="edit_note">Edit Note (%1$s)</string>
+    <string name="change_ai_model">Change AI Model</string>
+    <string name="ai_model_description">Enter the model slug for your AI</string>
+    <string name="ai_model_updated">AI model updated!</string>
+    <string name="cannot_bt_restrictions">Cannot toggle Bluetooth state on this version of Android due to system restrictions.</string>
 </resources>

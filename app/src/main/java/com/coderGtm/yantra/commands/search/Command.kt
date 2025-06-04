@@ -45,6 +45,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 "you" -> "https://you.com/search?q="
                 "playstore" -> "https://play.google.com/store/search?q="
                 "maps" -> "https://www.google.com/maps?output=search&q="
+                "youtube" -> "https://www.youtube.com/results?search_query="
                 else -> {
                     output(terminal.activity.getString(R.string.invalid_search_engine), terminal.theme.errorTextColor)
                     return

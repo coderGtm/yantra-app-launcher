@@ -1,5 +1,6 @@
 *.iml
 .gradle
+/.idea
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -21,6 +22,3 @@ misc.xml
 /app/free/beta/*
 /app/pro/beta/*
 /app/free/release/*
-/.idea/codeStyles/codeStyleConfig.xml
-/.idea/other.xml
-/.idea/codeStyles/Project.xml

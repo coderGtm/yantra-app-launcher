@@ -374,7 +374,7 @@
     <string name="script_name_another_validation">Il nome dello script deve iniziare con una lettera e non può contenere spazi</string>
     <string name="name_already_taken">Questo nome è già in uso</string>
     <string name="script_created">Script \'%1$s\' creato con successo! Ora puoi modificarlo.</string>
-    <string name="cmd_search_help">Cerca su internet la query fornita. È possibile specificare il motore di ricerca con il flag -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore). Di default è google. Puoi usare un motore di ricerca personalizzato specificando l\'url con il flag -u (-u=https://esempio.com/search?q=). La query è l\'unico argomento richiesto che viene fornito alla fine del comando. Viene automaticamente codificata per URL durante l\'esecuzione del comando. Esempi:\n\'search Yantra Launcher\'\n\'search -e=duckduckgo Yantra Launcher\'\n\'search -u=https://esempio.com/search?q= Yantra Launcher\'</string>
+    <string name="cmd_search_help">Cerca su internet la query fornita. È possibile specificare il motore di ricerca con il flag -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore|maps|youtube). Di default è google. Puoi usare un motore di ricerca personalizzato specificando l\'url con il flag -u (-u=https://esempio.com/search?q=). La query è l\'unico argomento richiesto che viene fornito alla fine del comando. Viene automaticamente codificata per URL durante l\'esecuzione del comando. Esempi:\n\'search Yantra Launcher\'\n\'search -e=duckduckgo Yantra Launcher\'\n\'search -u=https://esempio.com/search?q= Yantra Launcher\'</string>
     <string name="missing_query">Si prega di fornire una query.</string>
     <string name="invalid_search_engine">Motore di ricerca non valido. Consulta \'help search\' per informazioni sulle parole chiave del motore di ricerca.</string>
     <string name="searching_for_with">Cercando \'%1$s\' con %2$s...</string>
@@ -577,4 +577,8 @@
     <string name="terminal_text_color_set_to">Il colore del testo del terminale è stato impostato a #%1$s</string>
     <string name="no_sound_effects_found">Nessun suono personalizzato è stato trovato!</string>
     <string name="edit_note">Modifica la nota (%1$s)</string>
+    <string name="change_ai_model">Change AI Model</string>
+    <string name="ai_model_description">Enter the model slug for your AI</string>
+    <string name="ai_model_updated">AI model updated!</string>
+    <string name="cannot_bt_restrictions">Cannot toggle Bluetooth state on this version of Android due to system restrictions.</string>
 </resources>

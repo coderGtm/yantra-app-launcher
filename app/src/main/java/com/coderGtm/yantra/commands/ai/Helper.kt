@@ -13,7 +13,7 @@ import org.json.JSONObject
 fun getRequestBody(systemPrompt: String, message: String, terminal: Terminal): JSONObject {
     val messageHistory = getMessageHistory(terminal)
     val requestBody = JSONObject().apply {
-        put("model", "gpt-3.5-turbo")
+        put("model", terminal.preferenceObject.getString("aiModel", "chatgpt-4o-latest"))
         put("messages", JSONArray().apply {
             put(JSONObject().apply {
                 put("role", "system")
