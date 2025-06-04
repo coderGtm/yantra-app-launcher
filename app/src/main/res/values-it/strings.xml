@@ -25,7 +25,7 @@
     <string name="termux_command_working_directory">Directory di Lavoro del Comando Termux</string>
     <string name="termux_command_session_action">Azione della Sessione del Comando Termux</string>
     <string name="change_ai_api_provider">Cambia Fornitore API dell\'IA</string>
-    <string name="change_ai_api_key">Cambia Chiave API dell\'AI</string>
+    <string name="change_ai_api_key">Cambia Chiave API dell\'IA</string>
     <string name="change_ai_system_prompt">Cambia Prompt \'system\' dell\'IA</string>
     <string name="username_prefix_description">Inserisci un prefisso per il tuo nome utente. Questo verrà visualizzato prima del tuo nome utente nel terminale.</string>
     <string name="save">Salva</string>
@@ -60,12 +60,12 @@
     <string name="termux_command_session_action_description">Inserisci un numero intero per l\'Azione della Sessione Termux. Disponibili: 0,1,2,3. Consulta TermuxConstants.java su GitHub per maggiori informazioni.</string>
     <string name="invalid_action">Azione non valida!</string>
     <string name="termux_command_session_action_updated">Azione della sessione del comando Termux aggiornata!</string>
-    <string name="ai_api_provider_description">Inserisci il dominio del tuo fornitore AI da utilizzare nel comando \'ai\'. Non fornire l\'URL completo, è richiesto solo il dominio (Ad esempio: api.openai.com)</string>
+    <string name="ai_api_provider_description">Inserisci il dominio del tuo fornitore IA da utilizzare nel comando \'ai\'. Non fornire l\'URL completo, è richiesto solo il dominio (Ad esempio: api.openai.com)</string>
     <string name="ai_api_provider_updated">Fornitore API IA aggiornato! Assicurati di utilizzare la Chiave API corrispondente</string>
     <string name="ai_api_key_description">Inserisci la tua Chiave API da utilizzare nel comando \'ai\', corrispondente al tuo fornitore IA.</string>
     <string name="ai_api_key_updated">Chiave API IA aggiornata!</string>
     <string name="ai_system_prompt_description">Inserisci il prompt \'system\' da utilizzare nel comando \'ai\'. Esso detta il comportamento del modello.</string>
-    <string name="ai_system_prompt_updated">Prompt di sistema AI aggiornato!</string>
+    <string name="ai_system_prompt_updated">Prompt di sistema IA aggiornato!</string>
     <string name="loading_fonts">Caricamento Font...</string>
     <string name="select_a_font">Seleziona un Font</string>
     <string name="no_internet_connection">Nessuna connessione internet</string>
@@ -129,10 +129,10 @@
     <string name="internet_speed_test">Test Velocità Internet</string>
     <string name="loading_please_wait">Caricamento... Attendere Prego.</string>
     <string name="cmd_ai_title">ai [messaggio]</string>
-    <string name="cmd_ai_help">Uno strumento semplice per accedere a chatGPT dal terminale. Basato su gpt-3.5-turbo di OpenAI, puoi chattare con il tuo assistente AI personale. È richiesta l\'inserimento di una chiave API in \'settings\'. Questo comando non ricorda il contesto, quindi il modello non sarà a conoscenza della tua conversazione precedente.</string>
+    <string name="cmd_ai_help">Uno strumento semplice per accedere a chatGPT dal terminale. Basato su gpt-3.5-turbo di OpenAI, puoi chattare con il tuo assistente IA personale. È richiesta l\'inserimento di una chiave API in \'settings\'. Questo comando non ricorda il contesto, quindi il modello non sarà a conoscenza della tua conversazione precedente.</string>
     <string name="ai_msg_missing">Si prega di specificare il messaggio da inviare all\'AI.</string>
     <string name="no_ai_api_key_found">Probabilmente hai dimenticato di fornire una chiave API. Inseriscila in \'settings\'.</string>
-    <string name="communicating_with_ai">Comunicazione con AI...</string>
+    <string name="communicating_with_ai">Comunicazione con IA...</string>
     <string name="no_reply_in_response">Nessun output ricevuto nella risposta</string>
     <string name="no_reply_from_server">Il server non ha inviato una risposta alla chat! Riprova.</string>
     <string name="timeout_error">Ho perso la pazienza! Riprova o prova una richiesta con un output atteso più breve.</string>
@@ -577,8 +577,8 @@
     <string name="terminal_text_color_set_to">Il colore del testo del terminale è stato impostato a #%1$s</string>
     <string name="no_sound_effects_found">Nessun suono personalizzato è stato trovato!</string>
     <string name="edit_note">Modifica la nota (%1$s)</string>
-    <string name="change_ai_model">Change AI Model</string>
-    <string name="ai_model_description">Enter the model slug for your AI</string>
-    <string name="ai_model_updated">AI model updated!</string>
-    <string name="cannot_bt_restrictions">Cannot toggle Bluetooth state on this version of Android due to system restrictions.</string>
+    <string name="change_ai_model">Cambia modello dell\'IA</string>
+    <string name="ai_model_description">Inserici la stringa per il tuo modello IA</string>
+    <string name="ai_model_updated">Modello dell\'IA aggiornato!</string>
+    <string name="cannot_bt_restrictions">Non è possibile cambiare lo stato del Bluetooth in questa versione d Android a causa di restrizioni del sistema.</string>
 </resources>
