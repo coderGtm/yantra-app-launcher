@@ -562,23 +562,23 @@
     <string name="playing_sound_effect">Відтворення звукового ефекту: %1$s...</string>
     <string name="sfx_not_found">Зазначений звуковий ефект (\'%1$s\') не знайдено. Додайте його до внутрішньої пам\'яті програми через \'settings\'.</string>
     <string name="cmd_notepad_title"><![CDATA[notepad [list / new <name> / read <name> / delete <name>]]]></string>
-    <string name="cmd_notepad_help"><![CDATA[A simple in-app notepad to take quick notes on the go. Use the `notepad list` command to view all your notes. To create a new note, type `notepad new <note_name>`. To read an existing note, use `notepad read <note_name>`. If you want to delete a note, use the `notepad delete <note_name>` command.]]></string>
-    <string name="no_notes_found">No notes found...</string>
-    <string name="notepad">Notepad:</string>
-    <string name="note_exists">A note by this name already exists! Please use a different name.</string>
-    <string name="new_note">New Note (%1$s)</string>
-    <string name="enter_note_content">Enter the note content below:</string>
-    <string name="note_saved_to_notepad">Note \'%1$s\' saved to notepad.</string>
-    <string name="no_note_fond_by_the_name">No note fond by the name %1$s!</string>
-    <string name="deleted_from_notepad">Deleted \'%1$s\' from notepad.</string>
-    <string name="weather_air_quality"><![CDATA[=> Air Quality: %1$s]]></string>
-    <string name="command_takes_at_least_1_parameter_0_provided">"'%1$s' command takes at least 1 parameter. 0 provided! "</string>
-    <string name="terminal_text_color_reset">Terminal text color reset to theme.</string>
-    <string name="terminal_text_color_set_to">Terminal text color set to #%1$s</string>
-    <string name="no_sound_effects_found">No custom sound effects found!</string>
-    <string name="edit_note">Edit Note (%1$s)</string>
-    <string name="change_ai_model">Change AI Model</string>
-    <string name="ai_model_description">Enter the model slug for your AI</string>
-    <string name="ai_model_updated">AI model updated!</string>
-    <string name="cannot_bt_restrictions">Cannot toggle Bluetooth state on this version of Android due to system restrictions.</string>
+    <string name="cmd_notepad_help"><![CDATA[Простий вбудований блокнот для швидких нотаток на ходу. Використовуйте команду `notepad list`, щоб переглянути всі нотатки. Щоб створити нову нотатку, введіть `notepad new <назва_нотатки>`. Щоб прочитати наявну нотатку, введіть `notepad read <назва_нотатки>`. Щоб видалити нотатку, використовуйте команду `notepad delete <назва_нотатки>`.]]></string>
+    <string name="no_notes_found">Нотаток не знайдено...</string>
+    <string name="notepad">Блокнот:</string>
+    <string name="note_exists">Нотатка з такою назвою вже існує! Будь ласка, використайте іншу назву.</string>
+    <string name="new_note">Нова нотатка (%1$s)</string>
+    <string name="enter_note_content">Введіть вміст нотатки нижче:</string>
+    <string name="note_saved_to_notepad">Нотатку \'%1$s\' збережено в блокнот.</string>
+    <string name="no_note_fond_by_the_name">Нотатку з назвою %1$s не знайдено!</string>
+    <string name="deleted_from_notepad">\'%1$s\' видалено з блокнота.</string>
+    <string name="weather_air_quality"><![CDATA[=> Якість повітря: %1$s]]></string>
+    <string name="command_takes_at_least_1_parameter_0_provided">"Команда '%1$s' вимагає щонайменше 1 параметр. Надано 0!"</string>
+    <string name="terminal_text_color_reset">Колір тексту термінала скинуто до теми.</string>
+    <string name="terminal_text_color_set_to">Колір тексту термінала змінено на #%1$s</string>
+    <string name="no_sound_effects_found">Користувацькі звукові ефекти не знайдено!</string>
+    <string name="edit_note">Редагувати нотатку (%1$s)</string>
+    <string name="change_ai_model">Змінити модель AI</string>
+    <string name="ai_model_description">Введіть слаг (ідентифікатор) моделі для вашого AI</string>
+    <string name="ai_model_updated">Модель AI оновлено!</string>
+    <string name="cannot_bt_restrictions">Неможливо перемкнути Bluetooth через обмеження цієї версії Android.</string>
 </resources>
