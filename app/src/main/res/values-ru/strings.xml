@@ -577,8 +577,8 @@
     <string name="terminal_text_color_set_to">Цвет текста треминала был изменён на #%1$s</string>
     <string name="no_sound_effects_found">Пользовательские звуковые эффекты не найдены!</string>
     <string name="edit_note">Edit Note (%1$s)</string>
-    <string name="change_ai_model">Change AI Model</string>
-    <string name="ai_model_description">Enter the model slug for your AI</string>
-    <string name="ai_model_updated">AI model updated!</string>
-    <string name="cannot_bt_restrictions">Cannot toggle Bluetooth state on this version of Android due to system restrictions.</string>
+    <string name="change_ai_model">Изменить AI модель</string>
+    <string name="ai_model_description">Введите идентификатор модели для вашего AI</string>
+    <string name="ai_model_updated">AI модель обновлена!</string>
+    <string name="cannot_bt_restrictions">Невозможно изменить состояние Bluetooth из-за ограничений этой версии Android.</string>
 </resources>
