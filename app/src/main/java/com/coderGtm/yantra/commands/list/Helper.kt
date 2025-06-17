@@ -64,7 +64,11 @@ fun listThemes(command: Command) {
     command.output(command.terminal.activity.getString(R.string.available_themes))
     if (isPro(command.terminal.activity)) {
         command.output("-1: Custom")
-        for ((i,theme) in Themes.entries.withIndex()) {
+        val allThemes = mutableListOf<String>()
+        Themes.entries.forEach { allThemes.add(it.name) }
+        command.terminal.preferenceObject.getString("savedThemeList", "")?.split(",")?.filter { it.isNotEmpty() }?.forEach { allThemes.add(it) }
+
+        for ((i,theme) in allThemes.withIndex()) {
             command.output("$i: $theme")
         }
     }

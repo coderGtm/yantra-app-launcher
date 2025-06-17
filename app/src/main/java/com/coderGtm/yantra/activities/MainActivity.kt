@@ -3,6 +3,7 @@ package com.coderGtm.yantra.activities
 import android.app.Activity
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.os.Bundle
@@ -25,6 +26,8 @@ import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
 import com.coderGtm.yantra.commands.backup.copyFile
 import com.coderGtm.yantra.commands.termux.handleTermuxResult
+import com.coderGtm.yantra.commands.theme.ExportState
+import com.coderGtm.yantra.commands.theme.copyFileToInternalStorage
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.informOfProVersionIfOldUser
@@ -289,5 +292,43 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             val errorMessage: String = result.data?.getStringExtra("ERR").toString()
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    val exportThemeLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            var fileName = "theme.ytf"
+            fileName = ExportState.pendingFileName.toString()
+
+            result.data?.data?.also { uri ->
+                val file = File(filesDir, fileName)
+                if (file.exists()) {
+                    val inputStream = FileInputStream(file)
+
+                    contentResolver.openOutputStream(uri)?.use { outputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+
+                    inputStream.close()
+
+                    if (file.exists()) {
+                        file.delete()
+                    }
+                } else {
+                    Toast.makeText(this, getString(R.string.file_not_found), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    val getThemeFile = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            result.data?.data?.let { uri ->
+                copyFileToInternalStorage(this, uri)
+            }
+        }
+    }
+
+    fun getPreferenceObject(): SharedPreferences {
+        return app.preferenceObject
     }
 }
