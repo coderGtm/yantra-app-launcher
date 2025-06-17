@@ -5,7 +5,6 @@ import android.app.WallpaperManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
@@ -20,15 +19,10 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.view.setPadding
 import com.coderGtm.yantra.R
-import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.commands.backup.Command
-import com.coderGtm.yantra.commands.backup.packFile
-import com.coderGtm.yantra.commands.theme.FileEncryption.decryptFileToText
-import com.coderGtm.yantra.commands.theme.FileEncryption.encryptTextToFile
 import com.coderGtm.yantra.getCurrentTheme
 import com.coderGtm.yantra.getCustomThemeColors
 import com.coderGtm.yantra.isValidHexCode
@@ -45,6 +39,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import androidx.core.graphics.drawable.toDrawable
+import org.json.JSONObject
 
 fun printCustomThemeFeatures(command: Command) {
     with(command) {
@@ -155,36 +150,25 @@ fun openCustomThemeDesigner(terminal: Terminal) {
 
 fun showNameInputDialog(terminal: Terminal, onResult: (String) -> Unit) {
     val input = EditText(terminal.activity).apply {
-        hint = "Enter name (Only English symbols)"
+        hint = "Enter name"
         inputType = InputType.TYPE_CLASS_TEXT
-
-        filters = arrayOf(
-            InputFilter { source, start, end, dest, dstart, dend ->
-                for (i in start until end) {
-                    val char = source[i]
-                    if (!char.toString().matches(Regex("[a-zA-Z]"))) {
-                        return@InputFilter ""
-                    }
-                }
-                null
-            }
-        )
-
+        layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+        filters = arrayOf(InputFilter.LengthFilter(15))
         setSelection(text.length)
     }
 
     val container = LinearLayout(terminal.activity).apply {
-        setPadding(50, 40, 0, 10)
+        setPadding(50, 20, 50, 10)
         addView(input)
     }
 
     MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
         .setTitle("Enter name")
-        .setMessage("Use only English letters")
+        .setMessage("Use no more than 15 characters, and at least 3 characters")
         .setView(container)
         .setPositiveButton("Apply") { _, _ ->
             val enteredName = input.text.toString().trim()
-            if (enteredName.isNotEmpty() && isValidEnglishText(enteredName)) {
+            if (enteredName.isNotEmpty() && enteredName.length > 2) {
                 onResult(enteredName.lowercase())
             } else {
                 toast(terminal.activity, "Invalid name")
@@ -200,18 +184,17 @@ fun showNameInputDialog(terminal: Terminal, onResult: (String) -> Unit) {
     imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT)
 }
 
-private fun isValidEnglishText(text: String): Boolean {
-    return text.matches(Regex("^[a-zA-Z ]+$")) && text.isNotBlank()
-}
-
 fun getTheme(preferenceObject: SharedPreferences, name: String): String {
     return preferenceObject.getString("theme$name", "").toString()
 }
 
 fun saveCurrentTheme(terminal: Terminal) {
     showNameInputDialog(terminal) { enteredName ->
+        val themes = terminal.preferenceObject.getString("savedThemeList", null)?.split(",")?.toMutableList() ?: mutableListOf()
+        themes.add(enteredName)
+
         terminal.preferenceObject.edit().putString("theme$enteredName", terminal.preferenceObject.getString("customThemeClrs", "")).apply()
-        terminal.preferenceObject.edit().putString("savedThemeList", terminal.preferenceObject.getString("savedThemeList", "") + enteredName + ",").apply()
+        terminal.preferenceObject.edit().putString("savedThemeList", themes.joinToString(",")).apply()
         toast(terminal.activity, "Saved as $enteredName")
     }
 }
@@ -243,17 +226,26 @@ fun showThemesListDialog(terminal: Terminal, allThemes: MutableList<String>) {
         .show()
 }
 
-fun getPassword(act: Activity): String {
-    val packageManager = act.packageManager
-    val applicationInfo = packageManager.getApplicationInfo(act.packageName, PackageManager.GET_META_DATA)
-    val metaData = applicationInfo.metaData
-    return metaData.getString("BACKUP_PASSWORD").toString()
-}
-
 fun packTheme(terminal: Terminal, themeName: String): String {
     val plainFile = File("${terminal.activity.filesDir}", "$themeName.ytf")
-    encryptTextToFile("$themeName\n${terminal.preferenceObject.getString("theme$themeName", "")}", plainFile, getPassword(terminal.activity))
-    return "$themeName.ytf"
+
+    val theme = terminal.preferenceObject.getString("theme$themeName", "")?.split(",")
+    val json = JSONObject().apply {
+        put("name", themeName)
+        put("bgColor", theme?.getOrNull(0))
+        put("cmdColor", theme?.getOrNull(1))
+        put("suggestionsBgColor", theme?.getOrNull(2))
+        put("suggestionsColor", theme?.getOrNull(3))
+        put("inputAndBtnsColor", theme?.getOrNull(4))
+        put("resultColor", theme?.getOrNull(5))
+        put("errorColor", theme?.getOrNull(6))
+        put("successColor", theme?.getOrNull(7))
+        put("warnColor", theme?.getOrNull(8))
+    }
+
+    plainFile.writeText(json.toString())
+
+    return plainFile.name
 }
 
 object ExportState {
@@ -302,12 +294,53 @@ fun renameFile(oldFile: File, newFileName: String): File {
     return newFile
 }
 
+fun getText(file: File): String {
+    return try {
+        val text = file.readText()
+        val json = JSONObject(text)
+
+        val requiredKeys = listOf(
+            "bgColor", "cmdColor", "suggestionsBgColor",
+            "suggestionsColor", "inputAndBtnsColor", "resultColor",
+            "errorColor", "successColor", "warnColor"
+        )
+
+        val name = json.getString("name")
+        if (name.length > 15 || name.length < 3 || name.contains("\n")) return "invalid"
+        val values = mutableListOf<String>()
+
+        for (key in requiredKeys) {
+            if (!json.has(key)) return "invalid"
+            val value = json.getString(key)
+            if (!isValidColor(value)) return "invalid"
+            values.add(value)
+        }
+
+        "$name\n${values.joinToString(",")}"
+    } catch (_: Exception) {
+        "invalid"
+    }
+}
+
+fun isValidColor(colorString: String): Boolean {
+    return try {
+        Color.parseColor(colorString)
+        true
+    } catch (_: IllegalArgumentException) {
+        false
+    }
+}
+
 fun importThemeFromFile(activity: Activity, uri: Uri) {
     val fileName = getFileNameFromUri(uri) ?: return
     val file = File(activity.filesDir, fileName)
     val fileToExtract = renameFile(file, "theme.txt")
 
-    val extractedText = decryptFileToText(fileToExtract, getPassword(activity))
+    val extractedText = getText(fileToExtract)
+    if (extractedText == "invalid") {
+        toast(activity, "File is corrupted")
+        return
+    }
     val splitOfText = extractedText.split("\n");
 
     val mainAct = activity as MainActivity
@@ -318,8 +351,11 @@ fun importThemeFromFile(activity: Activity, uri: Uri) {
         return
     }
 
+    val themes = mainAct.getPreferenceObject().getString("savedThemeList", null)?.split(",")?.toMutableList() ?: mutableListOf()
+    themes.add(splitOfText[0])
+
     mainAct.getPreferenceObject().edit().putString("theme${splitOfText[0]}", splitOfText[1]).apply()
-    mainAct.getPreferenceObject().edit().putString("savedThemeList", activity.getPreferenceObject().getString("savedThemeList", "") + splitOfText[0] + ",").apply()
+    mainAct.getPreferenceObject().edit().putString("savedThemeList", themes.joinToString(",")).apply()
     fileToExtract.delete()
 
     setCustomTheme(activity, splitOfText[0], splitOfText[1])
@@ -370,12 +406,16 @@ fun showThemesDeleteDialog(terminal: Terminal, allThemes: MutableList<String>) {
         .setTitle("Select theme to delete")
         .setItems(allThemes.toTypedArray()) { _, which ->
             val selectedTheme = allThemes[which]
-            terminal.preferenceObject.edit().remove("theme$selectedTheme")
-            val themes = terminal.preferenceObject.getString("savedThemeList", "")?.split(",")?.toMutableList() ?: mutableListOf()
-            themes.remove("")
+            terminal.preferenceObject.edit().remove("theme$selectedTheme").apply()
+            val themes = terminal.preferenceObject.getString("savedThemeList", null)?.split(",")?.toMutableList() ?: mutableListOf()
             themes.remove(selectedTheme)
 
-            terminal.preferenceObject.edit().putString("savedThemeList", themes.joinToString(",") + ",").apply()
+            if (themes.isEmpty()) {
+                terminal.preferenceObject.edit().remove("savedThemeList").apply()
+            } else {
+                terminal.preferenceObject.edit()
+                    .putString("savedThemeList", themes.joinToString(",")).apply()
+            }
             terminal.output("Removed Successfully", terminal.theme.commandColor, null)
         }
         .setNegativeButton("Cancel") { dialog, _ ->
@@ -385,8 +425,10 @@ fun showThemesDeleteDialog(terminal: Terminal, allThemes: MutableList<String>) {
 }
 
 fun removeTheme(terminal: Terminal) {
-    val themes = terminal.preferenceObject.getString("savedThemeList", "")?.split(",")?.toMutableList() ?: mutableListOf()
-    themes.remove("")
-
+    val themes = terminal.preferenceObject.getString("savedThemeList", null)?.split(",")?.toMutableList() ?: mutableListOf()
+    if (terminal.preferenceObject.getString("savedThemeList", null) == null) {
+        toast(terminal.activity, "No themes to remove")
+        return
+    }
     showThemesDeleteDialog(terminal, themes)
 }
