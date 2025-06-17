@@ -2,6 +2,9 @@
 
 This is a command which allows you to create your own script on ```Lua``` language, or create the list of yantra's commands which will be executing command-by-command
 
+!!! note
+    Currently, the scripts folder is internal to Yantra Launcher and cannot be accessed or edited directly using external text editors or file management applications.
+
 ## Syntax
 ```
 scripts
