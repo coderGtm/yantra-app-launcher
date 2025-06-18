@@ -463,6 +463,13 @@ fun showSuggestions(
                 val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
                 val themeArgs = mutableListOf("Custom")
                 Themes.entries.forEach { themeArgs.add(it.name) }
+
+                terminal.preferenceObject.getString("savedThemeList", "")?.split(",")?.filter { it.isNotEmpty() }?.forEach { themeArgs.add(it) }
+                themeArgs.add(1, "-i")
+                themeArgs.add(1, "-e")
+                themeArgs.add(1, "-r")
+                themeArgs.add(1, "-s")
+
                 themeArgs.filterTo(suggestions) { regex.containsMatchIn(it) }
                 isPrimary = false
             }

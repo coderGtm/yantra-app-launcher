@@ -26,11 +26,32 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             return
         }
         if (args.size > 2) {
-            output(terminal.activity.getString(R.string.only_theme_name_reqd), terminal.theme.errorTextColor)
+            output("Too many arguments! Use -s for saving theme, -r for removing themes, -e for export, -i for import", terminal.theme.errorTextColor)
             return
         }
+
         val name = args[1].trim().lowercase()
-        if (Themes.entries.any { it.name.lowercase() == name } || name == "custom") {
+        if (name == "-s") {
+            saveCurrentTheme(terminal)
+            return
+        } else if (name == "-e") {
+            exportTheme(terminal)
+            return
+        } else if (name == "-i") {
+            importTheme(terminal)
+            return
+        } else if (name == "-r") {
+            removeTheme(terminal)
+            return
+        }
+
+        val savedTheme = getTheme(terminal.preferenceObject, name)
+        if (Themes.entries.any { it.name.lowercase() == name } || name == "custom" || savedTheme != "") {
+            if (savedTheme != "") {
+                setCustomTheme(terminal.activity, name, savedTheme)
+                return
+            }
+
             if (name == "custom") {
                 output(terminal.activity.getString(R.string.launching_custom_theme_designer),terminal.theme.resultTextColor, Typeface.ITALIC)
                 openCustomThemeDesigner(terminal)
