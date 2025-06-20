@@ -45,6 +45,7 @@ import java.io.OutputStream
 import java.util.Timer
 import kotlin.concurrent.schedule
 import kotlin.concurrent.timerTask
+import androidx.core.graphics.toColorInt
 
 fun openURL(url: String, activity: Activity) {
     activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
@@ -538,7 +539,7 @@ fun getAliases(preferenceObject: SharedPreferences): MutableList<Alias> {
 }
 fun isValidHexCode(hexCode: String): Boolean {
     return try {
-        Color.parseColor("#$hexCode")
+        "#$hexCode".toColorInt()
         true
     }
     catch (e: Exception) {

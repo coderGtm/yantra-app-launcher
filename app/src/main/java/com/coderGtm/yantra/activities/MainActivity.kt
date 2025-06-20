@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import android.view.KeyEvent
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +25,7 @@ import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
 import com.coderGtm.yantra.commands.backup.copyFile
 import com.coderGtm.yantra.commands.termux.handleTermuxResult
-import com.coderGtm.yantra.commands.theme.ExportState
+import com.coderGtm.yantra.commands.theme.ThemeExportState
 import com.coderGtm.yantra.commands.theme.copyFileToInternalStorage
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getInit
@@ -40,6 +39,7 @@ import com.coderGtm.yantra.services.TermuxCommandService
 import com.coderGtm.yantra.setProStatus
 import com.coderGtm.yantra.setWallpaperFromUri
 import com.coderGtm.yantra.terminal.Terminal
+import com.coderGtm.yantra.toast
 import com.coderGtm.yantra.views.TerminalGestureListenerCallback
 import java.io.File
 import java.io.FileInputStream
@@ -273,7 +273,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                         file.delete()
                     }
                 } else {
-                    Toast.makeText(this, getString(R.string.file_not_found), Toast.LENGTH_SHORT).show()
+                    toast(baseContext, getString(R.string.file_not_found))
                 }
             }
         }
@@ -290,14 +290,17 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     val openResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == 6) {
             val errorMessage: String = result.data?.getStringExtra("ERR").toString()
-            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+            toast(baseContext, errorMessage)
         }
     }
 
+    /**
+     * Launcher for exporting themes.
+     * It will export the theme to a file and then prompt the user to select a location to save it.
+     */
     val exportThemeLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
-            var fileName = "theme.ytf"
-            fileName = ExportState.pendingFileName.toString()
+            val fileName: String = ThemeExportState.pendingFileName.toString()
 
             result.data?.data?.also { uri ->
                 val file = File(filesDir, fileName)
@@ -314,7 +317,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
                         file.delete()
                     }
                 } else {
-                    Toast.makeText(this, getString(R.string.file_not_found), Toast.LENGTH_SHORT).show()
+                    toast( baseContext, getString(R.string.file_not_found))
                 }
             }
         }
