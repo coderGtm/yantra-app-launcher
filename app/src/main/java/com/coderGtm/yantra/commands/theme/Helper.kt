@@ -145,7 +145,7 @@ fun openCustomThemeDesigner(terminal: Terminal) {
 
 fun saveCurrentTheme(terminal: Terminal) {
     showThemeNameInputDialog(terminal) { enteredName ->
-        val themes = terminal.preferenceObject.getString("savedThemeList", null)?.split(",")?.toMutableList() ?: mutableListOf()
+        val themes = getSavedThemeNames(terminal.preferenceObject)
         themes.add(enteredName)
 
         terminal.preferenceObject.edit {
@@ -160,8 +160,7 @@ fun saveCurrentTheme(terminal: Terminal) {
 }
 
 fun exportTheme(terminal: Terminal) {
-    val themes = terminal.preferenceObject.getString("savedThemeList", "")?.split(",")?.toMutableList() ?: mutableListOf()
-    themes.remove("")
+    val themes = getSavedThemeNames(terminal.preferenceObject)
 
     if (themes.isEmpty()) {
         terminal.output("No themes to export. Please save a theme first to export it.", terminal.theme.errorTextColor, null)
@@ -184,12 +183,23 @@ fun importTheme(terminal: Terminal) {
 }
 
 fun removeTheme(terminal: Terminal) {
-    val themes = terminal.preferenceObject.getString("savedThemeList", null)?.split(",")?.toMutableList() ?: mutableListOf()
-    if (terminal.preferenceObject.getString("savedThemeList", null) == null) {
-        toast(terminal.activity, "No themes to remove")
+    val themes = getSavedThemeNames(terminal.preferenceObject)
+
+    if (themes.isEmpty()) {
+        terminal.output("No saved themes to remove.", terminal.theme.errorTextColor, null)
         return
     }
+
     showThemesDeleteDialog(terminal, themes)
+}
+
+fun getSavedThemeNames(preferenceObject: SharedPreferences): MutableList<String> {
+    val savedThemeList = preferenceObject.getString("savedThemeList", null)
+    return if (savedThemeList.isNullOrEmpty()) {
+        mutableListOf()
+    } else {
+        savedThemeList.split(",").filter { it.isNotEmpty() }.toMutableList()
+    }
 }
 
 fun showThemeNameInputDialog(terminal: Terminal, onResult: (String) -> Unit) {
