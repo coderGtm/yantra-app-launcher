@@ -31,16 +31,16 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
 
         val name = args[1].trim().lowercase()
-        if (name == "-s") {
+        if (name == "-save") {
             saveCurrentTheme(terminal)
             return
-        } else if (name == "-e") {
+        } else if (name == "-export") {
             exportTheme(terminal)
             return
-        } else if (name == "-i") {
+        } else if (name == "-import") {
             importTheme(terminal)
             return
-        } else if (name == "-r") {
+        } else if (name == "-remove") {
             removeTheme(terminal)
             return
         }

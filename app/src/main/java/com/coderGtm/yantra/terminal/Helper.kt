@@ -465,10 +465,11 @@ fun showSuggestions(
                 Themes.entries.forEach { themeArgs.add(it.name) }
 
                 terminal.preferenceObject.getString("savedThemeList", "")?.split(",")?.filter { it.isNotEmpty() }?.forEach { themeArgs.add(it) }
-                themeArgs.add(1, "-i")
-                themeArgs.add(1, "-e")
-                themeArgs.add(1, "-r")
-                themeArgs.add(1, "-s")
+
+                themeArgs.add("-save")
+                themeArgs.add("-export")
+                themeArgs.add("-import")
+                themeArgs.add("-remove")
 
                 themeArgs.filterTo(suggestions) { regex.containsMatchIn(it) }
                 isPrimary = false
