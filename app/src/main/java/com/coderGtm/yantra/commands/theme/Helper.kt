@@ -197,7 +197,7 @@ fun exportTheme(terminal: Terminal) {
 fun importTheme(terminal: Terminal) {
     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
         addCategory(Intent.CATEGORY_OPENABLE)
-        type = "*/*"
+        type = "application/json"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             putExtra(DocumentsContract.EXTRA_INITIAL_URI, null as Uri?)
         }
@@ -285,7 +285,7 @@ fun getSavedTheme(preferenceObject: SharedPreferences, name: String): String {
 
 fun showThemesExportDialog(terminal: Terminal, allThemes: MutableList<String>) {
     YantraLauncherDialog(terminal.activity).selectItem(
-        title = "Select theme for export",
+        title = "Select a Theme to Export",
         items = allThemes.toTypedArray(),
         clickAction = { which ->
             val selectedTheme = allThemes[which]
@@ -293,7 +293,7 @@ fun showThemesExportDialog(terminal: Terminal, allThemes: MutableList<String>) {
 
             val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
-                type = "*/*"
+                type = "application/json"
                 putExtra(Intent.EXTRA_TITLE, fileName)
             }
 
@@ -464,7 +464,7 @@ fun getThemeFileValues(file: File): String {
             if (!json.has(key)) return "invalid"
             val value = json.getString(key).removePrefix("#")
             if (!isValidHexCode(value)) return "invalid"
-            values.add(value)
+            values.add("#$value")
         }
 
         if (values.size + 1 != json.keys().asSequence().count()) return "invalid"
