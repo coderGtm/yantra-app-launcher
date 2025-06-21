@@ -157,6 +157,7 @@ fun activateCustomTheme(activity: Activity, name: String = "Custom") {
     val mainActivity = activity as MainActivity
     val preferenceObject = mainActivity.getPreferenceObject()
     preferenceObject.edit { putInt("theme", -1) }
+    preferenceObject.edit { putString("customThemeName", name) }
     toast(activity.baseContext, activity.getString(R.string.setting_theme_to, name))
     activity.recreate()
 }
