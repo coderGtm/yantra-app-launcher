@@ -35,6 +35,7 @@ import java.io.OutputStream
 import androidx.core.graphics.drawable.toDrawable
 import org.json.JSONObject
 import androidx.core.content.edit
+import com.coderGtm.yantra.Themes
 
 fun printCustomThemeFeatures(command: Command) {
     with(command) {
@@ -146,6 +147,12 @@ fun openCustomThemeDesigner(terminal: Terminal) {
 fun saveCurrentTheme(terminal: Terminal) {
     showThemeNameInputDialog(terminal) { enteredName ->
         val themes = getSavedThemeNames(terminal.preferenceObject)
+
+        if (!checkThemeNameAvailability(terminal.preferenceObject, enteredName)) {
+            terminal.output("Theme name '$enteredName' is not available. Please choose a different name.", terminal.theme.errorTextColor, null)
+            return@showThemeNameInputDialog
+        }
+
         themes.add(enteredName)
 
         terminal.preferenceObject.edit {
@@ -155,7 +162,7 @@ fun saveCurrentTheme(terminal: Terminal) {
             )
         }
         terminal.preferenceObject.edit { putString("savedThemeList", themes.joinToString(",")) }
-        toast(terminal.activity, "Theme saved as $enteredName")
+        terminal.output("Theme saved as '$enteredName'. You can now use it with the command 'theme $enteredName'.", terminal.theme.successTextColor, null)
     }
 }
 
@@ -209,8 +216,9 @@ fun showThemeNameInputDialog(terminal: Terminal, onResult: (String) -> Unit) {
         positiveButton = terminal.activity.getString(R.string.apply),
         negativeButton = terminal.activity.getString(R.string.cancel),
         positiveAction = { enteredName ->
-            if (validateThemeName(enteredName)) {
-                onResult(enteredName)
+            val trimmedName = enteredName.trim()
+            if (validateThemeName(trimmedName)) {
+                onResult(trimmedName)
             } else {
                 toast(terminal.activity, "Invalid Theme Name")
             }
@@ -233,6 +241,27 @@ fun validateThemeName(name: String): Boolean {
     return name.length in 3..15 && name.all { it.isLetterOrDigit() || it == '_' || it == '-' }
 }
 
+/**
+ * Checks if the entered theme name is available.
+ *
+ * A theme name is available if:
+ * - It is not already a saved theme.
+ * - It is not one of the built-in themes.
+ * - It is not "custom".
+ *
+ * @param preferenceObject The SharedPreferences object to check saved themes.
+ * @param enteredName The name entered by the user.
+ *
+ * @return True if the name is available, false otherwise.
+ */
+fun checkThemeNameAvailability(preferenceObject: SharedPreferences, enteredName: String): Boolean {
+    val name = enteredName.trim().lowercase()
+    val savedThemeList = getSavedThemeNames(preferenceObject)
+    val inBuiltThemes = Themes.entries.map { it.name.lowercase() }
+    return !savedThemeList.contains(name) && !inBuiltThemes.contains(name.lowercase()) && (name != "custom")
+
+}
+
 fun getSavedTheme(preferenceObject: SharedPreferences, name: String): String {
     return preferenceObject.getString("theme_$name", "").toString()
 }
@@ -253,7 +282,7 @@ fun showThemesExportDialog(terminal: Terminal, allThemes: MutableList<String>) {
 
             ThemeExportState.pendingFileName = fileName
 
-            terminal.output("Exporting...", terminal.theme.successTextColor, null)
+            terminal.output("Exporting '$selectedTheme' Theme...", terminal.theme.successTextColor, null)
 
             val mainAct = terminal.activity as MainActivity
             mainAct.exportThemeLauncher.launch(Intent.createChooser(intent, "Export Theme File"))
