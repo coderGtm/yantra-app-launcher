@@ -163,6 +163,11 @@ fun exportTheme(terminal: Terminal) {
     val themes = terminal.preferenceObject.getString("savedThemeList", "")?.split(",")?.toMutableList() ?: mutableListOf()
     themes.remove("")
 
+    if (themes.isEmpty()) {
+        terminal.output("No themes to export. Please save a theme first to export it.", terminal.theme.errorTextColor, null)
+        return
+    }
+
     showThemesExportDialog(terminal, themes)
 }
 
