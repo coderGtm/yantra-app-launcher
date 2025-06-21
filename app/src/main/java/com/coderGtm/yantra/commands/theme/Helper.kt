@@ -12,8 +12,11 @@ import android.os.Build
 import android.provider.DocumentsContract
 import android.view.LayoutInflater
 import android.widget.ImageButton
+import androidx.core.content.edit
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
 import com.coderGtm.yantra.R
+import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.commands.backup.Command
@@ -27,15 +30,12 @@ import com.coderGtm.yantra.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
+import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
-import androidx.core.graphics.drawable.toDrawable
-import org.json.JSONObject
-import androidx.core.content.edit
-import com.coderGtm.yantra.Themes
 
 fun printCustomThemeFeatures(command: Command) {
     with(command) {
@@ -212,15 +212,15 @@ fun getSavedThemeNames(preferenceObject: SharedPreferences): MutableList<String>
 fun showThemeNameInputDialog(terminal: Terminal, onResult: (String) -> Unit) {
     YantraLauncherDialog(terminal.activity).takeInput(
         title = "Enter Theme name",
-        message = "Use no more than 15 characters, and at least 3 characters",
+        message = "Theme names can be between 3 to 15 characters long and must not contain spaces.",
         positiveButton = terminal.activity.getString(R.string.apply),
         negativeButton = terminal.activity.getString(R.string.cancel),
         positiveAction = { enteredName ->
-            val trimmedName = enteredName.trim()
+            val trimmedName = enteredName.trim().lowercase()    // silently trim and lowercase the input
             if (validateThemeName(trimmedName)) {
                 onResult(trimmedName)
             } else {
-                toast(terminal.activity, "Invalid Theme Name")
+                terminal.output("Invalid theme name.", terminal.theme.errorTextColor, null)
             }
         }
     )
@@ -231,14 +231,14 @@ fun showThemeNameInputDialog(terminal: Terminal, onResult: (String) -> Unit) {
  *
  * Rules for a valid theme name:
  * - Must be between 3 and 15 characters long.
- * - Can only contain alphanumeric characters, underscores, and hyphens.
+ * - Must not contain spaces.
  *
  * @param name The name of the theme to validate.
  *
  * @return True if the name is valid, false otherwise.
  */
 fun validateThemeName(name: String): Boolean {
-    return name.length in 3..15 && name.all { it.isLetterOrDigit() || it == '_' || it == '-' }
+    return name.length in 3..15 && !name.contains(' ')
 }
 
 /**
@@ -256,9 +256,9 @@ fun validateThemeName(name: String): Boolean {
  */
 fun checkThemeNameAvailability(preferenceObject: SharedPreferences, enteredName: String): Boolean {
     val name = enteredName.trim().lowercase()
-    val savedThemeList = getSavedThemeNames(preferenceObject)
+    val savedThemeList = getSavedThemeNames(preferenceObject).map { it.lowercase() }
     val inBuiltThemes = Themes.entries.map { it.name.lowercase() }
-    return !savedThemeList.contains(name) && !inBuiltThemes.contains(name.lowercase()) && (name != "custom")
+    return !savedThemeList.contains(name) && !inBuiltThemes.contains(name) && (name != "custom")
 
 }
 
