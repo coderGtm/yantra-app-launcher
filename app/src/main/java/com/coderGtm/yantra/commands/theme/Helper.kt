@@ -203,7 +203,7 @@ fun importTheme(terminal: Terminal) {
         }
     }
     val mainAct = terminal.activity as MainActivity
-    mainAct.getThemeFile.launch(Intent.createChooser(intent, "Choose YTF file"))
+    mainAct.getThemeFile.launch(Intent.createChooser(intent, "Choose a JSON theme file."))
 }
 
 fun removeTheme(terminal: Terminal) {
@@ -319,7 +319,7 @@ fun showThemesExportDialog(terminal: Terminal, allThemes: MutableList<String>) {
  * @return The name of the packed theme file.
  */
 fun packTheme(terminal: Terminal, themeName: String): String {
-    val plainFile = File("${terminal.activity.filesDir}", "$themeName.ytf")
+    val plainFile = File("${terminal.activity.filesDir}", "$themeName.json")
 
     val theme = terminal.preferenceObject.getString("theme_$themeName", "")?.split(",")
     val json = JSONObject().apply {
