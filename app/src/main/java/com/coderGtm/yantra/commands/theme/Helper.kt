@@ -136,12 +136,29 @@ fun openCustomThemeDesigner(terminal: Terminal) {
         val customTheme = listOf(bgColor, cmdColor, suggestionsBgColor, suggestionsColor, inputAndBtnsColor, resultColor, errorColor, successColor, warnColor)
         //addToPrevTxt(customTheme.toString().drop(1).dropLast(1),4)
         //return@setPositiveButton
-        terminal.preferenceObject.edit().putString("customThemeClrs", customTheme.toString().drop(1).dropLast(1).replace(" ","")).commit()
-        terminal.preferenceObject.edit().putInt("theme",-1).apply()
-        toast(terminal.activity.baseContext, terminal.activity.getString(R.string.setting_theme_to, "Custom"))
-        terminal.activity.recreate()
+        terminal.preferenceObject.edit(commit = true) {
+            putString(
+                "customThemeClrs",
+                customTheme.toString().drop(1).dropLast(1).replace(" ", "")
+            )
+        }
+        activateCustomTheme(terminal.activity)
     }
     terminal.activity.runOnUiThread { dialog.show() }
+}
+
+/**
+ * Activates the custom theme by setting the theme to -1 and recreating the activity.
+ *
+ * @param activity The activity context.
+ * @param name The name of the custom theme, default is "Custom".
+ */
+fun activateCustomTheme(activity: Activity, name: String = "Custom") {
+    val mainActivity = activity as MainActivity
+    val preferenceObject = mainActivity.getPreferenceObject()
+    preferenceObject.edit { putInt("theme", -1) }
+    toast(activity.baseContext, activity.getString(R.string.setting_theme_to, name))
+    activity.recreate()
 }
 
 fun saveCurrentTheme(terminal: Terminal) {
@@ -401,7 +418,7 @@ fun importThemeFromFile(activity: Activity, uri: Uri) {
     mainAct.getPreferenceObject().edit { putString("savedThemeList", themes.joinToString(",")) }
     fileToExtract.delete()
 
-    setCustomTheme(activity, themeName, splitOfValues[1])
+    setSavedTheme(activity, themeName, splitOfValues[1])
     toast(activity, "Imported $themeName")
 }
 
@@ -484,20 +501,22 @@ private fun getFileNameFromUri(uri: Uri): String? {
     }
 }
 
-fun setCustomTheme(activity: Activity, name: String, savedTheme: String){
+/**
+ * Sets the custom theme with the given name and saved theme colors.
+ *
+ * The custom theme colors are updated to the saved theme colors,
+ * and then the theme is set to Custom internally.
+ *
+ * @param activity The activity context.
+ * @param name The name of the custom theme.
+ * @param savedTheme The saved theme colors in a string format.
+ */
+fun setSavedTheme(activity: Activity, name: String, savedTheme: String){
     val mainActivity = activity as MainActivity
     val preferenceObject = mainActivity.getPreferenceObject()
     preferenceObject.edit { putInt("theme", -1) }
     preferenceObject.edit(commit = true) { putString("customThemeClrs", savedTheme) }
-    if (preferenceObject.getBoolean("defaultWallpaper",true)) {
-        val wallpaperManager = WallpaperManager.getInstance(mainActivity.applicationContext)
-        val theme = getCurrentTheme(mainActivity, preferenceObject)
-        val colorDrawable = theme.bgColor.toDrawable()
-        setSystemWallpaper(wallpaperManager, colorDrawable.toBitmap(mainActivity.resources.displayMetrics.widthPixels, mainActivity.resources.displayMetrics.heightPixels))
-    }
-    toast(mainActivity.baseContext,
-        mainActivity.getString(R.string.setting_theme_to, name))
-    mainActivity.recreate()
+    activateCustomTheme(activity, name)
 }
 
 fun showThemesDeleteDialog(terminal: Terminal, allThemes: MutableList<String>) {

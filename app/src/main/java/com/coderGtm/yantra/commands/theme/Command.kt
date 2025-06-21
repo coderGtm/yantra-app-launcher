@@ -48,7 +48,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val savedTheme = getSavedTheme(terminal.preferenceObject, name)
         if (Themes.entries.any { it.name.lowercase() == name } || name == "custom" || savedTheme != "") {
             if (savedTheme != "") {
-                setCustomTheme(terminal.activity, name, savedTheme)
+                setSavedTheme(terminal.activity, name, savedTheme)
                 return
             }
 
