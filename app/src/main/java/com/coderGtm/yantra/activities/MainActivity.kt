@@ -24,6 +24,7 @@ import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
 import com.coderGtm.yantra.commands.backup.copyFile
+import com.coderGtm.yantra.commands.scripts.Command.ExternalEditorLaunch
 import com.coderGtm.yantra.commands.termux.handleTermuxResult
 import com.coderGtm.yantra.commands.theme.ThemeExportState
 import com.coderGtm.yantra.commands.theme.copyFileToInternalStorage
@@ -333,5 +334,14 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
 
     fun getPreferenceObject(): SharedPreferences {
         return app.preferenceObject
+    }
+
+    val externalEditor = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        val tempFile = File(filesDir, "temp_edit.lua")
+        val editedText = tempFile.readText()
+        val scriptName = ExternalEditorLaunch.scriptName.toString()
+
+        app.preferenceObject.edit().putString("script_$scriptName", editedText).apply()
+        toast(this, "Script $scriptName updated!")
     }
 }
