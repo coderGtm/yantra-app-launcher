@@ -26,7 +26,6 @@ import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
 import com.coderGtm.yantra.commands.backup.copyFile
 import com.coderGtm.yantra.commands.termux.handleTermuxResult
-import com.coderGtm.yantra.commands.theme.ThemeExportState
 import com.coderGtm.yantra.commands.theme.copyFileToInternalStorage
 import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.getInit
@@ -59,6 +58,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     var tts: TextToSpeech? = null
     var ttsTxt = ""
     var pendingScriptName: String? = null
+    var pendingThemeFileName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -302,7 +302,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
      */
     val exportThemeLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == RESULT_OK) {
-            val fileName: String = ThemeExportState.pendingFileName.toString()
+            val fileName: String = pendingThemeFileName.toString()
 
             result.data?.data?.also { uri ->
                 val file = File(filesDir, fileName)

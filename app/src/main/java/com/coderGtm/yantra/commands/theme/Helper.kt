@@ -1,7 +1,6 @@
 package com.coderGtm.yantra.commands.theme
 
 import android.app.Activity
-import android.app.WallpaperManager
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -13,18 +12,14 @@ import android.provider.DocumentsContract
 import android.view.LayoutInflater
 import android.widget.ImageButton
 import androidx.core.content.edit
-import androidx.core.graphics.drawable.toBitmap
-import androidx.core.graphics.drawable.toDrawable
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.commands.backup.Command
-import com.coderGtm.yantra.getCurrentTheme
 import com.coderGtm.yantra.getCustomThemeColors
 import com.coderGtm.yantra.isValidHexCode
 import com.coderGtm.yantra.misc.CustomFlag
-import com.coderGtm.yantra.setSystemWallpaper
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -298,11 +293,10 @@ fun showThemesExportDialog(terminal: Terminal, allThemes: MutableList<String>) {
                 putExtra(Intent.EXTRA_TITLE, fileName)
             }
 
-            ThemeExportState.pendingFileName = fileName
-
             terminal.output("Exporting '$selectedTheme' Theme...", terminal.theme.successTextColor, null)
 
             val mainAct = terminal.activity as MainActivity
+            mainAct.pendingThemeFileName = fileName
             mainAct.exportThemeLauncher.launch(Intent.createChooser(intent, "Export Theme File"))
         }
     )
@@ -339,10 +333,6 @@ fun packTheme(terminal: Terminal, themeName: String): String {
     plainFile.writeText(json.toString())
 
     return plainFile.name
-}
-
-object ThemeExportState {
-    var pendingFileName: String? = null
 }
 
 /**
