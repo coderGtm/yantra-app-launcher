@@ -96,9 +96,9 @@ class SettingsActivity : AppCompatActivity() {
         "English" to "en",
         "Italiano" to "it",
         "Русский" to "ru",
-        "Spanish" to "es",
-        "Ukrainian" to "uk",
-        "Serbian" to "sr",
+        "Español" to "es",
+        "Українська" to "uk",
+        "Српски" to "sr",
     )
 
     private lateinit var splitInstallManager: SplitInstallManager
