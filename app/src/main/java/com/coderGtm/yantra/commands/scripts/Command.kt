@@ -12,6 +12,7 @@ import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.toast
 import java.io.File
+import androidx.core.content.edit
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -38,8 +39,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 YantraLauncherDialog(terminal.activity).selectItem(
                     title = "Select option for editing $scriptName",
                     items = arrayOf("Launcher's editor", "External editor"),
-                    clickAction = {
-                        if (it == 0) {
+                    clickAction = { option ->
+                        if (option == 0) {
                             YantraLauncherDialog(terminal.activity).takeInput(
                                 title = scriptName,
                                 message = terminal.activity.getString(R.string.scripts_disclaimer),
@@ -50,13 +51,23 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                                 negativeButton = terminal.activity.getString(R.string.delete),
                                 positiveAction = {
                                     val scriptBody = it.trim()
-                                    terminal.preferenceObject.edit().putString("script_$scriptName", scriptBody).apply()
+                                    terminal.preferenceObject.edit {
+                                        putString(
+                                            "script_$scriptName",
+                                            scriptBody
+                                        )
+                                    }
                                     output(terminal.activity.getString(R.string.script_saved_successfully, scriptName),terminal.theme.successTextColor)
                                 },
                                 negativeAction = {
-                                    terminal.preferenceObject.edit().remove("script_$scriptName").apply()
+                                    terminal.preferenceObject.edit { remove("script_$scriptName") }
                                     scripts.remove(scriptName)
-                                    terminal.preferenceObject.edit().putString("scripts",scripts.joinToString(";")).apply()
+                                    terminal.preferenceObject.edit {
+                                        putString(
+                                            "scripts",
+                                            scripts.joinToString(";")
+                                        )
+                                    }
                                     output(terminal.activity.getString(R.string.script_deleted, scriptName),terminal.theme.successTextColor)
                                 }
                             )
@@ -71,8 +82,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                                 tempFile
                             )
 
-                            ExternalEditorLaunch.scriptName = scriptName
-
                             val intent = Intent(Intent.ACTION_EDIT)
                             intent.setDataAndType(uri, "text/plain")
                             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or
@@ -80,6 +89,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
                             if (intent.resolveActivity(terminal.activity.packageManager) != null) {
                                 val mainAct = terminal.activity as MainActivity
+                                mainAct.pendingScriptName = scriptName
                                 mainAct.externalEditor.launch(intent)
                             } else {
                                 toast(terminal.activity, "No available text editor")
@@ -89,9 +99,14 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
                     negativeButton = terminal.activity.getString(R.string.delete),
                     negativeAction = {
-                        terminal.preferenceObject.edit().remove("script_$scriptName").apply()
+                        terminal.preferenceObject.edit { remove("script_$scriptName") }
                         scripts.remove(scriptName)
-                        terminal.preferenceObject.edit().putString("scripts",scripts.joinToString(";")).apply()
+                        terminal.preferenceObject.edit {
+                            putString(
+                                "scripts",
+                                scripts.joinToString(";")
+                            )
+                        }
                         output(terminal.activity.getString(R.string.script_deleted, scriptName),terminal.theme.successTextColor)
                     }
                 )
@@ -118,16 +133,17 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                         }
                         else {
                             scripts.add(name)
-                            terminal.preferenceObject.edit().putString("scripts",scripts.joinToString(";")).apply()
+                            terminal.preferenceObject.edit {
+                                putString(
+                                    "scripts",
+                                    scripts.joinToString(";")
+                                )
+                            }
                             output(terminal.activity.getString(R.string.script_created, name),terminal.theme.successTextColor)
                         }
                     }
                 )
             }
         )
-    }
-
-    object ExternalEditorLaunch {
-        var scriptName: String? = null
     }
 }

@@ -14,6 +14,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.edit
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.canhub.cropper.CropImageContract
@@ -24,7 +25,6 @@ import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
 import com.coderGtm.yantra.commands.backup.copyFile
-import com.coderGtm.yantra.commands.scripts.Command.ExternalEditorLaunch
 import com.coderGtm.yantra.commands.termux.handleTermuxResult
 import com.coderGtm.yantra.commands.theme.ThemeExportState
 import com.coderGtm.yantra.commands.theme.copyFileToInternalStorage
@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
 
     var tts: TextToSpeech? = null
     var ttsTxt = ""
+    var pendingScriptName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -339,9 +340,13 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     val externalEditor = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         val tempFile = File(filesDir, "temp_edit.lua")
         val editedText = tempFile.readText()
-        val scriptName = ExternalEditorLaunch.scriptName.toString()
+        val scriptName = pendingScriptName
+        if (scriptName == null) {
+            toast(this, "Failed to update script!")
+            return@registerForActivityResult
+        }
 
-        app.preferenceObject.edit().putString("script_$scriptName", editedText).apply()
+        app.preferenceObject.edit { putString("script_$scriptName", editedText) }
         toast(this, "Script $scriptName updated!")
     }
 }
