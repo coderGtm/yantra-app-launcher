@@ -73,7 +73,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                             )
                         } else {
                             val textToEdit = terminal.preferenceObject.getString("script_$scriptName","") ?: ""
-                            val tempFile = File(terminal.activity.filesDir, "temp_edit.lua")
+                            val tempFile = File(terminal.activity.filesDir, "script.lua")
                             tempFile.writeText(textToEdit)
 
                             val uri = FileProvider.getUriForFile(

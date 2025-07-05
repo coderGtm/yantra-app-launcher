@@ -338,7 +338,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     }
 
     val externalEditor = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        val tempFile = File(filesDir, "temp_edit.lua")
+        val tempFile = File(filesDir, "script.lua")
         val editedText = tempFile.readText()
         val scriptName = pendingScriptName
         if (scriptName == null) {
