@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
-import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
@@ -16,7 +15,6 @@ import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
-import com.coderGtm.yantra.commands.backup.Command
 import com.coderGtm.yantra.getCustomThemeColors
 import com.coderGtm.yantra.isValidHexCode
 import com.coderGtm.yantra.misc.CustomFlag
@@ -32,17 +30,6 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
-fun printCustomThemeFeatures(command: Command) {
-    with(command) {
-        output("[-] Custom Theme Design is a paid add-on feature. Consider buying it to enable it.",terminal.theme.errorTextColor)
-        output("Salient Features of Custom Theme Design:",terminal.theme.warningTextColor, Typeface.BOLD)
-        output("--------------------------",terminal.theme.warningTextColor)
-        output("1. You can customize the colors of the Terminal to your liking.")
-        output("2. All Customizable options: - Background - Input - Command - Normal Text and Arrow - Error Text - Positive Text - Warning Text - Suggestions")
-        output("3. Fine-tune the CLI to your liking and make it your own!")
-        output("--------------------------",terminal.theme.warningTextColor)
-    }
-}
 fun openCustomThemeDesigner(terminal: Terminal) {
     val dialog = MaterialAlertDialogBuilder(terminal.activity, R.style.Theme_AlertDialog)
         .setTitle(terminal.activity.getString(R.string.customize_your_theme))
