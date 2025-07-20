@@ -37,8 +37,14 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             clickAction = { which ->
                 val scriptName = scripts.elementAt(which)
                 YantraLauncherDialog(terminal.activity).selectItem(
-                    title = "Select option for editing $scriptName",
-                    items = arrayOf("Launcher's editor", "External editor"),
+                    title = terminal.activity.getString(
+                        R.string.select_option_for_editing,
+                        scriptName
+                    ),
+                    items = arrayOf(
+                        terminal.activity.getString(R.string.launcher_s_editor),
+                        terminal.activity.getString(R.string.external_editor)
+                    ),
                     clickAction = { option ->
                         if (option == 0) {
                             YantraLauncherDialog(terminal.activity).takeInput(
@@ -92,7 +98,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                                 mainAct.pendingScriptName = scriptName
                                 mainAct.externalEditor.launch(intent)
                             } else {
-                                toast(terminal.activity, "No available text editor")
+                                toast(terminal.activity, terminal.activity.getString(R.string.no_external_editor))
                             }
                         }
                     },

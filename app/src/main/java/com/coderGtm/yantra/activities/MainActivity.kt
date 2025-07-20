@@ -342,11 +342,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         val editedText = tempFile.readText()
         val scriptName = pendingScriptName
         if (scriptName == null) {
-            toast(this, "Failed to update script!")
+            toast(this, getString(R.string.failed_to_update_script))
             return@registerForActivityResult
         }
 
         app.preferenceObject.edit { putString("script_$scriptName", editedText) }
-        toast(this, "Script $scriptName updated!")
+        toast(this, getString(R.string.script_saved_successfully, scriptName))
     }
 }
