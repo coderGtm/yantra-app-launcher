@@ -408,8 +408,8 @@
     <string name="send_via">Enviar vía</string>
     <string name="text_broadcasted">Texto enviado</string>
     <string name="cmd_theme_title"><![CDATA[theme <nombre>]]></string>
-    <string name="cmd_theme_help">Aplica el tema especificado a Yantra Launcher. Ejemplo: \'theme Tokyonight\'</string>
-    <string name="specify_theme">Por favor, especifica un nombre de tema</string>
+    <string name="cmd_theme_help">Aplica el tema especificado a Yantra Launcher. Ejemplo: \'theme Tokyonight\'. Para guardar la configuración del tema personalizado actual como un tema nuevo, use \'theme -save\'. Utilice \'theme -export\' para exportar un archivo de tema compartible y \'theme -import\' para importar un archivo de tema. Finalmente, use \'theme -remove\' para eliminar un tema guardado/importado.</string>
+    <string name="specify_theme_or_action">Especifique un nombre de tema o una acción.</string>
     <string name="only_theme_name_reqd">Uso de comando no válido. El comando \'theme\' toma un solo parámetro: ¡el nombre del tema!</string>
     <string name="launching_custom_theme_designer">[+] Iniciando Diseñador de Temas Personalizados</string>
     <string name="setting_theme_to">Estableciendo tema a %1$s</string>

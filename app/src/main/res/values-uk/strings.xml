@@ -408,8 +408,8 @@
     <string name="send_via">Надіслати через</string>
     <string name="text_broadcasted">Текст розіслано</string>
     <string name="cmd_theme_title"><![CDATA[ theme <name> ]]></string>
-    <string name="cmd_theme_help">Застосовує вказану тему до Yantra Launcher. Приклад: \'theme Tokyonight\'</string>
-    <string name="specify_theme">Будь ласка, вкажіть ім\'я теми</string>
+    <string name="cmd_theme_help">Застосовує вказану тему до Yantra Launcher. Приклад: \'theme Tokyonight\'. Щоб зберегти поточну спеціальну конфігурацію теми як нову тему, скористайтеся \'theme -save\'. Використовуйте \'theme -export\' для експорту спільного файлу теми та \'theme -import\' для імпорту файлу теми. Нарешті, використовуйте \'theme -remove\', щоб видалити збережену/імпортовану тему.</string>
+    <string name="specify_theme_or_action">Будь ласка, вкажіть назву теми або дію.</string>
     <string name="only_theme_name_reqd">Неправильне використання команди. Команда \'theme\' приймає один параметр: ім\'я теми!</string>
     <string name="launching_custom_theme_designer">[+] Запуск Дизайнера тем</string>
     <string name="setting_theme_to">Встановлюю тему на %1$s</string>

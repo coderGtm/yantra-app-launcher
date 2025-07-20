@@ -408,8 +408,8 @@
     <string name="send_via">Пошаљи преко</string>
     <string name="text_broadcasted">Текст је емитован</string>
     <string name="cmd_theme_title"><![CDATA[theme <име>]]></string>
-    <string name="cmd_theme_help">Примењује одређену тему на Yantra Launcher. Пример: \'theme Tokyonight\'</string>
-    <string name="specify_theme">Молимо наведите име теме</string>
+    <string name="cmd_theme_help">Примењује одређену тему на Yantra Launcher. Пример: \'theme Tokyonight\'. Да бисте сачували тренутну прилагођену конфигурацију теме као нову тему, користите \'тхеме -save\'. Користите \'тхеме -export\' да извезете датотеку теме за дељење и \'тхеме -import\' да увезете датотеку теме. На крају, користите \'тхеме -remove\' да избришете сачувану/увезену тему.</string>
+    <string name="specify_theme_or_action">Наведите назив теме или радњу.</string>
     <string name="only_theme_name_reqd">Неисправна употреба наредбе. Наредба \'theme\' прихвата један параметар: име теме!</string>
     <string name="launching_custom_theme_designer">[+] Покрећем Designer за прилагођене теме</string>
     <string name="setting_theme_to">Постављам тему на %1$s</string>

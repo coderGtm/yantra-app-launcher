@@ -409,7 +409,7 @@
     <string name="text_broadcasted">Text broadcasted</string>
     <string name="cmd_theme_title"><![CDATA[theme <name>]]></string>
     <string name="cmd_theme_help">Applies specified theme to Yantra Launcher. Example: \'theme Tokyonight\'. To save the current custom theme config as a new theme, use \'theme -save\'. Use \'theme -export\' to export a sharable theme file and \'theme -import\' to import a theme file. Finally, use the \'theme -remove\' to delete a saved/imported theme.</string>
-    <string name="specify_theme">Please specify a theme name</string>
+    <string name="specify_theme_or_action">Please specify a theme name or an action.</string>
     <string name="only_theme_name_reqd">Invalid command usage. \'theme\' command takes a single parameter: the theme name!</string>
     <string name="launching_custom_theme_designer">[+] Launching Custom Theme Designer</string>
     <string name="setting_theme_to">Setting theme to %1$s</string>

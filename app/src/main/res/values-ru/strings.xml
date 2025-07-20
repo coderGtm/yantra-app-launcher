@@ -408,8 +408,8 @@
     <string name="send_via">Отправить через</string>
     <string name="text_broadcasted">Текст транслирован</string>
     <string name="cmd_theme_title"><![CDATA[theme <название>]]></string>
-    <string name="cmd_theme_help">Применяет указанную тему к Yantra Launcher. Пример: \'theme Tokyonight\'</string>
-    <string name="specify_theme">Пожалуйста, укажите название темы</string>
+    <string name="cmd_theme_help">Применяет указанную тему к Yantra Launcher. Пример: \'theme Tokyonight\'. Чтобы сохранить текущую конфигурацию пользовательской темы как новую тему, используйте «theme -save». Используйте «theme-export», чтобы экспортировать общий файл темы, и «theme-import», чтобы импортировать файл темы. Наконец, используйте команду «theme -remove», чтобы удалить сохраненную/импортированную тему.</string>
+    <string name="specify_theme_or_action">Укажите название темы или действие.</string>
     <string name="only_theme_name_reqd">Неверное использование команды. Команда \'theme\' принимает один параметр: название темы!</string>
     <string name="launching_custom_theme_designer">[+] Запуск конструктора пользовательских тем</string>
     <string name="setting_theme_to">Установка темы %1$s</string>

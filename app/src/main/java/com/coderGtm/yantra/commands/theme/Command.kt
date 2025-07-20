@@ -23,7 +23,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
     override fun execute(command: String) {
         val args = command.split(" ")
         if (args.size < 2) {
-            output(terminal.activity.getString(R.string.specify_theme), terminal.theme.errorTextColor)
+            output(terminal.activity.getString(R.string.specify_theme_or_action), terminal.theme.errorTextColor)
             return
         }
         if (args.size > 2) {
