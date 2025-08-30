@@ -558,7 +558,7 @@
     <string name="add_sfx_desc">Додај звучни ефекат у интерну меморију апликације. Подржани формати: mp3, wav, ogg</string>
     <string name="select_sfx_file">Изабери фајл звучног ефекта</string>
     <string name="cmd_sfx_title">sfx [звучни_ефекат]</string>
-    <string name="cmd_sfx_help">Пуштај звучне ефекте! Без аргумената пушта подразумевани звук. Са аргументом пушта одређени ефекат додат преко „”.</string>
+    <string name="cmd_sfx_help">Пуштај звучне ефекте! Без аргумената пушта подразумевани звук. Са аргументом пушта одређени ефекат додат преко „settings”.</string>
     <string name="playing_sound_effect">Пуштам звучни ефекат: %1$s...</string>
     <string name="sfx_not_found">Звучни ефекат „%1$s” није пронађен. Додајте га преко „settings”.</string>
     <string name="cmd_notepad_title"><![CDATA[notepad [list / new <име> / read <име> / delete <име>]]]></string>
