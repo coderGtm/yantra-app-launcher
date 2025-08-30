@@ -348,7 +348,7 @@
     <string name="specify_script_to_run">Наведите име скрипте за покретање.</string>
     <string name="run_only_one_param">\'run\' команда прихвата само 1 параметар: Име скрипте за покретање.</string>
     <string name="script_not_found">Скрипта \'%1$s\' није дефинисана. Користите наредбу \'scripts\' да направите сопствене Yantra скрипте.</string>
-    <string name="cmd_screentime_title">screentime [име_апликације][-all]</string>
+    <string name="cmd_screentime_title">screentime [име_апликације] [-all]</string>
     <string name="cmd_screentime_help">Приказује укупно време проведено на екрану током дана! Наведите име апликације да бисте добили време за одређену апликацију или користите заставицу \'-all\' да бисте добили време за све апликације коришћене данас.\nПример: \'screentime Instagram\' или \'screentime -all\'</string>
     <string name="permission_required">Дозвола је потребна</string>
     <string name="screentime_permission">Молимо дајте Yantra Launcher-у дозволу \'Usage Access\' да бисте приступили подацима о времену проведеном на екрану.</string>
