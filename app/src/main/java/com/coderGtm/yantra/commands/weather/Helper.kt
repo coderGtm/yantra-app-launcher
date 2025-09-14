@@ -39,12 +39,12 @@ fun handleResponse(response: String, command: Command) {
         command.output("=> $condition")
         command.output(command.terminal.activity.getString(R.string.weather_temperature_c_f, temp_c, temp_f))
         command.output(command.terminal.activity.getString(R.string.weather_feels_like_c_f, feelslike_c, feelslike_f))
+        command.output(command.terminal.activity.getString(R.string.weather_min_c_f, mintemp_c, mintemp_f))
+        command.output(command.terminal.activity.getString(R.string.weather_max_c_f, maxtemp_c, maxtemp_f))
         if (command.terminal.preferenceObject.getBoolean("includeUvIndex", false)) {
             val uvi = current.getDouble("uv")
             command.output(command.terminal.activity.getString(R.string.weather_uv, uvi))
         }
-        command.output(command.terminal.activity.getString(R.string.weather_min_c_f, mintemp_c, mintemp_f))
-        command.output(command.terminal.activity.getString(R.string.weather_max_c_f, maxtemp_c, maxtemp_f))
         command.output(command.terminal.activity.getString(R.string.weather_humidity, humidity.roundToInt()))
         command.output(command.terminal.activity.getString(R.string.weather_wind, wind_kph, wind_mph, wind_dir))
         command.output(command.terminal.activity.getString(R.string.weather_air_quality, getAqiText(air_quality_index)))
