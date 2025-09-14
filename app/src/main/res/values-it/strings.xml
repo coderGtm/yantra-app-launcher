@@ -582,7 +582,7 @@
     <string name="ai_model_updated">Modello dell\'IA aggiornato!</string>
     <string name="cannot_bt_restrictions">Non è possibile cambiare lo stato del Bluetooth in questa versione d Android a causa di restrizioni del sistema.</string>
     <string name="failed_to_update_script">Aggiornamento dello script fallito!</string>
-    <string name="select_option_for_editing">Seleziona un'opzione per modificare %1$s</string>
+    <string name="select_option_for_editing">Seleziona un\'opzione per modificare %1$s</string>
     <string name="launcher_s_editor">Launcher\'s editor</string>
     <string name="external_editor">Editor di testo esterno</string>
     <string name="no_external_editor">Nessun editor di testo disponibile</string>
