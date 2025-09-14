@@ -28,6 +28,39 @@ import com.coderGtm.yantra.setSystemWallpaper
 import java.util.Locale
 import java.util.regex.Pattern
 
+data class LaunchSuggestionsResult(
+    val suggestions: List<String>,
+    val overrideLastWord: Boolean
+)
+
+fun getLaunchSuggestions(query: String, terminal: Terminal): LaunchSuggestionsResult {
+    val suggestions = mutableListOf<String>()
+    val candidates = terminal.appList.map { it.appName }.toMutableList()
+    candidates.add(0, "-s")
+    candidates.add(0, "-p")
+
+    if (query.isNotEmpty()) {
+        val regex = Regex(Pattern.quote(query), RegexOption.IGNORE_CASE)
+        for (app in candidates) {
+            if (regex.containsMatchIn(app) && !suggestions.contains(app)) {
+                if (app.substring(0, query.length).lowercase() == query) {
+                    suggestions.add(0, app)
+                    continue
+                }
+                suggestions.add(app)
+            }
+        }
+        return LaunchSuggestionsResult(suggestions, true)
+    } else {
+        for (app in candidates) {
+            if (!suggestions.contains(app)) {
+                suggestions.add(app)
+            }
+        }
+        return LaunchSuggestionsResult(suggestions, false)
+    }
+}
+
 fun showSuggestions(
     rawInput: String,
     getPrimarySuggestions: Boolean,
@@ -72,31 +105,9 @@ fun showSuggestions(
                 if (!terminal.appListFetched) {
                     return@Thread
                 }
-                val candidates = terminal.appList.map { it.appName }.toMutableList()
-                candidates.add(0, "-s")
-                candidates.add(0, "-p")
-                if (args.size>1) {
-                    //search using regex
-                    overrideLastWord = true
-
-                    val regex = Regex(Pattern.quote(reg), RegexOption.IGNORE_CASE)
-                    for (app in candidates) {
-                        if (regex.containsMatchIn(app) && !suggestions.contains(app)) {
-                            if (app.substring(0, reg.length).lowercase() == reg && reg.isNotEmpty()){
-                                suggestions.add(0, app)
-                                continue
-                            }
-                            suggestions.add(app)
-                        }
-                    }
-                }
-                else {
-                    for (app in candidates) {
-                        if (!suggestions.contains(app)) {
-                            suggestions.add(app)
-                        }
-                    }
-                }
+                val launchSuggestions = getLaunchSuggestions(reg, terminal)
+                suggestions.addAll(launchSuggestions.suggestions)
+                overrideLastWord = launchSuggestions.overrideLastWord
                 isPrimary = false
             }
             else if (effectivePrimaryCmd == "open") {
