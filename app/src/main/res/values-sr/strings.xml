@@ -602,4 +602,5 @@
     <string name="imported_entity_name">Увезено %1$s</string>
     <string name="select_theme_to_delete">Изаберите тему за брисање</string>
     <string name="removed_theme_successfully">Тема %1$s је успешно уклоњена.</string>
+    <string name="launch_first_match">Аутоматско покретање првог подударања са LAUNCH командом</string>
 </resources>

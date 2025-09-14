@@ -602,4 +602,5 @@
     <string name="imported_entity_name">Імпортовано: %1$s</string>
     <string name="select_theme_to_delete">Виберіть тему для видалення</string>
     <string name="removed_theme_successfully">Тему %1$s успішно видалено.</string>
+    <string name="launch_first_match">Автозапуск першого збігу з командою LAUNCH</string>
 </resources>

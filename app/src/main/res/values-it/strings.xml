@@ -602,4 +602,5 @@
     <string name="imported_entity_name">%1$s importato</string>
     <string name="select_theme_to_delete">Seleziona un tema da cancellare</string>
     <string name="removed_theme_successfully">Tema %1$s rimosso con successo.</string>
+    <string name="launch_first_match">Auto-avvia prima corrispondenza con il comando LAUNCH</string>
 </resources>
