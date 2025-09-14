@@ -494,6 +494,7 @@
     <string name="weather_max_c_f"><![CDATA[=> Max: %1$.1f°C (%2$.1f°F)]]></string>
     <string name="weather_humidity"><![CDATA[=> Humidity: %1$d%%]]></string>
     <string name="weather_wind"><![CDATA[=> Wind: %1$.1f kph (%2$.1f mph) %3$s]]></string>
+    <string name="weather_uv"><![CDATA[=> UVI: %1$s]]></string>"
     <string name="package_removed"><![CDATA[==> Package removed: %1$s]]></string>
     <string name="specify_a_package_name">Please specify an app package name!</string>
     <string name="yantra_launcher_has_been_trimmed">Yantra Launcher has been trimmed!</string>
@@ -602,4 +603,5 @@
     <string name="imported_entity_name">Imported %1$s</string>
     <string name="select_theme_to_delete">Select theme to delete</string>
     <string name="removed_theme_successfully">Removed %1$s theme successfully.</string>
+    <string name="include_uv_index_in_weather">Include UV Index in Weather Report</string>
 </resources>
