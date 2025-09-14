@@ -8,6 +8,8 @@ import android.os.UserManager
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.ShortcutBlock
+import com.coderGtm.yantra.terminal.Terminal
+import com.coderGtm.yantra.terminal.getLaunchSuggestions
 
 fun launchApp(command: Command, app: AppBlock) {
     val launcher = command.terminal.activity.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
@@ -37,4 +39,17 @@ fun launchShortcut(command: Command, shortcut: ShortcutBlock) {
 fun isDefaultUser(user: UserHandle, command: Command): Boolean {
     val userManager = command.terminal.activity.getSystemService(Context.USER_SERVICE) as UserManager
     return user == userManager.userProfiles[0]
+}
+
+fun findFirstMatchingApp(query: String, terminal: Terminal): AppBlock? {
+    if (query.isEmpty()) return null
+
+    val launchSuggestions = getLaunchSuggestions(query, terminal)
+
+    val firstAppSuggestion = launchSuggestions.suggestions.firstOrNull { it != "-p" && it != "-s" }
+        ?: return null
+
+    return terminal.appList.find {
+        it.appName == firstAppSuggestion && it.packageName != terminal.activity.packageName
+    }
 }
