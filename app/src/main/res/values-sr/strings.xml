@@ -602,4 +602,6 @@
     <string name="imported_entity_name">Увезено %1$s</string>
     <string name="select_theme_to_delete">Изаберите тему за брисање</string>
     <string name="removed_theme_successfully">Тема %1$s је успешно уклоњена.</string>
+    <string name="include_uv_index_in_weather">Укључи UV индекс у извештај о времену</string>
+    <string name="weather_uv"><![CDATA[=> УВ индекс: %1$.1f]]></string>
 </resources>

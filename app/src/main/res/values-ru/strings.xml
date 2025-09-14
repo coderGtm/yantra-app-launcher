@@ -602,4 +602,6 @@
     <string name="imported_entity_name">Импортировано: %1$s</string>
     <string name="select_theme_to_delete">Выберите тему для удаления</string>
     <string name="removed_theme_successfully">Тема %1$s успешно удалена.</string>
+    <string name="include_uv_index_in_weather">Включить UV индекс в погодный отчёт</string>
+    <string name="weather_uv"><![CDATA[=> УФ-индекс: %1$.1f]]></string>
 </resources>
