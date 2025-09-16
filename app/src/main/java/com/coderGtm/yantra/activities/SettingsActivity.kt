@@ -91,6 +91,7 @@ class SettingsActivity : AppCompatActivity() {
     private var appLocale = "en"
     private var useModernPromptDesign = false
     private var disableAds = false
+    private var includeUvIndex = false
 
     private lateinit var binding: ActivitySettingsBinding
 
@@ -174,6 +175,7 @@ class SettingsActivity : AppCompatActivity() {
         appLocale = AppCompatDelegate.getApplicationLocales().toLanguageTags()
         useModernPromptDesign = preferenceObject.getBoolean("useModernPromptDesign",false)
         disableAds = preferenceObject.getBoolean("disableAds",false)
+        includeUvIndex = preferenceObject.getBoolean("includeUvIndex",false)
 
         binding.usernamePrefix.text = getUserNamePrefix(preferenceObject)
         binding.fontSizeBtn.text = fontSize.toString()
@@ -384,6 +386,12 @@ class SettingsActivity : AppCompatActivity() {
         binding.adBlocker.setOnCheckedChangeListener { _, isChecked ->
             disableAds = isChecked
             preferenceEditObject.putBoolean("disableAds", isChecked).apply()
+            changedSettingsCallback(this@SettingsActivity)
+        }
+        binding.includeUvIndexSwitch.isChecked = includeUvIndex
+        binding.includeUvIndexSwitch.setOnCheckedChangeListener { _, isChecked ->
+            includeUvIndex = isChecked
+            preferenceEditObject.putBoolean("includeUvIndex", isChecked).apply()
             changedSettingsCallback(this@SettingsActivity)
         }
     }
