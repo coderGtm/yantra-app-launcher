@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
+import androidx.core.view.WindowCompat
 import androidx.core.widget.addTextChangedListener
 import com.android.volley.NoConnectionError
 import com.android.volley.Request
@@ -32,6 +33,7 @@ import com.coderGtm.yantra.databinding.ActivitySettingsBinding
 import com.coderGtm.yantra.getFullName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.isPro
+import com.coderGtm.yantra.misc.applySystemBarsPadding
 import com.coderGtm.yantra.misc.changedSettingsCallback
 import com.coderGtm.yantra.misc.getSoundEffects
 import com.coderGtm.yantra.misc.openAiApiKeySetter
@@ -139,6 +141,10 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Enable edge-to-edge and manage insets manually
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        binding.rootLayout.applySystemBarsPadding()
 
         hideProForNonProUsers()
 
