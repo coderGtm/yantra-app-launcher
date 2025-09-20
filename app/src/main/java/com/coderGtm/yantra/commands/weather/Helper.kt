@@ -1,82 +1,170 @@
 package com.coderGtm.yantra.commands.weather
 
+import android.content.pm.PackageManager
 import android.graphics.Typeface
-import com.android.volley.NoConnectionError
-import com.android.volley.VolleyError
+import androidx.appcompat.app.AppCompatDelegate
 import com.coderGtm.yantra.R
-import org.json.JSONObject
-import kotlin.math.roundToInt
+import com.coderGtm.yantra.blueprints.BaseCommand
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.plugins.ClientRequestException
+import io.ktor.client.request.get
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.net.ConnectException
+import java.net.UnknownHostException
 
-fun handleResponse(response: String, command: Command) {
-    command.output("-------------------------")
-    val json = JSONObject(response)
+/**
+ * Fetches weather data from the WeatherAPI for the specified location.
+ *
+ * @param args The [WeatherCommandArgs] containing the location for which to fetch weather data.
+ * @param command The [BaseCommand] instance.
+ * @param httpClient The [HttpClient] instance used to make the network request.
+ */
+fun fetchWeatherData(args: WeatherCommandArgs, command: BaseCommand, httpClient: HttpClient) {
+    val location = args.location
+
+    val langCode = AppCompatDelegate.getApplicationLocales().toLanguageTags()
+    command.output(
+        command.terminal.activity.getString(R.string.fetching_weather_report_of, location),
+        command.terminal.theme.resultTextColor,
+        Typeface.ITALIC
+    )
+
+    val apiKey = command.terminal.activity.packageManager.getApplicationInfo(
+        command.terminal.activity.packageName,
+        PackageManager.GET_META_DATA
+    ).metaData.getString("WEATHER_API_KEY")
+
+    val url =
+        "https://api.weatherapi.com/v1/forecast.json?key=$apiKey&q=$location&lang=$langCode&aqi=yes"
+
+    CoroutineScope(Dispatchers.Main).launch {
+        try {
+            val weather = withContext(Dispatchers.IO) {
+                httpClient.get(url).body<WeatherResponse>()
+            }
+            handleResponse(weather, args, command)
+        } catch (e: Exception) {
+            handleKtorError(e, command)
+        }
+    }
+}
+
+/**
+ * Handles the error response from the WeatherAPI.
+ */
+internal suspend fun handleKtorError(error: Exception, command: BaseCommand) {
+    when (error) {
+        is ClientRequestException -> {
+            val apiError = parseErrorResponse(error)
+            val stringRes = getWeatherApiErrorStringRes(apiError, error.response.status.value)
+            command.output(
+                command.terminal.activity.getString(stringRes),
+                command.terminal.theme.errorTextColor
+            )
+        }
+
+        is ConnectException, is UnknownHostException -> {
+            command.output(
+                command.terminal.activity.getString(R.string.no_internet_connection),
+                command.terminal.theme.errorTextColor
+            )
+        }
+
+        else -> {
+            command.output(
+                command.terminal.activity.getString(R.string.an_error_occurred_no_reason),
+                command.terminal.theme.errorTextColor
+            )
+        }
+    }
+}
+
+/**
+ * Convenience function to parse the error response from the WeatherAPI.
+ */
+internal suspend fun parseErrorResponse(
+    exception: ClientRequestException
+): WeatherApiError? = withContext(Dispatchers.IO) {
     try {
-        val weather_location = json.getJSONObject("location").getString("name") + ", " + json.getJSONObject("location").getString("country")
-        val current = json.getJSONObject("current")
-        val condition = current.getJSONObject("condition").getString("text")
-        val temp_c = current.getDouble("temp_c")
-        val temp_f = current.getDouble("temp_f")
-        val feelslike_c = current.getDouble("feelslike_c")
-        val feelslike_f = current.getDouble("feelslike_f")
-        val wind_kph = current.getDouble("wind_kph")
-        val wind_mph = current.getDouble("wind_mph")
-        val wind_dir = current.getString("wind_dir")
-        val humidity = current.getDouble("humidity")
-        val air_quality = current.getJSONObject("air_quality")
-        val air_quality_index = air_quality.getInt("us-epa-index")
-        val forecast = json.getJSONObject("forecast")
-        val forecastDay = forecast.getJSONArray("forecastday").getJSONObject(0)
-        val day = forecastDay.getJSONObject("day")
-        val maxtemp_c = day.getDouble("maxtemp_c")
-        val mintemp_c = day.getDouble("mintemp_c")
-        val maxtemp_f = day.getDouble("maxtemp_f")
-        val mintemp_f = day.getDouble("mintemp_f")
-        val will_it_rain = day.getInt("daily_will_it_rain")
-        val will_it_snow = day.getInt("daily_will_it_snow")
-        val precipitation_chance = day.getInt("daily_chance_of_rain")
-        val snow_chance = day.getInt("daily_chance_of_snow")
-        command.output(command.terminal.activity.getString(R.string.weather_report_of, weather_location), command.terminal.theme.successTextColor, Typeface.BOLD)
-        command.output("=> $condition")
-        command.output(command.terminal.activity.getString(R.string.weather_temperature_c_f, temp_c, temp_f))
-        command.output(command.terminal.activity.getString(R.string.weather_feels_like_c_f, feelslike_c, feelslike_f))
-        command.output(command.terminal.activity.getString(R.string.weather_min_c_f, mintemp_c, mintemp_f))
-        command.output(command.terminal.activity.getString(R.string.weather_max_c_f, maxtemp_c, maxtemp_f))
-        command.output(command.terminal.activity.getString(R.string.weather_humidity, humidity.roundToInt()))
-        command.output(command.terminal.activity.getString(R.string.weather_wind, wind_kph, wind_mph, wind_dir))
-        command.output(command.terminal.activity.getString(R.string.weather_air_quality, getAqiText(air_quality_index)))
-        if (will_it_rain == 1) {
-            command.output(command.terminal.activity.getString(R.string.precipitation_chance, precipitation_chance))
+        exception.response.body<WeatherErrorResponse>().error
+    } catch (_: Exception) {
+        null
+    }
+}
+
+/**
+ * Convenience function to get the appropriate error string resource based on the API error code.
+ */
+internal fun getWeatherApiErrorStringRes(
+    apiError: WeatherApiError?,
+    statusCode: Int
+): Int = when (apiError?.code) {
+        1002 -> R.string.weather_api_key_not_provided
+        1003 -> R.string.weather_location_parameter_missing
+        1005 -> R.string.weather_api_request_invalid
+        1006 -> R.string.weather_location_not_found
+        2006 -> R.string.weather_api_key_invalid
+        2007 -> R.string.weather_quota_exceeded
+        2008 -> R.string.weather_api_disabled
+        2009 -> R.string.weather_api_access_restricted
+        9000 -> R.string.weather_bulk_request_invalid
+        9001 -> R.string.weather_bulk_too_many_locations
+        9999 -> R.string.weather_internal_error
+        else -> getGenericErrorForStatus(statusCode)
+    }
+
+/**
+ * Convenience function to get the appropriate error string resource based on the HTTP status code.
+ */
+private fun getGenericErrorForStatus(statusCode: Int): Int {
+    return when (statusCode) {
+        400 -> R.string.weather_location_not_found
+        401 -> R.string.weather_api_key_invalid
+        403 -> R.string.weather_quota_exceeded
+        else -> R.string.weather_unknown_error
+    }
+}
+
+/**
+ * Handles the successful response from the WeatherAPI.
+ */
+private fun handleResponse(
+    weather: WeatherResponse,
+    args: WeatherCommandArgs,
+    command: BaseCommand,
+) {
+    command.output("-------------------------")
+    with(command.terminal.activity) {
+        try {
+            val location = "${weather.location.name}, ${weather.location.country}"
+            command.output(
+                getString(R.string.weather_report_of, location),
+                command.terminal.theme.successTextColor,
+                Typeface.BOLD
+            )
+
+            val fieldsToShow = if (args.showDefaultFields) {
+                DEFAULT_WEATHER_FIELDS
+            } else {
+                args.requestedFields
+            }
+
+            fieldsToShow.forEach { fieldKey ->
+                WEATHER_FIELD_MAP[fieldKey]?.renderer?.invoke(weather, command)
+            }
+        } catch (e: Exception) {
+            command.output(
+                getString(
+                    R.string.an_error_occurred,
+                    e.message.toString()
+                )
+            )
         }
-        if (will_it_snow == 1) {
-            command.output(command.terminal.activity.getString(R.string.snow_chance, snow_chance))
-        }
-    } catch (e: Exception) {
-        command.output(command.terminal.activity.getString(R.string.an_error_occurred, e.message.toString()))
     }
 
     command.output("-------------------------")
-}
-
-fun handleError(error: VolleyError, command: Command) {
-    if (error is NoConnectionError) {
-        command.output(command.terminal.activity.getString(R.string.no_internet_connection), command.terminal.theme.errorTextColor)
-    }
-    else if (error.networkResponse.statusCode == 400) {
-        command.output(command.terminal.activity.getString(R.string.location_not_found), command.terminal.theme.warningTextColor)
-    }
-    else {
-        command.output(command.terminal.activity.getString(R.string.an_error_occurred_no_reason),command.terminal.theme.errorTextColor)
-    }
-}
-
-fun getAqiText(index: Int): String {
-    return when (index) {
-        1 -> "Good"
-        2 -> "Moderate"
-        3 -> "Unhealthy for sensitive group"
-        4 -> "Unhealthy"
-        5 -> "Very Unhealthy"
-        6 -> "Hazardous"
-        else -> "Unknown"
-    }
 }
