@@ -11,10 +11,15 @@ import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.request.get
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.ConnectException
 import java.net.UnknownHostException
+import kotlin.coroutines.cancellation.CancellationException
+
+private var weatherJob: Job? = null
 
 /**
  * Fetches weather data from the WeatherAPI for the specified location.
@@ -41,13 +46,16 @@ fun fetchWeatherData(args: WeatherCommandArgs, command: BaseCommand, httpClient:
     val url =
         "https://api.weatherapi.com/v1/forecast.json?key=$apiKey&q=$location&lang=$langCode&aqi=yes"
 
-    CoroutineScope(Dispatchers.Main).launch {
+    weatherJob?.cancel()
+    weatherJob = CoroutineScope(Dispatchers.Main).launch {
         try {
+            ensureActive()
             val weather = withContext(Dispatchers.IO) {
                 httpClient.get(url).body<WeatherResponse>()
             }
             handleResponse(weather, args, command)
         } catch (e: Exception) {
+            if (e is CancellationException) return@launch
             handleKtorError(e, command)
         }
     }
