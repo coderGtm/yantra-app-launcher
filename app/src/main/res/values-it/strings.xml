@@ -522,8 +522,8 @@
     <string name="total_tokens_used">I token usati in totale per questa conversazione sono: %1$s</string>
     <string name="ai_reset">La cronologia messaggi dell\'IA è stata eliminata!</string>
     <string name="weather_feels_like_c_f"><![CDATA[=> Temperatura percepita: %1$.1f°C (%2$.1f°F)]]></string>
-    <string name="precipitation_chance"><![CDATA[=> Possibilità che piova: %1$d%%]]></string>
-    <string name="snow_chance"><![CDATA[=> Possibilità che nevichi: %1$d%%]]></string>
+    <string name="precipitation_chance">=> Possibilità che piova: %1$d%%</string>
+    <string name="snow_chance">=> Possibilità che nevichi: %1$d%%</string>
     <string name="clear_init_list">Cancellare la lista init?</string>
     <string name="clear_init_list_confirmation">Sei sicuro di voler cancellare il tuo script init?</string>
     <string name="cmd_backup_title">backup [-i]</string>
@@ -572,6 +572,91 @@
     <string name="no_note_fond_by_the_name">Nessuna nota trovata con il nome %1$s!</string>
     <string name="deleted_from_notepad">Eliminata \'%1$s\' dal blocco note.</string>
     <string name="weather_air_quality"><![CDATA[=> Qualità dell\'aria: %1$s]]></string>
+    <string name="weather_uv_index"><![CDATA[=> Indice UV: %1$.1f]]></string>
+    <string name="weather_pressure"><![CDATA[=> Pressione: %1$.1f mb]]></string>
+    <string name="weather_visibility"><![CDATA[=> Visibilità: %1$.1f km]]></string>
+    <string name="weather_condition"><![CDATA[=> Condizione: %1$s]]></string>
+    <string name="weather_cloud_cover"><![CDATA[=> Copertura nuvolosa: %1$d%%]]></string>
+    <string name="weather_precipitation"><![CDATA[=> Precipitazioni: %1$.1f mm]]></string>
+    <string name="weather_windchill_c_f"><![CDATA[=> Temperatura con vento: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_heatindex_c_f"><![CDATA[=> Indice di calore: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_dewpoint_c_f"><![CDATA[=> Punto di rugiada: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_gust"><![CDATA[=> Raffica di vento: %1$.1f km/h (%2$.1f mph)]]></string>
+    <string name="weather_co"><![CDATA[=> Monossido di carbonio: %1$.1f μg/m³]]></string>
+    <string name="weather_no2"><![CDATA[=> Biossido di azoto: %1$.1f μg/m³]]></string>
+    <string name="weather_o3"><![CDATA[=> Ozono: %1$.1f μg/m³]]></string>
+    <string name="weather_so2"><![CDATA[=> Biossido di zolfo: %1$.1f μg/m³]]></string>
+    <string name="weather_pm25"><![CDATA[=> PM2.5: %1$.1f μg/m³]]></string>
+    <string name="weather_pm10"><![CDATA[=> PM10: %1$.1f μg/m³]]></string>
+    <string name="weather_solar_radiation"><![CDATA[=> Radiazione solare: Corta=%1$.1f, Diff=%2$.1f, DNI=%3$.1f, GTI=%4$.1f]]></string>
+    <string name="weather_sunrise"><![CDATA[=> Alba: %1$s]]></string>
+    <string name="weather_sunset"><![CDATA[=> Tramonto: %1$s]]></string>
+    <string name="weather_moonrise"><![CDATA[=> Sorgere della luna: %1$s]]></string>
+    <string name="weather_moonset"><![CDATA[=> Tramonto della luna: %1$s]]></string>
+    <string name="weather_moon_phase"><![CDATA[=> Fase lunare: %1$s]]></string>
+    <string name="weather_moon_illumination"><![CDATA[=> Illuminazione lunare: %1$d%%]]></string>
+    <string name="weather_avgtemp_c_f"><![CDATA[=> Temperatura media: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_maxwind"><![CDATA[=> Vento massimo: %1$.1f km/h (%2$.1f mph)]]></string>
+    <string name="weather_total_precipitation"><![CDATA[=> Precipitazioni totali: %1$.1f mm]]></string>
+    <string name="weather_total_snow"><![CDATA[=> Neve totale: %1$.1f cm]]></string>
+    <string name="weather_avg_humidity"><![CDATA[=> Umidità media: %1$d%%]]></string>
+    <string name="weather_unknown_field">Campo meteo sconosciuto: %1$s</string>
+    <string name="weather_field_unavailable">%1$s: Non disponibile</string>
+    <string name="weather_invalid_command_format">Formato comando non valido:</string>
+    <string name="weather_unknown_field_bullet">• Campo sconosciuto: \'%1$s\'</string>
+    <string name="weather_available_fields">Campi meteo disponibili (%1$d totale):</string>
+    <string name="weather_use_list_command">\nUsa \'weather list\' per vedere i campi disponibili.</string>
+
+    <!-- Weather field categories -->
+    <string name="weather_category_current">Meteo attuale</string>
+    <string name="weather_category_forecast">Previsioni</string>
+    <string name="weather_category_air_quality">Qualità dell\'aria</string>
+    <string name="weather_category_astronomy">Astronomia</string>
+
+    <!-- Weather field descriptions -->
+    <string name="weather_field_temp">Temperatura (°C/°F)</string>
+    <string name="weather_field_feels">Temperatura percepita</string>
+    <string name="weather_field_windchill">Temperatura con vento</string>
+    <string name="weather_field_heatindex">Indice di calore</string>
+    <string name="weather_field_dewpoint">Punto di rugiada</string>
+    <string name="weather_field_humidity">Percentuale di umidità</string>
+    <string name="weather_field_wind">Velocità e direzione del vento</string>
+    <string name="weather_field_gust">Raffica di vento</string>
+    <string name="weather_field_pressure">Pressione atmosferica</string>
+    <string name="weather_field_uv">Indice UV</string>
+    <string name="weather_field_visibility">Distanza di visibilità</string>
+    <string name="weather_field_condition">Condizione meteo</string>
+    <string name="weather_field_cloud">Percentuale di nuvolosità</string>
+    <string name="weather_field_precip">Quantità di precipitazioni</string>
+    <string name="weather_field_solarrad">Radiazione solare</string>
+    <string name="weather_field_min">Temperatura minima</string>
+    <string name="weather_field_max">Temperatura massima</string>
+    <string name="weather_field_avgtemp">Temperatura media</string>
+    <string name="weather_field_maxwind">Velocità massima del vento</string>
+    <string name="weather_field_totalprecip">Precipitazioni totali</string>
+    <string name="weather_field_totalsnow">Nevicata totale</string>
+    <string name="weather_field_avghumidity">Umidità media</string>
+    <string name="weather_field_rain">Possibilità di pioggia (se applicabile)</string>
+    <string name="weather_field_snow">Possibilità di neve (se applicabile)</string>
+    <string name="weather_field_aqi">Indice di qualità dell\'aria</string>
+    <string name="weather_field_co">Monossido di carbonio</string>
+    <string name="weather_field_no2">Biossido di azoto</string>
+    <string name="weather_field_o3">Ozono</string>
+    <string name="weather_field_so2">Biossido di zolfo</string>
+    <string name="weather_field_pm25">Particelle PM2.5</string>
+    <string name="weather_field_pm10">Particelle PM10</string>
+    <string name="weather_field_sunrise">Ora dell\'alba</string>
+    <string name="weather_field_sunset">Ora del tramonto</string>
+    <string name="weather_field_moonrise">Ora del sorgere della luna</string>
+    <string name="weather_field_moonset">Ora del tramonto della luna</string>
+    <string name="weather_field_moonphase">Fase lunare</string>
+    <string name="weather_field_moonlight">Illuminazione lunare %</string>
+    <string name="weather_error_single_hyphen">Un singolo trattino \'-\' non è un formato di campo valido</string>
+    <string name="weather_error_multiple_hyphens">\'%1$s\' usa trattini multipli, usa il formato con trattino singolo: %2$s</string>
+    <string name="weather_error_misplaced_argument">\'%1$s\' non è valido - gli argomenti devono venire prima dei campi meteo</string>
+    <string name="weather_error_field_in_location">\'%1$s\' sembra essere un campo meteo - intendevi \'%2$s\'?</string>
+    <string name="weather_error_field_in_location_no_hyphens">\'%1$s\' sembra essere un campo meteo - prova \'%2$s\' invece</string>
+    <string name="weather_error_combined_fields">\'%1$s\' combina più campi - usa \'%2$s\' invece</string>
     <string name="command_takes_at_least_1_parameter_0_provided">"'%1$s' il comando prende almeno 1 parametro. ne sono stati forniti 0! "</string>
     <string name="terminal_text_color_reset">Il colore del testo del terminale è stato reimpostato al tema.</string>
     <string name="terminal_text_color_set_to">Il colore del testo del terminale è stato impostato a #%1$s</string>
@@ -582,7 +667,7 @@
     <string name="ai_model_updated">Modello dell\'IA aggiornato!</string>
     <string name="cannot_bt_restrictions">Non è possibile cambiare lo stato del Bluetooth in questa versione d Android a causa di restrizioni del sistema.</string>
     <string name="failed_to_update_script">Aggiornamento dello script fallito!</string>
-    <string name="select_option_for_editing">Seleziona un'opzione per modificare %1$s</string>
+    <string name="select_option_for_editing">Seleziona un\'opzione per modificare %1$s</string>
     <string name="launcher_s_editor">Launcher\'s editor</string>
     <string name="external_editor">Editor di testo esterno</string>
     <string name="no_external_editor">Nessun editor di testo disponibile</string>
@@ -602,4 +687,27 @@
     <string name="imported_entity_name">%1$s importato</string>
     <string name="select_theme_to_delete">Seleziona un tema da cancellare</string>
     <string name="removed_theme_successfully">Tema %1$s rimosso con successo.</string>
+    <string name="examples">Esempi:</string>
+    <string name="wind_chill_c_f">Temperatura con vento: %1$s°C / %2$s°F</string>
+    <string name="aqi_good">Buona</string>
+    <string name="aqi_moderate">Moderata</string>
+    <string name="aqi_unhealthy_sensitive">Malsana per gruppi sensibili</string>
+    <string name="aqi_unhealthy">Malsana</string>
+    <string name="aqi_very_unhealthy">Molto malsana</string>
+    <string name="aqi_hazardous">Pericolosa</string>
+    <string name="aqi_unknown">Sconosciuta</string>
+
+    <!-- Weather API Error Messages -->
+    <string name="weather_api_key_not_provided">Errore di configurazione del servizio meteorologico</string>
+    <string name="weather_location_parameter_missing">Fornire una località per controllare il meteo</string>
+    <string name="weather_api_request_invalid">Formato di richiesta meteorologica non valido</string>
+    <string name="weather_location_not_found">Località non trovata. Controllare l\'ortografia e riprovare</string>
+    <string name="weather_api_key_invalid">Errore di configurazione del servizio meteorologico</string>
+    <string name="weather_quota_exceeded">Quota del servizio meteorologico superata. Riprovare più tardi</string>
+    <string name="weather_api_disabled">Servizio meteorologico temporaneamente non disponibile</string>
+    <string name="weather_api_access_restricted">Accesso al servizio meteorologico limitato</string>
+    <string name="weather_bulk_request_invalid">Formato di richiesta meteorologica non valido</string>
+    <string name="weather_bulk_too_many_locations">Troppe località nella richiesta</string>
+    <string name="weather_internal_error">Errore interno del servizio meteorologico</string>
+    <string name="weather_unknown_error">Errore sconosciuto del servizio meteorologico</string>
 </resources>
