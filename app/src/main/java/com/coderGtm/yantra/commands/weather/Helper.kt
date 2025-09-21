@@ -5,7 +5,7 @@ import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatDelegate
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
-import io.ktor.client.HttpClient
+import com.coderGtm.yantra.network.HttpClientProvider
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.request.get
@@ -26,9 +26,8 @@ private var weatherJob: Job? = null
  *
  * @param args The [WeatherCommandArgs] containing the location for which to fetch weather data.
  * @param command The [BaseCommand] instance.
- * @param httpClient The [HttpClient] instance used to make the network request.
  */
-fun fetchWeatherData(args: WeatherCommandArgs, command: BaseCommand, httpClient: HttpClient) {
+fun fetchWeatherData(args: WeatherCommandArgs, command: BaseCommand) {
     val location = args.location
 
     val langCode = AppCompatDelegate.getApplicationLocales().toLanguageTags()
@@ -51,7 +50,7 @@ fun fetchWeatherData(args: WeatherCommandArgs, command: BaseCommand, httpClient:
         try {
             ensureActive()
             val weather = withContext(Dispatchers.IO) {
-                httpClient.get(url).body<WeatherResponse>()
+                HttpClientProvider.client.get(url).body<WeatherResponse>()
             }
             handleResponse(weather, args, command)
         } catch (e: Exception) {
