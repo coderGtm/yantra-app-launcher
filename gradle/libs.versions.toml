@@ -1,0 +1,21 @@
+[versions]
+ktor = "2.3.12" # ideally we'd use the latest version but this would require updating to kotlin 2+
+mockitoCore = "5.19.0"
+mockitoInline = "5.2.0"
+mockitoKotlin = "4.1.0" # later versions require using jvm 11 and a higher version of kotlin
+
+[libraries]
+ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" } # transitively brings in kotlinx-serialization-json
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
+
+[bundles]
+ktor = ["ktor-client-android", "ktor-client-content-negotiation", "ktor-serialization-kotlinx-json", "ktor-client-logging"]
+mockito = ["mockito-core", "mockito-inline", "mockito-kotlin"]
+
+[plugins]
+
