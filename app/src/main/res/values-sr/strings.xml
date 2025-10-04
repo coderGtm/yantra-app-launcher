@@ -522,8 +522,6 @@
     <string name="total_tokens_used">Укупно коришћених токена у овом разговору: %1$s</string>
     <string name="ai_reset">Историја порука са вештачком интелигенцијом је ресетована!</string>
     <string name="weather_feels_like_c_f"><![CDATA[=> Субјективни осећај: %1$.1f°C (%2$.1f°F)]]></string>
-    <string name="precipitation_chance"><![CDATA[=> Вероватноћа падавина: %1$d%%]]></string>
-    <string name="snow_chance"><![CDATA[=> Вероватноћа снега: %1$d%%]]></string>
     <string name="clear_init_list">Очисти стартну листу?</string>
     <string name="clear_init_list_confirmation">Да ли сте сигурни да желите да обришете свој стартни скрипт?</string>
     <string name="cmd_backup_title">backup [-i]</string>
@@ -572,7 +570,88 @@
     <string name="no_note_fond_by_the_name">Нема белешке са именом %1$s!</string>
     <string name="deleted_from_notepad">Обрисана „%1$s” из бележнице.</string>
     <string name="weather_air_quality"><![CDATA[=> Квалитет ваздуха: %1$s]]></string>
-    <string name="command_takes_at_least_1_parameter_0_provided">Команда „%1$s” захтева бар један параметар. Није дат ниједан!</string>
+    <string name="weather_uv_index"><![CDATA[=> УВ индекс: %1$.1f]]></string>
+    <string name="weather_pressure"><![CDATA[=> Притисак: %1$.1f мб]]></string>
+    <string name="weather_visibility"><![CDATA[=> Видљивост: %1$.1f км]]></string>
+    <string name="weather_condition"><![CDATA[=> Стање: %1$s]]></string>
+    <string name="weather_cloud_cover"><![CDATA[=> Облачност: %1$d%%]]></string>
+    <string name="weather_precipitation"><![CDATA[=> Падавине: %1$.1f мм]]></string>
+    <string name="weather_windchill_c_f"><![CDATA[=> Осећај са ветром: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_heatindex_c_f"><![CDATA[=> Индекс топлоте: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_dewpoint_c_f"><![CDATA[=> Тачка росе: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_gust"><![CDATA[=> Налет ветра: %1$.1f км/ч (%2$.1f миља/ч)]]></string>
+    <string name="weather_co"><![CDATA[=> Угљен моноксид: %1$.1f μг/м³]]></string>
+    <string name="weather_no2"><![CDATA[=> Азот диоксид: %1$.1f μг/м³]]></string>
+    <string name="weather_o3"><![CDATA[=> Озон: %1$.1f μг/м³]]></string>
+    <string name="weather_so2"><![CDATA[=> Сумпор диоксид: %1$.1f μг/м³]]></string>
+    <string name="weather_pm25"><![CDATA[=> PM2.5: %1$.1f μг/м³]]></string>
+    <string name="weather_pm10"><![CDATA[=> PM10: %1$.1f μг/м³]]></string>
+    <string name="weather_solar_radiation"><![CDATA[=> Сунчево зрачење: Кратко=%1$.1f, Дифузно=%2$.1f, DNI=%3$.1f, GTI=%4$.1f]]></string>
+    <string name="weather_sunrise"><![CDATA[=> Излазак сунца: %1$s]]></string>
+    <string name="weather_sunset"><![CDATA[=> Залазак сунца: %1$s]]></string>
+    <string name="weather_moonrise"><![CDATA[=> Излазак месеца: %1$s]]></string>
+    <string name="weather_moonset"><![CDATA[=> Залазак месеца: %1$s]]></string>
+    <string name="weather_moon_phase"><![CDATA[=> Фаза месеца: %1$s]]></string>
+    <string name="weather_moon_illumination"><![CDATA[=> Осветљеност месеца: %1$d%%]]></string>
+    <string name="weather_avgtemp_c_f"><![CDATA[=> Просечна температура: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_maxwind"><![CDATA[=> Максимални ветар: %1$.1f км/ч (%2$.1f миља/ч)]]></string>
+    <string name="weather_total_precipitation"><![CDATA[=> Укупне падавине: %1$.1f мм]]></string>
+    <string name="weather_total_snow"><![CDATA[=> Укупан снег: %1$.1f цм]]></string>
+    <string name="weather_avg_humidity"><![CDATA[=> Просечна влажност: %1$d%%]]></string>
+    <string name="weather_unknown_field">Непознато поље времена: %1$s</string>
+    <string name="weather_field_unavailable">%1$s: Није доступно</string>
+    <string name="weather_invalid_command_format">Неисправан формат команде:</string>
+    <string name="weather_unknown_field_bullet">• Непознато поље: \'%1$s\'</string>
+    <string name="weather_available_fields">Доступна поља времена (%1$d укупно):</string>
+    <string name="weather_use_list_command">\nКористите \'weather list\' да видите доступна поља.</string>
+    <string name="weather_category_current">Тренутно време</string>
+    <string name="weather_category_forecast">Прогноза</string>
+    <string name="weather_category_air_quality">Квалитет ваздуха</string>
+    <string name="weather_category_astronomy">Астрономија</string>
+    <string name="weather_field_temp">Температура (°C/°F)</string>
+    <string name="weather_field_feels">Осетна температура</string>
+    <string name="weather_field_windchill">Температура са ветром</string>
+    <string name="weather_field_heatindex">Индекс топлоте</string>
+    <string name="weather_field_dewpoint">Тачка росе</string>
+    <string name="weather_field_humidity">Проценат влажности</string>
+    <string name="weather_field_wind">Брзина и смер ветра</string>
+    <string name="weather_field_gust">Брзина налета ветра</string>
+    <string name="weather_field_pressure">Атмосферски притисак</string>
+    <string name="weather_field_uv">УВ индекс</string>
+    <string name="weather_field_visibility">Даљина видљивости</string>
+    <string name="weather_field_condition">Временски услови</string>
+    <string name="weather_field_cloud">Проценат облачности</string>
+    <string name="weather_field_precip">Количина падавина</string>
+    <string name="weather_field_solarrad">Сунчево зрачење</string>
+    <string name="weather_field_min">Минимална температура</string>
+    <string name="weather_field_max">Максимална температура</string>
+    <string name="weather_field_avgtemp">Просечна температура</string>
+    <string name="weather_field_maxwind">Максимална брзина ветра</string>
+    <string name="weather_field_totalprecip">Укупне падавине</string>
+    <string name="weather_field_totalsnow">Укупан снегопад</string>
+    <string name="weather_field_avghumidity">Просечна влажност</string>
+    <string name="weather_field_rain">Вероватноћа кише (ако се односи)</string>
+    <string name="weather_field_snow">Вероватноћа снега (ако се односи)</string>
+    <string name="weather_field_aqi">Индекс квалитета ваздуха</string>
+    <string name="weather_field_co">Угљен моноксид</string>
+    <string name="weather_field_no2">Азот диоксид</string>
+    <string name="weather_field_o3">Озон</string>
+    <string name="weather_field_so2">Сумпор диоксид</string>
+    <string name="weather_field_pm25">Честице PM2.5</string>
+    <string name="weather_field_pm10">Честице PM10</string>
+    <string name="weather_field_sunrise">Време изласка сунца</string>
+    <string name="weather_field_sunset">Време заласка сунца</string>
+    <string name="weather_field_moonrise">Време изласка месеца</string>
+    <string name="weather_field_moonset">Време заласка месеца</string>
+    <string name="weather_field_moonphase">Фаза месеца</string>
+    <string name="weather_field_moonlight">Осветљеност месеца %</string>
+    <string name="weather_error_single_hyphen">Једна цртица \'-\' није важећи формат поља</string>
+    <string name="weather_error_multiple_hyphens">\'%1$s\' користи вишеструке цртице, користи формат са једном цртицом: %2$s</string>
+    <string name="precipitation_chance">=> Вероватноћа падавина: %1$d%%</string>
+    <string name="snow_chance">=> Вероватноћа снега: %1$d%%</string>
+    <string name="examples">Примери:</string>
+    <string name="wind_chill_c_f">Осећај са ветром: %1$s°C / %2$s°F</string>
+    <string name="command_takes_at_least_1_parameter_0_provided">Команда „%1$s" захтева бар један параметар. Није дат ниједан!</string>
     <string name="terminal_text_color_reset">Боја текста у терминалу је враћена на тему.</string>
     <string name="terminal_text_color_set_to">Боја текста у терминалу постављена на #%1$s</string>
     <string name="no_sound_effects_found">Нема додатих звучних ефеката!</string>
@@ -602,4 +681,27 @@
     <string name="imported_entity_name">Увезено %1$s</string>
     <string name="select_theme_to_delete">Изаберите тему за брисање</string>
     <string name="removed_theme_successfully">Тема %1$s је успешно уклоњена.</string>
+
+    <!-- AQI (Air Quality Index) levels -->
+    <string name="aqi_good">Добар</string>
+    <string name="aqi_moderate">Умерен</string>
+    <string name="aqi_unhealthy_sensitive">Нездрав за осетљиве групе</string>
+    <string name="aqi_unhealthy">Нездрав</string>
+    <string name="aqi_very_unhealthy">Веома нездрав</string>
+    <string name="aqi_hazardous">Опасан</string>
+    <string name="aqi_unknown">Непознат</string>
+
+    <!-- Weather API Error Messages -->
+    <string name="weather_api_key_not_provided">Грешка у конфигурацији временске службе</string>
+    <string name="weather_location_parameter_missing">Молимо наведите локацију за проверу времена</string>
+    <string name="weather_api_request_invalid">Неисправан формат захтева за време</string>
+    <string name="weather_location_not_found">Локација није пронађена. Проверите правопис и покушајте поново</string>
+    <string name="weather_api_key_invalid">Грешка у конфигурацији временске службе</string>
+    <string name="weather_quota_exceeded">Прекорачена квота временске службе. Покушајте касније</string>
+    <string name="weather_api_disabled">Временска служба привремено недоступна</string>
+    <string name="weather_api_access_restricted">Приступ временској служби ограничен</string>
+    <string name="weather_bulk_request_invalid">Неисправан формат захтева за време</string>
+    <string name="weather_bulk_too_many_locations">Превише локација у захтеву</string>
+    <string name="weather_internal_error">Унутрашња грешка временске службе</string>
+    <string name="weather_unknown_error">Непозната грешка временске службе</string>
 </resources>
