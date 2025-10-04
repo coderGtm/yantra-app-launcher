@@ -24,7 +24,7 @@ import androidx.core.view.WindowCompat
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.databinding.ActivityWebViewBinding
-import com.coderGtm.yantra.misc.applySystemBarsPadding
+import com.coderGtm.yantra.misc.applySystemBarsAndImePadding
 import com.google.android.material.button.MaterialButton
 
 
@@ -41,7 +41,7 @@ class WebViewActivity : AppCompatActivity() {
 
         // Enable edge-to-edge and manage insets manually
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        binding.rootLayout.applySystemBarsPadding()
+        binding.rootLayout.applySystemBarsAndImePadding()
 
         var urlPassed = intent.getStringExtra("url")
         if (urlPassed == null) {
