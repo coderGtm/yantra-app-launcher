@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.edit
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.WindowCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
@@ -32,6 +33,7 @@ import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.informOfProVersionIfOldUser
 import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.listeners.TermuxCommandResultReceiver
+import com.coderGtm.yantra.misc.applySystemBarsAndImePadding
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
@@ -64,6 +66,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Enable edge-to-edge and manage insets manually (including IME)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        binding.rootLayout.applySystemBarsAndImePadding()
 
         app = application as YantraLauncher
         app.preferenceObject = applicationContext.getSharedPreferences(SHARED_PREFS_FILE_NAME,0)

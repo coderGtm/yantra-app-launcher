@@ -1,18 +1,19 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.9.0'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.coderGtm.yantra"
         minSdk 21
-        targetSdk 34
-        versionCode 119
-        versionName "10.2.0"
+        targetSdk 35
+        versionCode 120
+        versionName "10.3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -92,8 +93,11 @@ dependencies {
     implementation 'org.luaj:luaj-jse:3.0.1'
     implementation 'com.github.amitshekhariitbhu.Fast-Android-Networking:android-networking:1.0.4'
     implementation 'androidx.security:security-crypto:1.1.0-alpha06'
+    implementation libs.bundles.ktor
 
     testImplementation 'junit:junit:4.13.2'
+    testImplementation libs.bundles.mockito
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 }

@@ -20,19 +20,28 @@ import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
+import com.coderGtm.yantra.databinding.ActivityWebViewBinding
+import com.coderGtm.yantra.misc.applySystemBarsPadding
 import com.google.android.material.button.MaterialButton
 
 
 class WebViewActivity : AppCompatActivity() {
     private lateinit var webView: IncognitoWebView
     private lateinit var titleBar: TextView
+    private lateinit var binding: ActivityWebViewBinding
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_web_view)
+        binding = ActivityWebViewBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Enable edge-to-edge and manage insets manually
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        binding.rootLayout.applySystemBarsPadding()
 
         var urlPassed = intent.getStringExtra("url")
         if (urlPassed == null) {

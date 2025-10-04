@@ -28,6 +28,7 @@
             android:name=".activities.SettingsActivity"
             android:exported="false"
             android:excludeFromRecents="true"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.Material3.Dark" />
 
         <activity
@@ -35,7 +36,8 @@
             android:configChanges="orientation|screenSize|screenLayout"
             android:excludeFromRecents="true"
             android:exported="true"
-            android:label="GUPT">
+            android:label="GUPT"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -52,6 +54,7 @@
             android:exported="true"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.YantraLauncher"
+            android:windowSoftInputMode="adjustResize"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

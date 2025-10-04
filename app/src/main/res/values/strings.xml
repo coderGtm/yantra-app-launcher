@@ -523,8 +523,8 @@
     <string name="total_tokens_used">Total Tokens used in this conversation: %1$s</string>
     <string name="ai_reset">AI message history has been reset!</string>
     <string name="weather_feels_like_c_f"><![CDATA[=> Feels like: %1$.1f°C (%2$.1f°F)]]></string>
-    <string name="precipitation_chance"><![CDATA[=> Precipitation chances: %1$d%%]]></string>
-    <string name="snow_chance"><![CDATA[=> Snow chances: %1$d%%]]></string>
+    <string name="precipitation_chance">=> Precipitation chance: %1$d%%</string>
+    <string name="snow_chance">=> Snow chance: %1$d%%</string>
     <string name="clear_init_list">Clear Init List?</string>
     <string name="clear_init_list_confirmation">Are you sure you want to clear your init script?</string>
     <string name="cmd_backup_title">backup [-i]</string>
@@ -573,6 +573,105 @@
     <string name="no_note_fond_by_the_name">No note fond by the name %1$s!</string>
     <string name="deleted_from_notepad">Deleted \'%1$s\' from notepad.</string>
     <string name="weather_air_quality"><![CDATA[=> Air Quality: %1$s]]></string>
+    <string name="weather_uv_index"><![CDATA[=> UV Index: %1$.1f]]></string>
+    <string name="weather_pressure"><![CDATA[=> Pressure: %1$.1f mb]]></string>
+    <string name="weather_visibility"><![CDATA[=> Visibility: %1$.1f km]]></string>
+    <string name="weather_condition"><![CDATA[=> Condition: %1$s]]></string>
+    <string name="weather_cloud_cover"><![CDATA[=> Cloud Cover: %1$d%%]]></string>
+    <string name="weather_precipitation"><![CDATA[=> Precipitation: %1$.1f mm]]></string>
+    <string name="weather_windchill_c_f"><![CDATA[=> Wind Chill: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_heatindex_c_f"><![CDATA[=> Heat Index: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_dewpoint_c_f"><![CDATA[=> Dew Point: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_gust"><![CDATA[=> Wind Gust: %1$.1f kph (%2$.1f mph)]]></string>
+    <string name="weather_co"><![CDATA[=> Carbon Monoxide: %1$.1f μg/m³]]></string>
+    <string name="weather_no2"><![CDATA[=> Nitrogen Dioxide: %1$.1f μg/m³]]></string>
+    <string name="weather_o3"><![CDATA[=> Ozone: %1$.1f μg/m³]]></string>
+    <string name="weather_so2"><![CDATA[=> Sulfur Dioxide: %1$.1f μg/m³]]></string>
+    <string name="weather_pm25"><![CDATA[=> PM2.5: %1$.1f μg/m³]]></string>
+    <string name="weather_pm10"><![CDATA[=> PM10: %1$.1f μg/m³]]></string>
+    <string name="weather_solar_radiation"><![CDATA[=> Solar Radiation: Short=%1$.1f, Diff=%2$.1f, DNI=%3$.1f, GTI=%4$.1f]]></string>
+    <string name="weather_sunrise"><![CDATA[=> Sunrise: %1$s]]></string>
+    <string name="weather_sunset"><![CDATA[=> Sunset: %1$s]]></string>
+    <string name="weather_moonrise"><![CDATA[=> Moonrise: %1$s]]></string>
+    <string name="weather_moonset"><![CDATA[=> Moonset: %1$s]]></string>
+    <string name="weather_moon_phase"><![CDATA[=> Moon Phase: %1$s]]></string>
+    <string name="weather_moon_illumination"><![CDATA[=> Moon Illumination: %1$d%%]]></string>
+    <string name="weather_avgtemp_c_f"><![CDATA[=> Average Temperature: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_maxwind"><![CDATA[=> Max Wind: %1$.1f kph (%2$.1f mph)]]></string>
+    <string name="weather_total_precipitation"><![CDATA[=> Total Precipitation: %1$.1f mm]]></string>
+    <string name="weather_total_snow"><![CDATA[=> Total Snow: %1$.1f cm]]></string>
+    <string name="weather_avg_humidity"><![CDATA[=> Average Humidity: %1$d%%]]></string>
+    <string name="weather_unknown_field">Unknown weather field: %1$s</string>
+    <string name="weather_field_unavailable">%1$s: Not available</string>
+    <string name="weather_invalid_command_format">Invalid command format:</string>
+    <string name="weather_unknown_field_bullet">• Unknown field: \'%1$s\'</string>
+    <string name="weather_available_fields">Available weather fields (%1$d total):</string>
+    <string name="weather_use_list_command">\nUse \'weather list\' to see available fields.</string>
+
+    <!-- Weather field categories -->
+    <string name="weather_category_current">Current weather</string>
+    <string name="weather_category_forecast">Forecast</string>
+    <string name="weather_category_air_quality">Air quality</string>
+    <string name="weather_category_astronomy">Astronomy</string>
+
+    <!-- Weather field descriptions -->
+    <string name="weather_field_temp">Temperature (°C/°F)</string>
+    <string name="weather_field_feels">Feels like temperature</string>
+    <string name="weather_field_windchill">Wind chill temperature</string>
+    <string name="weather_field_heatindex">Heat index temperature</string>
+    <string name="weather_field_dewpoint">Dew point temperature</string>
+    <string name="weather_field_humidity">Humidity percentage</string>
+    <string name="weather_field_wind">Wind speed and direction</string>
+    <string name="weather_field_gust">Wind gust speed</string>
+    <string name="weather_field_pressure">Atmospheric pressure</string>
+    <string name="weather_field_uv">UV index</string>
+    <string name="weather_field_visibility">Visibility distance</string>
+    <string name="weather_field_condition">Weather condition</string>
+    <string name="weather_field_cloud">Cloud cover percentage</string>
+    <string name="weather_field_precip">Precipitation amount</string>
+    <string name="weather_field_solarrad">Solar radiation</string>
+    <string name="weather_field_min">Minimum temperature</string>
+    <string name="weather_field_max">Maximum temperature</string>
+    <string name="weather_field_avgtemp">Average temperature</string>
+    <string name="weather_field_maxwind">Maximum wind speed</string>
+    <string name="weather_field_totalprecip">Total precipitation</string>
+    <string name="weather_field_totalsnow">Total snowfall</string>
+    <string name="weather_field_avghumidity">Average humidity</string>
+    <string name="weather_field_rain">Rain chance (if applicable)</string>
+    <string name="weather_field_snow">Snow chance (if applicable)</string>
+    <string name="weather_field_aqi">Air quality index</string>
+    <string name="weather_field_co">Carbon monoxide</string>
+    <string name="weather_field_no2">Nitrogen dioxide</string>
+    <string name="weather_field_o3">Ozone</string>
+    <string name="weather_field_so2">Sulfur dioxide</string>
+    <string name="weather_field_pm25">PM2.5 particles</string>
+    <string name="weather_field_pm10">PM10 particles</string>
+    <string name="weather_field_sunrise">Sunrise time</string>
+    <string name="weather_field_sunset">Sunset time</string>
+    <string name="weather_field_moonrise">Moonrise time</string>
+    <string name="weather_field_moonset">Moonset time</string>
+    <string name="weather_field_moonphase">Moon phase</string>
+    <string name="weather_field_moonlight">Moon illumination %</string>
+    <string name="weather_error_single_hyphen">Single hyphen \'-\' is not a valid field format</string>
+    <string name="weather_error_multiple_hyphens">\'%1$s\' uses multiple hyphens, use single hyphen format: %2$s</string>
+    <string name="weather_error_misplaced_argument">\'%1$s\' is invalid - arguments must come before weather fields</string>
+    <string name="weather_error_field_in_location">\'%1$s\' appears to be a weather field - did you mean \'%2$s\'?</string>
+    <string name="weather_error_field_in_location_no_hyphens">\'%1$s\' appears to be a weather field - try \'%2$s\' instead</string>
+    <string name="weather_error_combined_fields">\'%1$s\' combines multiple fields - use \'%2$s\' instead</string>
+
+    <!-- Weather API Error Messages -->
+    <string name="weather_api_key_not_provided">Weather service configuration error</string>
+    <string name="weather_location_parameter_missing">Please provide a location to check weather</string>
+    <string name="weather_api_request_invalid">Invalid weather request format</string>
+    <string name="weather_location_not_found">Location not found. Please check the spelling and try again</string>
+    <string name="weather_api_key_invalid">Weather service configuration error</string>
+    <string name="weather_quota_exceeded">Weather service quota exceeded. Please try again later</string>
+    <string name="weather_api_disabled">Weather service temporarily unavailable</string>
+    <string name="weather_api_access_restricted">Weather service access restricted</string>
+    <string name="weather_bulk_request_invalid">Invalid weather request format</string>
+    <string name="weather_bulk_too_many_locations">Too many locations in request</string>
+    <string name="weather_internal_error">Weather service internal error</string>
+    <string name="weather_unknown_error">Unknown weather service error</string>
     <string name="command_takes_at_least_1_parameter_0_provided">"'%1$s' command takes at least 1 parameter. 0 provided! "</string>
     <string name="terminal_text_color_reset">Terminal text color reset to theme.</string>
     <string name="terminal_text_color_set_to">Terminal text color set to #%1$s</string>
@@ -603,4 +702,13 @@
     <string name="imported_entity_name">Imported %1$s</string>
     <string name="select_theme_to_delete">Select theme to delete</string>
     <string name="removed_theme_successfully">Removed %1$s theme successfully.</string>
+    <string name="examples">Examples:</string>
+    <string name="wind_chill_c_f">Wind chill: %1$s°C / %2$s°F</string>
+    <string name="aqi_good">Good</string>
+    <string name="aqi_moderate">Moderate</string>
+    <string name="aqi_unhealthy_sensitive">Unhealthy for Sensitive Groups</string>
+    <string name="aqi_unhealthy">Unhealthy</string>
+    <string name="aqi_very_unhealthy">Very Unhealthy</string>
+    <string name="aqi_hazardous">Hazardous</string>
+    <string name="aqi_unknown">Unknown</string>
 </resources>

@@ -522,8 +522,6 @@
     <string name="total_tokens_used">Всего токенов было использовано при разговоре: %1$s</string>
     <string name="ai_reset">История сообщений с AI очищена!</string>
     <string name="weather_feels_like_c_f"><![CDATA[=> Ощущается как: %1$.1f°C (%2$.1f°F)]]></string>
-    <string name="precipitation_chance"><![CDATA[=> Вероятность осадков: %1$d%%]]></string>
-    <string name="snow_chance"><![CDATA[=> Вероятность снега: %1$d%%]]></string>
     <string name="clear_init_list">Очисть список Init?</string>
     <string name="clear_init_list_confirmation">Вы уверены что вы хотите очистить ваш init скрипт?</string>
     <string name="cmd_backup_title">backup [-i]</string>
@@ -572,6 +570,87 @@
     <string name="no_note_fond_by_the_name">Заметка с именем %1$s не обнаженна!</string>
     <string name="deleted_from_notepad">\'%1$s\' удалена из блокнота.</string>
     <string name="weather_air_quality"><![CDATA[=> Качество воздуха: %1$s]]></string>
+    <string name="weather_uv_index"><![CDATA[=> УФ индекс: %1$.1f]]></string>
+    <string name="weather_pressure"><![CDATA[=> Давление: %1$.1f мб]]></string>
+    <string name="weather_visibility"><![CDATA[=> Видимость: %1$.1f км]]></string>
+    <string name="weather_condition"><![CDATA[=> Состояние: %1$s]]></string>
+    <string name="weather_cloud_cover"><![CDATA[=> Облачность: %1$d%%]]></string>
+    <string name="weather_precipitation"><![CDATA[=> Осадки: %1$.1f мм]]></string>
+    <string name="weather_windchill_c_f"><![CDATA[=> Ощущается с ветром: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_heatindex_c_f"><![CDATA[=> Индекс жары: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_dewpoint_c_f"><![CDATA[=> Точка росы: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_gust"><![CDATA[=> Порыв ветра: %1$.1f км/ч (%2$.1f миль/ч)]]></string>
+    <string name="weather_co"><![CDATA[=> Монооксид углерода: %1$.1f мкг/м³]]></string>
+    <string name="weather_no2"><![CDATA[=> Диоксид азота: %1$.1f мкг/м³]]></string>
+    <string name="weather_o3"><![CDATA[=> Озон: %1$.1f мкг/м³]]></string>
+    <string name="weather_so2"><![CDATA[=> Диоксид серы: %1$.1f мкг/м³]]></string>
+    <string name="weather_pm25"><![CDATA[=> PM2.5: %1$.1f мкг/м³]]></string>
+    <string name="weather_pm10"><![CDATA[=> PM10: %1$.1f мкг/м³]]></string>
+    <string name="weather_solar_radiation"><![CDATA[=> Солнечная радиация: Короткая=%1$.1f, Рассеянная=%2$.1f, DNI=%3$.1f, GTI=%4$.1f]]></string>
+    <string name="weather_sunrise"><![CDATA[=> Восход: %1$s]]></string>
+    <string name="weather_sunset"><![CDATA[=> Закат: %1$s]]></string>
+    <string name="weather_moonrise"><![CDATA[=> Восход луны: %1$s]]></string>
+    <string name="weather_moonset"><![CDATA[=> Заход луны: %1$s]]></string>
+    <string name="weather_moon_phase"><![CDATA[=> Фаза луны: %1$s]]></string>
+    <string name="weather_moon_illumination"><![CDATA[=> Освещённость луны: %1$d%%]]></string>
+    <string name="weather_avgtemp_c_f"><![CDATA[=> Средняя температура: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_maxwind"><![CDATA[=> Максимальный ветер: %1$.1f км/ч (%2$.1f миль/ч)]]></string>
+    <string name="weather_total_precipitation"><![CDATA[=> Общие осадки: %1$.1f мм]]></string>
+    <string name="weather_total_snow"><![CDATA[=> Общий снег: %1$.1f см]]></string>
+    <string name="weather_avg_humidity"><![CDATA[=> Средняя влажность: %1$d%%]]></string>
+    <string name="weather_unknown_field">Неизвестное поле погоды: %1$s</string>
+    <string name="weather_field_unavailable">%1$s: Недоступно</string>
+    <string name="weather_invalid_command_format">Неверный формат команды:</string>
+    <string name="weather_unknown_field_bullet">• Неизвестное поле: \'%1$s\'</string>
+    <string name="weather_available_fields">Доступные поля погоды (%1$d всего):</string>
+    <string name="weather_use_list_command">\nИспользуйте \'weather list\' для просмотра доступных полей.</string>
+    <string name="weather_category_current">Текущая погода</string>
+    <string name="weather_category_forecast">Прогноз</string>
+    <string name="weather_category_air_quality">Качество воздуха</string>
+    <string name="weather_category_astronomy">Астрономия</string>
+    <string name="weather_field_temp">Температура (°C/°F)</string>
+    <string name="weather_field_feels">Ощущаемая температура</string>
+    <string name="weather_field_windchill">Температура с ветром</string>
+    <string name="weather_field_heatindex">Индекс жары</string>
+    <string name="weather_field_dewpoint">Точка росы</string>
+    <string name="weather_field_humidity">Процент влажности</string>
+    <string name="weather_field_wind">Скорость и направление ветра</string>
+    <string name="weather_field_gust">Скорость порыва ветра</string>
+    <string name="weather_field_pressure">Атмосферное давление</string>
+    <string name="weather_field_uv">УФ индекс</string>
+    <string name="weather_field_visibility">Дальность видимости</string>
+    <string name="weather_field_condition">Погодные условия</string>
+    <string name="weather_field_cloud">Процент облачности</string>
+    <string name="weather_field_precip">Количество осадков</string>
+    <string name="weather_field_solarrad">Солнечная радиация</string>
+    <string name="weather_field_min">Минимальная температура</string>
+    <string name="weather_field_max">Максимальная температура</string>
+    <string name="weather_field_avgtemp">Средняя температура</string>
+    <string name="weather_field_maxwind">Максимальная скорость ветра</string>
+    <string name="weather_field_totalprecip">Общие осадки</string>
+    <string name="weather_field_totalsnow">Общий снегопад</string>
+    <string name="weather_field_avghumidity">Средняя влажность</string>
+    <string name="weather_field_rain">Вероятность дождя (если применимо)</string>
+    <string name="weather_field_snow">Вероятность снега (если применимо)</string>
+    <string name="weather_field_aqi">Индекс качества воздуха</string>
+    <string name="weather_field_co">Монооксид углерода</string>
+    <string name="weather_field_no2">Диоксид азота</string>
+    <string name="weather_field_o3">Озон</string>
+    <string name="weather_field_so2">Диоксид серы</string>
+    <string name="weather_field_pm25">Частицы PM2.5</string>
+    <string name="weather_field_pm10">Частицы PM10</string>
+    <string name="weather_field_sunrise">Время восхода солнца</string>
+    <string name="weather_field_sunset">Время заката солнца</string>
+    <string name="weather_field_moonrise">Время восхода луны</string>
+    <string name="weather_field_moonset">Время захода луны</string>
+    <string name="weather_field_moonphase">Фаза луны</string>
+    <string name="weather_field_moonlight">Освещённость луны %</string>
+    <string name="weather_error_single_hyphen">Одиночный дефис \'-\' не является допустимым форматом поля</string>
+    <string name="weather_error_multiple_hyphens">\'%1$s\' использует множественные дефисы, используйте формат с одним дефисом: %2$s</string>
+    <string name="precipitation_chance">=> Вероятность осадков: %1$d%%</string>
+    <string name="snow_chance">=> Вероятность снега: %1$d%%</string>
+    <string name="examples">Примеры:</string>
+    <string name="wind_chill_c_f">Ощущается с ветром: %1$s°C / %2$s°F</string>
     <string name="command_takes_at_least_1_parameter_0_provided">"Команда '%1$s' принимает как минимум 1 параметр. Было указано 0 параметров! "</string>
     <string name="terminal_text_color_reset">Цвет текста терминала сброшен до темы.</string>
     <string name="terminal_text_color_set_to">Цвет текста треминала был изменён на #%1$s</string>
@@ -602,5 +681,28 @@
     <string name="imported_entity_name">Импортировано: %1$s</string>
     <string name="select_theme_to_delete">Выберите тему для удаления</string>
     <string name="removed_theme_successfully">Тема %1$s успешно удалена.</string>
+
+    <!-- AQI (Air Quality Index) levels -->
+    <string name="aqi_good">Хороший</string>
+    <string name="aqi_moderate">Умеренный</string>
+    <string name="aqi_unhealthy_sensitive">Нездоровый для чувствительных групп</string>
+    <string name="aqi_unhealthy">Нездоровый</string>
+    <string name="aqi_very_unhealthy">Очень нездоровый</string>
+    <string name="aqi_hazardous">Опасный</string>
+    <string name="aqi_unknown">Неизвестный</string>
+
+    <!-- Weather API Error Messages -->
+    <string name="weather_api_key_not_provided">Ошибка конфигурации службы погоды</string>
+    <string name="weather_location_parameter_missing">Пожалуйста, укажите местоположение для проверки погоды</string>
+    <string name="weather_api_request_invalid">Неверный формат запроса погоды</string>
+    <string name="weather_location_not_found">Местоположение не найдено. Проверьте правописание и попробуйте снова</string>
+    <string name="weather_api_key_invalid">Ошибка конфигурации службы погоды</string>
+    <string name="weather_quota_exceeded">Превышена квота службы погоды. Попробуйте позже</string>
+    <string name="weather_api_disabled">Служба погоды временно недоступна</string>
+    <string name="weather_api_access_restricted">Доступ к службе погоды ограничен</string>
+    <string name="weather_bulk_request_invalid">Неверный формат запроса погоды</string>
+    <string name="weather_bulk_too_many_locations">Слишком много местоположений в запросе</string>
+    <string name="weather_internal_error">Внутренняя ошибка службы погоды</string>
+    <string name="weather_unknown_error">Неизвестная ошибка службы погоды</string>
     <string name="launch_first_match">Автозапуск первого совпадения с командой LAUNCH</string>
 </resources>
