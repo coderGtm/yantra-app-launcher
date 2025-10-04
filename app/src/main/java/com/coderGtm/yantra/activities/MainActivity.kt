@@ -33,7 +33,7 @@ import com.coderGtm.yantra.getInit
 import com.coderGtm.yantra.informOfProVersionIfOldUser
 import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.listeners.TermuxCommandResultReceiver
-import com.coderGtm.yantra.misc.applySystemBarsPadding
+import com.coderGtm.yantra.misc.applySystemBarsAndImePadding
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
@@ -67,9 +67,9 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Enable edge-to-edge and manage insets manually
+        // Enable edge-to-edge and manage insets manually (including IME)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        binding.rootLayout.applySystemBarsPadding()
+        binding.rootLayout.applySystemBarsAndImePadding()
 
         app = application as YantraLauncher
         app.preferenceObject = applicationContext.getSharedPreferences(SHARED_PREFS_FILE_NAME,0)

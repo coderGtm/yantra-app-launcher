@@ -33,7 +33,7 @@ import com.coderGtm.yantra.databinding.ActivitySettingsBinding
 import com.coderGtm.yantra.getFullName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.isPro
-import com.coderGtm.yantra.misc.applySystemBarsPadding
+import com.coderGtm.yantra.misc.applySystemBarsAndImePadding
 import com.coderGtm.yantra.misc.changedSettingsCallback
 import com.coderGtm.yantra.misc.getSoundEffects
 import com.coderGtm.yantra.misc.openAiApiKeySetter
@@ -142,9 +142,9 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Enable edge-to-edge and manage insets manually
+        // Enable edge-to-edge and manage insets manually (including IME)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        binding.rootLayout.applySystemBarsPadding()
+        binding.rootLayout.applySystemBarsAndImePadding()
 
         hideProForNonProUsers()
 
