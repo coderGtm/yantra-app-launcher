@@ -66,10 +66,10 @@ data class Current(
     @SerialName("gust_mph") val gustMph: Double,
     @SerialName("gust_kph") val gustKph: Double,
     @SerialName("air_quality") val airQuality: AirQuality,
-    @SerialName("short_rad") val shortRad: Double,
-    @SerialName("diff_rad") val diffRad: Double,
-    val dni: Double,
-    val gti: Double
+    @SerialName("short_rad") val shortRad: Double? = null,
+    @SerialName("diff_rad") val diffRad: Double? = null,
+    val dni: Double? = null,
+    val gti: Double? = null
 )
 
 @Serializable
@@ -124,7 +124,7 @@ data class DayForecast(
     @SerialName("daily_chance_of_snow") val dailyChanceOfSnow: Int,
     val condition: Condition,
     val uv: Double,
-    @SerialName("air_quality") val airQuality: AirQuality
+    @SerialName("air_quality") val airQuality: AirQuality? = null
 )
 
 @Serializable
