@@ -710,5 +710,5 @@
     <string name="weather_bulk_too_many_locations">Troppe località nella richiesta</string>
     <string name="weather_internal_error">Errore interno del servizio meteorologico</string>
     <string name="weather_unknown_error">Errore sconosciuto del servizio meteorologico</string>
-    <string name="launch_first_match">Auto-avvia prima corrispondenza con il comando LAUNCH</string>
+    <string name="auto_launch_first_match">Auto-avvia prima corrispondenza con il comando LAUNCH</string>
 </resources>

@@ -704,5 +704,5 @@
     <string name="weather_bulk_too_many_locations">Слишком много местоположений в запросе</string>
     <string name="weather_internal_error">Внутренняя ошибка службы погоды</string>
     <string name="weather_unknown_error">Неизвестная ошибка службы погоды</string>
-    <string name="launch_first_match">Автозапуск первого совпадения с командой LAUNCH</string>
+    <string name="auto_launch_first_match">Автозапуск первого совпадения с командой LAUNCH</string>
 </resources>

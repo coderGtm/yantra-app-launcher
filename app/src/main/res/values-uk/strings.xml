@@ -704,5 +704,5 @@
     <string name="weather_bulk_too_many_locations">Занадто багато місцезнаходжень у запиті</string>
     <string name="weather_internal_error">Внутрішня помилка служби погоди</string>
     <string name="weather_unknown_error">Невідома помилка служби погоди</string>
-    <string name="launch_first_match">Автозапуск першого збігу з командою LAUNCH</string>
+    <string name="auto_launch_first_match">Автозапуск першого збігу з командою LAUNCH</string>
 </resources>
