@@ -198,13 +198,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val networkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
 
         // If both exist, pick the more recent one
-        return when {
-            gpsLocation == null && networkLocation == null -> null
-            gpsLocation == null -> networkLocation
-            networkLocation == null -> gpsLocation
-            gpsLocation.time > networkLocation.time -> gpsLocation
-            else -> networkLocation
-        }
+        return listOfNotNull(gpsLocation, networkLocation).maxByOrNull { it.time }
     }
 
     /**
