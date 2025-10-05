@@ -704,4 +704,27 @@
     <string name="weather_bulk_too_many_locations">Занадто багато місцезнаходжень у запиті</string>
     <string name="weather_internal_error">Внутрішня помилка служби погоди</string>
     <string name="weather_unknown_error">Невідома помилка служби погоди</string>
+    <string name="cmd_location_help">Показує інформацію про ваше поточне місцезнаходження, включаючи адресу, координати (широта, довгота) та точність. Використовуйте -refresh для примусового оновлення GPS.</string>
+    <string name="cmd_location_location">Місцезнаходження</string>
+    <string name="cmd_location_fetching">Отримання місцезнаходження…</string>
+    <string name="cmd_location_forcing_refresh">Примусове оновлення місцезнаходження…</string>
+    <string name="cmd_location_unavailable">Місцезнаходження недоступне. Будь ласка, увімкніть служби визначення місцезнаходження та спробуйте знову.</string>
+    <string name="cmd_location_permission_denied">Дозвіл на визначення місцезнаходження відхилено.</string>
+    <string name="cmd_location_error">Помилка при отриманні місцезнаходження: %1$s</string>
+    <string name="cmd_location_info">Інформація про місцезнаходження:</string>
+    <string name="cmd_location_latitude"><![CDATA[-> Широта: %1$s]]></string>
+    <string name="cmd_location_longitude"><![CDATA[-> Довгота: %1$s]]></string>
+    <string name="cmd_location_accuracy"><![CDATA[-> Точність: %1$sм]]></string>
+    <string name="cmd_location_address"><![CDATA[-> Адреса: %1$s]]></string>
+    <string name="cmd_location_source"><![CDATA[-> Джерело: %1$s]]></string>
+    <string name="cmd_location_source_gps_cached">GPS (кеш)</string>
+    <string name="cmd_location_source_gps_fresh">GPS (свіжий)</string>
+    <string name="cmd_location_source_network_cached">Мережа (кеш)</string>
+    <string name="cmd_location_source_network_fresh">Мережа (свіжий)</string>
+    <string name="cmd_location_source_unknown">Невідомо</string>
+    <string name="cmd_location_age"><![CDATA[-> Вік: %1$s]]></string>
+    <string name="cmd_location_age_seconds">%1$d секунд тому</string>
+    <string name="cmd_location_age_minutes">%1$d хвилин тому</string>
+    <string name="cmd_location_age_hours">%1$d годин тому</string>
+    <string name="cmd_location_age_days">%1$d днів тому</string>
 </resources>

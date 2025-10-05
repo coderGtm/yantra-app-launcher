@@ -704,4 +704,27 @@
     <string name="weather_bulk_too_many_locations">Превише локација у захтеву</string>
     <string name="weather_internal_error">Унутрашња грешка временске службе</string>
     <string name="weather_unknown_error">Непозната грешка временске службе</string>
+    <string name="cmd_location_help">Приказује информације о вашој тренутној локацији, укључујући адресу, координате (latitude, longitude) и прецизност. Користите -refresh за принудно освежавање GPS-а.</string>
+    <string name="cmd_location_location">Локација</string>
+    <string name="cmd_location_fetching">Добијање локације…</string>
+    <string name="cmd_location_forcing_refresh">Принудно освежавање локације…</string>
+    <string name="cmd_location_unavailable">Локација није доступна. Молимо омогућите услуге локације и покушајте поново.</string>
+    <string name="cmd_location_permission_denied">Дозвола за локацију одбијена.</string>
+    <string name="cmd_location_error">Грешка при добијању локације: %1$s</string>
+    <string name="cmd_location_info">Информације о локацији:</string>
+    <string name="cmd_location_latitude"><![CDATA[-> Географска ширина: %1$s]]></string>
+    <string name="cmd_location_longitude"><![CDATA[-> Географска дужина: %1$s]]></string>
+    <string name="cmd_location_accuracy"><![CDATA[-> Прецизност: %1$sм]]></string>
+    <string name="cmd_location_address"><![CDATA[-> Адреса: %1$s]]></string>
+    <string name="cmd_location_source"><![CDATA[-> Извор: %1$s]]></string>
+    <string name="cmd_location_source_gps_cached">GPS (кеш)</string>
+    <string name="cmd_location_source_gps_fresh">GPS (ново)</string>
+    <string name="cmd_location_source_network_cached">Мрежа (кеш)</string>
+    <string name="cmd_location_source_network_fresh">Мрежа (ново)</string>
+    <string name="cmd_location_source_unknown">Непознато</string>
+    <string name="cmd_location_age"><![CDATA[-> Старост: %1$s]]></string>
+    <string name="cmd_location_age_seconds">пре %1$d секунди</string>
+    <string name="cmd_location_age_minutes">пре %1$d минута</string>
+    <string name="cmd_location_age_hours">пре %1$d сати</string>
+    <string name="cmd_location_age_days">пре %1$d дана</string>
 </resources>
