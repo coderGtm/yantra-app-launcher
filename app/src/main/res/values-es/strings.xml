@@ -702,4 +702,27 @@
     <string name="aqi_very_unhealthy">Muy insalubre</string>
     <string name="aqi_hazardous">Peligrosa</string>
     <string name="aqi_unknown">Desconocida</string>
+    <string name="cmd_location_help">Muestra la información de tu ubicación actual, incluyendo dirección, coordenadas (latitud, longitud) y precisión. Usa -refresh para forzar una actualización GPS nueva.</string>
+    <string name="cmd_location_location">Ubicación</string>
+    <string name="cmd_location_fetching">Obteniendo ubicación…</string>
+    <string name="cmd_location_forcing_refresh">Forzando actualización de ubicación nueva…</string>
+    <string name="cmd_location_unavailable">Ubicación no disponible. Por favor, activa los servicios de ubicación e inténtalo de nuevo.</string>
+    <string name="cmd_location_permission_denied">Permiso de ubicación denegado.</string>
+    <string name="cmd_location_error">Error al obtener la ubicación: %1$s</string>
+    <string name="cmd_location_info">Información de ubicación:</string>
+    <string name="cmd_location_latitude"><![CDATA[-> Latitud: %1$s]]></string>
+    <string name="cmd_location_longitude"><![CDATA[-> Longitud: %1$s]]></string>
+    <string name="cmd_location_accuracy"><![CDATA[-> Precisión: %1$sm]]></string>
+    <string name="cmd_location_address"><![CDATA[-> Dirección: %1$s]]></string>
+    <string name="cmd_location_source"><![CDATA[-> Fuente: %1$s]]></string>
+    <string name="cmd_location_source_gps_cached">GPS (caché)</string>
+    <string name="cmd_location_source_gps_fresh">GPS (actual)</string>
+    <string name="cmd_location_source_network_cached">Red (caché)</string>
+    <string name="cmd_location_source_network_fresh">Red (actual)</string>
+    <string name="cmd_location_source_unknown">Desconocida</string>
+    <string name="cmd_location_age"><![CDATA[-> Antigüedad: %1$s]]></string>
+    <string name="cmd_location_age_seconds">hace %1$d segundos</string>
+    <string name="cmd_location_age_minutes">hace %1$d minutos</string>
+    <string name="cmd_location_age_hours">hace %1$d horas</string>
+    <string name="cmd_location_age_days">hace %1$d días</string>
 </resources>
