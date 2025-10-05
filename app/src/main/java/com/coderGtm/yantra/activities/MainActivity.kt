@@ -22,6 +22,7 @@ import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
+import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
@@ -221,6 +222,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             primaryTerminal.output(getString(R.string.permission_denied), primaryTerminal.theme.errorTextColor, null)
         } else {
             primaryTerminal.output(getString(R.string.permission_granted), primaryTerminal.theme.successTextColor, null)
+            // if location permission was granted, re-execute the location command
+            if (requestCode == PermissionRequestCodes.LOCATION.code) {
+                primaryTerminal.handleCommand("location")
+            }
         }
     }
 
