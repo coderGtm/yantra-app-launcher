@@ -80,6 +80,7 @@ class SettingsActivity : AppCompatActivity() {
     private var showCurrentFolderInPrompt = false
     private var oneTapKeyboardActivation = true
     private var hideKeyboardOnEnter = true
+    private var launchFirstMatch = false
     private var actOnSuggestionTap = false
     private var actOnLastSecondarySuggestion = false
     private var initCmdLog = false
@@ -158,6 +159,7 @@ class SettingsActivity : AppCompatActivity() {
         showCurrentFolderInPrompt = preferenceObject.getBoolean("showCurrentFolderInPrompt", false)
         oneTapKeyboardActivation = preferenceObject.getBoolean("oneTapKeyboardActivation",true)
         hideKeyboardOnEnter = preferenceObject.getBoolean("hideKeyboardOnEnter", true)
+        launchFirstMatch = preferenceObject.getBoolean("launchFirstMatch", false)
         actOnSuggestionTap = preferenceObject.getBoolean("actOnSuggestionTap", false)
         actOnLastSecondarySuggestion = preferenceObject.getBoolean("actOnLastSecondarySuggestion", false)
         initCmdLog = preferenceObject.getBoolean("initCmdLog", false)
@@ -360,6 +362,12 @@ class SettingsActivity : AppCompatActivity() {
         binding.hideKeyboardOnEnterSwitch.setOnCheckedChangeListener { _, isChecked ->
             hideKeyboardOnEnter = isChecked
             preferenceEditObject.putBoolean("hideKeyboardOnEnter",isChecked).apply()
+            changedSettingsCallback(this@SettingsActivity)
+        }
+        binding.launchFirstMatchSwitch.isChecked = launchFirstMatch
+        binding.launchFirstMatchSwitch.setOnCheckedChangeListener { _, isChecked ->
+            launchFirstMatch = isChecked
+            preferenceEditObject.putBoolean("launchFirstMatch",isChecked).apply()
             changedSettingsCallback(this@SettingsActivity)
         }
         binding.actOnSuggestionTapSwitch.isChecked = actOnSuggestionTap

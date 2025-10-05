@@ -702,4 +702,5 @@
     <string name="aqi_very_unhealthy">Muy insalubre</string>
     <string name="aqi_hazardous">Peligrosa</string>
     <string name="aqi_unknown">Desconocida</string>
+    <string name="auto_launch_first_match">Auto-ejecutar primera coincidencia con comando LAUNCH</string>
 </resources>

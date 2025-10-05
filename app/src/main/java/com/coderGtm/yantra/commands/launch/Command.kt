@@ -95,6 +95,20 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
 
         val name = command.removePrefix(args[0]).trim().lowercase()
 
+        val launchFirstMatch = terminal.preferenceObject.getBoolean("launchFirstMatch", false)
+        if (launchFirstMatch) {
+            val firstMatch = findFirstMatchingApp(name, terminal)
+            if (firstMatch != null) {
+                output(terminal.activity.getString(R.string.launching_app, firstMatch.appName, firstMatch.packageName), terminal.theme.successTextColor)
+                launchApp(this@Command, firstMatch)
+                if (terminal.preferenceObject.getInt("appSortMode", AppSortMode.A_TO_Z.value) == AppSortMode.RECENT.value) {
+                    terminal.appList.remove(firstMatch)
+                    terminal.appList.add(0, firstMatch)
+                }
+                return
+            }
+        }
+
         output(terminal.activity.getString(R.string.locating_app, name), terminal.theme.resultTextColor, Typeface.ITALIC)
 
         val candidates = mutableListOf<AppBlock>()

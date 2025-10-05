@@ -704,4 +704,5 @@
     <string name="weather_bulk_too_many_locations">Превише локација у захтеву</string>
     <string name="weather_internal_error">Унутрашња грешка временске службе</string>
     <string name="weather_unknown_error">Непозната грешка временске службе</string>
+    <string name="auto_launch_first_match">Аутоматско покретање првог подударања са LAUNCH командом</string>
 </resources>
