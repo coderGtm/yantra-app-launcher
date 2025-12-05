@@ -704,4 +704,27 @@
     <string name="weather_bulk_too_many_locations">Слишком много местоположений в запросе</string>
     <string name="weather_internal_error">Внутренняя ошибка службы погоды</string>
     <string name="weather_unknown_error">Неизвестная ошибка службы погоды</string>
+    <string name="cmd_location_help">Показывает информацию о вашем текущем местоположении, включая адрес, координаты (широта, долгота) и точность. Используйте -refresh для принудительного обновления GPS.</string>
+    <string name="cmd_location_location">Местоположение</string>
+    <string name="cmd_location_fetching">Получение местоположения…</string>
+    <string name="cmd_location_forcing_refresh">Принудительное обновление местоположения…</string>
+    <string name="cmd_location_unavailable">Местоположение недоступно. Пожалуйста, включите службы определения местоположения и попробуйте снова.</string>
+    <string name="cmd_location_permission_denied">Разрешение на определение местоположения отклонено.</string>
+    <string name="cmd_location_error">Ошибка при получении местоположения: %1$s</string>
+    <string name="cmd_location_info">Информация о местоположении:</string>
+    <string name="cmd_location_latitude"><![CDATA[-> Широта: %1$s]]></string>
+    <string name="cmd_location_longitude"><![CDATA[-> Долгота: %1$s]]></string>
+    <string name="cmd_location_accuracy"><![CDATA[-> Точность: %1$sм]]></string>
+    <string name="cmd_location_address"><![CDATA[-> Адрес: %1$s]]></string>
+    <string name="cmd_location_source"><![CDATA[-> Источник: %1$s]]></string>
+    <string name="cmd_location_source_gps_cached">GPS (кэш)</string>
+    <string name="cmd_location_source_gps_fresh">GPS (свежий)</string>
+    <string name="cmd_location_source_network_cached">Сеть (кэш)</string>
+    <string name="cmd_location_source_network_fresh">Сеть (свежий)</string>
+    <string name="cmd_location_source_unknown">Неизвестно</string>
+    <string name="cmd_location_age"><![CDATA[-> Возраст: %1$s]]></string>
+    <string name="cmd_location_age_seconds">%1$d секунд назад</string>
+    <string name="cmd_location_age_minutes">%1$d минут назад</string>
+    <string name="cmd_location_age_hours">%1$d часов назад</string>
+    <string name="cmd_location_age_days">%1$d дней назад</string>
 </resources>

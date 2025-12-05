@@ -710,4 +710,27 @@
     <string name="weather_bulk_too_many_locations">Troppe località nella richiesta</string>
     <string name="weather_internal_error">Errore interno del servizio meteorologico</string>
     <string name="weather_unknown_error">Errore sconosciuto del servizio meteorologico</string>
+    <string name="cmd_location_help">Mostra le informazioni sulla tua posizione attuale, inclusi indirizzo, coordinate (latitudine, longitudine) e precisione. Usa -refresh per forzare un aggiornamento GPS nuovo.</string>
+    <string name="cmd_location_location">Posizione</string>
+    <string name="cmd_location_fetching">Recupero posizione…</string>
+    <string name="cmd_location_forcing_refresh">Forzando aggiornamento posizione nuovo…</string>
+    <string name="cmd_location_unavailable">Posizione non disponibile. Abilita i servizi di localizzazione e riprova.</string>
+    <string name="cmd_location_permission_denied">Permesso di localizzazione negato.</string>
+    <string name="cmd_location_error">Errore nel recupero della posizione: %1$s</string>
+    <string name="cmd_location_info">Informazioni sulla posizione:</string>
+    <string name="cmd_location_latitude"><![CDATA[-> Latitudine: %1$s]]></string>
+    <string name="cmd_location_longitude"><![CDATA[-> Longitudine: %1$s]]></string>
+    <string name="cmd_location_accuracy"><![CDATA[-> Precisione: %1$sm]]></string>
+    <string name="cmd_location_address"><![CDATA[-> Indirizzo: %1$s]]></string>
+    <string name="cmd_location_source"><![CDATA[-> Fonte: %1$s]]></string>
+    <string name="cmd_location_source_gps_cached">GPS (cache)</string>
+    <string name="cmd_location_source_gps_fresh">GPS (aggiornato)</string>
+    <string name="cmd_location_source_network_cached">Rete (cache)</string>
+    <string name="cmd_location_source_network_fresh">Rete (aggiornato)</string>
+    <string name="cmd_location_source_unknown">Sconosciuta</string>
+    <string name="cmd_location_age"><![CDATA[-> Età: %1$s]]></string>
+    <string name="cmd_location_age_seconds">%1$d secondi fa</string>
+    <string name="cmd_location_age_minutes">%1$d minuti fa</string>
+    <string name="cmd_location_age_hours">%1$d ore fa</string>
+    <string name="cmd_location_age_days">%1$d giorni fa</string>
 </resources>

@@ -380,6 +380,19 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
+            else if (effectivePrimaryCmd == "location") {
+                if (args.size > 1) {
+                    overrideLastWord = true
+                }
+                val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                val locationArgs = listOf("-refresh")
+                for (arg in locationArgs) {
+                    if (regex.containsMatchIn(arg)) {
+                        suggestions.add(arg)
+                    }
+                }
+                isPrimary = false
+            }
             else if (effectivePrimaryCmd == "dict") {
                 if (args.size > 1) {
                     overrideLastWord = true
@@ -821,6 +834,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "dict" to com.coderGtm.yantra.commands.dict.Command::class.java,
             "history" to com.coderGtm.yantra.commands.history.Command::class.java,
             "battery" to com.coderGtm.yantra.commands.battery.Command::class.java,
+            "location" to com.coderGtm.yantra.commands.location.Command::class.java,
             "lock" to com.coderGtm.yantra.commands.lock.Command::class.java,
             "clear" to com.coderGtm.yantra.commands.clear.Command::class.java,
             "reset" to com.coderGtm.yantra.commands.reset.Command::class.java,
@@ -856,6 +870,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "backup" to com.coderGtm.yantra.commands.backup.Command::class.java,
             "unalias" to com.coderGtm.yantra.commands.unalias.Command::class.java,
             "history" to com.coderGtm.yantra.commands.history.Command::class.java,
+            "location" to com.coderGtm.yantra.commands.location.Command::class.java,
             "lock" to com.coderGtm.yantra.commands.lock.Command::class.java,
             "clear" to com.coderGtm.yantra.commands.clear.Command::class.java,
             "reset" to com.coderGtm.yantra.commands.reset.Command::class.java,

@@ -710,4 +710,27 @@
     <string name="aqi_very_unhealthy">Very Unhealthy</string>
     <string name="aqi_hazardous">Hazardous</string>
     <string name="aqi_unknown">Unknown</string>
+    <string name="cmd_location_help">Shows your current location information including address, coordinates (latitude, longitude), and accuracy. Use -refresh to force a fresh GPS update.</string>
+    <string name="cmd_location_location">Location</string>
+    <string name="cmd_location_fetching">Fetching location…</string>
+    <string name="cmd_location_forcing_refresh">Forcing fresh location update…</string>
+    <string name="cmd_location_unavailable">Location unavailable. Please enable location services and try again.</string>
+    <string name="cmd_location_permission_denied">Location permission denied.</string>
+    <string name="cmd_location_error">Error fetching location: %1$s</string>
+    <string name="cmd_location_info">Location Information:</string>
+    <string name="cmd_location_latitude"><![CDATA[-> Latitude: %1$s]]></string>
+    <string name="cmd_location_longitude"><![CDATA[-> Longitude: %1$s]]></string>
+    <string name="cmd_location_accuracy"><![CDATA[-> Accuracy: %1$sm]]></string>
+    <string name="cmd_location_address"><![CDATA[-> Address: %1$s]]></string>
+    <string name="cmd_location_source"><![CDATA[-> Source: %1$s]]></string>
+    <string name="cmd_location_source_gps_cached">GPS (cached)</string>
+    <string name="cmd_location_source_gps_fresh">GPS (fresh)</string>
+    <string name="cmd_location_source_network_cached">Network (cached)</string>
+    <string name="cmd_location_source_network_fresh">Network (fresh)</string>
+    <string name="cmd_location_source_unknown">Unknown</string>
+    <string name="cmd_location_age"><![CDATA[-> Age: %1$s]]></string>
+    <string name="cmd_location_age_seconds">%1$d seconds ago</string>
+    <string name="cmd_location_age_minutes">%1$d minutes ago</string>
+    <string name="cmd_location_age_hours">%1$d hours ago</string>
+    <string name="cmd_location_age_days">%1$d days ago</string>
 </resources>
