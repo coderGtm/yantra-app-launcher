@@ -1,17 +1,63 @@
 [versions]
-ktor = "2.3.12" # ideally we'd use the latest version but this would require updating to kotlin 2+
-mockitoCore = "5.19.0"
+acraVersion = "5.13.1"
+activityKtxVersion = "1.11.0"
+androidImageCropperVersion = "4.7.0"
+androidNetworkingVersion = "1.0.4"
+appcompat = "1.7.1"
+appUpdate = "2.1.0"
+colorpickerview = "2.3.0"
+constraintlayout = "2.2.1"
+core = "4.6.2"
+coreKtx = "1.17.0"
+espressoCoreVersion = "3.7.0"
+junit = "1.3.0"
+junitVersion = "4.13.2"
+kotlinxCoroutinesTestVersion = "1.10.2"
+ktor = "3.3.3"
+localbroadcastmanagerVersion = "1.1.0"
+luajJse = "3.0.1"
+material = "1.13.0"
+mockitoCore = "5.20.0"
 mockitoInline = "5.2.0"
-mockitoKotlin = "4.1.0" # later versions require using jvm 11 and a higher version of kotlin
+mockitoKotlin = "6.1.0"
+preferenceKtx = "1.2.1"
+securityCryptoVersion = "1.1.0"
+volley = "1.2.1"
+webkitVersion = "1.14.0"
 
 [libraries]
+acra-dialog = { module = "ch.acra:acra-dialog", version.ref = "acraVersion" }
+acra-mail = { module = "ch.acra:acra-mail", version.ref = "acraVersion" }
+activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtxVersion" }
+android-image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "androidImageCropperVersion" }
+android-networking = { module = "com.github.amitshekhariitbhu.Fast-Android-Networking:android-networking", version.ref = "androidNetworkingVersion" }
+app-update = { module = "com.google.android.play:app-update", version.ref = "appUpdate" }
+app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "appUpdate" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+colorpickerview = { module = "com.github.skydoves:colorpickerview", version.ref = "colorpickerview" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+core = { module = "io.noties.markwon:core", version.ref = "core" }
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCoreVersion" }
+ext-junit = { module = "androidx.test.ext:junit", version.ref = "junit" }
+feature-delivery = { module = "com.google.android.play:feature-delivery", version.ref = "appUpdate" }
+feature-delivery-ktx = { module = "com.google.android.play:feature-delivery-ktx", version.ref = "appUpdate" }
+junit = { module = "junit:junit", version.ref = "junitVersion" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTestVersion" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" } # transitively brings in kotlinx-serialization-json
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+localbroadcastmanager = { module = "androidx.localbroadcastmanager:localbroadcastmanager", version.ref = "localbroadcastmanagerVersion" }
+luaj-jse = { module = "org.luaj:luaj-jse", version.ref = "luajJse" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
+preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
+security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCryptoVersion" }
+volley = { module = "com.android.volley:volley", version.ref = "volley" }
+webkit = { module = "androidx.webkit:webkit", version.ref = "webkitVersion" }
 
 [bundles]
 ktor = ["ktor-client-android", "ktor-client-content-negotiation", "ktor-serialization-kotlinx-json", "ktor-client-logging"]

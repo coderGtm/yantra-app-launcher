@@ -1,12 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.9.0'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '2.2.21'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.coderGtm.yantra"
@@ -73,31 +73,32 @@ dependencies {
 
     def acraVersion = '5.11.2'
 
-    implementation 'androidx.core:core-ktx:1.13.1'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation "com.google.android.play:app-update:2.1.0"
-    implementation "com.google.android.play:app-update-ktx:2.1.0"
-    implementation 'com.google.android.play:feature-delivery:2.1.0'
-    implementation 'com.google.android.play:feature-delivery-ktx:2.1.0'
-    implementation 'com.android.volley:volley:1.2.1'
-    implementation "com.github.skydoves:colorpickerview:2.3.0"
-    implementation 'androidx.preference:preference-ktx:1.2.1'
-    implementation "ch.acra:acra-mail:$acraVersion"
-    implementation "ch.acra:acra-dialog:$acraVersion"
-    implementation "androidx.activity:activity-ktx:1.9.0"
-    implementation "io.noties.markwon:core:4.6.2"
-    proImplementation "androidx.webkit:webkit:1.11.0"
-    implementation "com.vanniktech:android-image-cropper:4.5.0"
-    implementation 'org.luaj:luaj-jse:3.0.1'
-    implementation 'com.github.amitshekhariitbhu.Fast-Android-Networking:android-networking:1.0.4'
-    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
+    implementation libs.core.ktx
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.constraintlayout
+    implementation libs.app.update
+    implementation libs.app.update.ktx
+    implementation libs.feature.delivery
+    implementation libs.feature.delivery.ktx
+    implementation libs.volley
+    implementation libs.colorpickerview
+    implementation libs.preference.ktx
+    implementation libs.acra.mail
+    implementation libs.acra.dialog
+    implementation libs.activity.ktx
+    implementation libs.core
+    proImplementation libs.webkit
+    implementation libs.android.image.cropper
+    implementation libs.luaj.jse
+    implementation libs.android.networking
+    implementation libs.security.crypto
     implementation libs.bundles.ktor
+    implementation libs.localbroadcastmanager
 
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation libs.junit
     testImplementation libs.bundles.mockito
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    testImplementation libs.kotlinx.coroutines.test
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
 }
