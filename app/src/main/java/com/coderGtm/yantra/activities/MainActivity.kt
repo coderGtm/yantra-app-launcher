@@ -222,10 +222,6 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
             primaryTerminal.output(getString(R.string.permission_denied), primaryTerminal.theme.errorTextColor, null)
         } else {
             primaryTerminal.output(getString(R.string.permission_granted), primaryTerminal.theme.successTextColor, null)
-            // if location permission was granted, re-execute the location command
-            if (requestCode == PermissionRequestCodes.LOCATION.code) {
-                primaryTerminal.handleCommand("location")
-            }
         }
     }
 
