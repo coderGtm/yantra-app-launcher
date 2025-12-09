@@ -55,6 +55,7 @@ class WebViewActivity : AppCompatActivity() {
         val preference = applicationContext.getSharedPreferences(SHARED_PREFS_FILE_NAME,0)
 
         webView = findViewById(R.id.webView)
+        val reloadBtn: MaterialButton = findViewById(R.id.reloadBtn)
         val closeBtn: MaterialButton = findViewById(R.id.closeBtn)
         val progressBar: ProgressBar = findViewById(R.id.progressBar)
         titleBar = findViewById(R.id.title)
@@ -146,6 +147,10 @@ class WebViewActivity : AppCompatActivity() {
                 CookieManager.getInstance().flush()
             }
             finish()
+        }
+
+        reloadBtn.setOnClickListener {
+            webView.reload()
         }
     }
 
