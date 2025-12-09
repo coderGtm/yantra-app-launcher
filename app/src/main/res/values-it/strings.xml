@@ -475,8 +475,8 @@
     <string name="vibe_only_one_param">Uso non valido. Il comando \'vibe\' accetta solo 1 argomento: tempo di vibrazione in millisecondi.</string>
     <string name="vibe_negative">Aspetta un attimo! Come può il tuo dispositivo vibrare in tempo negativo? Sono ammessi solo valori positivi!</string>
     <string name="vibe_0">Vuoi far vibrare per 0 millisecondi? Davvero?</string>
-    <string name="cmd_weather_title"><![CDATA[weather <località>]]></string>
-    <string name="cmd_weather_help">Ottiene il rapporto meteo per la località specificata. Esempio w nuova delhi</string>
+    <string name="cmd_weather_title"><![CDATA[weather <location> [-flags]]]></string>
+    <string name="cmd_weather_help">Fetches the weather report for specified location. Example w new delhi. Use the \'weather list\' command to list all available flags.</string>
     <string name="please_specify_a_location">Si prega di specificare una località</string>
     <string name="fetching_weather_report_of">Recupero del rapporto meteo di %1$s...</string>
     <string name="weather_report_of">Rapporto meteo di %1$s</string>

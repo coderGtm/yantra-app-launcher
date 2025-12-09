@@ -475,8 +475,8 @@
     <string name="vibe_only_one_param">Invalid usage. \'vibe\' command takes only 1 argument: time to vibrate in milliseconds.</string>
     <string name="vibe_negative">Hold on wiz! How can your device vibrate in negative time? Only positive values allowed!</string>
     <string name="vibe_0">You want to vibrate for 0 milliseconds? Really?</string>
-    <string name="cmd_weather_title"><![CDATA[weather <location>]]></string>
-    <string name="cmd_weather_help">Fetches the weather report for specified location. Example w new delhi</string>
+    <string name="cmd_weather_title"><![CDATA[weather <location> [-flags]]]></string>
+    <string name="cmd_weather_help">Fetches the weather report for specified location. Example w new delhi. Use the \'weather list\' command to list all available flags.</string>
     <string name="please_specify_a_location">Please specify a location</string>
     <string name="fetching_weather_report_of">Fetching weather report of %1$s...</string>
     <string name="weather_report_of">Weather report of %1$s</string>

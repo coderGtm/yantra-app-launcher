@@ -475,8 +475,8 @@
     <string name="vibe_only_one_param">Неисправна употреба. Наредба \'vibe\' прихвата само 1 аргумент: време вибрације у милисекундама.</string>
     <string name="vibe_negative">Чекај друже! Како твој уређај може вибрирати у негативном времену? Дозвољене су само позитивне вредности!</string>
     <string name="vibe_0">Желиш да вибрираш 0 милисекунди? Стварно?</string>
-    <string name="cmd_weather_title"><![CDATA[weather <локација>]]></string>
-    <string name="cmd_weather_help">Дохвата временску прогнозу за наведену локацију.\nПример: w belgrade</string>
+    <string name="cmd_weather_title"><![CDATA[weather <location> [-flags]]]></string>
+    <string name="cmd_weather_help">Fetches the weather report for specified location. Example w new delhi. Use the \'weather list\' command to list all available flags.</string>
     <string name="please_specify_a_location">Молимо наведите локацију</string>
     <string name="fetching_weather_report_of">Дохватам временску прогнозу за %1$s...</string>
     <string name="weather_report_of">Временска прогноза за %1$s</string>
@@ -647,6 +647,10 @@
     <string name="weather_field_moonlight">Осветљеност месеца %</string>
     <string name="weather_error_single_hyphen">Једна цртица \'-\' није важећи формат поља</string>
     <string name="weather_error_multiple_hyphens">\'%1$s\' користи вишеструке цртице, користи формат са једном цртицом: %2$s</string>
+    <string name="weather_error_misplaced_argument">\'%1$s\' is invalid - arguments must come before weather fields</string>
+    <string name="weather_error_field_in_location">\'%1$s\' appears to be a weather field - did you mean \'%2$s\'?</string>
+    <string name="weather_error_field_in_location_no_hyphens">\'%1$s\' appears to be a weather field - try \'%2$s\' instead</string>
+    <string name="weather_error_combined_fields">\'%1$s\' combines multiple fields - use \'%2$s\' instead</string>
     <string name="precipitation_chance">=> Вероватноћа падавина: %1$d%%</string>
     <string name="snow_chance">=> Вероватноћа снега: %1$d%%</string>
     <string name="examples">Примери:</string>

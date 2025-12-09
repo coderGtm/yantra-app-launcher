@@ -475,8 +475,8 @@
     <string name="vibe_only_one_param">Недійсне використання. Команда \'vibe\' приймає лише 1 аргумент: час вібрації в мілісекундах.</string>
     <string name="vibe_negative">Почекайте, як ваш пристрій може вібрувати в негативний час? Дозволені лише позитивні значення!</string>
     <string name="vibe_0">Ви хочете вібрувати протягом 0 мілісекунд? Справді?</string>
-    <string name="cmd_weather_title"><![CDATA[ погода <місцезнаходження> ]]></string>
-    <string name="cmd_weather_help">Отримує звіт про погоду для вказаного місцезнаходження. Приклад: погода новий делі</string>
+    <string name="cmd_weather_title"><![CDATA[weather <location> [-flags]]]></string>
+    <string name="cmd_weather_help">Fetches the weather report for specified location. Example w new delhi. Use the \'weather list\' command to list all available flags.</string>
     <string name="please_specify_a_location">Будь ласка, вкажіть місцезнаходження</string>
     <string name="fetching_weather_report_of">Отримання звіту про погоду для %1$s...</string>
     <string name="weather_report_of">Звіт про погоду для %1$s</string>
@@ -647,6 +647,10 @@
     <string name="weather_field_moonlight">Освітленість місяця %</string>
     <string name="weather_error_single_hyphen">Одинарний дефіс \'-\' не є дійсним форматом поля</string>
     <string name="weather_error_multiple_hyphens">\'%1$s\' використовує множинні дефіси, використовуйте формат з одним дефісом: %2$s</string>
+    <string name="weather_error_misplaced_argument">\'%1$s\' is invalid - arguments must come before weather fields</string>
+    <string name="weather_error_field_in_location">\'%1$s\' appears to be a weather field - did you mean \'%2$s\'?</string>
+    <string name="weather_error_field_in_location_no_hyphens">\'%1$s\' appears to be a weather field - try \'%2$s\' instead</string>
+    <string name="weather_error_combined_fields">\'%1$s\' combines multiple fields - use \'%2$s\' instead</string>
     <string name="precipitation_chance">=> Ймовірність опадів: %1$d%%</string>
     <string name="snow_chance">=> Ймовірність снігу: %1$d%%</string>
     <string name="examples">Приклади:</string>
