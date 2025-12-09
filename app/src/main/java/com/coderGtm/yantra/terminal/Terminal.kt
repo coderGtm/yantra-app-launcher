@@ -280,7 +280,7 @@ class Terminal(
     }
     fun executeCommandsInQueue() {
         while (commandQueue.isNotEmpty() && !isSleeping) {
-            val cmdToExecute = commandQueue.removeFirst()
+            val cmdToExecute = commandQueue.removeAt(0)
             handleCommand(cmdToExecute)
         }
     }
