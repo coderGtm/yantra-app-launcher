@@ -1,6 +1,6 @@
 [versions]
 acraVersion = "5.13.1"
-activityKtxVersion = "1.11.0"
+activityKtxVersion = "1.11.0"   # Not using latest version as it requires minSdk 23
 androidImageCropperVersion = "4.7.0"
 androidNetworkingVersion = "1.0.4"
 appcompat = "1.7.1"
