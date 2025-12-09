@@ -36,35 +36,35 @@ data class Location(
 
 @Serializable
 data class Current(
-    @SerialName("last_updated_epoch") val lastUpdatedEpoch: Long,
-    @SerialName("last_updated") val lastUpdated: String,
+    @SerialName("last_updated_epoch") val lastUpdatedEpoch: Long? = null,
+    @SerialName("last_updated") val lastUpdated: String? = null,
     @SerialName("temp_c") val tempC: Double,
     @SerialName("temp_f") val tempF: Double,
-    @SerialName("is_day") val isDay: Int,
+    @SerialName("is_day") val isDay: Int? = null,
     val condition: Condition,
     @SerialName("wind_mph") val windMph: Double,
     @SerialName("wind_kph") val windKph: Double,
-    @SerialName("wind_degree") val windDegree: Int,
+    @SerialName("wind_degree") val windDegree: Int? = null,
     @SerialName("wind_dir") val windDir: String,
-    @SerialName("pressure_mb") val pressureMb: Double,
-    @SerialName("pressure_in") val pressureIn: Double,
-    @SerialName("precip_mm") val precipMm: Double,
-    @SerialName("precip_in") val precipIn: Double,
+    @SerialName("pressure_mb") val pressureMb: Double? = null,
+    @SerialName("pressure_in") val pressureIn: Double? = null,
+    @SerialName("precip_mm") val precipMm: Double? = null,
+    @SerialName("precip_in") val precipIn: Double? = null,
     val humidity: Int,
-    val cloud: Int,
+    val cloud: Int? = null,
     @SerialName("feelslike_c") val feelslikeC: Double,
     @SerialName("feelslike_f") val feelslikeF: Double,
-    @SerialName("windchill_c") val windchillC: Double,
-    @SerialName("windchill_f") val windchillF: Double,
-    @SerialName("heatindex_c") val heatindexC: Double,
-    @SerialName("heatindex_f") val heatindexF: Double,
-    @SerialName("dewpoint_c") val dewpointC: Double,
-    @SerialName("dewpoint_f") val dewpointF: Double,
-    @SerialName("vis_km") val visKm: Double,
-    @SerialName("vis_miles") val visMiles: Double,
-    val uv: Double,
-    @SerialName("gust_mph") val gustMph: Double,
-    @SerialName("gust_kph") val gustKph: Double,
+    @SerialName("windchill_c") val windchillC: Double? = null,
+    @SerialName("windchill_f") val windchillF: Double? = null,
+    @SerialName("heatindex_c") val heatindexC: Double? = null,
+    @SerialName("heatindex_f") val heatindexF: Double? = null,
+    @SerialName("dewpoint_c") val dewpointC: Double? = null,
+    @SerialName("dewpoint_f") val dewpointF: Double? = null,
+    @SerialName("vis_km") val visKm: Double? = null,
+    @SerialName("vis_miles") val visMiles: Double? = null,
+    val uv: Double? = null,
+    @SerialName("gust_mph") val gustMph: Double? = null,
+    @SerialName("gust_kph") val gustKph: Double? = null,
     @SerialName("air_quality") val airQuality: AirQuality,
     @SerialName("short_rad") val shortRad: Double? = null,
     @SerialName("diff_rad") val diffRad: Double? = null,
@@ -75,8 +75,8 @@ data class Current(
 @Serializable
 data class Condition(
     val text: String,
-    val icon: String,
-    val code: Int
+    val icon: String? = null,
+    val code: Int? = null
 )
 
 @Serializable
@@ -99,7 +99,7 @@ data class Forecast(
 @Serializable
 data class TodayForecast(
     val day: DayForecast,
-    val astro: Astro
+    val astro: Astro? = null,
 )
 
 @Serializable
@@ -108,22 +108,22 @@ data class DayForecast(
     @SerialName("maxtemp_f") val maxtempF: Double,
     @SerialName("mintemp_c") val mintempC: Double,
     @SerialName("mintemp_f") val mintempF: Double,
-    @SerialName("avgtemp_c") val avgtempC: Double,
-    @SerialName("avgtemp_f") val avgtempF: Double,
-    @SerialName("maxwind_mph") val maxwindMph: Double,
-    @SerialName("maxwind_kph") val maxwindKph: Double,
-    @SerialName("totalprecip_mm") val totalprecipMm: Double,
-    @SerialName("totalprecip_in") val totalprecipIn: Double,
-    @SerialName("totalsnow_cm") val totalsnowCm: Double,
-    @SerialName("avgvis_km") val avgvisKm: Double,
-    @SerialName("avgvis_miles") val avgvisMiles: Double,
-    @SerialName("avghumidity") val avghumidity: Double,
+    @SerialName("avgtemp_c") val avgtempC: Double? = null,
+    @SerialName("avgtemp_f") val avgtempF: Double? = null,
+    @SerialName("maxwind_mph") val maxwindMph: Double? = null,
+    @SerialName("maxwind_kph") val maxwindKph: Double? = null,
+    @SerialName("totalprecip_mm") val totalprecipMm: Double? = null,
+    @SerialName("totalprecip_in") val totalprecipIn: Double? = null,
+    @SerialName("totalsnow_cm") val totalsnowCm: Double? = null,
+    @SerialName("avgvis_km") val avgvisKm: Double? = null,
+    @SerialName("avgvis_miles") val avgvisMiles: Double? = null,
+    @SerialName("avghumidity") val avghumidity: Double? = null,
     @SerialName("daily_will_it_rain") val dailyWillItRain: Int,
     @SerialName("daily_will_it_snow") val dailyWillItSnow: Int,
     @SerialName("daily_chance_of_rain") val dailyChanceOfRain: Int,
     @SerialName("daily_chance_of_snow") val dailyChanceOfSnow: Int,
     val condition: Condition,
-    val uv: Double,
+    val uv: Double? = null,
     @SerialName("air_quality") val airQuality: AirQuality? = null
 )
 

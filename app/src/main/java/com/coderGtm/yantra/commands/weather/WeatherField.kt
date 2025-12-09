@@ -348,7 +348,7 @@ val WEATHER_FIELD_CATEGORIES = listOf(
                 command.output(
                     command.terminal.activity.getString(
                         R.string.weather_sunrise,
-                        weather.forecast.forecastday[0].astro.sunrise
+                        weather.forecast.forecastday[0].astro?.sunrise
                     )
                 )
             },
@@ -356,7 +356,7 @@ val WEATHER_FIELD_CATEGORIES = listOf(
                 command.output(
                     command.terminal.activity.getString(
                         R.string.weather_sunset,
-                        weather.forecast.forecastday[0].astro.sunset
+                        weather.forecast.forecastday[0].astro?.sunset
                     )
                 )
             },
@@ -364,7 +364,7 @@ val WEATHER_FIELD_CATEGORIES = listOf(
                 command.output(
                     command.terminal.activity.getString(
                         R.string.weather_moonrise,
-                        weather.forecast.forecastday[0].astro.moonrise
+                        weather.forecast.forecastday[0].astro?.moonrise
                     )
                 )
             },
@@ -372,7 +372,7 @@ val WEATHER_FIELD_CATEGORIES = listOf(
                 command.output(
                     command.terminal.activity.getString(
                         R.string.weather_moonset,
-                        weather.forecast.forecastday[0].astro.moonset
+                        weather.forecast.forecastday[0].astro?.moonset
                     )
                 )
             },
@@ -380,7 +380,7 @@ val WEATHER_FIELD_CATEGORIES = listOf(
                 command.output(
                     command.terminal.activity.getString(
                         R.string.weather_moon_phase,
-                        weather.forecast.forecastday[0].astro.moonPhase
+                        weather.forecast.forecastday[0].astro?.moonPhase
                     )
                 )
             },
@@ -388,7 +388,7 @@ val WEATHER_FIELD_CATEGORIES = listOf(
                 command.output(
                     command.terminal.activity.getString(
                         R.string.weather_moon_illumination,
-                        weather.forecast.forecastday[0].astro.moonIllumination
+                        weather.forecast.forecastday[0].astro?.moonIllumination
                     )
                 )
             }
