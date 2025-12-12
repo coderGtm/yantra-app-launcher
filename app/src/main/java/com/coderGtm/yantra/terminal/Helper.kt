@@ -38,6 +38,7 @@ fun showSuggestions(
         terminal.activity.runOnUiThread {
             terminal.binding.suggestionsTab.removeAllViews()
         }
+        val fontSize = terminal.preferenceObject.getInt("suggestionFontSize", 18).toFloat()
         val input = rawInput.trim()
         val suggestions = ArrayList<String>()
         val args = input.split(" ")
@@ -605,7 +606,7 @@ fun showSuggestions(
             suggestion.setTextColor(terminal.theme.suggestionTextColor)
             suggestion.setTypeface(terminal.typeface, Typeface.BOLD)
             suggestion.setBackgroundColor(Color.TRANSPARENT)
-            suggestion.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.5F)
+            suggestion.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
             suggestion.setPadding(40, 30, 40, 30)
 
 

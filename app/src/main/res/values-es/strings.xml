@@ -18,6 +18,7 @@
     <string name="change_news_website">Cambiar sitio web de noticias</string>
     <string name="terminal_font_size">Tamaño de fuente de la terminal</string>
     <string name="arrow_keys_size">Tamaño de las teclas de flechas</string>
+    <string name="suggestion_font_size">"Tamaño de fuente de sugerencia"</string>
     <string name="orientation">Orientación de la terminal</string>
     <string name="app_suggestions_order">Orden de sugerencias de aplicaciones</string>
     <string name="terminal_font">Fuente de la terminal </string>
@@ -45,6 +46,9 @@
     <string name="arrow_size_description">Ingresa un tamaño para las Teclas de Flechas de la terminal:</string>
     <string name="invalid_arrow_size">¡Tamaño de flechas invalido!</string>
     <string name="arrow_size_updated">¡Tamaño de la flecha actualizado!</string>
+    <string name="suggestion_font_size_description">Enter a font size for suggestions:</string>
+    <string name="invalid_suggestion_font_size">Invalid font size!</string>
+    <string name="suggestion_font_size_updated">Font size updated!</string>
     <string name="portrait">Vertical</string>
     <string name="landscape">Horizontal</string>
     <string name="system">Sistema</string>
