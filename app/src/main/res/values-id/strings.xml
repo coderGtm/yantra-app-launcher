@@ -499,118 +499,118 @@
     <string name="weather_humidity"><![CDATA[=> Kelembapan: %1$d%%]]></string>
     <string name="weather_wind"><![CDATA[=> Angin: %1$.1f km/j (%2$.1f mph) %3$s]]></string>
 
-    <string name="package_removed"><![CDATA[==> Package removed: %1$s]]></string>
-    <string name="specify_a_package_name">Please specify an app package name!</string>
-    <string name="yantra_launcher_has_been_trimmed">Yantra Launcher has been trimmed!</string>
-    <string name="yantra_trim_description">In an effort to fund the project, the free version of Yantra Launcher has been converted to a truly minimal CLI launcher. If you prefer to enjoy the classic and full version of Yantra Launcher, please consider upgrading to the Pro version by buying the Pro version from the Play Store.</string>
+    <string name="package_removed"><![CDATA[==> Paket dihapus: %1$s]]></string>
+    <string name="specify_a_package_name">Silakan tentukan nama paket aplikasi!</string>
+    <string name="yantra_launcher_has_been_trimmed">Yantra Launcher telah dipangkas!</string>
+    <string name="yantra_trim_description">Sebagai upaya untuk mendanai proyek ini, versi gratis Yantra Launcher telah diubah menjadi launcher CLI yang benar-benar minimal. Jika Anda ingin menikmati versi klasik dan lengkap dari Yantra Launcher, silakan pertimbangkan untuk meng-upgrade ke versi Pro dengan membelinya di Play Store.</string>
     <string name="upgrade">Upgrade</string>
-    <string name="later">Later</string>
-    <string name="cmd_pro_help">Launches the Play Store Page for the Pro Version of Yantra Launcher</string>
-    <string name="opening_pro_page">:: Navigating to Play Store Page of Pro version...</string>
-    <string name="pro_prompt">You seem to be loving Yantra Launcher! Consider upgrading to the Pro version for more features and to support the project.</string>
-    <string name="pro_cmd_info">Type \'pro\' to launch the Play Store page for the Pro version.</string>
-    <string name="change_sysinfo_art">Change \'sysinfo\' Art</string>
-    <string name="sysinfo_art_change_description">Paste your ASCII art here which you want to display in the \'sysinfo\' command.</string>
-    <string name="sysinfo_art_updated">Updated ASCII art for \'sysinfo\' command!</string>
-    <string name="search">Search</string>
-    <string name="auto_execute_last_secondary_suggestion">Auto Execute last Secondary Suggestion</string>
-    <string name="auto_executing_suggestion">Auto executing Suggestion 🤖...</string>
-    <string name="shortcut_list_fetch_error">An error occurred while fetching shortcuts!</string>
-    <string name="fetching_shortcuts">Fetching Shortcuts...</string>
-    <string name="found_shortcuts">Found %1$d shortcuts</string>
-    <string name="not_shortcut_host">Shortcut Host Permission missing! You need to set %1$s as the default Launcher to use Shortcuts.</string>
-    <string name="specify_a_shortcut_label">Please specify a Shortcut Label to launch!</string>
-    <string name="shortcut_not_found">\'%1$s\' shortcut not found. Try using \'list shortcuts\' to get list of all shortcuts.</string>
-    <string name="shortcut_not_supported">Shortcuts are not supported on your device!</string>
-    <string name="multiple_shortcuts_found">Multiple shortcuts found</string>
-    <string name="multiple_shortcuts_found_with_label_please_select_one">Multiple shortcuts found with name \'%1$s\'. Please select one.</string>
-    <string name="total_tokens_used">Total Tokens used in this conversation: %1$s</string>
-    <string name="ai_reset">AI message history has been reset!</string>
-    <string name="weather_feels_like_c_f"><![CDATA[=> Feels like: %1$.1f°C (%2$.1f°F)]]></string>
-    <string name="precipitation_chance">=> Precipitation chance: %1$d%%</string>
-    <string name="snow_chance">=> Snow chance: %1$d%%</string>
-    <string name="clear_init_list">Clear Init List?</string>
-    <string name="clear_init_list_confirmation">Are you sure you want to clear your init script?</string>
+    <string name="later">Nanti</string>
+    <string name="cmd_pro_help">Membuka halaman Play Store untuk versi Pro Yantra Launcher</string>
+    <string name="opening_pro_page">:: Membuka halaman Play Store versi Pro...</string>
+    <string name="pro_prompt">Sepertinya Anda menyukai Yantra Launcher! Pertimbangkan untuk upgrade ke versi Pro untuk mendapatkan lebih banyak fitur dan mendukung proyek ini.</string>
+    <string name="pro_cmd_info">Ketik 'pro' untuk membuka halaman Play Store versi Pro.</string>
+    <string name="change_sysinfo_art">Ubah Art 'sysinfo'</string>
+    <string name="sysinfo_art_change_description">Tempel ASCII art yang ingin Anda tampilkan pada perintah 'sysinfo'.</string>
+    <string name="sysinfo_art_updated">ASCII art untuk perintah 'sysinfo' berhasil diperbarui!</string>
+    <string name="search">Cari</string>
+    <string name="auto_execute_last_secondary_suggestion">Eksekusi Otomatis Saran Sekunder Terakhir</string>
+    <string name="auto_executing_suggestion">Mengeksekusi saran secara otomatis 🤖...</string>
+    <string name="shortcut_list_fetch_error">Terjadi kesalahan saat mengambil shortcut!</string>
+    <string name="fetching_shortcuts">Mengambil Shortcut...</string>
+    <string name="found_shortcuts">Ditemukan %1$d shortcut</string>
+    <string name="not_shortcut_host">Izin Shortcut Host tidak tersedia! Anda perlu mengatur %1$s sebagai launcher default untuk menggunakan Shortcut.</string>
+    <string name="specify_a_shortcut_label">Silakan tentukan label Shortcut untuk dijalankan!</string>
+    <string name="shortcut_not_found">Shortcut '%1$s' tidak ditemukan. Coba gunakan 'list shortcuts' untuk melihat daftar shortcut.</string>
+    <string name="shortcut_not_supported">Shortcut tidak didukung di perangkat Anda!</string>
+    <string name="multiple_shortcuts_found">Ditemukan beberapa shortcut</string>
+    <string name="multiple_shortcuts_found_with_label_please_select_one">Ditemukan beberapa shortcut dengan nama '%1$s'. Silakan pilih salah satu.</string>
+    <string name="total_tokens_used">Total token yang digunakan dalam percakapan ini: %1$s</string>
+    <string name="ai_reset">Riwayat pesan AI telah direset!</string>
+    <string name="weather_feels_like_c_f"><![CDATA[=> Terasa seperti: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="precipitation_chance">=> Kemungkinan presipitasi: %1$d%%</string>
+    <string name="snow_chance">=> Kemungkinan salju: %1$d%%</string>
+    <string name="clear_init_list">Bersihkan Init List?</string>
+    <string name="clear_init_list_confirmation">Apakah Anda yakin ingin menghapus skrip init?</string>
     <string name="cmd_backup_title">backup [-i]</string>
-    <string name="cmd_backup_help">A utility to backup your Yantra Launcher configuration. Using the command will export your current configuration to a file. If you use the -i flag, you can import a configuration file that will replace your current configuration.</string>
-    <string name="select_backup_file">Select Backup File</string>
-    <string name="save_backup_file">Save Backup File</string>
-    <string name="incorrect_file">Incorrect File</string>
-    <string name="backup_restored">Configuration restored successfully. Restarting Yantra Launcher...</string>
-    <string name="file_not_found">File not found</string>
+    <string name="cmd_backup_help">Utilitas untuk mencadangkan konfigurasi Yantra Launcher. Perintah ini akan mengekspor konfigurasi saat ini ke sebuah file. Jika menggunakan flag -i, Anda dapat mengimpor file konfigurasi yang akan menggantikan konfigurasi saat ini.</string>
+    <string name="select_backup_file">Pilih File Cadangan</string>
+    <string name="save_backup_file">Simpan File Cadangan</string>
+    <string name="incorrect_file">File tidak valid</string>
+    <string name="backup_restored">Konfigurasi berhasil dipulihkan. Memulai ulang Yantra Launcher...</string>
+    <string name="file_not_found">File tidak ditemukan</string>
     <string name="cmd_music_title">music [play/pause/prev/next]</string>
-    <string name="cmd_music_help">Control the local music state on your device. Use without any parameters to toggle the music state. Use \'play\' to resume music, \'pause\' to pause music, \'next\' to play the next track and \'prev\' to play the previous track in the queue.</string>
-    <string name="changing_music_state">Changing music state...</string>
-    <string name="resuming_music">Resuming music...</string>
-    <string name="pausing_music">Pausing music...</string>
-    <string name="playing_next_track">Playing next track...</string>
-    <string name="playing_previous_track">Playing previous track...</string>
-    <string name="invalid_parameter_see_help_to_see_usage_info">Invalid parameter! See \'help %1$s\' to see usage info.</string>
-    <string name="suggestion_bar_color">Suggestion Bar Color</string>
-    <string name="modern_prompt_design">Modern Prompt Design</string>
-    <string name="import_local_font">Import Local Font</string>
-    <string name="select_a_font_file">Select a Font File</string>
-    <string name="select_default_launcher">Select Default Launcher</string>
-    <string name="cannot_alias_to_itself">Cannot alias %1$s to itself!</string>
-    <string name="reorder_primary_suggestions">Reorder Primary Suggestions</string>
+    <string name="cmd_music_help">Mengontrol status musik lokal di perangkat Anda. Gunakan tanpa parameter untuk mengubah status musik. Gunakan 'play' untuk melanjutkan musik, 'pause' untuk menjeda, 'next' untuk lagu berikutnya, dan 'prev' untuk lagu sebelumnya.</string>
+    <string name="changing_music_state">Mengubah status musik...</string>
+    <string name="resuming_music">Melanjutkan musik...</string>
+    <string name="pausing_music">Menjeda musik...</string>
+    <string name="playing_next_track">Memutar lagu berikutnya...</string>
+    <string name="playing_previous_track">Memutar lagu sebelumnya...</string>
+    <string name="invalid_parameter_see_help_to_see_usage_info">Parameter tidak valid! Lihat 'help %1$s' untuk informasi penggunaan.</string>
+    <string name="suggestion_bar_color">Warna Bilah Saran</string>
+    <string name="modern_prompt_design">Desain Prompt Modern</string>
+    <string name="import_local_font">Impor Font Lokal</string>
+    <string name="select_a_font_file">Pilih File Font</string>
+    <string name="select_default_launcher">Pilih Launcher Default</string>
+    <string name="cannot_alias_to_itself">Tidak dapat membuat alias %1$s ke dirinya sendiri!</string>
+    <string name="reorder_primary_suggestions">Atur Ulang Saran Utama</string>
     <string name="reset">Reset</string>
-    <string name="saved_configuration_for_primary_suggestions">Saved configuration for Primary Suggestions!</string>
-    <string name="this_cmd_handled_via_third_party_app">Yantra Launcher handles this command via a 3rd party open-source app called %1$s. You can download it from %2$s</string>
-    <string name="app_does_not_have_reqd_perms">%1$s app does not seem to have the required permissions.</string>
-    <string name="manage_sound_effects">Manage Sound Effects</string>
-    <string name="delete_sound_effect">Do you want to delete this sound effect?</string>
-    <string name="add_sound_effect">Add Sound Effect</string>
-    <string name="add_sfx_desc">Add a sound effect to the internal storage of the app. Supported formats: mp3, wav, ogg</string>
-    <string name="select_sfx_file">Select a sound effect file</string>
-    <string name="cmd_sfx_title">sfx [sound_effect]</string>
-    <string name="cmd_sfx_help">Play sound effects! Use without arguments to play the default sound effect. Use with an argument to play a specific sound effect added to the internal storage of the app via \'settings\'.</string>
-    <string name="playing_sound_effect">Playing sound effect: %1$s...</string>
-    <string name="sfx_not_found">The specified sound effect (\'%1$s\') is not found. Add it to the internal storage of the app via \'settings\'.</string>
-    <string name="cmd_notepad_title"><![CDATA[notepad [list / new <name> / read <name> / delete <name>]]]></string>
-    <string name="cmd_notepad_help"><![CDATA[A simple in-app notepad to take quick notes on the go. Use the `notepad list` command to view all your notes. To create a new note, type `notepad new <note_name>`. To read an existing note, use `notepad read <note_name>` and to edit a note, use the `notepad edit <note_name>` command. If you want to delete a note, use the `notepad delete <note_name>` command.]]></string>
-    <string name="no_notes_found">No notes found...</string>
+    <string name="saved_configuration_for_primary_suggestions">Konfigurasi Saran Utama berhasil disimpan!</string>
+    <string name="this_cmd_handled_via_third_party_app">Yantra Launcher menangani perintah ini melalui aplikasi open-source pihak ketiga bernama %1$s. Anda dapat mengunduhnya dari %2$s</string>
+    <string name="app_does_not_have_reqd_perms">Aplikasi %1$s tidak memiliki izin yang diperlukan.</string>
+    <string name="manage_sound_effects">Kelola Efek Suara</string>
+    <string name="delete_sound_effect">Apakah Anda ingin menghapus efek suara ini?</string>
+    <string name="add_sound_effect">Tambah Efek Suara</string>
+    <string name="add_sfx_desc">Tambahkan efek suara ke penyimpanan internal aplikasi. Format yang didukung: mp3, wav, ogg</string>
+    <string name="select_sfx_file">Pilih file efek suara</string>
+    <string name="cmd_sfx_title">sfx [efek_suara]</string>
+    <string name="cmd_sfx_help">Memutar efek suara! Gunakan tanpa argumen untuk memutar efek suara default. Gunakan argumen untuk memutar efek suara tertentu yang ditambahkan melalui 'pengaturan'.</string>
+    <string name="playing_sound_effect">Memutar efek suara: %1$s...</string>
+    <string name="sfx_not_found">Efek suara ('%1$s') tidak ditemukan. Tambahkan melalui 'pengaturan'.</string>
+    <string name="cmd_notepad_title"><![CDATA[notepad [list / new <nama> / read <nama> / delete <nama>]]]></string>
+    <string name="cmd_notepad_help"><![CDATA[Notepad sederhana di dalam aplikasi untuk mencatat dengan cepat. Gunakan `notepad list` untuk melihat semua catatan. Untuk membuat catatan baru, ketik `notepad new <nama_catatan>`. Untuk membaca catatan, gunakan `notepad read <nama_catatan>`, dan untuk mengedit gunakan `notepad edit <nama_catatan>`. Untuk menghapus catatan, gunakan `notepad delete <nama_catatan>`.]]></string>
+    <string name="no_notes_found">Tidak ada catatan...</string>
     <string name="notepad">Notepad:</string>
-    <string name="note_exists">A note by this name already exists! Please use a different name.</string>
-    <string name="new_note">New Note (%1$s)</string>
-    <string name="enter_note_content">Enter the note content below:</string>
-    <string name="note_saved_to_notepad">Note \'%1$s\' saved to notepad.</string>
-    <string name="no_note_fond_by_the_name">No note fond by the name %1$s!</string>
-    <string name="deleted_from_notepad">Deleted \'%1$s\' from notepad.</string>
-    <string name="weather_air_quality"><![CDATA[=> Air Quality: %1$s]]></string>
-    <string name="weather_uv_index"><![CDATA[=> UV Index: %1$.1f]]></string>
-    <string name="weather_pressure"><![CDATA[=> Pressure: %1$.1f mb]]></string>
-    <string name="weather_visibility"><![CDATA[=> Visibility: %1$.1f km]]></string>
-    <string name="weather_condition"><![CDATA[=> Condition: %1$s]]></string>
-    <string name="weather_cloud_cover"><![CDATA[=> Cloud Cover: %1$d%%]]></string>
-    <string name="weather_precipitation"><![CDATA[=> Precipitation: %1$.1f mm]]></string>
+    <string name="note_exists">Catatan dengan nama ini sudah ada! Silakan gunakan nama lain.</string>
+    <string name="new_note">Catatan Baru (%1$s)</string>
+    <string name="enter_note_content">Masukkan isi catatan di bawah:</string>
+    <string name="note_saved_to_notepad">Catatan '%1$s' berhasil disimpan.</string>
+    <string name="no_note_fond_by_the_name">Tidak ditemukan catatan dengan nama %1$s!</string>
+    <string name="deleted_from_notepad">'%1$s' berhasil dihapus dari notepad.</string>
+    <string name="weather_air_quality"><![CDATA[=> Kualitas Udara: %1$s]]></string>
+    <string name="weather_uv_index"><![CDATA[=> Indeks UV: %1$.1f]]></string>
+    <string name="weather_pressure"><![CDATA[=> Tekanan: %1$.1f mb]]></string>
+    <string name="weather_visibility"><![CDATA[=> Jarak Pandang: %1$.1f km]]></string>
+    <string name="weather_condition"><![CDATA[=> Kondisi: %1$s]]></string>
+    <string name="weather_cloud_cover"><![CDATA[=> Tutupan Awan: %1$d%%]]></string>
+    <string name="weather_precipitation"><![CDATA[=> Presipitasi: %1$.1f mm]]></string>
     <string name="weather_windchill_c_f"><![CDATA[=> Wind Chill: %1$.1f°C (%2$.1f°F)]]></string>
-    <string name="weather_heatindex_c_f"><![CDATA[=> Heat Index: %1$.1f°C (%2$.1f°F)]]></string>
-    <string name="weather_dewpoint_c_f"><![CDATA[=> Dew Point: %1$.1f°C (%2$.1f°F)]]></string>
-    <string name="weather_gust"><![CDATA[=> Wind Gust: %1$.1f kph (%2$.1f mph)]]></string>
-    <string name="weather_co"><![CDATA[=> Carbon Monoxide: %1$.1f μg/m³]]></string>
-    <string name="weather_no2"><![CDATA[=> Nitrogen Dioxide: %1$.1f μg/m³]]></string>
-    <string name="weather_o3"><![CDATA[=> Ozone: %1$.1f μg/m³]]></string>
-    <string name="weather_so2"><![CDATA[=> Sulfur Dioxide: %1$.1f μg/m³]]></string>
+    <string name="weather_heatindex_c_f"><![CDATA[=> Indeks Panas: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_dewpoint_c_f"><![CDATA[=> Titik Embun: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_gust"><![CDATA[=> Hembusan Angin: %1$.1f kph (%2$.1f mph)]]></string>
+    <string name="weather_co"><![CDATA[=> Karbon Monoksida: %1$.1f μg/m³]]></string>
+    <string name="weather_no2"><![CDATA[=> Nitrogen Dioksida: %1$.1f μg/m³]]></string>
+    <string name="weather_o3"><![CDATA[=> Ozon: %1$.1f μg/m³]]></string>
+    <string name="weather_so2"><![CDATA[=> Sulfur Dioksida: %1$.1f μg/m³]]></string>
     <string name="weather_pm25"><![CDATA[=> PM2.5: %1$.1f μg/m³]]></string>
     <string name="weather_pm10"><![CDATA[=> PM10: %1$.1f μg/m³]]></string>
-    <string name="weather_solar_radiation"><![CDATA[=> Solar Radiation: Short=%1$.1f, Diff=%2$.1f, DNI=%3$.1f, GTI=%4$.1f]]></string>
-    <string name="weather_sunrise"><![CDATA[=> Sunrise: %1$s]]></string>
-    <string name="weather_sunset"><![CDATA[=> Sunset: %1$s]]></string>
-    <string name="weather_moonrise"><![CDATA[=> Moonrise: %1$s]]></string>
-    <string name="weather_moonset"><![CDATA[=> Moonset: %1$s]]></string>
-    <string name="weather_moon_phase"><![CDATA[=> Moon Phase: %1$s]]></string>
-    <string name="weather_moon_illumination"><![CDATA[=> Moon Illumination: %1$d%%]]></string>
-    <string name="weather_avgtemp_c_f"><![CDATA[=> Average Temperature: %1$.1f°C (%2$.1f°F)]]></string>
-    <string name="weather_maxwind"><![CDATA[=> Max Wind: %1$.1f kph (%2$.1f mph)]]></string>
-    <string name="weather_total_precipitation"><![CDATA[=> Total Precipitation: %1$.1f mm]]></string>
-    <string name="weather_total_snow"><![CDATA[=> Total Snow: %1$.1f cm]]></string>
-    <string name="weather_avg_humidity"><![CDATA[=> Average Humidity: %1$d%%]]></string>
-    <string name="weather_unknown_field">Unknown weather field: %1$s</string>
-    <string name="weather_field_unavailable">%1$s: Not available</string>
-    <string name="weather_invalid_command_format">Invalid command format:</string>
-    <string name="weather_unknown_field_bullet">• Unknown field: \'%1$s\'</string>
-    <string name="weather_available_fields">Available weather fields (%1$d total):</string>
-    <string name="weather_use_list_command">\nUse \'weather list\' to see available fields.</string>
+    <string name="weather_solar_radiation"><![CDATA[=> Radiasi Surya: Short=%1$.1f, Diff=%2$.1f, DNI=%3$.1f, GTI=%4$.1f]]></string>
+    <string name="weather_sunrise"><![CDATA[=> Matahari Terbit: %1$s]]></string>
+    <string name="weather_sunset"><![CDATA[=> Matahari Terbenam: %1$s]]></string>
+    <string name="weather_moonrise"><![CDATA[=> Bulan Terbit: %1$s]]></string>
+    <string name="weather_moonset"><![CDATA[=> Bulan Terbenam: %1$s]]></string>
+    <string name="weather_moon_phase"><![CDATA[=> Fase Bulan: %1$s]]></string>
+    <string name="weather_moon_illumination"><![CDATA[=> Iluminasi Bulan: %1$d%%]]></string>
+    <string name="weather_avgtemp_c_f"><![CDATA[=> Suhu Rata-rata: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="weather_maxwind"><![CDATA[=> Angin Maksimum: %1$.1f kph (%2$.1f mph)]]></string>
+    <string name="weather_total_precipitation"><![CDATA[=> Total Presipitasi: %1$.1f mm]]></string>
+    <string name="weather_total_snow"><![CDATA[=> Total Salju: %1$.1f cm]]></string>
+    <string name="weather_avg_humidity"><![CDATA[=> Kelembapan Rata-rata: %1$d%%]]></string>
+    <string name="weather_unknown_field">Field cuaca tidak dikenal: %1$s</string>
+    <string name="weather_field_unavailable">%1$s: Tidak tersedia</string>
+    <string name="weather_invalid_command_format">Format perintah tidak valid:</string>
+    <string name="weather_unknown_field_bullet">• Field tidak dikenal: '%1$s'</string>
+    <string name="weather_available_fields">Field cuaca tersedia (%1$d total):</string>
+    <string name="weather_use_list_command">\nGunakan 'weather list' untuk melihat field yang tersedia.</string>
 
     <!-- Weather field categories -->
     <string name="weather_category_current">Current weather</string>
