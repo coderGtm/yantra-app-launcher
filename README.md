@@ -65,8 +65,11 @@ Select your desired configuration before you build and run the project.
 
 We support initiatives to translate Yantra Launcher in your native language! If you are interested for a long-term commitment to volunteer translations, see the [Translator's Guide](/Yantra_Launcher_Translators_Guide.pdf).
 
-## FAQs
+## Documentation
+**Docs**
+See the [Docs](https://codergtm.github.io/yantra-app-launcher/quickstart/) to learn about installation, commands and scripts.
 
+**FAQs**
 See the [FAQs Page](https://codergtm.github.io/yantra-app-launcher/faq/) for answers to Frequently Asked Questions!
 
 ## Support
@@ -92,3 +95,4 @@ See the [Support Page](/support.md) if you'd like to support the project.
 <br/><br/>
 
 ***LIVE THE CLI EXPERIENCE :heart_eyes:***
+
