@@ -629,7 +629,7 @@
     <string name="weather_field_cloud">Awan Mendung(%)</string>
     <string name="weather_field_precip">Jumlah presipitasi</string>
     <string name="weather_field_solarrad">Radiasi surya</string>
-    <string name="weather_field_min">Suhu Minimun</string>
+    <string name="weather_field_min">Suhu Minimum</string>
     <string name="weather_field_max">Suhu Maksimum</string>
     <string name="weather_field_avgtemp">Suhu rata-rata</string>
     <string name="weather_field_maxwind">Maks. Kecepatan Angin</string>
