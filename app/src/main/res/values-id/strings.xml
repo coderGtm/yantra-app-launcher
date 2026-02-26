@@ -639,7 +639,7 @@
     <string name="weather_field_rain">Kemungkinan hujan (jika tersedia)</string>
     <string name="weather_field_snow">Kemungkinan salju (jika tersedia)</string>
     <string name="weather_field_aqi">Indeks kualitas Udara</string>
-    <string name="weather_field_co">Karbon monokisda</string>
+    <string name="weather_field_co">Karbon monoksida</string>
     <string name="weather_field_no2">Nitrogen dioksida</string>
     <string name="weather_field_o3">Ozon</string>
     <string name="weather_field_so2">Sulfur dioksida</string>
