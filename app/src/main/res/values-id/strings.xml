@@ -620,7 +620,7 @@
     <string name="weather_field_heatindex">Index Kehangatan</string>
     <string name="weather_field_dewpoint">Titik embun</string>
     <string name="weather_field_humidity">Kelembapan(%)</string>
-    <string name="weather_field_wind">Kecepatan & Arah angin</string>
+    <string name="weather_field_wind">Kecepatan &amp; Arah angin</string>
     <string name="weather_field_gust">Kecepatan hembusan Angin</string>
     <string name="weather_field_pressure">Tekanan Udara</string>
     <string name="weather_field_uv">Indeks UV</string>
