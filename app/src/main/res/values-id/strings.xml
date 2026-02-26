@@ -617,7 +617,7 @@
     <string name="weather_field_temp">Suhu (°C/°F)</string>
     <string name="weather_field_feels">Suhu terasa</string>
     <string name="weather_field_windchill">Suhu udara</string>
-    <string name="weather_field_heatindex">Index Kehangatan</string>
+    <string name="weather_field_heatindex">Indeks Kehangatan</string>
     <string name="weather_field_dewpoint">Titik embun</string>
     <string name="weather_field_humidity">Kelembapan(%)</string>
     <string name="weather_field_wind">Kecepatan &amp; Arah angin</string>
