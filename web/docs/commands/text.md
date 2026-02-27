@@ -14,4 +14,4 @@ text Hi, how are you?
 ```
 This will broadcast the message "Hi, how are you?" to the system which will then handle it accordingly.
 
-![text_example_1.webp](../img/text_example_1.webp)
+![text_example_1.webp](../../img/text_example_1.webp)

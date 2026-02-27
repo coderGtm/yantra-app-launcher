@@ -1,32 +1,32 @@
 site_name: Yantra Launcher Wiki
 site_description: 'Documentation for using Yantra Launcher'
 site_author: 'The Yantra Launcher Community'
-docs_dir: docs/
+docs_dir: web/
 repo_name: 'coderGtm/yantra-app-launcher'
 repo_url: 'https://github.com/coderGtm/yantra-app-launcher'
 edit_uri: 'edit/main/docs/'
 nav:
-    - Home: index.md
-    - Quickstart: quickstart.md
-    - Commands Overview: commands-overview.md
+    - Home: docs/index.md
+    - Quickstart: docs/quickstart.md
+    - Commands Overview: docs/commands-overview.md
     - Commands:
-        - launch: commands/launch.md
-        - help: commands/help.md
-        - username: commands/username.md
-        - alias: commands/alias.md
-        - call: commands/call.md
-        - search: commands/search.md
-        - ai: commands/ai.md
-        - theme: commands/theme.md
-        - quote: commands/quote.md
-        - internet: commands/internet.md
-        - web: commands/web.md
-        - tts: commands/tts.md
-        - bored: commands/bored.md
-        - text: commands/text.md
-        - reset: commands/reset.md
-        - exit: commands/exit.md
-    - Frequently Asked Questions: faq.md
+        - launch: docs/commands/launch.md
+        - help: docs/commands/help.md
+        - username: docs/commands/username.md
+        - alias: docs/commands/alias.md
+        - call: docs/commands/call.md
+        - search: docs/commands/search.md
+        - ai: docs/commands/ai.md
+        - theme: docs/commands/theme.md
+        - quote: docs/commands/quote.md
+        - internet: docs/commands/internet.md
+        - web: docs/commands/web.md
+        - tts: docs/commands/tts.md
+        - bored: docs/commands/bored.md
+        - text: docs/commands/text.md
+        - reset: docs/commands/reset.md
+        - exit: docs/commands/exit.md
+    - Frequently Asked Questions: docs/faq.md
     
 theme:
   name: material
