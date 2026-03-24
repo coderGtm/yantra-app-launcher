@@ -10,22 +10,79 @@ nav:
     - Quickstart: docs/quickstart.md
     - Commands Overview: docs/commands-overview.md
     - Commands:
-        - launch: docs/commands/launch.md
-        - help: docs/commands/help.md
-        - username: docs/commands/username.md
-        - alias: docs/commands/alias.md
-        - call: docs/commands/call.md
-        - search: docs/commands/search.md
-        - ai: docs/commands/ai.md
-        - theme: docs/commands/theme.md
-        - quote: docs/commands/quote.md
-        - internet: docs/commands/internet.md
-        - web: docs/commands/web.md
-        - tts: docs/commands/tts.md
-        - bored: docs/commands/bored.md
-        - text: docs/commands/text.md
-        - reset: docs/commands/reset.md
-        - exit: docs/commands/exit.md
+        - Essentials:
+            - help: docs/commands/help.md
+            - exit: docs/commands/exit.md
+            - reset: docs/commands/reset.md
+            - clear: docs/commands/clear.md
+            - history: docs/commands/history.md
+            - support: docs/commands/support.md
+            - feedback: docs/commands/feedback.md
+            - cmdrequest: docs/commands/cmdrequest.md
+            - community: docs/commands/community.md
+        - App Management:
+            - launch: docs/commands/launch.md
+            - launchf: docs/commands/launchf.md
+            - list: docs/commands/list.md
+            - info: docs/commands/info.md
+            - infof: docs/commands/infof.md
+            - uninstall: docs/commands/uninstall.md
+        - Productivity:
+            - todo: docs/commands/todo.md
+            - notepad: docs/commands/notepad.md
+            - calc: docs/commands/calc.md
+            - alarm: docs/commands/alarm.md
+            - timer: docs/commands/timer.md
+            - time: docs/commands/time.md
+            - screentime: docs/commands/screentime.md
+        - Communication:
+            - call: docs/commands/call.md
+            - email: docs/commands/email.md
+            - text: docs/commands/text.md
+            - translate: docs/commands/translate.md
+        - Search & Web:
+            - search: docs/commands/search.md
+            - web: docs/commands/web.md
+            - gupt: docs/commands/gupt.md
+            - internet: docs/commands/internet.md
+            - speedtest: docs/commands/speedtest.md
+            - weather: docs/commands/weather.md
+            - news: docs/commands/news.md
+            - dict: docs/commands/dict.md
+        - System:
+            - settings: docs/commands/settings.md
+            - battery: docs/commands/battery.md
+            - sysinfo: docs/commands/sysinfo.md
+            - lock: docs/commands/lock.md
+            - flash: docs/commands/flash.md
+            - vibe: docs/commands/vibe.md
+            - bluetooth: docs/commands/bluetooth.md
+            - setclr: docs/commands/setclr.md
+            - theme: docs/commands/theme.md
+            - bg: docs/commands/bg.md
+            - username: docs/commands/username.md
+        - Automation:
+            - alias: docs/commands/alias.md
+            - unalias: docs/commands/unalias.md
+            - scripts: docs/commands/scripts.md
+            - run: docs/commands/run.md
+            - init: docs/commands/init.md
+            - termux: docs/commands/termux.md
+            - sleep: docs/commands/sleep.md
+            - notify: docs/commands/notify.md
+        - File System:
+            - ls: docs/commands/ls.md
+            - cd: docs/commands/cd.md
+            - pwd: docs/commands/pwd.md
+            - open: docs/commands/open.md
+        - Media & Fun:
+            - music: docs/commands/music.md
+            - sfx: docs/commands/sfx.md
+            - tts: docs/commands/tts.md
+            - quote: docs/commands/quote.md
+            - bored: docs/commands/bored.md
+            - ai: docs/commands/ai.md
+            - pro: docs/commands/pro.md
     - Frequently Asked Questions: docs/faq.md
     
 theme:
