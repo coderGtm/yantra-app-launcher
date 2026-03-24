@@ -12,7 +12,7 @@ Create short-hand commands for longer or frequently used commands.
     Pre-defined commands can not be aliased.
 
 ## Syntax
-To set an alias:
+To set or update an alias:
 ```
 alias alias_name = alias_cmd
 ```
