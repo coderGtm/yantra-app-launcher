@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yantra Launcher - CLI-Powered Android Experience</title>
+    <meta name="description" content="Transform your Android home screen into a powerful command-line interface. Minimal, fast, and distraction-free.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="img/favicon.ico">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Gradient Orbs Background -->
+<div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+</div>
+
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="#" class="logo">
+            <img src="img/logo.png" class="logo-icon" />
+            <span class="logo-text">Yantra Launcher</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#engineering">Engineering</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <div class="nav-cta">
+            <a href="https://github.com/coderGtm/yantra-app-launcher" target="_blank" class="btn btn-ghost">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                GitHub
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.coderGtm.yantra" target="_blank" class="btn btn-primary">
+                Get Started
+            </a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+    <ul class="mobile-nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#engineering">Engineering</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="https://github.com/coderGtm/yantra-app-launcher" target="_blank">GitHub</a></li>
+        <li><a href="https://play.google.com/store/apps/details?id=com.coderGtm.yantra" target="_blank" class="btn btn-primary">Get Started</a></li>
+    </ul>
+</div>
+
+<!-- Hero Section -->
+<header class="hero">
+    <div class="container hero-container">
+        <div class="hero-content" data-aos="fade-up">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                Open Source • Privacy First
+            </div>
+            <h1 class="hero-title">
+                Your Phone.<br>
+                <span class="gradient-text">Command Line.</span>
+            </h1>
+            <p class="hero-subtitle">
+                Transform your Android home screen into a powerful CLI interface.
+                No distractions, no bloat — just pure efficiency.
+            </p>
+            <div class="hero-cta">
+                <a href="https://play.google.com/store/apps/details?id=com.coderGtm.yantra" target="_blank" class="btn btn-primary btn-lg">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                    Download Free
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.coderGtm.yantra.pro" target="_blank" class="btn btn-secondary btn-lg">
+                    Get Pro Version
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value">50K+</span>
+                    <span class="stat-label">Downloads</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">4.6★</span>
+                    <span class="stat-label">Rating</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">50+</span>
+                    <span class="stat-label">Commands</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual" data-aos="fade-up" data-aos-delay="200">
+            <div class="phone-mockup">
+                <div class="phone-frame">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <div class="terminal-demo">
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">yantra@home</span>
+                                <span class="terminal-symbol">$</span>
+                                <span class="terminal-command" id="typed-command"></span>
+                                <span class="terminal-cursor">|</span>
+                            </div>
+                            <div class="terminal-output" id="terminal-output"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="phone-glow"></div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll">
+        <span>Scroll to explore</span>
+        <div class="scroll-indicator">
+            <div class="scroll-dot"></div>
+        </div>
+    </div>
+</header>
+
+<!-- Motivation Section -->
+<section class="motivation" id="motivation">
+    <div class="container">
+        <div class="motivation-grid">
+            <div class="motivation-content" data-aos="fade-right">
+                <span class="section-label">The Philosophy</span>
+                <h2 class="section-title">Why Yantra?</h2>
+                <p class="motivation-text">
+                    In Sanskrit, <strong>"Yantra"</strong> means an instrument or machine — a tool of precision and purpose.
+                    In a world of flashy icons and addictive interfaces, Yantra Launcher strips away the noise.
+                </p>
+                <p class="motivation-text">
+                    Your phone becomes what it should be: a <em>tool</em>, not a trap. Type what you need,
+                    get it done, move on with your life.
+                </p>
+                <div class="motivation-quote">
+                    <blockquote>
+                        "The best interface is no interface."
+                    </blockquote>
+                </div>
+            </div>
+            <div class="motivation-visual" data-aos="fade-left">
+                <div class="comparison-card">
+                    <div class="comparison-side comparison-before">
+                        <span class="comparison-label">Traditional Launchers</span>
+                        <ul class="comparison-list negative">
+                            <li>Endless scrolling through apps</li>
+                            <li>Distracting widgets & icons</li>
+                            <li>Cluttered home screens</li>
+                            <li>Time sink by design</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-divider">
+                        <span>vs</span>
+                    </div>
+                    <div class="comparison-side comparison-after">
+                        <span class="comparison-label">Yantra Launcher</span>
+                        <ul class="comparison-list positive">
+                            <li>Type & launch instantly</li>
+                            <li>Zero visual distractions</li>
+                            <li>Clean, focused interface</li>
+                            <li>Built for productivity</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-label">Capabilities</span>
+            <h2 class="section-title">More Than a Launcher</h2>
+            <p class="section-subtitle">50+ commands that turn your phone into a powerhouse</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card feature-large" data-aos="fade-up">
+                <div class="feature-icon">🚀</div>
+                <h3>Instant App Launch</h3>
+                <p>Launch any app by typing its name. Fuzzy search finds what you need even with typos.</p>
+                <div class="feature-code">
+                    <code>launch spotify</code>
+                    <code>launchf tube → YouTube</code>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">🤖</div>
+                <h3>AI Assistant</h3>
+                <p>ChatGPT-powered AI right in your terminal. Ask questions, get answers.</p>
+                <div class="feature-code">
+                    <code>ai explain quantum computing</code>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">📜</div>
+                <h3>Lua Scripting</h3>
+                <p>Full Lua scripting engine embedded. Automate anything with custom scripts.</p>
+                <div class="feature-code">
+                    <code>run -lua myAutomation</code>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">🔐</div>
+                <h3>G.U.P.T Mode</h3>
+                <p>Get Undercover Private Tab — built-in incognito browser, with integrated ad-blocker.</p>
+                <div class="feature-code">
+                    <code>gupt youtube.com</code>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">⚡</div>
+                <h3>System Control</h3>
+                <p>Control Bluetooth, flashlight, alarms, timers, and more with simple commands.</p>
+                <div class="feature-code">
+                    <code>timer 1800 turn off the gas</code>
+                    <code>flash on</code>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon">🎨</div>
+                <h3>Themeable</h3>
+                <p>Multiple built-in themes including Tokyonight, Dracula, and more. Make it yours.</p>
+                <div class="feature-code">
+                    <code>theme Tokyonight</code>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">📁</div>
+                <h3>File System</h3>
+                <p>Navigate your device like a pro with pwd, cd, ls, and open commands.</p>
+                <div class="feature-code">
+                    <code>cd Downloads</code>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">🔗</div>
+                <h3>Termux Integration</h3>
+                <p>Seamless integration with Termux for real Linux commands on your phone.</p>
+                <div class="feature-code">
+                    <code>termux neofetch</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="features-showcase" data-aos="fade-up">
+            <h3 class="showcase-title">And so much more...</h3>
+            <div class="command-tags">
+                <span class="command-tag">weather</span>
+                <span class="command-tag">todo</span>
+                <span class="command-tag">calc</span>
+                <span class="command-tag">translate</span>
+                <span class="command-tag">dict</span>
+                <span class="command-tag">sysinfo</span>
+                <span class="command-tag">screentime</span>
+                <span class="command-tag">alias</span>
+                <span class="command-tag">tts</span>
+                <span class="command-tag">quote</span>
+                <span class="command-tag">news</span>
+                <span class="command-tag">music</span>
+                <span class="command-tag">speedtest</span>
+                <span class="command-tag">backup</span>
+                <span class="command-tag">notify</span>
+                <span class="command-tag">vibe</span>
+                <span class="command-tag">and many more...</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Screenshots Section -->
+<section class="screenshots" id="screenshots">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-label">Gallery</span>
+            <h2 class="section-title">See It in Action</h2>
+            <p class="section-subtitle">Clean, minimal, powerful</p>
+        </div>
+
+        <div class="screenshots-carousel" data-aos="fade-up">
+            <div class="screenshot-item">
+                <div class="screenshot-placeholder">
+                    <div class="placeholder-terminal">
+                        <div class="placeholder-header">
+                            <span class="placeholder-dot"></span>
+                            <span class="placeholder-dot"></span>
+                            <span class="placeholder-dot"></span>
+                        </div>
+                        <div class="placeholder-content">
+                            <p class="p-line">yantra@home $ help</p>
+                            <p class="p-line dim">Available commands:</p>
+                            <p class="p-line dim">launch, ai, theme, weather...</p>
+                        </div>
+                    </div>
+                </div>
+                <span class="screenshot-label">Help Command</span>
+            </div>
+            <div class="screenshot-item">
+                <div class="screenshot-placeholder alt">
+                    <div class="placeholder-terminal">
+                        <div class="placeholder-header">
+                            <span class="placeholder-dot"></span>
+                            <span class="placeholder-dot"></span>
+                            <span class="placeholder-dot"></span>
+                        </div>
+                        <div class="placeholder-content">
+                            <p class="p-line">yantra@home $ sysinfo</p>
+                            <p class="p-line accent">Device: Pixel 8</p>
+                            <p class="p-line accent">Android: 14</p>
+                            <p class="p-line accent">Battery: 87%</p>
+                        </div>
+                    </div>
+                </div>
+                <span class="screenshot-label">System Info</span>
+            </div>
+            <div class="screenshot-item">
+                <div class="screenshot-placeholder">
+                    <div class="placeholder-terminal">
+                        <div class="placeholder-header">
+                            <span class="placeholder-dot"></span>
+                            <span class="placeholder-dot"></span>
+                            <span class="placeholder-dot"></span>
+                        </div>
+                        <div class="placeholder-content">
+                            <p class="p-line">yantra@home $ theme Tokyonight</p>
+                            <p class="p-line dim">Tokyonight applied ✓</p>
+                        </div>
+                    </div>
+                </div>
+                <span class="screenshot-label">Theme Switching</span>
+            </div>
+            <div class="screenshot-item">
+                <div class="screenshot-placeholder alt">
+                    <div class="placeholder-terminal">
+                        <div class="placeholder-header">
+                            <span class="placeholder-dot"></span>
+                            <span class="placeholder-dot"></span>
+                            <span class="placeholder-dot"></span>
+                        </div>
+                        <div class="placeholder-content">
+                            <p class="p-line">yantra@home $ ai hello</p>
+                            <p class="p-line accent">Hello! How can I assist you today?</p>
+                        </div>
+                    </div>
+                </div>
+                <span class="screenshot-label">AI Integration</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Engineering Section -->
+<section class="engineering" id="engineering">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-label">Under the Hood</span>
+            <h2 class="section-title">Engineering Marvel</h2>
+            <p class="section-subtitle">Built with precision, designed for performance</p>
+        </div>
+
+        <div class="engineering-grid">
+            <div class="engineering-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="engineering-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <h3>Instant Response</h3>
+                <p>Command parsing and execution optimized for sub-millisecond response times. Your launcher should never lag.</p>
+            </div>
+
+            <div class="engineering-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="engineering-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                </div>
+                <h3>Embedded Lua VM</h3>
+                <p>Full LuaJ runtime integrated for scripting. Create automations with HTTP support, system bindings, and custom I/O.</p>
+            </div>
+
+            <div class="engineering-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="engineering-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                </div>
+                <h3>Modular Architecture</h3>
+                <p>Clean separation of concerns with command handlers, theming engine, and scripting runtime as independent modules.</p>
+            </div>
+
+            <div class="engineering-card" data-aos="fade-up">
+                <div class="engineering-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3>100% Kotlin</h3>
+                <p>Built entirely in modern Kotlin, leveraging coroutines for smooth async operations and null-safety for rock-solid stability.</p>
+            </div>
+
+            <div class="engineering-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="engineering-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <h3>Fuzzy Search</h3>
+                <p>Levenshtein distance algorithm for intelligent app matching. Type "tube" to launch YouTube. The launcher understands you.</p>
+            </div>
+
+            <div class="engineering-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="engineering-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                <h3>Privacy First</h3>
+                <p>Zero data collection. No analytics. No tracking. Your commands stay on your device. Period.</p>
+            </div>
+        </div>
+
+        <div class="engineering-stats" data-aos="fade-up">
+            <div class="stat-card">
+                <span class="stat-number">100+</span>
+                <span class="stat-text">Stars on GitHub</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">18</span>
+                <span class="stat-text">Contributors</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">3+</span>
+                <span class="stat-text">Years Active</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">100%</span>
+                <span class="stat-text">Open Source</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials" id="testimonials">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-label">Reviews</span>
+            <h2 class="section-title">Loved by Users</h2>
+            <p class="section-subtitle">Read what users have to say about Yantra Launcher</p>
+        </div>
+    </div>
+
+    <div class="testimonials-marquee-wrapper" data-aos="fade-up">
+        <div class="testimonials-marquee">
+            <!-- First set of cards -->
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"I believe this launcher is actually more effective at fighting distraction than some other minimalist launchers. There's no icons on the screen, no widgets, nothing to fool around with."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">YT</div>
+                    <div class="author-info">
+                        <span class="author-name">Yewen Tan</span>
+                        <span class="author-source">Google Play Review</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"Wow I didn't expect this launcher to be so practical. There are so many working commands, everything makes sense too. Love it, keep on making it better! 👍"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SH</div>
+                    <div class="author-info">
+                        <span class="author-name">Sameer Husain</span>
+                        <span class="author-source">Google Play Review</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"Thank youuu for the recent update. I've been using this app for such a long time. Excited to see more updates and improvements. Thank you, dev! 🤗🫶"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JJ</div>
+                    <div class="author-info">
+                        <span class="author-name">jasmine jasmine</span>
+                        <span class="author-source">Google Play Review</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★☆</div>
+                <p class="testimonial-text">"On the phone with the Yantra launcher, it's actually way easier than using command line on Windows. This launcher makes my phone harder to use by other people too!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">YT</div>
+                    <div class="author-info">
+                        <span class="author-name">Yewen Tan</span>
+                        <span class="author-source">Google Play Review</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"The Lua scripting is incredibly powerful for automation. I've created scripts to automate my morning routine — open news, check weather, start my workout playlist. Amazing!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AK</div>
+                    <div class="author-info">
+                        <span class="author-name">Android Enthusiast</span>
+                        <span class="author-source">Google Play Review</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"Finally a launcher that treats my phone as a tool, not a dopamine trap. My screen time has dropped significantly since switching. Best decision I've made."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">DV</div>
+                    <div class="author-info">
+                        <span class="author-name">Dev User</span>
+                        <span class="author-source">Google Play Review</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Duplicate set for seamless loop -->
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"I believe this launcher is actually more effective at fighting distraction than some other minimalist launchers. There's no icons on the screen, no widgets, nothing to fool around with."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">YT</div>
+                    <div class="author-info">
+                        <span class="author-name">Yewen Tan</span>
+                        <span class="author-source">Google Play Review</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"Wow I didn't expect this launcher to be so practical. There are so many working commands, everything makes sense too. Love it, keep on making it better! 👍"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SH</div>
+                    <div class="author-info">
+                        <span class="author-name">Sameer Husain</span>
+                        <span class="author-source">Google Play Review</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"Thank youuu for the recent update. I've been using this app for such a long time. Excited to see more updates and improvements. Thank you, dev! 🤗🫶"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JJ</div>
+                    <div class="author-info">
+                        <span class="author-name">jasmine jasmine</span>
+                        <span class="author-source">Google Play Review</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★☆</div>
+                <p class="testimonial-text">"On the phone with the Yantra launcher, it's actually way easier than using command line on Windows. This launcher makes my phone harder to use by other people too!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">YT</div>
+                    <div class="author-info">
+                        <span class="author-name">Yewen Tan</span>
+                        <span class="author-source">Google Play Review</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"The Lua scripting is incredibly powerful for automation. I've created scripts to automate my morning routine — open news, check weather, start my workout playlist. Amazing!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AK</div>
+                    <div class="author-info">
+                        <span class="author-name">Android Enthusiast</span>
+                        <span class="author-source">Google Play Review</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"Finally a launcher that treats my phone as a tool, not a dopamine trap. My screen time has dropped significantly since switching. Best decision I've made."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">DV</div>
+                    <div class="author-info">
+                        <span class="author-name">Dev User</span>
+                        <span class="author-source">Google Play Review</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq" id="faq">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-label">FAQ</span>
+            <h2 class="section-title">Questions Answered</h2>
+        </div>
+
+        <div class="faq-list" data-aos="fade-up">
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>What's the difference between Minimal and Pro versions?</span>
+                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="faq-answer">
+                    <p>The Minimal version includes essential commands for basic phone operation. The Pro version unlocks 50+ commands including AI integration, Lua scripting, Termux integration, advanced system controls, and more. Pro supports the development of Yantra Launcher.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How do I get the AI command working?</span>
+                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="faq-answer">
+                    <p>You'll need an API key from an OpenAI-compatible provider. Go to settings, enter your API base domain and key. Free alternatives exist — check the documentation or ask in our Discord community for recommendations.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Can I integrate Yantra with Termux?</span>
+                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes! Install Termux from GitHub or F-Droid, enable the 'allow-external-apps' property in Termux, and grant permissions in Yantra Launcher settings. Then use commands like <code>termux neofetch</code> directly from your home screen.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>What is G.U.P.T?</span>
+                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="faq-answer">
+                    <p>G.U.P.T stands for "Get Undercover Private Tab" — a built-in incognito browser. All data is cleared after closing, it's hidden from recent apps, and no history or cookies are saved. Launch with <code>gupt</code> or <code>gupt youtube.com</code>.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Is my data collected?</span>
+                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="faq-answer">
+                    <p>No. Yantra Launcher collects zero data. No analytics, no tracking, no third-party data sharing. Your commands and data stay entirely on your device. The code is open source — verify it yourself.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How do I write custom Lua scripts?</span>
+                    <svg class="faq-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Use the <code>scripts</code> command to create and edit scripts. Run them with <code>run -lua scriptName</code>. You have access to HTTP requests (<code>http.get</code>, <code>http.post</code> and more), Yantra commands via <code>binding.exec()</code>, and a few standard Lua libraries.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-card" data-aos="fade-up">
+            <h2 class="cta-title">Ready to Transform Your Phone?</h2>
+            <p class="cta-subtitle">Join thousands of users who've embraced the CLI lifestyle</p>
+            <div class="cta-buttons">
+                <a href="https://play.google.com/store/apps/details?id=com.coderGtm.yantra" target="_blank" class="btn btn-primary btn-lg">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                    Download Minimal (Free)
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.coderGtm.yantra.pro" target="_blank" class="btn btn-secondary btn-lg">
+                    Get Pro Version
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <img src="img/logo.png" class="logo-icon" />
+                    <span class="logo-text">Yantra Launcher</span>
+                </a>
+                <p class="footer-tagline">A minimal CLI-based Android Launcher</p>
+                <p class="footer-credit">Made with ❤️ by <a href="https://github.com/coderGtm" target="_blank">coderGtm</a></p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="./docs" target="_blank">Documentation</a></li>
+                    <li><a href="./docs/commands-overview" target="_blank">Commands</a></li>
+                    <li><a href="./docs/faq" target="_blank">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="https://github.com/coderGtm/yantra-app-launcher" target="_blank">GitHub</a></li>
+                    <li><a href="https://discord.gg/sRZUG8rPjk" target="_blank">Discord</a></li>
+                    <li><a href="https://www.reddit.com/r/YantraLauncher/" target="_blank">Reddit</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Download</h4>
+                <ul>
+                    <li><a href="https://play.google.com/store/apps/details?id=com.coderGtm.yantra" target="_blank">Minimal Version</a></li>
+                    <li><a href="https://play.google.com/store/apps/details?id=com.coderGtm.yantra.pro" target="_blank">Pro Version</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Yantra Launcher. All rights reserved.</p>
+            <div class="footer-socials">
+                <a href="https://github.com/coderGtm/yantra-app-launcher" target="_blank" aria-label="GitHub">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <a href="https://discord.gg/sRZUG8rPjk" target="_blank" aria-label="Discord">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
+                </a>
+                <a href="https://www.reddit.com/r/YantraLauncher/" target="_blank" aria-label="Reddit">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
