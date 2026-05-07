@@ -365,6 +365,7 @@
     <string name="script_saved_successfully">Скрипта %1$s је успешно сачувана!</string>
     <string name="delete">Обриши</string>
     <string name="script_deleted">Скрипта \'%1$s\' је обрисана.</string>
+    <string name="scripts_usage">Usage: scripts | scripts -new &lt;name&gt; | scripts &lt;name&gt; | scripts -rm &lt;name&gt;</string>
     <string name="no_scripts_found">Нису пронађене скрипте! Покушајте да направите једну.</string>
     <string name="add">Додај</string>
     <string name="new_script">Нова скрипта</string>

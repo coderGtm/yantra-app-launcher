@@ -365,6 +365,7 @@
     <string name="script_saved_successfully">Скрипт %1$s успішно збережено!</string>
     <string name="delete">Видалити</string>
     <string name="script_deleted">Скрипт \'%1$s\' видалено.</string>
+    <string name="scripts_usage">Usage: scripts | scripts -new &lt;name&gt; | scripts &lt;name&gt; | scripts -rm &lt;name&gt;</string>
     <string name="no_scripts_found">Скрипти не знайдено! Спробуйте створити новий.</string>
     <string name="add">Додати</string>
     <string name="new_script">Новий скрипт</string>

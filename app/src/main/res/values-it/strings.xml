@@ -365,6 +365,7 @@
     <string name="script_saved_successfully">Script %1$s salvato con successo!</string>
     <string name="delete">Elimina</string>
     <string name="script_deleted">Script \'%1$s\' eliminato.</string>
+    <string name="scripts_usage">Usage: scripts | scripts -new &lt;name&gt; | scripts &lt;name&gt; | scripts -rm &lt;name&gt;</string>
     <string name="no_scripts_found">Nessuno script trovato! Prova a crearne uno.</string>
     <string name="add">Aggiungi</string>
     <string name="new_script">Nuovo Script</string>

@@ -568,6 +568,36 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
+            else if (effectivePrimaryCmd == "scripts") {
+                try {
+                    val scriptNames = getScripts(terminal.preferenceObject).toMutableList()
+                    if (args.size == 2 && args[1] == "-rm") {
+                        // after -rm, suggest all script names
+                        overrideLastWord = false
+                        for (sn in scriptNames) {
+                            if (!suggestions.contains(sn)) suggestions.add(sn)
+                        }
+                    } else if (args.size == 2 && args[1] == "-new") {
+                        // after -new, no suggestions (user types name)
+                    } else if (args.size > 1) {
+                        overrideLastWord = true
+                        val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                        val candidates = mutableListOf("-new", "-rm") + scriptNames
+                        for (c in candidates) {
+                            if (regex.containsMatchIn(c) && !suggestions.contains(c)) suggestions.add(c)
+                        }
+                    } else {
+                        val candidates = mutableListOf("-new", "-rm") + scriptNames
+                        for (c in candidates) {
+                            if (!suggestions.contains(c)) suggestions.add(c)
+                        }
+                    }
+                    isPrimary = false
+                    executeOnTapViable = false
+                } catch (e: Exception) {
+                    return@Thread
+                }
+            }
             else if (effectivePrimaryCmd == "run") {
                 try {
                     val runArgs = getScripts(terminal.preferenceObject).toMutableList()
