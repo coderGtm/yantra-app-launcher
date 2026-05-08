@@ -1,14 +1,10 @@
 package com.coderGtm.yantra.commands.theme
 
-import android.app.WallpaperManager
 import android.graphics.Typeface
-import android.graphics.drawable.ColorDrawable
-import androidx.core.graphics.drawable.toBitmap
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
-import com.coderGtm.yantra.setSystemWallpaper
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.toast
 import androidx.core.content.edit
@@ -68,18 +64,6 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                     }
                     val theme = Themes.entries.first { it.name.lowercase() == name }
                     terminal.preferenceObject.edit { putInt("theme", theme.ordinal) }
-                    if (terminal.preferenceObject.getBoolean("defaultWallpaper", true)) {
-                        val wallpaperManager =
-                            WallpaperManager.getInstance(terminal.activity.applicationContext)
-                        val colorDrawable = ColorDrawable(terminal.theme.bgColor)
-                        setSystemWallpaper(
-                            wallpaperManager,
-                            colorDrawable.toBitmap(
-                                terminal.activity.resources.displayMetrics.widthPixels,
-                                terminal.activity.resources.displayMetrics.heightPixels
-                            )
-                        )
-                    }
                     toast(
                         terminal.activity.baseContext,
                         terminal.activity.getString(R.string.setting_theme_to, theme.name)

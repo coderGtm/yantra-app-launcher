@@ -1,12 +1,12 @@
 package com.coderGtm.yantra.commands.bg
 
-import android.app.WallpaperManager
 import android.graphics.Bitmap
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.BitmapRequestListener
 import com.coderGtm.yantra.R
-import com.coderGtm.yantra.setSystemWallpaper
+import com.coderGtm.yantra.applyLauncherBackground
+import com.coderGtm.yantra.setLauncherBackgroundBitmap
 
 fun getRandomWallpaper(id: Int = -1, grayscale: Boolean = false, blur: Int = 0, command: Command) {
     val dimensions = "${command.terminal.activity.resources.displayMetrics.widthPixels}/${command.terminal.activity.resources.displayMetrics.heightPixels}"
@@ -35,12 +35,15 @@ fun getRandomWallpaper(id: Int = -1, grayscale: Boolean = false, blur: Int = 0, 
         .getAsBitmap(object : BitmapRequestListener {
             override fun onResponse(response: Bitmap?) {
                 if (response != null) {
-                    val wallpaperManager = WallpaperManager.getInstance(command.terminal.activity.applicationContext)
                     command.terminal.activity.runOnUiThread {
-                        setSystemWallpaper(wallpaperManager, response)
                         AndroidNetworking.evictAllBitmap()
-                        command.terminal.preferenceObject.edit().putBoolean("defaultWallpaper",false).apply()
-                        command.output(command.terminal.activity.getString(R.string.random_wallpaper_applied), command.terminal.theme.successTextColor)
+                        if (setLauncherBackgroundBitmap(command.terminal.activity, response, command.terminal.preferenceObject)) {
+                            applyLauncherBackground(command.terminal.activity, command.terminal.binding, command.terminal.preferenceObject, command.terminal.theme.bgColor)
+                            command.output(command.terminal.activity.getString(R.string.random_wallpaper_applied), command.terminal.theme.successTextColor)
+                        }
+                        else {
+                            command.output(command.terminal.activity.getString(R.string.an_error_occurred_please_try_again),command.terminal.theme.errorTextColor)
+                        }
                     }
                 }
                 else {

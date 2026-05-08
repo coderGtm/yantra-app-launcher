@@ -59,7 +59,7 @@
             android:exported="true"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.YantraLauncher"
-            android:windowSoftInputMode="adjustResize"
+            android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

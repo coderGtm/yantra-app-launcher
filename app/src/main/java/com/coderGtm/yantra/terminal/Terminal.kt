@@ -35,6 +35,7 @@ import com.coderGtm.yantra.BuildConfig
 import com.coderGtm.yantra.DEFAULT_TERMINAL_FONT_NAME
 import com.coderGtm.yantra.NO_LOG_COMMANDS
 import com.coderGtm.yantra.R
+import com.coderGtm.yantra.applyLauncherBackground
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.contactsManager
@@ -109,11 +110,11 @@ class Terminal(
         activity.requestedOrientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         goFullScreen()
         enforceThemeComponents()
+        applyLauncherBackground(activity, binding, preferenceObject, theme.bgColor)
         setTypeface()
         setArrowKeys(preferenceObject, binding)
         binding.upBtn.setOnClickListener { cmdUp() }
         binding.downBtn.setOnClickListener { cmdDown() }
-        setWallpaperIfNeeded(preferenceObject, activity.applicationContext, theme)
         createWakeButton()
         setTextChangedListener()
         createTouchListeners()
@@ -140,7 +141,7 @@ class Terminal(
         username.textSize = fontSize
         binding.cmdInput.textSize = fontSize
         activity.window.statusBarColor = Color.TRANSPARENT
-        activity.window.navigationBarColor = theme.bgColor
+        activity.window.navigationBarColor = Color.TRANSPARENT
         setPromptText()
         binding.suggestionsTab.background = theme.suggestionBgColor.toDrawable()
         username.setTextColor(theme.inputLineTextColor)

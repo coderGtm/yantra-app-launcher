@@ -74,6 +74,7 @@ class SettingsActivity : AppCompatActivity() {
 
     private var getPrimarySuggestions = true
     private var getSecondarySuggestions = true
+    private var useSystemWallpaper = false
     private var fullscreenLauncher = false
     private var vibrationPermission = true  // permission to vibrate on error
     private var showArrowKeys = true
@@ -152,6 +153,7 @@ class SettingsActivity : AppCompatActivity() {
 
         getPrimarySuggestions = preferenceObject.getBoolean("getPrimarySuggestions",true)
         getSecondarySuggestions = preferenceObject.getBoolean("getSecondarySuggestions",true)
+        useSystemWallpaper = preferenceObject.getBoolean("useSystemWallpaper",false)
         fullscreenLauncher = preferenceObject.getBoolean("fullScreen",false)
         vibrationPermission = preferenceObject.getBoolean("vibrationPermission",true)
         showArrowKeys = preferenceObject.getBoolean("showArrowKeys",true)
@@ -318,6 +320,12 @@ class SettingsActivity : AppCompatActivity() {
         binding.secondarySugSwitch.setOnCheckedChangeListener { _, isChecked ->
             getSecondarySuggestions = isChecked
             preferenceEditObject.putBoolean("getSecondarySuggestions",isChecked).apply()
+            changedSettingsCallback(this@SettingsActivity)
+        }
+        binding.useSystemWallpaperSwitch.isChecked = useSystemWallpaper
+        binding.useSystemWallpaperSwitch.setOnCheckedChangeListener { _, isChecked ->
+            useSystemWallpaper = isChecked
+            preferenceEditObject.putBoolean("useSystemWallpaper",isChecked).apply()
             changedSettingsCallback(this@SettingsActivity)
         }
         binding.fullscreenSwitch.isChecked = fullscreenLauncher

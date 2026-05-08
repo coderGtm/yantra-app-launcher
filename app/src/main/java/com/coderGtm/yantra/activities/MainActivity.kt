@@ -22,10 +22,10 @@ import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
-import com.coderGtm.yantra.PermissionRequestCodes
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
+import com.coderGtm.yantra.applyLauncherBackground
 import com.coderGtm.yantra.commands.backup.copyFile
 import com.coderGtm.yantra.commands.termux.handleTermuxResult
 import com.coderGtm.yantra.commands.theme.copyFileToInternalStorage
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
 
         // Enable edge-to-edge and manage insets manually (including IME)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        binding.rootLayout.applySystemBarsAndImePadding()
+        binding.contentLayout.applySystemBarsAndImePadding()
 
         app = application as YantraLauncher
         app.preferenceObject = applicationContext.getSharedPreferences(SHARED_PREFS_FILE_NAME,0)
@@ -229,8 +229,13 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         if (result.isSuccessful) {
             // Use the returned uri.
             val uriContent = result.uriContent
-            setWallpaperFromUri(uriContent, this, primaryTerminal.theme.bgColor, app.preferenceObject)
-            primaryTerminal.output(getString(R.string.selected_wallpaper_applied), primaryTerminal.theme.successTextColor, null)
+            if (setWallpaperFromUri(uriContent, this, app.preferenceObject)) {
+                applyLauncherBackground(this, binding, app.preferenceObject, primaryTerminal.theme.bgColor)
+                primaryTerminal.output(getString(R.string.selected_wallpaper_applied), primaryTerminal.theme.successTextColor, null)
+            }
+            else {
+                primaryTerminal.output(getString(R.string.an_error_occurred_please_try_again), primaryTerminal.theme.errorTextColor, null)
+            }
         } else {
             primaryTerminal.output(getString(R.string.no_image_selected), primaryTerminal.theme.resultTextColor, Typeface.ITALIC)
         }
@@ -241,9 +246,13 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         // Callback is invoked after the user selects a media item or closes the
         // photo picker.
         if (uri != null) {
+            val displayMetrics = resources.displayMetrics
             cropImage.launch(
                 CropImageContractOptions(uri = uri, CropImageOptions(
-                    guidelines = CropImageView.Guidelines.ON
+                    guidelines = CropImageView.Guidelines.ON,
+                    fixAspectRatio = true,
+                    aspectRatioX = displayMetrics.widthPixels,
+                    aspectRatioY = displayMetrics.heightPixels
                 ))
             )
         } else {

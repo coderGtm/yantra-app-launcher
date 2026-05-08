@@ -1,15 +1,13 @@
 package com.coderGtm.yantra.commands.bg
 
-import android.app.WallpaperManager
-import android.graphics.drawable.ColorDrawable
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.graphics.drawable.toBitmap
 import com.coderGtm.yantra.R
+import com.coderGtm.yantra.applyLauncherBackground
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.clearLauncherBackground
 import com.coderGtm.yantra.models.CommandMetadata
-import com.coderGtm.yantra.setSystemWallpaper
 import com.coderGtm.yantra.terminal.Terminal
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
@@ -29,10 +27,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 output(terminal.activity.getString(R.string.bg_too_many_args), terminal.theme.warningTextColor)
                 return
             }
-            val wallpaperManager = WallpaperManager.getInstance(terminal.activity.applicationContext)
-            val colorDrawable = ColorDrawable(terminal.theme.bgColor)
-            setSystemWallpaper(wallpaperManager, colorDrawable.toBitmap(terminal.activity.resources.displayMetrics.widthPixels, terminal.activity.resources.displayMetrics.heightPixels))
-            terminal.preferenceObject.edit().putBoolean("defaultWallpaper",true).apply()
+            clearLauncherBackground(terminal.activity, terminal.preferenceObject)
+            applyLauncherBackground(terminal.activity, terminal.binding, terminal.preferenceObject, terminal.theme.bgColor)
             output(terminal.activity.getString(R.string.removed_wallpaper), terminal.theme.successTextColor)
         }
         else if (command.trim().split(" ")[1] == "random") {
