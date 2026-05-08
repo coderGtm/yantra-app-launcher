@@ -61,6 +61,19 @@ class TerminalScrollView(context: Context, attrs: AttributeSet) : ScrollView(con
                         }
                         result = true
                     }
+                } else {
+                    // Handle vertical swipe
+                    if (abs(diffY) > swipeThreshold && abs(velocityY) > swipeVelocityThreshold) {
+                        // if at top and swiping down, open notification panel
+                        if (diffY > 0 && isAtTop()) {
+                            // Open notification panel
+                           expandNotificationPanel(context)
+                            return true
+                        } else {
+                            // Let ScrollView handle the vertical swipe
+                            return false
+                        }
+                    }
                 }
             } catch (exception: Exception) {
                 exception.printStackTrace()
@@ -75,4 +88,21 @@ class TerminalScrollView(context: Context, attrs: AttributeSet) : ScrollView(con
         val delta = bottom - (this.scrollY+ this.height)
         this.smoothScrollBy(0, delta)
     }
+
+    fun isAtTop(): Boolean {
+        return this.scrollY == 0
+    }
+
+    fun expandNotificationPanel(context: Context) {
+        try {
+            val statusBarService = context.getSystemService("statusbar")
+            val statusBarManager = Class.forName("android.app.StatusBarManager")
+
+            val method =
+                statusBarManager.getMethod("expandNotificationsPanel")
+
+            method.invoke(statusBarService)
+        } catch (_: Exception) {}
+    }
+
 }
