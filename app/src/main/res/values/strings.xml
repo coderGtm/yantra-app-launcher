@@ -734,4 +734,5 @@
     <string name="cmd_location_age_minutes">%1$d minutes ago</string>
     <string name="cmd_location_age_hours">%1$d hours ago</string>
     <string name="cmd_location_age_days">%1$d days ago</string>
+    <string name="use_system_wallpaper">Use system wallpaper</string>
 </resources>

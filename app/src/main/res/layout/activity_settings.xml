@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="20sp"
-                    android:text="Use system wallpaper" />
+                    android:text="@string/use_system_wallpaper" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

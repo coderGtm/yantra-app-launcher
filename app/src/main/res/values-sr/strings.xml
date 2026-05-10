@@ -732,4 +732,5 @@
     <string name="cmd_location_age_minutes">пре %1$d минута</string>
     <string name="cmd_location_age_hours">пре %1$d сати</string>
     <string name="cmd_location_age_days">пре %1$d дана</string>
+    <string name="use_system_wallpaper">Use system wallpaper</string>
 </resources>

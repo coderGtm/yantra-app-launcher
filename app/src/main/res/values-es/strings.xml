@@ -730,4 +730,5 @@
     <string name="cmd_location_age_minutes">hace %1$d minutos</string>
     <string name="cmd_location_age_hours">hace %1$d horas</string>
     <string name="cmd_location_age_days">hace %1$d días</string>
+    <string name="use_system_wallpaper">Use system wallpaper</string>
 </resources>
