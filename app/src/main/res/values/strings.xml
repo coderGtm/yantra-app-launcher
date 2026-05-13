@@ -735,4 +735,16 @@
     <string name="cmd_location_age_hours">%1$d hours ago</string>
     <string name="cmd_location_age_days">%1$d days ago</string>
     <string name="use_system_wallpaper">Use system wallpaper</string>
+    <string name="prompt">Prompt</string>
+    <string name="display">Display</string>
+    <string name="font">Font</string>
+    <string name="arrow_keys">Arrow Keys</string>
+    <string name="suggestions">Suggestions</string>
+    <string name="gestures">Gestures</string>
+    <string name="keyboard">Keyboard</string>
+    <string name="advanced">Advanced</string>
+    <string name="termux">Termux</string>
+    <string name="ai">AI</string>
+    <string name="app">App</string>
+    <string name="other">Other</string>
 </resources>

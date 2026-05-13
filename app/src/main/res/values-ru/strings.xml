@@ -733,4 +733,16 @@
     <string name="cmd_location_age_hours">%1$d часов назад</string>
     <string name="cmd_location_age_days">%1$d дней назад</string>
     <string name="use_system_wallpaper">Use system wallpaper</string>
+    <string name="prompt">Промпт</string>
+    <string name="display">Экран</string>
+    <string name="font">Шрифт</string>
+    <string name="arrow_keys">Клавиши-стрелки</string>
+    <string name="suggestions">Подсказки</string>
+    <string name="gestures">Жесты</string>
+    <string name="keyboard">Клавиатура</string>
+    <string name="advanced">Дополнительно</string>
+    <string name="termux">Termux</string>
+    <string name="ai">ИИ</string>
+    <string name="app">Приложение</string>
+    <string name="other">Другое</string>
 </resources>

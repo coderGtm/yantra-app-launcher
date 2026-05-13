@@ -731,4 +731,16 @@
     <string name="cmd_location_age_hours">hace %1$d horas</string>
     <string name="cmd_location_age_days">hace %1$d días</string>
     <string name="use_system_wallpaper">Use system wallpaper</string>
+    <string name="prompt">Prompt</string>
+    <string name="display">Pantalla</string>
+    <string name="font">Fuente</string>
+    <string name="arrow_keys">Teclas de Flecha</string>
+    <string name="suggestions">Sugerencias</string>
+    <string name="gestures">Gestos</string>
+    <string name="keyboard">Teclado</string>
+    <string name="advanced">Avanzado</string>
+    <string name="termux">Termux</string>
+    <string name="ai">IA</string>
+    <string name="app">App</string>
+    <string name="other">Otro</string>
 </resources>

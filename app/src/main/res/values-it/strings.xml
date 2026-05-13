@@ -735,4 +735,16 @@
     <string name="cmd_location_age_hours">%1$d ore fa</string>
     <string name="cmd_location_age_days">%1$d giorni fa</string>
     <string name="use_system_wallpaper">Use system wallpaper</string>
+    <string name="prompt">Prompt</string>
+    <string name="display">Schermo</string>
+    <string name="font">Carattere</string>
+    <string name="arrow_keys">Tasti Freccia</string>
+    <string name="suggestions">Suggerimenti</string>
+    <string name="gestures">Gesti</string>
+    <string name="keyboard">Tastiera</string>
+    <string name="advanced">Avanzate</string>
+    <string name="termux">Termux</string>
+    <string name="ai">AI</string>
+    <string name="app">App</string>
+    <string name="other">Altro</string>
 </resources>

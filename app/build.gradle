@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '2.2.21'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '2.3.21'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.coderGtm.yantra"
-        minSdk 21
+        minSdk 23
         targetSdk 35
         versionCode 123
         versionName "10.5.0"
@@ -59,20 +59,17 @@ android {
     buildFeatures {
         viewBinding true
         buildConfig true
+        compose true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+
     namespace 'com.coderGtm.yantra'
 }
 
 dependencies {
-
-    def acraVersion = '5.11.2'
 
     implementation libs.core.ktx
     implementation libs.appcompat
@@ -88,6 +85,7 @@ dependencies {
     implementation libs.acra.mail
     implementation libs.acra.dialog
     implementation libs.activity.ktx
+    implementation libs.activity.compose
     implementation libs.core
     proImplementation libs.webkit
     implementation libs.android.image.cropper
@@ -96,10 +94,14 @@ dependencies {
     implementation libs.security.crypto
     implementation libs.bundles.ktor
     implementation libs.localbroadcastmanager
+    implementation platform(libs.compose.bom)
+    implementation libs.material3
+    implementation libs.ui.tooling
 
     testImplementation libs.junit
     testImplementation libs.bundles.mockito
     testImplementation libs.kotlinx.coroutines.test
+    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
 }
