@@ -477,7 +477,7 @@
     <string name="vibe_negative">Чекај друже! Како твој уређај може вибрирати у негативном времену? Дозвољене су само позитивне вредности!</string>
     <string name="vibe_0">Желиш да вибрираш 0 милисекунди? Стварно?</string>
     <string name="cmd_weather_title"><![CDATA[weather <location> [-flags]]]></string>
-    <string name="cmd_weather_help">Fetches the weather report for specified location. Example w new delhi. Use the \'weather list\' command to list all available flags.</string>
+    <string name="cmd_weather_help">Добавља временску прогнозу за наведену локацију. Пример: w new delhi. Користите команду \'weather list\' да бисте приказали све доступне заставице (flag-ове).</string>
     <string name="please_specify_a_location">Молимо наведите локацију</string>
     <string name="fetching_weather_report_of">Дохватам временску прогнозу за %1$s...</string>
     <string name="weather_report_of">Временска прогноза за %1$s</string>
@@ -654,10 +654,10 @@
     <string name="weather_field_moonlight">Осветљеност месеца %</string>
     <string name="weather_error_single_hyphen">Једна цртица \'-\' није важећи формат поља</string>
     <string name="weather_error_multiple_hyphens">\'%1$s\' користи вишеструке цртице, користи формат са једном цртицом: %2$s</string>
-    <string name="weather_error_misplaced_argument">\'%1$s\' is invalid - arguments must come before weather fields</string>
-    <string name="weather_error_field_in_location">\'%1$s\' appears to be a weather field - did you mean \'%2$s\'?</string>
-    <string name="weather_error_field_in_location_no_hyphens">\'%1$s\' appears to be a weather field - try \'%2$s\' instead</string>
-    <string name="weather_error_combined_fields">\'%1$s\' combines multiple fields - use \'%2$s\' instead</string>
+    <string name="weather_error_misplaced_argument">„%1$s” није исправно – аргументи морају доћи пре временских поља</string>
+    <string name="weather_error_field_in_location">„%1$s” изгледа као временско поље – да ли сте мислили на „%2$s”?</string>
+    <string name="weather_error_field_in_location_no_hyphens">„%1$s” изгледа као временско поље – покушајте са „%2$s”</string>
+    <string name="weather_error_combined_fields">„%1$s” комбинује више поља – користите „%2$s”</string>
 
     <!-- Weather API Error Messages -->
     <string name="weather_api_key_not_provided">Грешка у конфигурацији временске службе</string>
