@@ -358,14 +358,14 @@
     <string name="todays_screen_time">Данашње време на екрану: %1$s</string>
     <string name="no_apps_found">Нису пронађене апликације.</string>
     <string name="less_than_1_minute">Мање од 1 минуте</string>
-    <string name="cmd_scripts_help">Отвара дијалог за прављење, измену и брисање прилагођених скрипти за Yantra Launcher, за извршавање више наредби одједном. Скрипте могу садржати наредбе Yantra Launcher-а. Али можете направити и ексклузивне Lua скрипте за проширену функционалност. Ако користите Lua код, можете чак и позвати Yantra Launcher наредбе из скрипте користећи функцију binding.exec().\nПример: \'binding.exec("text Scripts are cool!")\'. Погледајте и наредбу \'run\'.</string>
+    <string name="cmd_scripts_help">Управљајте прилагођеним скриптама за Yantra Launcher, за извршавање више команди одједном. Скрипте могу садржати Yantra Launcher команде. Али такође можете креирати ексклузивне Lua скрипте за проширену функционалност. Ако користите Lua код, можете чак и позивати Yantra Launcher команде из скрипте користећи функцију binding.exec().\nПример: \'binding.exec("text Scripts are cool!")\'. Користите \'-new\' за креирање нове скрипте и \'-rm\' за брисање скрипте. Користите \'scripts naziv_skripte\' за уређивање скрипте, а без аргумената за приказ свих скрипти. Такође погледајте команду \'run\'.</string>
     <string name="opening_yantra_scripts">Отварам Yantra скрипте...</string>
     <string name="yantra_scripts">Yantra скрипте</string>
     <string name="scripts_disclaimer">Прегледајте, измените или обришите ову скрипту. Напомена: Унесите 1 наредбу по линији, као што то обично радите у Yantra терминалу.</string>
     <string name="script_saved_successfully">Скрипта %1$s је успешно сачувана!</string>
     <string name="delete">Обриши</string>
     <string name="script_deleted">Скрипта \'%1$s\' је обрисана.</string>
-    <string name="scripts_usage">Usage: scripts | scripts -new &lt;name&gt; | scripts &lt;name&gt; | scripts -rm &lt;name&gt;</string>
+    <string name="scripts_usage">Употреба: scripts | scripts -new &lt;име&gt; | scripts &lt;име&gt; | scripts -rm &lt;име&gt;</string>
     <string name="no_scripts_found">Нису пронађене скрипте! Покушајте да направите једну.</string>
     <string name="add">Додај</string>
     <string name="new_script">Нова скрипта</string>
@@ -523,6 +523,8 @@
     <string name="total_tokens_used">Укупно коришћених токена у овом разговору: %1$s</string>
     <string name="ai_reset">Историја порука са вештачком интелигенцијом је ресетована!</string>
     <string name="weather_feels_like_c_f"><![CDATA[=> Субјективни осећај: %1$.1f°C (%2$.1f°F)]]></string>
+    <string name="precipitation_chance">=> Вероватноћа падавина: %1$d%%</string>
+    <string name="snow_chance">=> Вероватноћа снега: %1$d%%</string>
     <string name="clear_init_list">Очисти стартну листу?</string>
     <string name="clear_init_list_confirmation">Да ли сте сигурни да желите да обришете свој стартни скрипт?</string>
     <string name="cmd_backup_title">backup [-i]</string>
@@ -605,10 +607,14 @@
     <string name="weather_unknown_field_bullet">• Непознато поље: \'%1$s\'</string>
     <string name="weather_available_fields">Доступна поља времена (%1$d укупно):</string>
     <string name="weather_use_list_command">\nКористите \'weather list\' да видите доступна поља.</string>
+
+    <!-- Weather field categories -->
     <string name="weather_category_current">Тренутно време</string>
     <string name="weather_category_forecast">Прогноза</string>
     <string name="weather_category_air_quality">Квалитет ваздуха</string>
     <string name="weather_category_astronomy">Астрономија</string>
+
+    <!-- Weather field descriptions -->
     <string name="weather_field_temp">Температура (°C/°F)</string>
     <string name="weather_field_feels">Осетна температура</string>
     <string name="weather_field_windchill">Температура са ветром</string>
@@ -652,10 +658,20 @@
     <string name="weather_error_field_in_location">\'%1$s\' appears to be a weather field - did you mean \'%2$s\'?</string>
     <string name="weather_error_field_in_location_no_hyphens">\'%1$s\' appears to be a weather field - try \'%2$s\' instead</string>
     <string name="weather_error_combined_fields">\'%1$s\' combines multiple fields - use \'%2$s\' instead</string>
-    <string name="precipitation_chance">=> Вероватноћа падавина: %1$d%%</string>
-    <string name="snow_chance">=> Вероватноћа снега: %1$d%%</string>
-    <string name="examples">Примери:</string>
-    <string name="wind_chill_c_f">Осећај са ветром: %1$s°C / %2$s°F</string>
+
+    <!-- Weather API Error Messages -->
+    <string name="weather_api_key_not_provided">Грешка у конфигурацији временске службе</string>
+    <string name="weather_location_parameter_missing">Молимо наведите локацију за проверу времена</string>
+    <string name="weather_api_request_invalid">Неисправан формат захтева за време</string>
+    <string name="weather_location_not_found">Локација није пронађена. Проверите правопис и покушајте поново</string>
+    <string name="weather_api_key_invalid">Грешка у конфигурацији временске службе</string>
+    <string name="weather_quota_exceeded">Прекорачена квота временске службе. Покушајте касније</string>
+    <string name="weather_api_disabled">Временска служба привремено недоступна</string>
+    <string name="weather_api_access_restricted">Приступ временској служби ограничен</string>
+    <string name="weather_bulk_request_invalid">Неисправан формат захтева за време</string>
+    <string name="weather_bulk_too_many_locations">Превише локација у захтеву</string>
+    <string name="weather_internal_error">Унутрашња грешка временске службе</string>
+    <string name="weather_unknown_error">Непозната грешка временске службе</string>
     <string name="command_takes_at_least_1_parameter_0_provided">Команда „%1$s" захтева бар један параметар. Није дат ниједан!</string>
     <string name="terminal_text_color_reset">Боја текста у терминалу је враћена на тему.</string>
     <string name="terminal_text_color_set_to">Боја текста у терминалу постављена на #%1$s</string>
@@ -686,8 +702,8 @@
     <string name="imported_entity_name">Увезено %1$s</string>
     <string name="select_theme_to_delete">Изаберите тему за брисање</string>
     <string name="removed_theme_successfully">Тема %1$s је успешно уклоњена.</string>
-
-    <!-- AQI (Air Quality Index) levels -->
+    <string name="examples">Примери:</string>
+    <string name="wind_chill_c_f">Осећај са ветром: %1$s°C / %2$s°F</string>
     <string name="aqi_good">Добар</string>
     <string name="aqi_moderate">Умерен</string>
     <string name="aqi_unhealthy_sensitive">Нездрав за осетљиве групе</string>
@@ -695,20 +711,6 @@
     <string name="aqi_very_unhealthy">Веома нездрав</string>
     <string name="aqi_hazardous">Опасан</string>
     <string name="aqi_unknown">Непознат</string>
-
-    <!-- Weather API Error Messages -->
-    <string name="weather_api_key_not_provided">Грешка у конфигурацији временске службе</string>
-    <string name="weather_location_parameter_missing">Молимо наведите локацију за проверу времена</string>
-    <string name="weather_api_request_invalid">Неисправан формат захтева за време</string>
-    <string name="weather_location_not_found">Локација није пронађена. Проверите правопис и покушајте поново</string>
-    <string name="weather_api_key_invalid">Грешка у конфигурацији временске службе</string>
-    <string name="weather_quota_exceeded">Прекорачена квота временске службе. Покушајте касније</string>
-    <string name="weather_api_disabled">Временска служба привремено недоступна</string>
-    <string name="weather_api_access_restricted">Приступ временској служби ограничен</string>
-    <string name="weather_bulk_request_invalid">Неисправан формат захтева за време</string>
-    <string name="weather_bulk_too_many_locations">Превише локација у захтеву</string>
-    <string name="weather_internal_error">Унутрашња грешка временске службе</string>
-    <string name="weather_unknown_error">Непозната грешка временске службе</string>
     <string name="cmd_location_help">Приказује информације о вашој тренутној локацији, укључујући адресу, координате (latitude, longitude) и прецизност. Користите -refresh за принудно освежавање GPS-а.</string>
     <string name="cmd_location_location">Локација</string>
     <string name="cmd_location_fetching">Добијање локације…</string>
@@ -732,7 +734,7 @@
     <string name="cmd_location_age_minutes">пре %1$d минута</string>
     <string name="cmd_location_age_hours">пре %1$d сати</string>
     <string name="cmd_location_age_days">пре %1$d дана</string>
-    <string name="use_system_wallpaper">Use system wallpaper</string>
+    <string name="use_system_wallpaper">Користи системску позадину</string>
     <string name="prompt">Промпт</string>
     <string name="display">Приказ</string>
     <string name="font">Фонт</string>
