@@ -84,7 +84,7 @@ Yantra has different "Variants" (Free and Pro). To choose one:
 - **Discord:** [Join our Community](https://discord.gg/YW7hYbPrTh)
 - **Reddit:** [r/YantraLauncher](https://www.reddit.com/r/YantraLauncher/)
 - **Support:** See [support.md](/support.md) for ways to support the project.
-- **FAQs:** Visit the [FAQs Page](https://codergtm.github.io/yantra-app-launcher/faq/) for quick answers.
+- **FAQs:** Visit the [FAQs Page](https://codergtm.github.io/yantra-app-launcher/docs/faq/) for quick answers.
 
 ## Contribution
 
