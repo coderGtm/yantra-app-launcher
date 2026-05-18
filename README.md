@@ -1,6 +1,6 @@
 # yantra-app-launcher
 
-![Yantra Launcher Store Cover](https://github.com/coderGtm/yantra-app-launcher/assets/66418526/1e998174-5481-4b5d-96bb-3ebc7e4d857e)
+<img width="1693" height="929" alt="Yantra Launcher Cover" src="https://github.com/user-attachments/assets/b50a3f81-34b7-4b4f-bd53-a5eebe644473" />
 
 A Minimal CLI-based Android App Launcher.
 
