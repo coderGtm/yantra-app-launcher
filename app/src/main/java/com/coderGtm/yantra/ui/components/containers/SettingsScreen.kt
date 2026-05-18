@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.coderGtm.yantra.ui.components.settingsItem.ButtonSetting
 import com.coderGtm.yantra.ui.components.settingsItem.ToggleSetting
-import com.coderGtm.yantra.ui.theme.YantraTheme
+import com.coderGtm.yantra.ui.theme.YantraSettingsTheme
 
 /**
  * Root container for the settings screen.
@@ -46,7 +46,7 @@ fun SettingsScreen(
 @Preview(showBackground = true, name = "SettingsScreen")
 @Composable
 private fun SettingsScreenPreview() {
-    YantraTheme {
+    YantraSettingsTheme {
         SettingsScreen {
             SettingsGroup(title = "Appearance") {
                 ToggleSetting(

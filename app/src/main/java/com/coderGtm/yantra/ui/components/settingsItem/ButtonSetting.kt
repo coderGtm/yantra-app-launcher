@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.coderGtm.yantra.ui.theme.YantraTheme
+import com.coderGtm.yantra.ui.theme.YantraSettingsTheme
 
 /**
  * A reusable settings row that displays a title and triggers an action on click.
@@ -41,7 +41,7 @@ fun ButtonSetting(
 @Preview(showBackground = true, name = "ButtonSetting")
 @Composable
 private fun ButtonSettingPreview() {
-    YantraTheme {
+    YantraSettingsTheme {
         ButtonSetting(
             title = "Clear App Cache",
             onClick = {}

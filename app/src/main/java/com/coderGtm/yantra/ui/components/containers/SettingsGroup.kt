@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.coderGtm.yantra.ui.components.settingsItem.ButtonSetting
 import com.coderGtm.yantra.ui.components.settingsItem.OptionSetting
 import com.coderGtm.yantra.ui.components.settingsItem.ToggleSetting
-import com.coderGtm.yantra.ui.theme.YantraTheme
+import com.coderGtm.yantra.ui.theme.YantraSettingsTheme
 
 /**
  * A visual grouping of related settings items under a section [title].
@@ -74,7 +74,7 @@ fun SettingsGroup(
 @Preview(showBackground = true, name = "SettingsGroup – mixed items")
 @Composable
 private fun SettingsGroupPreview() {
-    YantraTheme {
+    YantraSettingsTheme {
         Column(modifier = Modifier.padding(16.dp)) {
             SettingsGroup(title = "Appearance") {
                 ToggleSetting(

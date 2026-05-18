@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,7 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.coderGtm.yantra.ui.theme.YantraTheme
+import com.coderGtm.yantra.ui.theme.CharcoalDivider2
+import com.coderGtm.yantra.ui.theme.CharcoalOnPrimary
+import com.coderGtm.yantra.ui.theme.CharcoalSilver
+import com.coderGtm.yantra.ui.theme.CharcoalTextMuted
+import com.coderGtm.yantra.ui.theme.YantraSettingsTheme
 
 /**
  * A reusable settings row with a title (and optional description) on the start
@@ -68,7 +73,17 @@ fun ToggleSetting(
         }
         Switch(
             checked = checked,
-            onCheckedChange = onCheckedChange
+            onCheckedChange = onCheckedChange,
+            colors = SwitchDefaults.colors(
+                // ON state
+                checkedTrackColor  = CharcoalSilver,
+                checkedThumbColor  = CharcoalOnPrimary,
+                checkedBorderColor = CharcoalSilver,
+                // OFF state – visible slate thumb on dark track
+                uncheckedTrackColor  = CharcoalDivider2,
+                uncheckedThumbColor  = CharcoalTextMuted,
+                uncheckedBorderColor = CharcoalTextMuted,
+            )
         )
     }
 }
@@ -77,7 +92,7 @@ fun ToggleSetting(
 @Composable
 private fun ToggleSettingPreviewOn() {
     var checked by remember { mutableStateOf(true) }
-    YantraTheme {
+    YantraSettingsTheme {
         ToggleSetting(
             title = "Show Arrow Keys",
             checked = checked,
@@ -91,7 +106,7 @@ private fun ToggleSettingPreviewOn() {
 @Composable
 private fun ToggleSettingPreviewOff() {
     var checked by remember { mutableStateOf(false) }
-    YantraTheme {
+    YantraSettingsTheme {
         ToggleSetting(
             title = "Enable Vibration",
             checked = checked,

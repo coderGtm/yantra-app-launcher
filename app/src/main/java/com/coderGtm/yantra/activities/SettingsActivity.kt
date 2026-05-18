@@ -62,7 +62,7 @@ import com.coderGtm.yantra.ui.settings.groups.OtherGroup
 import com.coderGtm.yantra.ui.settings.groups.PromptGroup
 import com.coderGtm.yantra.ui.settings.groups.SuggestionsGroup
 import com.coderGtm.yantra.ui.settings.groups.TermuxGroup
-import com.coderGtm.yantra.ui.theme.YantraTheme
+import com.coderGtm.yantra.ui.theme.YantraSettingsTheme
 import com.google.android.play.core.ktx.languages
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
@@ -200,7 +200,7 @@ class SettingsActivity : AppCompatActivity() {
         localeDisplayName                = supportedLocales.filterValues { it == AppCompatDelegate.getApplicationLocales().toLanguageTags() }.keys.firstOrNull() ?: "English"
 
         setContent {
-            YantraTheme {
+            YantraSettingsTheme {
                 SettingsContent()
             }
         }

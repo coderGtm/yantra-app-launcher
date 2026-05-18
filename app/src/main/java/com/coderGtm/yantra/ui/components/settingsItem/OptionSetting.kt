@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.coderGtm.yantra.ui.theme.YantraTheme
+import com.coderGtm.yantra.ui.theme.YantraSettingsTheme
 
 /**
  * A reusable settings row with a title (and optional description) on the start
@@ -72,7 +72,7 @@ fun OptionSetting(
 @Preview(showBackground = true, name = "OptionSetting – with description")
 @Composable
 private fun OptionSettingPreviewWithDescription() {
-    YantraTheme {
+    YantraSettingsTheme {
         OptionSetting(
             title = "Font Size",
             value = "16sp",
@@ -85,7 +85,7 @@ private fun OptionSettingPreviewWithDescription() {
 @Preview(showBackground = true, name = "OptionSetting – no description")
 @Composable
 private fun OptionSettingPreviewNoDescription() {
-    YantraTheme {
+    YantraSettingsTheme {
         OptionSetting(
             title = "Orientation",
             value = "Portrait",
