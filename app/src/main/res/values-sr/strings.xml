@@ -740,6 +740,12 @@
     <string name="font">Фонт</string>
     <string name="arrow_keys">Тастери са стрелицом</string>
     <string name="suggestions">Предлози</string>
+    <string name="plugins">Додаци</string>
+    <string name="manage_your_plugins">Управљај додацима</string>
+    <string name="plugin_manager_description">Укључите или искључите додатке и проверите њихов статус.</string>
+    <string name="plugin_count_summary">%1$d/%2$d укључено</string>
+    <string name="plugin_version_pill">v%1$s</string>
+    <string name="plugin_author_label">Аутор: %1$s</string>
     <string name="gestures">Гесте</string>
     <string name="keyboard">Тастатура</string>
     <string name="advanced">Напредно</string>

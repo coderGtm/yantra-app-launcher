@@ -51,6 +51,7 @@ import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.AppBlock
 import com.coderGtm.yantra.models.ShortcutBlock
 import com.coderGtm.yantra.models.Suggestion
+import com.coderGtm.yantra.plugins.PluginManager
 import com.coderGtm.yantra.promoteProVersion
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
@@ -79,6 +80,7 @@ class Terminal(
     private var commandCache = mutableListOf<Map<String, BaseCommand>>()
 
     val theme = getCurrentTheme(activity, preferenceObject)
+    val pluginManager = PluginManager(preferenceObject)
     val commands = getAvailableCommands(activity)
     var primarySuggestions: MutableList<Suggestion> = mutableListOf()
     var initialized = false
@@ -98,6 +100,12 @@ class Terminal(
     lateinit var shortcutList: ArrayList<ShortcutBlock>
     lateinit var wakeBtn: TextView
     lateinit var aliasList: MutableList<Alias>
+
+    fun setInlineCompletion(suffix: String?) {
+        activity.runOnUiThread {
+            binding.cmdInput.setInlineCompletion(suffix, theme.inputLineTextColor)
+        }
+    }
 
     fun initialize() {
         if (preferenceObject.getBoolean("useModernPromptDesign", false)) {

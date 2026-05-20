@@ -736,6 +736,12 @@
     <string name="font">Fuente</string>
     <string name="arrow_keys">Teclas de Flecha</string>
     <string name="suggestions">Sugerencias</string>
+    <string name="plugins">Plugins</string>
+    <string name="manage_your_plugins">Gestionar plugins</string>
+    <string name="plugin_manager_description">Activa o desactiva plugins y comprueba su estado.</string>
+    <string name="plugin_count_summary">%1$d/%2$d activados</string>
+    <string name="plugin_version_pill">v%1$s</string>
+    <string name="plugin_author_label">Por %1$s</string>
     <string name="gestures">Gestos</string>
     <string name="keyboard">Teclado</string>
     <string name="advanced">Avanzado</string>

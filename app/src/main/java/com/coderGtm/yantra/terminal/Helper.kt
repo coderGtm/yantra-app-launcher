@@ -18,6 +18,7 @@ import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.loadPrimarySuggestionsOrder
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Suggestion
+import com.coderGtm.yantra.plugins.SuggestionPluginContext
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import java.util.Locale
 import java.util.regex.Pattern
@@ -32,6 +33,7 @@ fun showSuggestions(
         terminal.activity.runOnUiThread {
             terminal.binding.suggestionsTab.removeAllViews()
         }
+        terminal.pluginManager.clearSuggestionPlugins(terminal)
         val input = rawInput.trim()
         val suggestions = ArrayList<String>()
         val args = input.split(" ")
@@ -620,6 +622,18 @@ fun showSuggestions(
                 }
             }
         }
+        terminal.pluginManager.onSuggestionsUpdated(
+            terminal,
+            SuggestionPluginContext(
+                rawInput = rawInput,
+                input = input,
+                args = args,
+                suggestions = suggestions.toList(),
+                isPrimary = isPrimary,
+                overrideLastWord = overrideLastWord
+            )
+        )
+
         suggestions.forEach { sug ->
             if ((isPrimary && (input.trim() == sug.trim())) || (!isPrimary && (input.removePrefix(args[0]).trim() == sug.trim()))) {
                 return@forEach
