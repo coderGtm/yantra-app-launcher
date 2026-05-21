@@ -20,77 +20,141 @@ import com.coderGtm.yantra.DEFAULT_SYSINFO_ART
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.activities.FakeLauncherActivity
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
-import com.coderGtm.yantra.databinding.ActivitySettingsBinding
 import com.coderGtm.yantra.getAliases
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.loadPrimarySuggestionsOrder
 import com.coderGtm.yantra.models.Suggestion
 import com.coderGtm.yantra.openURL
 import com.coderGtm.yantra.setUserNamePrefix
-import com.coderGtm.yantra.terminal.PrimarySuggestionsReorderAdapter
 import com.coderGtm.yantra.terminal.ItemTouchHelperAdapter
+import com.coderGtm.yantra.terminal.PrimarySuggestionsReorderAdapter
 import com.coderGtm.yantra.terminal.getAvailableCommands
 import com.coderGtm.yantra.terminal.getPrimarySuggestionsList
 import com.coderGtm.yantra.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-
-fun setOrientationTvText(activity: Activity, binding: ActivitySettingsBinding, orientation: Int) {
-    binding.tvOrientation.text = when (orientation) {
-        ActivityInfo.SCREEN_ORIENTATION_PORTRAIT -> {
-            activity.getString(R.string.portrait)
-        }
-        ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE -> {
-            activity.getString(R.string.landscape)
-        }
-        ActivityInfo.SCREEN_ORIENTATION_USER -> {
-            activity.getString(R.string.system)
-        }
-        ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR -> {
-            activity.getString(R.string.full_sensor)
-        }
-        else -> {
-            "Unspecified"
-        }
-    }
-}
-fun setAppSugOrderTvText(activity: Activity, binding: ActivitySettingsBinding, appSugOrderingMode: Int) {
-    binding.tvAppSugOrder.text = when (appSugOrderingMode) {
-        AppSortMode.A_TO_Z.value -> {
-            activity.getString(R.string.alphabetically)
-        }
-        AppSortMode.RECENT.value -> {
-            activity.getString(R.string.recency)
-        }
-        else -> {
-            activity.getString(R.string.alphabetically)
-        }
-    }
-}
-fun changedSettingsCallback(activity: Activity) {
-    val finishIntent = Intent()
-    finishIntent.putExtra("settingsChanged",true)
-    activity.setResult(AppCompatActivity.RESULT_OK,finishIntent)
+fun getOrientationText(activity: Activity, orientation: Int): String = when (orientation) {
+    ActivityInfo.SCREEN_ORIENTATION_PORTRAIT -> activity.getString(R.string.portrait)
+    ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE -> activity.getString(R.string.landscape)
+    ActivityInfo.SCREEN_ORIENTATION_USER -> activity.getString(R.string.system)
+    ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR -> activity.getString(R.string.full_sensor)
+    else -> "Unspecified"
 }
 
-fun openUsernamePrefixSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
-    val usernamePrefixDialog = YantraLauncherDialog(activity)
-    usernamePrefixDialog.takeInput(
+fun getAppSugOrderText(activity: Activity, mode: Int): String = when (mode) {
+    AppSortMode.A_TO_Z.value -> activity.getString(R.string.alphabetically)
+    AppSortMode.RECENT.value -> activity.getString(R.string.recency)
+    else -> activity.getString(R.string.alphabetically)
+}
+
+fun openUsernamePrefixSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor, onUpdate: (String) -> Unit) {
+    YantraLauncherDialog(activity).takeInput(
         title = activity.getString(R.string.username_prefix),
         message = activity.getString(R.string.username_prefix_description),
         initialInput = getUserNamePrefix(preferenceObject),
         positiveButton = activity.getString(R.string.save),
         positiveAction = {
-            val prefix = it
-            setUserNamePrefix(prefix, preferenceEditObject)
-            binding.usernamePrefix.text = getUserNamePrefix(preferenceObject)
+            setUserNamePrefix(it, preferenceEditObject)
+            onUpdate(getUserNamePrefix(preferenceObject))
             toast(activity, activity.getString(R.string.username_prefix_updated))
             changedSettingsCallback(activity)
         },
     )
 }
 
-fun openDoubleTapActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+fun openFontSizeSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor, onUpdate: (String) -> Unit) {
+    YantraLauncherDialog(activity).takeInput(
+        title = activity.getString(R.string.terminal_font_size),
+        message = activity.getString(R.string.font_size_description),
+        initialInput = preferenceObject.getInt("fontSize", 16).toString(),
+        inputType = InputType.TYPE_CLASS_NUMBER,
+        positiveButton = activity.getString(R.string.save),
+        positiveAction = {
+            if (it.toIntOrNull() == null || it.toInt() <= 0) {
+                toast(activity, activity.getString(R.string.invalid_font_size))
+                return@takeInput
+            }
+            preferenceEditObject.putInt("fontSize", it.toInt()).apply()
+            onUpdate(it)
+            toast(activity, activity.getString(R.string.font_size_updated))
+            changedSettingsCallback(activity)
+        },
+    )
+}
+
+fun openArrowSizeSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor, onUpdate: (String) -> Unit) {
+    YantraLauncherDialog(activity).takeInput(
+        title = activity.getString(R.string.arrow_keys_size),
+        message = activity.getString(R.string.arrow_size_description),
+        initialInput = preferenceObject.getInt("arrowSize", 65).toString(),
+        inputType = InputType.TYPE_CLASS_NUMBER,
+        positiveButton = activity.getString(R.string.save),
+        positiveAction = {
+            if (it.toIntOrNull() == null || it.toInt() <= 0) {
+                toast(activity, activity.getString(R.string.invalid_arrow_size))
+                return@takeInput
+            }
+            preferenceEditObject.putInt("arrowSize", it.toInt()).apply()
+            onUpdate(it)
+            toast(activity, activity.getString(R.string.arrow_size_updated))
+            changedSettingsCallback(activity)
+        },
+    )
+}
+
+fun openOrientationSetter(activity: Activity, preferenceEditObject: Editor, onUpdate: (String) -> Unit) {
+    YantraLauncherDialog(activity).selectItem(
+        title = activity.getString(R.string.orientation),
+        items = arrayOf(
+            activity.getString(R.string.portrait),
+            activity.getString(R.string.landscape),
+            activity.getString(R.string.system),
+            activity.getString(R.string.full_sensor)
+        ),
+        clickAction = { which ->
+            val (orientationConst, label) = when (which) {
+                0 -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT to activity.getString(R.string.portrait)
+                1 -> ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE to activity.getString(R.string.landscape)
+                2 -> ActivityInfo.SCREEN_ORIENTATION_USER to activity.getString(R.string.system)
+                else -> ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR to activity.getString(R.string.full_sensor)
+            }
+            preferenceEditObject.putInt("orientation", orientationConst).apply()
+            onUpdate(label)
+            Toast.makeText(activity, activity.getString(R.string.orientation_updated), Toast.LENGTH_SHORT).show()
+            changedSettingsCallback(activity)
+        }
+    )
+}
+
+fun openAppSugOrderingSetter(activity: Activity, preferenceEditObject: Editor, onUpdate: (String) -> Unit) {
+    YantraLauncherDialog(activity).selectItem(
+        title = activity.getString(R.string.app_suggestions_order),
+        items = arrayOf(
+            activity.getString(R.string.alphabetically),
+            activity.getString(R.string.recency)
+        ),
+        clickAction = { which ->
+            val (mode, label) = when (which) {
+                0 -> AppSortMode.A_TO_Z.value to activity.getString(R.string.alphabetically)
+                else -> AppSortMode.RECENT.value to activity.getString(R.string.recency)
+            }
+            preferenceEditObject.putInt("appSortMode", mode).apply()
+            onUpdate(label)
+            Toast.makeText(activity, activity.getString(R.string.app_suggestions_ordering_updated), Toast.LENGTH_SHORT).show()
+            changedSettingsCallback(activity)
+        }
+    )
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+
+fun changedSettingsCallback(activity: Activity) {
+    val finishIntent = Intent()
+    finishIntent.putExtra("settingsChanged",true)
+    activity.setResult(AppCompatActivity.RESULT_OK,finishIntent)
+}
+
+fun openDoubleTapActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
     val doubleTapActionDialog = YantraLauncherDialog(activity)
     doubleTapActionDialog.takeInput(
         title = activity.getString(R.string.change_double_tap_command),
@@ -106,7 +170,7 @@ fun openDoubleTapActionSetter(activity: Activity, preferenceObject: SharedPrefer
     )
 }
 
-fun openSwipeRightActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+fun openSwipeRightActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
     val swipeRightActionDialog = YantraLauncherDialog(activity)
     swipeRightActionDialog.takeInput(
         title = activity.getString(R.string.change_right_swipe_command),
@@ -122,7 +186,7 @@ fun openSwipeRightActionSetter(activity: Activity, preferenceObject: SharedPrefe
     )
 }
 
-fun openSwipeLeftActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+fun openSwipeLeftActionSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
     val swipeLeftActionDialog = YantraLauncherDialog(activity)
     swipeLeftActionDialog.takeInput(
         title = activity.getString(R.string.change_left_swipe_command),
@@ -233,7 +297,7 @@ fun savePrimarySuggestionsOrder(preferenceEditObject: Editor, reorderedSuggestio
     preferenceEditObject.apply()
 }
 
-fun openNewsWebsiteSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+fun openNewsWebsiteSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
     val newsWebsiteDialog = YantraLauncherDialog(activity)
     newsWebsiteDialog.takeInput(
         title = activity.getString(R.string.change_news_website),
@@ -249,121 +313,7 @@ fun openNewsWebsiteSetter(activity: Activity, preferenceObject: SharedPreference
     )
 }
 
-fun openFontSizeSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
-    val fontSizeDialog = YantraLauncherDialog(activity)
-    fontSizeDialog.takeInput(
-        title = activity.getString(R.string.terminal_font_size),
-        message = activity.getString(R.string.font_size_description),
-        initialInput = preferenceObject.getInt("fontSize",16).toString(),
-        inputType = InputType.TYPE_CLASS_NUMBER,
-        positiveButton = activity.getString(R.string.save),
-        positiveAction = {
-            val size = it
-            if (size.toIntOrNull() == null || size.toInt() <= 0 ) {
-                toast(activity, activity.getString(R.string.invalid_font_size))
-                return@takeInput
-            }
-            preferenceEditObject.putInt("fontSize",size.toInt()).apply()
-            binding.fontSizeBtn.text = size
-            toast(activity, activity.getString(R.string.font_size_updated))
-            changedSettingsCallback(activity)
-        },
-    )
-}
-
-fun openArrowSizeSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
-    val arrowSizeDialog = YantraLauncherDialog(activity)
-    arrowSizeDialog.takeInput(
-        title = activity.getString(R.string.arrow_keys_size),
-        message = activity.getString(R.string.arrow_size_description),
-        initialInput = preferenceObject.getInt("arrowSize",65).toString(),
-        inputType = InputType.TYPE_CLASS_NUMBER,
-        positiveButton = activity.getString(R.string.save),
-        positiveAction = {
-            val size = it
-            if (size.toIntOrNull() == null || size.toInt() <= 0 ) {
-                toast(activity, activity.getString(R.string.invalid_arrow_size))
-                return@takeInput
-            }
-            preferenceEditObject.putInt("arrowSize",size.toInt()).apply()
-            binding.arrowSizeBtn.text = size
-            toast(activity, activity.getString(R.string.arrow_size_updated))
-            changedSettingsCallback(activity)
-        },
-    )
-}
-
-fun openOrientationSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceEditObject: SharedPreferences.Editor) {
-    YantraLauncherDialog(activity).selectItem(
-        title = activity.getString(R.string.orientation),
-        items = arrayOf(activity.getString(R.string.portrait),
-            activity.getString(R.string.landscape),
-            activity.getString(R.string.system), activity.getString(R.string.full_sensor)),
-        clickAction = { which ->
-            when (which) {
-                0 -> {
-                    preferenceEditObject.putInt(
-                        "orientation",
-                        ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-                    ).apply()
-                    binding.tvOrientation.text = activity.getString(R.string.portrait)
-                }
-
-                1 -> {
-                    preferenceEditObject.putInt(
-                        "orientation",
-                        ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                    ).apply()
-                    binding.tvOrientation.text = activity.getString(R.string.landscape)
-                }
-
-                2 -> {
-                    preferenceEditObject.putInt(
-                        "orientation",
-                        ActivityInfo.SCREEN_ORIENTATION_USER
-                    ).apply()
-                    binding.tvOrientation.text = activity.getString(R.string.system)
-                }
-
-                3 -> {
-                    preferenceEditObject.putInt(
-                        "orientation",
-                        ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
-                    ).apply()
-                    binding.tvOrientation.text = activity.getString(R.string.full_sensor)
-                }
-            }
-            Toast.makeText(activity,
-                activity.getString(R.string.orientation_updated), Toast.LENGTH_SHORT).show()
-            changedSettingsCallback(activity)
-        }
-    )
-}
-
-fun openAppSugOrderingSetter(activity: Activity, binding: ActivitySettingsBinding, preferenceEditObject: SharedPreferences.Editor) {
-    YantraLauncherDialog(activity).selectItem(
-        title = activity.getString(R.string.app_suggestions_order),
-        items = arrayOf(activity.getString(R.string.alphabetically),
-            activity.getString(R.string.recency)),
-        clickAction = { which ->
-            when (which) {
-                0 -> {
-                    preferenceEditObject.putInt("appSortMode", AppSortMode.A_TO_Z.value).apply()
-                    binding.tvAppSugOrder.text = activity.getString(R.string.alphabetically)
-                }
-                1 -> {
-                    preferenceEditObject.putInt("appSortMode", AppSortMode.RECENT.value).apply()
-                    binding.tvAppSugOrder.text = activity.getString(R.string.recency)
-                }
-            }
-            Toast.makeText(activity,
-                activity.getString(R.string.app_suggestions_ordering_updated), Toast.LENGTH_SHORT).show()
-            changedSettingsCallback(activity)
-        }
-    )
-}
-
-fun openSysinfoArtSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+fun openSysinfoArtSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
     val sysinfoArtDialog = YantraLauncherDialog(activity)
     sysinfoArtDialog.takeInput(
         title = activity.getString(R.string.change_sysinfo_art),
@@ -380,7 +330,7 @@ fun openSysinfoArtSetter(activity: Activity, preferenceObject: SharedPreferences
     )
 }
 
-fun openTermuxCmdPathSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+fun openTermuxCmdPathSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
     val termuxCmdPathDialog = YantraLauncherDialog(activity)
     termuxCmdPathDialog.takeInput(
         title = activity.getString(R.string.termux_command_path),
@@ -396,7 +346,7 @@ fun openTermuxCmdPathSelector(activity: Activity, preferenceObject: SharedPrefer
     )
 }
 
-fun openTermuxCmdWorkingDirSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+fun openTermuxCmdWorkingDirSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
     val termuxCmdWorkDirDialog = YantraLauncherDialog(activity)
     termuxCmdWorkDirDialog.takeInput(
         title = activity.getString(R.string.termux_command_working_directory),
@@ -412,7 +362,7 @@ fun openTermuxCmdWorkingDirSelector(activity: Activity, preferenceObject: Shared
     )
 }
 
-fun openTermuxCmdSessionActionSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+fun openTermuxCmdSessionActionSelector(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
     val termuxCmdSessionActionDialog = YantraLauncherDialog(activity)
     termuxCmdSessionActionDialog.takeInput(
         title = activity.getString(R.string.termux_command_session_action),
@@ -437,7 +387,7 @@ fun openTermuxCmdSessionActionSelector(activity: Activity, preferenceObject: Sha
     )
 }
 
-fun openAiApiProviderSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+fun openAiApiProviderSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
     val aiApiProviderDialog = YantraLauncherDialog(activity)
     aiApiProviderDialog.takeInput(
         title = activity.getString(R.string.change_ai_api_provider),
@@ -453,7 +403,7 @@ fun openAiApiProviderSetter(activity: Activity, preferenceObject: SharedPreferen
     )
 }
 
-fun openAiApiKeySetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+fun openAiApiKeySetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
     val aiApiKeyDialog = YantraLauncherDialog(activity)
     aiApiKeyDialog.takeInput(
         title = activity.getString(R.string.change_ai_api_key),
@@ -469,7 +419,7 @@ fun openAiApiKeySetter(activity: Activity, preferenceObject: SharedPreferences, 
     )
 }
 
-fun openAiModelSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+fun openAiModelSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
     val aiModelDialog = YantraLauncherDialog(activity)
     aiModelDialog.takeInput(
         title = activity.getString(R.string.change_ai_model),
@@ -485,7 +435,7 @@ fun openAiModelSetter(activity: Activity, preferenceObject: SharedPreferences, p
     )
 }
 
-fun openAiSystemPromptSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: SharedPreferences.Editor) {
+fun openAiSystemPromptSetter(activity: Activity, preferenceObject: SharedPreferences, preferenceEditObject: Editor) {
     val aiSystemPromptDialog = YantraLauncherDialog(activity)
     aiSystemPromptDialog.takeInput(
         title = activity.getString(R.string.change_ai_system_prompt),
@@ -516,7 +466,7 @@ fun resetPreferredLauncherAndOpenChooser(activity: Activity) {
 
     val selector = Intent(Intent.ACTION_MAIN)
     selector.addCategory(Intent.CATEGORY_HOME)
-    selector.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    selector.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     activity.startActivity(selector)
 
     packageManager.setComponentEnabledSetting(

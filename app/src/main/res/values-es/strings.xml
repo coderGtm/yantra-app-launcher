@@ -365,6 +365,7 @@
     <string name="script_saved_successfully">¡Script %1$s guardado con éxito!</string>
     <string name="delete">Eliminar</string>
     <string name="script_deleted">Script \'%1$s\' eliminado.</string>
+    <string name="scripts_usage">Usage: scripts | scripts -new &lt;name&gt; | scripts &lt;name&gt; | scripts -rm &lt;name&gt;</string>
     <string name="no_scripts_found">¡No se encontraron Scripts! Intenta crear uno.</string>
     <string name="add">Añadir</string>
     <string name="new_script">Nuevo Script</string>
@@ -729,4 +730,17 @@
     <string name="cmd_location_age_minutes">hace %1$d minutos</string>
     <string name="cmd_location_age_hours">hace %1$d horas</string>
     <string name="cmd_location_age_days">hace %1$d días</string>
+    <string name="use_system_wallpaper">Use system wallpaper</string>
+    <string name="prompt">Prompt</string>
+    <string name="display">Pantalla</string>
+    <string name="font">Fuente</string>
+    <string name="arrow_keys">Teclas de Flecha</string>
+    <string name="suggestions">Sugerencias</string>
+    <string name="gestures">Gestos</string>
+    <string name="keyboard">Teclado</string>
+    <string name="advanced">Avanzado</string>
+    <string name="termux">Termux</string>
+    <string name="ai">IA</string>
+    <string name="app">App</string>
+    <string name="other">Otro</string>
 </resources>

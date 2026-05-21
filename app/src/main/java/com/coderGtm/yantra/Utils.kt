@@ -3,16 +3,15 @@ package com.coderGtm.yantra
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
-import android.app.WallpaperManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.database.Cursor
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.Uri
@@ -23,6 +22,7 @@ import android.provider.ContactsContract
 import android.provider.OpenableColumns
 import android.util.TypedValue
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.toDrawable
@@ -37,7 +37,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.UpdateAvailability
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
@@ -46,6 +45,9 @@ import java.util.Timer
 import kotlin.concurrent.schedule
 import kotlin.concurrent.timerTask
 import androidx.core.graphics.toColorInt
+import androidx.core.content.edit
+
+private const val CUSTOM_APP_BACKGROUND_FILE_NAME = "launcher_background.png"
 
 fun openURL(url: String, activity: Activity) {
     activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
@@ -62,24 +64,70 @@ fun setUserNamePrefix(pre: String, preferenceEditObject: SharedPreferences.Edito
 fun getUserName(preferenceObject: SharedPreferences): String {
     return preferenceObject.getString("username","root") ?: "root"
 }
-fun setSystemWallpaper(wallpaperManager: WallpaperManager, bitmap: Bitmap) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_SYSTEM)
+
+private fun getCustomAppBackgroundFile(activity: Activity): File {
+    return File(activity.filesDir, CUSTOM_APP_BACKGROUND_FILE_NAME)
+}
+
+fun setWallpaperFromUri(uri: Uri?, activity: Activity, preferenceObject: SharedPreferences): Boolean {
+    if (uri == null) {
+        return false
     }
-    else {
-        wallpaperManager.setBitmap(bitmap)
+
+    val bitmap = try {
+        activity.contentResolver.openInputStream(uri)?.use { inputStream ->
+            BitmapFactory.decodeStream(inputStream)
+        }
+    } catch (_: IOException) {
+        null
+    }
+
+    if (bitmap == null) {
+        return false
+    }
+
+    return setLauncherBackgroundBitmap(activity, bitmap, preferenceObject)
+}
+
+fun setLauncherBackgroundBitmap(activity: Activity, bitmap: Bitmap, preferenceObject: SharedPreferences): Boolean {
+    return try {
+        FileOutputStream(getCustomAppBackgroundFile(activity)).use { outputStream ->
+            if (!bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)) {
+                return false
+            }
+            outputStream.flush()
+        }
+        preferenceObject.edit { putBoolean("defaultWallpaper", false) }
+        true
+    } catch (_: IOException) {
+        false
     }
 }
-fun setWallpaperFromUri(uri: Uri?, activity: Activity, fallbackColor: Int, preferenceObject: SharedPreferences) {
-    val bg: Drawable = try {
-        val inputStream = activity.contentResolver.openInputStream(uri!!)
-        Drawable.createFromStream(inputStream, uri.toString())!!
-    } catch (e: FileNotFoundException) {
+
+fun clearLauncherBackground(activity: Activity, preferenceObject: SharedPreferences) {
+    getCustomAppBackgroundFile(activity).takeIf { it.exists() }?.delete()
+    preferenceObject.edit { putBoolean("defaultWallpaper", true) }
+}
+
+fun applyLauncherBackground(activity: Activity, binding: ActivityMainBinding, preferenceObject: SharedPreferences, fallbackColor: Int) {
+    val useSystemWallpaper = preferenceObject.getBoolean("useSystemWallpaper", false)
+    val shouldUseCustomImage = !useSystemWallpaper && !preferenceObject.getBoolean("defaultWallpaper", true)
+    val backgroundBitmap = if (shouldUseCustomImage) {
+        BitmapFactory.decodeFile(getCustomAppBackgroundFile(activity).absolutePath)
+    } else {
+        null
+    }
+
+    val backgroundImage = activity.findViewById<ImageView>(R.id.backgroundImage)
+    backgroundImage?.setImageBitmap(backgroundBitmap)
+    val rootBackground: Drawable = if (useSystemWallpaper) {
+        Color.TRANSPARENT.toDrawable()
+    } else {
         fallbackColor.toDrawable()
     }
-    val wallpaperManager = WallpaperManager.getInstance(activity)
-    setSystemWallpaper(wallpaperManager, (bg as BitmapDrawable).bitmap)
-    preferenceObject.edit().putBoolean("defaultWallpaper",false).apply()
+    binding.rootLayout.background = rootBackground
+    activity.window.setBackgroundDrawable(if (useSystemWallpaper) Color.TRANSPARENT.toDrawable() else fallbackColor.toDrawable())
+    activity.window.navigationBarColor = Color.TRANSPARENT
 }
 fun requestCmdInputFocusAndShowKeyboard(activity: Activity, binding: ActivityMainBinding) {
     binding.cmdInput.requestFocus()

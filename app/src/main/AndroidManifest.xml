@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
 
     <queries>
         <intent>
@@ -58,7 +59,7 @@
             android:exported="true"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.YantraLauncher"
-            android:windowSoftInputMode="adjustResize"
+            android:windowSoftInputMode="adjustNothing"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

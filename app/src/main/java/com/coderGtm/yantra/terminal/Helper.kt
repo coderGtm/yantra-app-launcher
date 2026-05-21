@@ -1,30 +1,24 @@
 package com.coderGtm.yantra.terminal
 
 import android.app.Activity
-import android.app.WallpaperManager
-import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.ColorDrawable
 import android.util.TypedValue
 import android.widget.TextView
-import androidx.core.graphics.drawable.toBitmap
+import com.coderGtm.yantra.Croissant
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.commands.todo.getToDo
-import com.coderGtm.yantra.Croissant
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.loadPrimarySuggestionsOrder
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Suggestion
-import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
-import com.coderGtm.yantra.setSystemWallpaper
 import java.util.Locale
 import java.util.regex.Pattern
 
@@ -568,6 +562,36 @@ fun showSuggestions(
                 }
                 isPrimary = false
             }
+            else if (effectivePrimaryCmd == "scripts") {
+                try {
+                    val scriptNames = getScripts(terminal.preferenceObject).toMutableList()
+                    if (args.size == 2 && args[1] == "-rm") {
+                        // after -rm, suggest all script names
+                        overrideLastWord = false
+                        for (sn in scriptNames) {
+                            if (!suggestions.contains(sn)) suggestions.add(sn)
+                        }
+                    } else if (args.size == 2 && args[1] == "-new") {
+                        // after -new, no suggestions (user types name)
+                    } else if (args.size > 1) {
+                        overrideLastWord = true
+                        val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
+                        val candidates = mutableListOf("-new", "-rm") + scriptNames
+                        for (c in candidates) {
+                            if (regex.containsMatchIn(c) && !suggestions.contains(c)) suggestions.add(c)
+                        }
+                    } else {
+                        val candidates = mutableListOf("-new", "-rm") + scriptNames
+                        for (c in candidates) {
+                            if (!suggestions.contains(c)) suggestions.add(c)
+                        }
+                    }
+                    isPrimary = false
+                    executeOnTapViable = false
+                } catch (e: Exception) {
+                    return@Thread
+                }
+            }
             else if (effectivePrimaryCmd == "run") {
                 try {
                     val runArgs = getScripts(terminal.preferenceObject).toMutableList()
@@ -729,13 +753,6 @@ fun getFiles(terminal: Terminal): List<String> {
     return fullList
 }
 
-fun setWallpaperIfNeeded(preferenceObject: SharedPreferences, applicationContext: Context, curTheme: Theme, ) {
-    if (preferenceObject.getBoolean("defaultWallpaper",true)) {
-        val wallpaperManager = WallpaperManager.getInstance(applicationContext)
-        val colorDrawable = ColorDrawable(curTheme.bgColor)
-        setSystemWallpaper(wallpaperManager, colorDrawable.toBitmap(applicationContext.resources.displayMetrics.widthPixels, applicationContext.resources.displayMetrics.heightPixels))
-    }
-}
 
 fun reorderPrimarySuggestions(preferenceObject: SharedPreferences, suggestionList: List<Suggestion>): MutableList<Suggestion> {
     val savedOrder = loadPrimarySuggestionsOrder(preferenceObject)
