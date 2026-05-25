@@ -2,10 +2,7 @@ package com.coderGtm.yantra.terminal
 
 import android.app.Activity
 import android.content.SharedPreferences
-import android.graphics.Color
 import android.graphics.Typeface
-import android.util.TypedValue
-import android.widget.TextView
 import com.coderGtm.yantra.Croissant
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.Themes
@@ -19,7 +16,6 @@ import com.coderGtm.yantra.loadPrimarySuggestionsOrder
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Suggestion
 import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
-import java.util.Locale
 import java.util.regex.Pattern
 
 fun showSuggestions(
@@ -145,7 +141,7 @@ fun showSuggestions(
                 if (args.size > 1) {
                     overrideLastWord = true
                     val regex = Regex(Pattern.quote(input.removePrefix(args[0]).trim()), RegexOption.IGNORE_CASE)
-                    for (file in terminal.activity.filesDir.listFiles()) {
+                    for (file in terminal.activity.filesDir.listFiles().orEmpty()) {
                         if ((file.name.endsWith(".mp3") || file.name.endsWith(".wav") || file.name.endsWith(".ogg")) && file.isFile) {
                             if (regex.containsMatchIn(file.name) && !suggestions.contains(file.name)) {
                                 suggestions.add(file.name.removeSuffix(".mp3").removeSuffix(".wav").removeSuffix(".ogg"))
@@ -154,7 +150,7 @@ fun showSuggestions(
                     }
                 }
                 else {
-                    for (file in terminal.activity.filesDir.listFiles()) {
+                    for (file in terminal.activity.filesDir.listFiles().orEmpty()) {
                         if ((file.name.endsWith(".mp3") || file.name.endsWith(".wav") || file.name.endsWith(".ogg")) && file.isFile) {
                             suggestions.add(file.name.removeSuffix(".mp3").removeSuffix(".wav").removeSuffix(".ogg"))
                         }
@@ -278,14 +274,14 @@ fun showSuggestions(
                 if (!terminal.contactsFetched) {
                     terminal.activity.runOnUiThread {
                         terminal.binding.suggestionsTab.removeAllViews()
-                    }
-                    val tv = TextView(terminal.activity)
-                    tv.text = terminal.activity.getString(R.string.contacts_not_fetched_yet)
-                    tv.setTextColor(terminal.theme.suggestionTextColor)
-                    //italics
-                    tv.setTypeface(terminal.typeface, Typeface.BOLD_ITALIC)
-                    terminal.activity.runOnUiThread {
-                        terminal.binding.suggestionsTab.addView(tv)
+                        terminal.binding.addSuggestion(
+                            text = terminal.activity.getString(R.string.contacts_not_fetched_yet),
+                            color = terminal.theme.suggestionTextColor,
+                            fontSize = 14.5f,
+                            typeface = terminal.typeface,
+                            style = Typeface.BOLD_ITALIC,
+                            onClick = {},
+                        )
                     }
                     return@Thread
                 }
@@ -588,7 +584,7 @@ fun showSuggestions(
                     }
                     isPrimary = false
                     executeOnTapViable = false
-                } catch (e: Exception) {
+                } catch (_: Exception) {
                     return@Thread
                 }
             }
@@ -615,7 +611,7 @@ fun showSuggestions(
                     }
                     isPrimary = false
                 }
-                catch (e: java.lang.Exception) {
+                catch (_: java.lang.Exception) {
                     return@Thread
                 }
             }
@@ -624,16 +620,8 @@ fun showSuggestions(
             if ((isPrimary && (input.trim() == sug.trim())) || (!isPrimary && (input.removePrefix(args[0]).trim() == sug.trim()))) {
                 return@forEach
             }
-            val suggestion = TextView(terminal.activity)
-            suggestion.text = sug.uppercase(Locale.getDefault())
-            suggestion.setTextColor(terminal.theme.suggestionTextColor)
-            suggestion.setTypeface(terminal.typeface, Typeface.BOLD)
-            suggestion.setBackgroundColor(Color.TRANSPARENT)
-            suggestion.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14.5F)
-            suggestion.setPadding(40, 30, 40, 30)
-
-
-            suggestion.setOnClickListener {
+            var suggestionId = ""
+            val onClick = {
                 val newCmd = if (overrideLastWord) {
                     input.substring(0, input.length-args[args.size-1].length) + sug + " "
                 }
@@ -648,13 +636,14 @@ fun showSuggestions(
                 else {
                     terminal.binding.cmdInput.setText(newCmd)
                     terminal.binding.cmdInput.setSelection(terminal.binding.cmdInput.text!!.length)
-                    requestCmdInputFocusAndShowKeyboard(terminal.activity, terminal.binding)
-                    terminal.binding.suggestionsTab.removeView(it)
+                    requestCmdInputFocusAndShowKeyboard(terminal.binding)
+                    terminal.binding.removeSuggestion(suggestionId)
                 }
 
             }
+            var onLongClick: (() -> Unit)? = null
             if (isPrimary) {
-                suggestion.setOnLongClickListener {
+                onLongClick = {
                     try {
                         val commandClass = terminal.commands[sug]
                         if (commandClass != null) {
@@ -666,12 +655,19 @@ fun showSuggestions(
                             )
                         }
                     }
-                    catch (e: Exception) {}
-                    true
+                    catch (_: Exception) {}
                 }
             }
             terminal.activity.runOnUiThread {
-                terminal.binding.suggestionsTab.addView(suggestion)
+                suggestionId = terminal.binding.addSuggestion(
+                    text = sug,
+                    color = terminal.theme.suggestionTextColor,
+                    fontSize = 14.5f,
+                    typeface = terminal.typeface,
+                    style = Typeface.BOLD,
+                    onClick = onClick,
+                    onLongClick = onLongClick,
+                )
             }
         }
         if (suggestions.size == 1 && !isPrimary && terminal.preferenceObject.getBoolean("actOnLastSecondarySuggestion", false)) {

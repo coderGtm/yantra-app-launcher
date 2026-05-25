@@ -5,32 +5,20 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.text.SpannableString
-import android.text.style.UnderlineSpan
-import android.util.TypedValue
-import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.graphics.drawable.toDrawable
 import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.widget.addTextChangedListener
 import com.coderGtm.yantra.BuildConfig
 import com.coderGtm.yantra.DEFAULT_TERMINAL_FONT_NAME
 import com.coderGtm.yantra.NO_LOG_COMMANDS
@@ -39,7 +27,6 @@ import com.coderGtm.yantra.applyLauncherBackground
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.contactsManager
-import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getAliases
 import com.coderGtm.yantra.getCurrentTheme
@@ -56,15 +43,14 @@ import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
 import com.coderGtm.yantra.showRatingAndCommunityPopups
+import com.coderGtm.yantra.ui.screens.main.MainActivityUiRefs
 import com.coderGtm.yantra.vibrate
-import io.noties.markwon.Markwon
 import java.io.File
 import java.util.TimerTask
-import kotlin.math.roundToInt
 
 class Terminal(
     val activity: Activity,
-    val binding: ActivityMainBinding,
+    val binding: MainActivityUiRefs,
     val preferenceObject: SharedPreferences
 ) {
     private val fontSize = preferenceObject.getInt("fontSize", 16).toFloat()
@@ -96,15 +82,13 @@ class Terminal(
 
     lateinit var appList: ArrayList<AppBlock>
     lateinit var shortcutList: ArrayList<ShortcutBlock>
-    lateinit var wakeBtn: TextView
     lateinit var aliasList: MutableList<Alias>
 
     fun initialize() {
         if (preferenceObject.getBoolean("useModernPromptDesign", false)) {
-            binding.modernPrompt.visibility = View.VISIBLE
-            binding.triangle.visibility = View.VISIBLE
-            binding.username.visibility = View.GONE
-            username = binding.modernPromptUsername
+            binding.modernPrompt.visible = true
+            binding.modernPrompt.username = getUserName(preferenceObject)
+            binding.username.visibility = android.view.View.GONE
         }
 
         activity.requestedOrientation = preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
@@ -115,7 +99,6 @@ class Terminal(
         setArrowKeys(preferenceObject, binding)
         binding.upBtn.setOnClickListener { cmdUp() }
         binding.downBtn.setOnClickListener { cmdDown() }
-        createWakeButton()
         setTextChangedListener()
         createTouchListeners()
         aliasList = getAliases(preferenceObject)
@@ -143,7 +126,7 @@ class Terminal(
         activity.window.statusBarColor = Color.TRANSPARENT
         activity.window.navigationBarColor = Color.TRANSPARENT
         setPromptText()
-        binding.suggestionsTab.background = theme.suggestionBgColor.toDrawable()
+        binding.suggestionsTab.backgroundColorInt = theme.suggestionBgColor
         username.setTextColor(theme.inputLineTextColor)
         binding.cmdInput.setTextColor(theme.inputLineTextColor)
         val unwrappedCursorDrawable = AppCompatResources.getDrawable(activity,
@@ -165,10 +148,7 @@ class Terminal(
             val fontFile = File(activity.filesDir, fontName)
             if (fontFile.exists()) {
                 typeface = Typeface.createFromFile(fontFile)
-                if (preferenceObject.getBoolean("useModernPromptDesign", false)) {
-                    username.setTypeface(Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf"))
-                }
-                else {
+                if (!preferenceObject.getBoolean("useModernPromptDesign", false)) {
                     username.setTypeface(typeface, Typeface.BOLD)
                 }
                 binding.cmdInput.typeface = typeface
@@ -185,12 +165,8 @@ class Terminal(
         val callback = object : FontsContractCompat.FontRequestCallback() {
 
             override fun onTypefaceRetrieved(rTypeface: Typeface) {
-                //set font as retrieved cliTypeface
                 typeface = rTypeface
-                if (preferenceObject.getBoolean("useModernPromptDesign", false)) {
-                    username.setTypeface(Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf"))
-                }
-                else {
+                if (!preferenceObject.getBoolean("useModernPromptDesign", false)) {
                     username.setTypeface(typeface, Typeface.BOLD)
                 }
                 binding.cmdInput.typeface = typeface
@@ -198,9 +174,10 @@ class Terminal(
             }
 
             override fun onTypefaceRequestFailed(reason: Int) {
-                //set font as source code pro from res folder
                 typeface = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
-                username.setTypeface(typeface, Typeface.BOLD)
+                if (!preferenceObject.getBoolean("useModernPromptDesign", false)) {
+                    username.setTypeface(typeface, Typeface.BOLD)
+                }
                 binding.cmdInput.typeface = typeface
                 finishInitialization()
             }
@@ -239,8 +216,7 @@ class Terminal(
         goFullScreen()
     }
     private fun hideSoftKeyboard() {
-        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.cmdInput.windowToken, 0)
+        binding.hideKeyboard()
     }
     private fun goFullScreen() {
         if (preferenceObject.getBoolean("fullScreen",false)) {
@@ -249,7 +225,7 @@ class Terminal(
             windowInsetsController?.hide(WindowInsetsCompat.Type.systemBars())
         }
     }
-    private fun setArrowKeys(preferenceObject: SharedPreferences, binding: ActivityMainBinding) {
+    private fun setArrowKeys(preferenceObject: SharedPreferences, binding: MainActivityUiRefs) {
         val showArrowKeys = preferenceObject.getBoolean("showArrowKeys",true)
         if (showArrowKeys) {
             val arrowSize = preferenceObject.getInt("arrowSize", 65).toFloat()
@@ -263,22 +239,6 @@ class Terminal(
             binding.downBtn.visibility = View.GONE
         }
     }
-    private fun createWakeButton() {
-        wakeBtn = TextView(activity)
-        val spannable = SpannableString("Break")
-        spannable.setSpan(UnderlineSpan(), 0, spannable.length, 0)
-        wakeBtn.text = spannable
-        wakeBtn.textSize = fontSize
-        wakeBtn.setTextColor(theme.errorTextColor)
-        wakeBtn.setOnClickListener {
-            sleepTimer?.cancel()
-            isSleeping = false
-            binding.terminalOutput.removeView(wakeBtn)
-            output("Yantra Launcher awakened mid-sleep (~_^)", theme.errorTextColor, null)
-            binding.cmdInput.isEnabled = true
-            executeCommandsInQueue()
-        }
-    }
     fun executeCommandsInQueue() {
         while (commandQueue.isNotEmpty() && !isSleeping) {
             val cmdToExecute = commandQueue.removeAt(0)
@@ -289,7 +249,7 @@ class Terminal(
         binding.scrollView.setGestureListenerCallback((activity as MainActivity))
         // for keyboard open
         binding.inputLineLayout.setOnClickListener {
-            requestCmdInputFocusAndShowKeyboard(activity, binding)
+            requestCmdInputFocusAndShowKeyboard(binding)
         }
     }
 
@@ -310,19 +270,15 @@ class Terminal(
     }
     fun output(text: String, color: Int, style: Int?, markdown: Boolean = false) {
         val renderColor = dominantFontColor ?: color
-        val t = TextView(activity)
-        if (markdown) {
-            t.setFont(typeface, null, renderColor, fontSize)
-            val markwon = Markwon.create(activity)
-            markwon.setMarkdown(t, text)
-        }
-        else {
-            t.setFont(typeface, style, renderColor, fontSize)
-            t.text = text
-        }
-        t.setTextIsSelectable(true)
         activity.runOnUiThread {
-            binding.terminalOutput.addView(t)
+            binding.addTextOutput(
+                text = text,
+                color = renderColor,
+                style = style,
+                markdown = markdown,
+                typeface = typeface,
+                fontSize = fontSize,
+            )
         }
         // if error then vibrate
         if (renderColor == theme.errorTextColor && vibrationPermission) {
@@ -330,25 +286,21 @@ class Terminal(
         }
     }
     fun setPromptText() {
-        if (preferenceObject.getBoolean("showCurrentFolderInPrompt", false) && !workingDir.isEmpty()) {
-            val splitOfWorkingDir = workingDir.split("/")
-            if (preferenceObject.getBoolean("useModernPromptDesign", false)) {
-                username.text =
-                    "${getUserName(preferenceObject)}/../${splitOfWorkingDir[splitOfWorkingDir.size - 1]}"
+        val isModern = preferenceObject.getBoolean("useModernPromptDesign", false)
+        if (preferenceObject.getBoolean("showCurrentFolderInPrompt", false) && workingDir.isNotEmpty()) {
+            val currentFolder = workingDir.split("/").last()
+            if (isModern) {
+                binding.modernPrompt.username = "${getUserName(preferenceObject)}/../$currentFolder"
                 return
             }
-            username.text =
-                "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}/../${splitOfWorkingDir[splitOfWorkingDir.size - 1]}>"
+            username.text = "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}/../$currentFolder>"
             return
         }
-
-        if (preferenceObject.getBoolean("useModernPromptDesign", false)) {
-            username.text = getUserName(preferenceObject)
+        if (isModern) {
+            binding.modernPrompt.username = getUserName(preferenceObject)
             return
         }
-
-        username.text =
-            "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}>"
+        username.text = "${getUserNamePrefix(preferenceObject)}${getUserName(preferenceObject)}>"
     }
     private fun getCommandInstance(commandName: String): BaseCommand? {
         val cachedCommand = commandCache.find { it.containsKey(commandName) }
@@ -376,6 +328,8 @@ class Terminal(
         }
     }
     private fun finishInitialization() {
+        // Update reactive font state so the Compose input prompt recomposes with the real font
+        binding.modernPrompt.fontFamily = typeface?.let { androidx.compose.ui.text.font.FontFamily(it) }
         printIntro()
         if (isPro(activity)) {
             Thread {
@@ -398,7 +352,7 @@ class Terminal(
             cmdHistoryCursor++
             binding.cmdInput.setText(cmdHistory[cmdHistoryCursor])
             binding.cmdInput.setSelection(binding.cmdInput.text!!.length)
-            requestCmdInputFocusAndShowKeyboard(activity, binding)
+            requestCmdInputFocusAndShowKeyboard(binding)
         }
     }
     fun cmdUp() {
@@ -407,7 +361,7 @@ class Terminal(
             cmdHistoryCursor--
             binding.cmdInput.setText(cmdHistory[cmdHistoryCursor])
             binding.cmdInput.setSelection(binding.cmdInput.text!!.length)
-            requestCmdInputFocusAndShowKeyboard(activity, binding)
+            requestCmdInputFocusAndShowKeyboard(binding)
         }
     }
     fun handleCommand(command: String, isAlias: Boolean = false, logCmd: Boolean = true) {
@@ -460,122 +414,16 @@ class Terminal(
     }
 
     private fun addChatBubble(username: String, command: String) {
-        val mainLayout = LinearLayout(activity).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                setMargins(0, 2.dpToPx(), 0, 2.dpToPx())
-                marginEnd = 8.dpToPx()
-            }
-            orientation = LinearLayout.HORIZONTAL
-            gravity = Gravity.CENTER_VERTICAL
-            background = ContextCompat.getDrawable(activity, R.drawable.round_corner_blue)
-        }
-
-        val frameLayout = FrameLayout(activity).apply {
-            layoutParams = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.MATCH_PARENT
-            )
-        }
-
-        val whiteBackground = View(activity).apply {
-            layoutParams = FrameLayout.LayoutParams(40.spToPX(), FrameLayout.LayoutParams.MATCH_PARENT)
-            background = ContextCompat.getDrawable(context, R.drawable.round_corner_white)
-        }
-        frameLayout.addView(whiteBackground)
-
-        val imageView = ImageView(activity).apply {
-            layoutParams = FrameLayout.LayoutParams(24.dpToPx(), 24.dpToPx()).apply {
-                gravity = Gravity.CENTER_VERTICAL
-                marginStart = 8.dpToPx()
-            }
-            setImageResource(R.drawable.ic_android)
-        }
-        frameLayout.addView(imageView)
-
-        mainLayout.addView(frameLayout)
-
-        val whiteTriangle = View(activity).apply {
-            layoutParams = LinearLayout.LayoutParams(24.dpToPx(), 24.dpToPx())
-            background = ContextCompat.getDrawable(activity, R.drawable.right_triangle)
-            backgroundTintList = ColorStateList.valueOf(Color.WHITE)
-        }
-        mainLayout.addView(whiteTriangle)
-
-        val usernameTextView = TextView(activity).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                marginStart = (-8).dpToPx()
-                gravity = Gravity.CENTER_VERTICAL
-            }
-            text = username
-            setTextColor(theme.commandColor)
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
-            Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")?.let { setTypeface(it, Typeface.BOLD) }
-        }
-
-        mainLayout.addView(usernameTextView)
-
-        val finalLayout = LinearLayout(activity).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            orientation = LinearLayout.HORIZONTAL
-        }
-        finalLayout.addView(mainLayout)
-
-        val bottomTriangle = View(activity).apply {
-            layoutParams = LinearLayout.LayoutParams(24.dpToPx(), 24.dpToPx()).apply {
-                setMargins(0, 2.dpToPx(), 0, 2.dpToPx())
-                marginStart = (-8).dpToPx()
-            }
-            background = ContextCompat.getDrawable(activity, R.drawable.right_triangle)
-        }
-        finalLayout.addView(bottomTriangle)
-
-        val commandTextView = TextView(activity).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                gravity = Gravity.CENTER_VERTICAL
-            }
-            text = command
-            setTextColor(theme.commandColor)
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize)
-            Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")?.let { setTypeface(it) }
-        }
-
-        finalLayout.addView(commandTextView)
-
         activity.runOnUiThread {
-            binding.terminalOutput.addView(finalLayout)
+            binding.addChatBubbleOutput(
+                username = username,
+                command = command,
+                commandColor = theme.commandColor,
+                fontSize = fontSize,
+                typeface = typeface,
+            )
         }
     }
 
-    private fun Int.dpToPx(): Int {
-        return (this * activity.resources.displayMetrics.density).toInt()
-    }
-
-    private fun Int.spToPX(): Int {
-        val scaledDensity = activity.resources.displayMetrics.scaledDensity
-        return (this * scaledDensity).roundToInt()
-    }
-
 }
 
-private fun TextView.setFont(typeface: Typeface?, style: Int?, state: Int, fontSize: Float) {
-    if (style == null) {
-        this.typeface = typeface
-    }
-    else {
-        this.setTypeface(typeface, style)
-    }
-    this.setTextColor(state)
-    this.textSize = fontSize
-}

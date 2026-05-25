@@ -23,7 +23,7 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         output(terminal.activity.getString(R.string.attempting_to_lock_device), terminal.theme.resultTextColor, Typeface.ITALIC)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             // lock by Accessibility service (for Android 9 and above)
-            lockDeviceByAccessibilityService(terminal.activity, terminal.binding)
+            lockDeviceByAccessibilityService(terminal.activity)
         }
         else {
             // lock by admin (for Android 8 and below)

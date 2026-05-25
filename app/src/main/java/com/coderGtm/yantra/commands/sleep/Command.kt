@@ -1,7 +1,5 @@
 package com.coderGtm.yantra.commands.sleep
 
-import android.view.ViewGroup
-import androidx.core.view.updateLayoutParams
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
@@ -10,6 +8,8 @@ import java.util.Timer
 import kotlin.concurrent.schedule
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
+    private var wakeActionId: String? = null
+
     override val metadata = CommandMetadata(
         name = "sleep",
         helpTitle = "sleep <millis>",
@@ -33,17 +33,40 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         }
         terminal.isSleeping = true
         terminal.activity.runOnUiThread {
-            terminal.binding.terminalOutput.addView(terminal.wakeBtn)
+            showWakeAction()
         }
-        terminal.wakeBtn.updateLayoutParams { width = ViewGroup.LayoutParams.WRAP_CONTENT }
         terminal.binding.cmdInput.isEnabled = false
         terminal.sleepTimer = Timer().schedule(milliseconds) {
             terminal.isSleeping = false
             terminal.activity.runOnUiThread {
-                terminal.binding.terminalOutput.removeView(terminal.wakeBtn)
+                hideWakeAction()
                 terminal.binding.cmdInput.isEnabled = true
                 terminal.executeCommandsInQueue()
             }
         }
+    }
+
+    private fun showWakeAction() {
+        if (wakeActionId != null) {
+            return
+        }
+        wakeActionId = terminal.binding.addActionOutput(
+            text = "Break",
+            color = terminal.theme.errorTextColor,
+            underlined = true,
+            fontSize = terminal.preferenceObject.getInt("fontSize", 16).toFloat(),
+        ) {
+            terminal.sleepTimer?.cancel()
+            terminal.isSleeping = false
+            hideWakeAction()
+            output("Yantra Launcher awakened mid-sleep (~_^)", terminal.theme.errorTextColor)
+            terminal.binding.cmdInput.isEnabled = true
+            terminal.executeCommandsInQueue()
+        }
+    }
+
+    private fun hideWakeAction() {
+        wakeActionId?.let(terminal.binding::removeOutputItem)
+        wakeActionId = null
     }
 }

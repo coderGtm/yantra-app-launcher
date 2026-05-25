@@ -15,7 +15,10 @@ interface TerminalGestureListenerCallback {
     fun onSwipeLeft()
 }
 
-class TerminalScrollView(context: Context, attrs: AttributeSet) : ScrollView(context, attrs) {
+class TerminalScrollView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+) : ScrollView(context, attrs) {
 
     private val gestureDetector: GestureDetector = GestureDetector(context, MyGestureListener())
     private var callback: TerminalGestureListenerCallback? = null
