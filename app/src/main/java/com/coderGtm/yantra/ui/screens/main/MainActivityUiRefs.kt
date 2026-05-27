@@ -15,7 +15,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
-import com.coderGtm.yantra.views.TerminalGestureListenerCallback
+import com.coderGtm.yantra.interfaces.TerminalGestureListenerCallback
 import java.util.UUID
 
 sealed class MainTerminalOutputItem(open val id: String) {

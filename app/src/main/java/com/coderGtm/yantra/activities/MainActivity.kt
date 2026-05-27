@@ -10,7 +10,7 @@ import com.coderGtm.yantra.activities.main.MainActivityCoordinator
 import com.coderGtm.yantra.ui.screens.main.MainActivityScreen
 import com.coderGtm.yantra.ui.screens.main.MainActivityUiRefs
 import com.coderGtm.yantra.ui.screens.main.createMainActivityUiRefs
-import com.coderGtm.yantra.views.TerminalGestureListenerCallback
+import com.coderGtm.yantra.interfaces.TerminalGestureListenerCallback
 
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalGestureListenerCallback {
 
