@@ -65,7 +65,7 @@ internal class MainActivityLaunchers(
         }
     }
 
-    val yantraSettingsLauncher = activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    val yantraSettings = activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
             if (data?.getBooleanExtra("settingsChanged", false) == true) {
@@ -74,7 +74,7 @@ internal class MainActivityLaunchers(
         }
     }
 
-    val sendFileLauncher = activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    val sendFile = activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.data?.also { uri ->
                 val fileName = MainActivityBehavior.buildBackupFileName()
@@ -83,7 +83,7 @@ internal class MainActivityLaunchers(
         }
     }
 
-    val selectFileLauncher = activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    val selectFile = activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.data?.also { uri ->
                 copyFile(activity, uri)
@@ -91,14 +91,14 @@ internal class MainActivityLaunchers(
         }
     }
 
-    val openResultLauncher = activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    val openCmdResult = activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == 6) {
             val errorMessage = result.data?.getStringExtra("ERR").orEmpty()
             toast(activity.baseContext, errorMessage)
         }
     }
 
-    val exportThemeLauncher = activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    val exportTheme = activity.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val fileName = activity.pendingThemeFileName
             if (fileName.isNullOrBlank()) {

@@ -78,11 +78,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     fun getPreferenceObject(): SharedPreferences = coordinator.getPreferenceObject()
 
     val pickMedia get() = coordinator.utilActivityLaunchers.pickMedia
-    val yantraSettingsLauncher get() = coordinator.utilActivityLaunchers.yantraSettingsLauncher
-    val sendFileLauncher get() = coordinator.utilActivityLaunchers.sendFileLauncher
-    val selectFileLauncher get() = coordinator.utilActivityLaunchers.selectFileLauncher
-    val openResultLauncher get() = coordinator.utilActivityLaunchers.openResultLauncher
-    val exportThemeLauncher get() = coordinator.utilActivityLaunchers.exportThemeLauncher
+    val yantraSettingsLauncher get() = coordinator.utilActivityLaunchers.yantraSettings
+    val sendFileLauncher get() = coordinator.utilActivityLaunchers.sendFile
+    val selectFileLauncher get() = coordinator.utilActivityLaunchers.selectFile
+    val openResultLauncher get() = coordinator.utilActivityLaunchers.openCmdResult
+    val exportThemeLauncher get() = coordinator.utilActivityLaunchers.exportTheme
     val getThemeFile get() = coordinator.utilActivityLaunchers.getThemeFile
     val externalEditor get() = coordinator.utilActivityLaunchers.externalEditor
 }
