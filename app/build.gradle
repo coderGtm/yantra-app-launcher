@@ -69,12 +69,6 @@ android {
     namespace 'com.coderGtm.yantra'
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-    kotlinOptions {
-        jvmTarget = '11'
-    }
-}
-
 dependencies {
 
     implementation libs.core.ktx
