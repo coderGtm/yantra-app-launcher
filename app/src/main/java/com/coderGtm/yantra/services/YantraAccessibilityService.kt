@@ -1,6 +1,7 @@
 package com.coderGtm.yantra.services
 
 import android.accessibilityservice.AccessibilityService
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -8,6 +9,7 @@ import android.content.IntentFilter
 import android.os.Build
 import android.view.accessibility.AccessibilityEvent
 
+@SuppressLint("AccessibilityPolicy")
 class YantraAccessibilityService : AccessibilityService() {
 
     companion object {
@@ -28,11 +30,12 @@ class YantraAccessibilityService : AccessibilityService() {
         }
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onServiceConnected() {
         super.onServiceConnected()
         val filter = IntentFilter(ACTION_REQUEST_LOCK_SCREEN)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(lockScreenReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
+            registerReceiver(lockScreenReceiver, filter, RECEIVER_NOT_EXPORTED)
         }
         else {
             registerReceiver(lockScreenReceiver, filter)
@@ -40,12 +43,7 @@ class YantraAccessibilityService : AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(accessibilityEvent: AccessibilityEvent) {
-        if (
-            accessibilityEvent.source?.className == "android.widget.Button" &&
-            accessibilityEvent.source?.text?.toString()?.uppercase() == "LOCKSCREEN"
-        ) {
-            performLockScreenAction()
-        }
+        // Ignore. Don't read any accessibility event.
     }
 
     private fun performLockScreenAction() {
@@ -54,7 +52,7 @@ class YantraAccessibilityService : AccessibilityService() {
                 performGlobalAction(GLOBAL_ACTION_LOCK_SCREEN)
             }
             catch (_: Exception) {
-                // Intentionally ignored to preserve existing silent-failure behavior.
+                // Silently fail.
             }
         }
     }
