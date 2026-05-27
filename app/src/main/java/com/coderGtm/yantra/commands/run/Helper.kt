@@ -6,19 +6,21 @@ import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.ui.screens.main.LuaInputSession
 
 
-fun requestInput(luaExecutor: LuaExecutor, terminal: Terminal, scriptName: String, callback: (String) -> Unit) {
+fun requestInput(luaExecutor: LuaExecutor, terminal: Terminal, scriptName: String, prompt: String, callback: (String) -> Unit) {
     val originalUsernameText = terminal.username.text
-    switchToLuaInput(terminal, luaExecutor, scriptName, originalUsernameText, callback)
+    switchToLuaInput(terminal, luaExecutor, scriptName, prompt, originalUsernameText, callback)
 }
 
 private fun switchToLuaInput(
     terminal: Terminal,
     luaExecutor: LuaExecutor,
     scriptName: String,
+    prompt: String,
     originalUsernameText: String,
     callback: (String) -> Unit,
 ) {
     terminal.binding.cmdInput.isEnabled = false
+    terminal.output(prompt, terminal.theme.inputLineTextColor, null)
     terminal.username.text = "$scriptName>"
 
     var terminateActionId = ""
