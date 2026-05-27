@@ -37,14 +37,20 @@ internal class MainActivityCoordinator(
     lateinit var terminal: Terminal
         private set
 
-    val launchers = MainActivityLaunchers(
+    /**
+     * Utility Activity Launchers
+     *
+     * Holds reference to utility activity launchers
+     * like crop image, send file, pick media, settings, etc.
+     */
+    val utilActivityLaunchers = MainActivityLaunchers(
         activity = activity,
         uiRefs = uiRefs,
         terminalProvider = { terminal },
         appProvider = { app },
     )
 
-    private val commandResultReceiver = TermuxCommandResultReceiver { result ->
+    private val termuxCommandResultReceiver = TermuxCommandResultReceiver { result ->
         handleTermuxResult(result, terminal)
     }
 
@@ -65,7 +71,7 @@ internal class MainActivityCoordinator(
         informOfProVersionIfOldUser(activity)
 
         LocalBroadcastManager.getInstance(activity).registerReceiver(
-            commandResultReceiver,
+            termuxCommandResultReceiver,
             IntentFilter(TermuxCommandService.ACTION_COMMAND_RESULT),
         )
 
@@ -100,7 +106,7 @@ internal class MainActivityCoordinator(
     }
 
     fun onDestroy() {
-        LocalBroadcastManager.getInstance(activity).unregisterReceiver(commandResultReceiver)
+        LocalBroadcastManager.getInstance(activity).unregisterReceiver(termuxCommandResultReceiver)
     }
 
     fun onSingleTap() {
