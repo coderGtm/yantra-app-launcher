@@ -4,8 +4,6 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.view.KeyEvent
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.WindowCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.coderGtm.yantra.R
@@ -90,10 +88,6 @@ internal class MainActivityCoordinator(
     }
 
     fun onRestart() {
-        val unwrappedCursorDrawable = AppCompatResources.getDrawable(activity, R.drawable.cursor_drawable)
-        val wrappedCursorDrawable = DrawableCompat.wrap(unwrappedCursorDrawable!!)
-        DrawableCompat.setTint(wrappedCursorDrawable, terminal.theme.inputLineTextColor)
-
         Thread {
             requestUpdateIfAvailable(app.preferenceObject, activity)
         }.start()

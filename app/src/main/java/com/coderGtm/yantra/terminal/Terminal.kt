@@ -1,7 +1,6 @@
 package com.coderGtm.yantra.terminal
 
 import android.app.Activity
-import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -12,9 +11,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.provider.FontRequest
 import androidx.core.provider.FontsContractCompat
 import androidx.core.view.ViewCompat
@@ -129,11 +126,7 @@ class Terminal(
         binding.suggestionsTab.backgroundColorInt = theme.suggestionBgColor
         username.setTextColor(theme.inputLineTextColor)
         binding.cmdInput.setTextColor(theme.inputLineTextColor)
-        val unwrappedCursorDrawable = AppCompatResources.getDrawable(activity,
-            R.drawable.cursor_drawable
-        )
-        val wrappedCursorDrawable = DrawableCompat.wrap(unwrappedCursorDrawable!!)
-        DrawableCompat.setTint(wrappedCursorDrawable, theme.inputLineTextColor)
+        binding.cmdInput.cursorColorInt = theme.inputLineTextColor
         binding.upBtn.setTextColor(theme.resultTextColor)
         binding.downBtn.setTextColor(theme.resultTextColor)
     }
