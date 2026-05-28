@@ -35,7 +35,7 @@ internal fun MainActivityOverlayControls(
         Row(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(end = 15.dp, bottom = 40.dp),
+                .padding(end = 15.dp, bottom = 50.dp),
             horizontalArrangement = Arrangement.spacedBy(5.dp),
         ) {
             MainActivityArrowButton(controller = uiRefs.upBtn)
