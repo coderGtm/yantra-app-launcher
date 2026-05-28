@@ -25,6 +25,7 @@ import com.coderGtm.yantra.ui.screens.main.MainSuggestionItem
 import com.coderGtm.yantra.ui.screens.main.toComposeFontStyle
 import com.coderGtm.yantra.ui.screens.main.toComposeFontWeight
 import java.util.Locale
+import androidx.compose.ui.platform.LocalLocale
 
 @Composable
 internal fun MainActivityOverlayControls(
@@ -75,7 +76,7 @@ private fun MainActivityArrowButton(controller: ComposeButtonController) {
 @Composable
 private fun MainActivitySuggestionChip(item: MainSuggestionItem) {
     Text(
-        text = item.text.uppercase(Locale.getDefault()),
+        text = item.text.uppercase(LocalLocale.current.platformLocale),
         color = Color(item.color),
         fontSize = item.fontSize.sp,
         fontFamily = item.typeface?.let { FontFamily(it) },
