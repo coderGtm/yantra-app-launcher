@@ -103,6 +103,24 @@ private fun PromptPill(
     }
 }
 
+@Composable
+private fun PromptWithTrailingChevron(
+    username: String,
+    fontSize: Float,
+    fontFamily: FontFamily?,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+            .height(IntrinsicSize.Min)
+            .padding(vertical = 3.dp)
+    ) {
+        PromptPill(username = username, fontSize = fontSize, fontFamily = fontFamily)
+        RightChevron(color = BubbleBlue, width = 10.dp)
+    }
+}
+
 /**
  * Static input-line prompt: pill + trailing blue chevron before the EditText.
  */
@@ -112,15 +130,11 @@ fun ModernInputPrompt(
     fontSize: Float = 16f,
     fontFamily: FontFamily? = null
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .height(IntrinsicSize.Min)
-            .padding(vertical = 3.dp)   // outer spacing — keeps pill compact inside
-    ) {
-        PromptPill(username = username, fontSize = fontSize, fontFamily = fontFamily)
-        RightChevron(color = BubbleBlue, width = 10.dp)
-    }
+    PromptWithTrailingChevron(
+        username = username,
+        fontSize = fontSize,
+        fontFamily = fontFamily,
+    )
 }
 
 /**
@@ -135,20 +149,20 @@ fun ModernChatBubble(
     fontFamily: FontFamily? = null
 ) {
     Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .height(IntrinsicSize.Min)
-            .padding(vertical = 3.dp)   // same outer spacing as input prompt
+        verticalAlignment = Alignment.Top,
     ) {
-        PromptPill(username = username, fontSize = fontSize, fontFamily = fontFamily)
-        RightChevron(color = BubbleBlue, width = 10.dp)
+        PromptWithTrailingChevron(
+            username = username,
+            fontSize = fontSize,
+            fontFamily = fontFamily,
+        )
         Text(
             text = command,
             color = commandColor,
             fontSize = fontSize.sp,
             fontFamily = fontFamily,
             lineHeight = fontSize.sp,
-            modifier = Modifier.padding(start = 4.dp, top = 0.dp, bottom = 0.dp)
+            modifier = Modifier.padding(start = 4.dp, top = 3.dp, bottom = 3.dp)
         )
     }
 }
