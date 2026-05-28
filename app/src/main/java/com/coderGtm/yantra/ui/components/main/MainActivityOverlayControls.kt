@@ -58,7 +58,6 @@ internal fun MainActivityOverlayControls(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun MainActivityArrowButton(controller: ComposeButtonController) {
     if (controller.visibility != View.VISIBLE) {
@@ -73,7 +72,6 @@ private fun MainActivityArrowButton(controller: ComposeButtonController) {
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun MainActivitySuggestionChip(item: MainSuggestionItem) {
     Text(
