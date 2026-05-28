@@ -86,7 +86,7 @@ dependencies {
     implementation libs.acra.dialog
     implementation libs.activity.ktx
     implementation libs.activity.compose
-    implementation libs.core
+    implementation libs.markdown.renderer.m3
     proImplementation libs.webkit
     implementation libs.android.image.cropper
     implementation libs.luaj.jse
