@@ -65,11 +65,7 @@ internal fun MainActivityTerminalPane(
             .fillMaxSize()
             .pointerInput(uiRefs) {
                 detectTapGestures(
-                    onPress = {
-                        if (tryAwaitRelease()) {
-                            uiRefs.scrollView.onSingleTap()
-                        }
-                    },
+                    onTap = { uiRefs.scrollView.onSingleTap() },
                     onDoubleTap = { uiRefs.scrollView.onDoubleTap() },
                 )
             }
@@ -178,24 +174,26 @@ private fun MainActivityTextOutput(item: MainTerminalOutputItem.Text) {
             fontWeight = item.style.toComposeFontWeight(),
             fontStyle = item.style.toComposeFontStyle(),
         )
-        Markdown(
-            content = item.text,
-            colors = markdownColor(text = itemColor),
-            typography = markdownTypography(
-                text = baseTextStyle,
-                paragraph = baseTextStyle,
-                h1 = baseTextStyle.copy(fontSize = (item.fontSize * 2f).sp),
-                h2 = baseTextStyle.copy(fontSize = (item.fontSize * 1.5f).sp),
-                h3 = baseTextStyle.copy(fontSize = (item.fontSize * 1.17f).sp),
-                h4 = baseTextStyle.copy(fontSize = (item.fontSize * 1f).sp),
-                h5 = baseTextStyle.copy(fontSize = (item.fontSize * 0.83f).sp),
-                h6 = baseTextStyle.copy(fontSize = (item.fontSize * 0.67f).sp),
-                code = baseTextStyle.copy(fontFamily = FontFamily.Monospace),
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 2.dp),
-        )
+        SelectionContainer {
+            Markdown(
+                content = item.text,
+                colors = markdownColor(text = itemColor),
+                typography = markdownTypography(
+                    text = baseTextStyle,
+                    paragraph = baseTextStyle,
+                    h1 = baseTextStyle.copy(fontSize = (item.fontSize * 2f).sp),
+                    h2 = baseTextStyle.copy(fontSize = (item.fontSize * 1.5f).sp),
+                    h3 = baseTextStyle.copy(fontSize = (item.fontSize * 1.17f).sp),
+                    h4 = baseTextStyle.copy(fontSize = (item.fontSize * 1f).sp),
+                    h5 = baseTextStyle.copy(fontSize = (item.fontSize * 0.83f).sp),
+                    h6 = baseTextStyle.copy(fontSize = (item.fontSize * 0.67f).sp),
+                    code = baseTextStyle.copy(fontFamily = FontFamily.Monospace),
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 2.dp),
+            )
+        }
     } else {
         val baseStyle = SpanStyle(
             color = itemColor,
@@ -204,7 +202,7 @@ private fun MainActivityTextOutput(item: MainTerminalOutputItem.Text) {
             fontWeight = item.style.toComposeFontWeight(),
             fontStyle = item.style.toComposeFontStyle(),
         )
-        val text = remember(item.id, baseStyle) {
+        val text = remember(item.id, item.text, baseStyle) {
             buildAnnotatedString {
                 append(item.text)
                 addStyle(baseStyle, 0, item.text.length)
