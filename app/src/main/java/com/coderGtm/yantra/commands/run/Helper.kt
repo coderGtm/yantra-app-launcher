@@ -2,6 +2,7 @@ package com.coderGtm.yantra.commands.run
 
 import android.view.View
 import com.coderGtm.yantra.LuaExecutor
+import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.ui.screens.main.LuaInputSession
 
@@ -22,6 +23,7 @@ private fun switchToLuaInput(
     terminal.binding.cmdInput.isEnabled = false
     terminal.output(prompt, terminal.theme.inputLineTextColor, null)
     terminal.username.text = "$scriptName>"
+    terminal.binding.modernPrompt.username = "$scriptName>"
 
     var terminateActionId = ""
     terminateActionId = terminal.binding.addActionOutput(
@@ -63,5 +65,6 @@ private fun switchToCmdInput(terminal: Terminal, terminateActionId: String, orig
     terminal.binding.cmdInput.visibility = View.VISIBLE
     terminal.binding.cmdInput.isEnabled = true
     terminal.username.text = originalUsernameText
+    terminal.binding.modernPrompt.username = getUserName(terminal.preferenceObject)
     terminal.binding.requestCommandInputFocus()
 }
