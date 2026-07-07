@@ -113,6 +113,26 @@ class MainActivityUiRefs(
         return item.id
     }
 
+    fun updateTextOutput(
+        id: String,
+        text: String,
+        color: Int,
+        style: Int?,
+        markdown: Boolean,
+        typeface: Typeface?,
+        fontSize: Float,
+    ) {
+        terminalOutput.updateText(
+            id = id,
+            text = text,
+            color = color,
+            style = style,
+            markdown = markdown,
+            typeface = typeface,
+            fontSize = fontSize,
+        )
+    }
+
     fun addChatBubbleOutput(
         username: String,
         command: String,
@@ -376,6 +396,28 @@ class ComposeOutputController {
     fun removeById(id: String) {
         items.removeAll { it.id == id }
     }
+
+    fun updateText(
+        id: String,
+        text: String,
+        color: Int,
+        style: Int?,
+        markdown: Boolean,
+        typeface: Typeface?,
+        fontSize: Float,
+    ) {
+        val index = items.indexOfFirst { it.id == id }
+        if (index == -1) return
+        items[index] = MainTerminalOutputItem.Text(
+            id = id,
+            text = text,
+            color = color,
+            style = style,
+            markdown = markdown,
+            typeface = typeface,
+            fontSize = fontSize,
+        )
+    }
 }
 
 class ComposeScrollController(
@@ -419,6 +461,5 @@ class ComposeScrollController(
         }
     }
 }
-
 
 

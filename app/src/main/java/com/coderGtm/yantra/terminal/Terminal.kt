@@ -43,6 +43,7 @@ import com.coderGtm.yantra.showRatingAndCommunityPopups
 import com.coderGtm.yantra.ui.screens.main.MainActivityUiRefs
 import com.coderGtm.yantra.vibrate
 import java.io.File
+import java.util.concurrent.CountDownLatch
 import java.util.TimerTask
 
 class Terminal(
@@ -261,10 +262,11 @@ class Terminal(
         val n = preferenceObject.getLong("numOfCmdsEntered",0)
         preferenceEditObject.putLong("numOfCmdsEntered",n+1).apply()
     }
-    fun output(text: String, color: Int, style: Int?, markdown: Boolean = false) {
+    fun output(text: String, color: Int, style: Int?, markdown: Boolean = false): String {
         val renderColor = dominantFontColor ?: color
-        activity.runOnUiThread {
-            binding.addTextOutput(
+        var outputId: String? = null
+        val addOutput = {
+            outputId = binding.addTextOutput(
                 text = text,
                 color = renderColor,
                 style = style,
@@ -273,7 +275,36 @@ class Terminal(
                 fontSize = fontSize,
             )
         }
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            addOutput()
+        } else {
+            val latch = CountDownLatch(1)
+            activity.runOnUiThread {
+                addOutput()
+                latch.countDown()
+            }
+            latch.await()
+        }
         // if error then vibrate
+        if (renderColor == theme.errorTextColor && vibrationPermission) {
+            vibrate(activity = activity)
+        }
+        return outputId!!
+    }
+
+    fun updateOutputItem(id: String, text: String, color: Int, style: Int?, markdown: Boolean = false) {
+        val renderColor = dominantFontColor ?: color
+        activity.runOnUiThread {
+            binding.updateTextOutput(
+                id = id,
+                text = text,
+                color = renderColor,
+                style = style,
+                markdown = markdown,
+                typeface = typeface,
+                fontSize = fontSize,
+            )
+        }
         if (renderColor == theme.errorTextColor && vibrationPermission) {
             vibrate(activity = activity)
         }
@@ -419,4 +450,3 @@ class Terminal(
     }
 
 }
-

@@ -87,6 +87,7 @@ class SettingsActivity : AppCompatActivity() {
     private var initCmdLog                   by mutableStateOf(false)
     private var useModernPromptDesign        by mutableStateOf(false)
     private var disableAds                   by mutableStateOf(false)
+    private var streamAiResponse             by mutableStateOf(true)
     private var fontSizeText                 by mutableStateOf("16")
     private var arrowSizeText                by mutableStateOf("65")
     private var orientationText              by mutableStateOf("")
@@ -191,6 +192,7 @@ class SettingsActivity : AppCompatActivity() {
         initCmdLog                       = preferenceObject.getBoolean("initCmdLog", false)
         useModernPromptDesign            = preferenceObject.getBoolean("useModernPromptDesign", false)
         disableAds                       = preferenceObject.getBoolean("disableAds", false)
+        streamAiResponse                 = preferenceObject.getBoolean("streamAiResponse", true)
         fontSizeText                     = preferenceObject.getInt("fontSize", 16).toString()
         arrowSizeText                    = preferenceObject.getInt("arrowSize", 65).toString()
         orientationText                  = getOrientationText(this, preferenceObject.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT))
@@ -286,7 +288,9 @@ class SettingsActivity : AppCompatActivity() {
                     onOpenApiProviderSetter    = { openAiApiProviderSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) },
                     onOpenApiKeySetter         = { openAiApiKeySetter(this@SettingsActivity, preferenceObject, preferenceEditObject) },
                     onOpenModelSetter          = { openAiModelSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) },
-                    onOpenSystemPromptSetter   = { openAiSystemPromptSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
+                    onOpenSystemPromptSetter   = { openAiSystemPromptSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) },
+                    streamAiResponse           = streamAiResponse,
+                    onStreamAiResponseChange   = { streamAiResponse = it; preferenceEditObject.putBoolean("streamAiResponse", it).apply(); changedSettingsCallback(this@SettingsActivity) }
                 )
             }
 

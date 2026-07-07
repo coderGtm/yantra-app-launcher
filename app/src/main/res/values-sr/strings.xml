@@ -680,6 +680,7 @@
     <string name="change_ai_model">Промени AI модел</string>
     <string name="ai_model_description">Унесите идентификатор AI модела</string>
     <string name="ai_model_updated">AI модел је ажуриран!</string>
+    <string name="stream_ai_response">Стримовање AI одговора</string>
     <string name="cannot_bt_restrictions">Не могу да променим стање Bluetooth-а на овој верзији Android-а због системских ограничења.</string>
     <string name="failed_to_update_script">Неуспешно ажурирање скрипте!</string>
     <string name="select_option_for_editing">Изаберите опцију за уређивање %1$s</string>

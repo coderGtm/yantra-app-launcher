@@ -666,6 +666,7 @@
     <string name="change_ai_model">Cambia modello dell\'IA</string>
     <string name="ai_model_description">Inserici la stringa per il tuo modello IA</string>
     <string name="ai_model_updated">Modello dell\'IA aggiornato!</string>
+    <string name="stream_ai_response">Trasmetti la risposta dell\'IA</string>
     <string name="cannot_bt_restrictions">Non è possibile cambiare lo stato del Bluetooth in questa versione d Android a causa di restrizioni del sistema.</string>
     <string name="failed_to_update_script">Aggiornamento dello script fallito!</string>
     <string name="select_option_for_editing">Seleziona un\'opzione per modificare %1$s</string>

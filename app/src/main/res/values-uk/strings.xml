@@ -664,6 +664,7 @@
     <string name="change_ai_model">Змінити модель AI</string>
     <string name="ai_model_description">Введіть слаг (ідентифікатор) моделі для вашого AI</string>
     <string name="ai_model_updated">Модель AI оновлено!</string>
+    <string name="stream_ai_response">Потокова передача відповіді AI</string>
     <string name="cannot_bt_restrictions">Неможливо перемкнути Bluetooth через обмеження цієї версії Android.</string>
     <string name="failed_to_update_script">Не вдалося оновити скрипт!</string>
     <string name="select_option_for_editing">Виберіть опцію для редагування %1$s</string>
