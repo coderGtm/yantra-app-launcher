@@ -12,7 +12,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
@@ -21,18 +20,16 @@ import android.os.Vibrator
 import android.provider.ContactsContract
 import android.provider.OpenableColumns
 import android.util.TypedValue
-import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.drawable.toDrawable
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
-import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.models.Alias
 import com.coderGtm.yantra.models.Contacts
 import com.coderGtm.yantra.models.Suggestion
 import com.coderGtm.yantra.models.Theme
 import com.coderGtm.yantra.terminal.Terminal
+import com.coderGtm.yantra.ui.screens.main.MainActivityUiRefs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.UpdateAvailability
@@ -42,7 +39,6 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.Timer
-import kotlin.concurrent.schedule
 import kotlin.concurrent.timerTask
 import androidx.core.graphics.toColorInt
 import androidx.core.content.edit
@@ -109,7 +105,7 @@ fun clearLauncherBackground(activity: Activity, preferenceObject: SharedPreferen
     preferenceObject.edit { putBoolean("defaultWallpaper", true) }
 }
 
-fun applyLauncherBackground(activity: Activity, binding: ActivityMainBinding, preferenceObject: SharedPreferences, fallbackColor: Int) {
+fun applyLauncherBackground(activity: Activity, binding: MainActivityUiRefs, preferenceObject: SharedPreferences, fallbackColor: Int) {
     val useSystemWallpaper = preferenceObject.getBoolean("useSystemWallpaper", false)
     val shouldUseCustomImage = !useSystemWallpaper && !preferenceObject.getBoolean("defaultWallpaper", true)
     val backgroundBitmap = if (shouldUseCustomImage) {
@@ -118,24 +114,14 @@ fun applyLauncherBackground(activity: Activity, binding: ActivityMainBinding, pr
         null
     }
 
-    val backgroundImage = activity.findViewById<ImageView>(R.id.backgroundImage)
-    backgroundImage?.setImageBitmap(backgroundBitmap)
-    val rootBackground: Drawable = if (useSystemWallpaper) {
-        Color.TRANSPARENT.toDrawable()
-    } else {
-        fallbackColor.toDrawable()
-    }
-    binding.rootLayout.background = rootBackground
+    binding.backgroundBitmap = backgroundBitmap
+    binding.backgroundColorInt = if (useSystemWallpaper) Color.TRANSPARENT else fallbackColor
     activity.window.setBackgroundDrawable(if (useSystemWallpaper) Color.TRANSPARENT.toDrawable() else fallbackColor.toDrawable())
     activity.window.navigationBarColor = Color.TRANSPARENT
 }
-fun requestCmdInputFocusAndShowKeyboard(activity: Activity, binding: ActivityMainBinding) {
-    binding.cmdInput.requestFocus()
-    val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.showSoftInput(binding.cmdInput, InputMethodManager.SHOW_IMPLICIT)
-    Timer().schedule(250) {
-        binding.scrollView.scrollToBottom()
-    }
+fun requestCmdInputFocusAndShowKeyboard(binding: MainActivityUiRefs) {
+    binding.requestCommandInputFocus(showKeyboard = true)
+    binding.scrollView.scrollToBottom()
 }
 @SuppressLint("Range")
 fun contactsManager(terminal: Terminal, callingIntent: Boolean = false, callTo: String = ""): List<Contacts> {

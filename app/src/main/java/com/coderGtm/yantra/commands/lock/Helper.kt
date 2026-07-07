@@ -10,7 +10,6 @@ import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
-import com.coderGtm.yantra.databinding.ActivityMainBinding
 import com.coderGtm.yantra.listeners.AdminReceiver
 import com.coderGtm.yantra.services.YantraAccessibilityService
 
@@ -23,9 +22,9 @@ fun isAccessibilityServiceEnabled(context: Context): Boolean {
     return prefString != null && prefString.contains(context.packageName.toString() + "/" + YantraAccessibilityService::class.java.name)
 }
 
-fun lockDeviceByAccessibilityService(activity: Activity, binding: ActivityMainBinding) {
+fun lockDeviceByAccessibilityService(activity: Activity) {
     if (isAccessibilityServiceEnabled(activity)) {
-        binding.lockView.performClick()
+        YantraAccessibilityService.requestLockScreen(activity)
     }
     else {
         YantraLauncherDialog(activity).showInfo(
@@ -42,11 +41,11 @@ fun lockDeviceByAccessibilityService(activity: Activity, binding: ActivityMainBi
 
 fun lockDeviceByAdmin(activity: Activity) {
     val pm = activity.getSystemService(AppCompatActivity.POWER_SERVICE) as PowerManager
-    if (pm.isScreenOn) {
+    if (pm.isInteractive) {
         val policy = activity.getSystemService(AppCompatActivity.DEVICE_POLICY_SERVICE) as DevicePolicyManager
         try {
             policy.lockNow()
-        } catch (ex: SecurityException) {
+        } catch (_: SecurityException) {
             YantraLauncherDialog(activity).showInfo(
                 title = activity.getString(R.string.enable_locking_device),
                 message = activity.getString(R.string.lock_by_device_admin_explainer),

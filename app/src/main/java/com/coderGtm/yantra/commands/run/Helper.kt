@@ -1,82 +1,70 @@
 package com.coderGtm.yantra.commands.run
 
-import android.os.Build
-import android.text.SpannableString
-import android.text.style.UnderlineSpan
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import com.coderGtm.yantra.LuaExecutor
-import com.coderGtm.yantra.R
+import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.terminal.Terminal
+import com.coderGtm.yantra.ui.screens.main.LuaInputSession
 
 
-fun requestInput(luaExecutor: LuaExecutor, terminal: Terminal, scriptName: String, callback: (String) -> Unit) {
-    val luaInput = EditText(terminal.activity)
-    val terminateBtn = TextView(terminal.activity)
-    val originalUsernameText = terminal.username.text.toString()
-    switchToLuaInput(terminal, luaExecutor, scriptName, luaInput, terminateBtn, originalUsernameText)
-    luaInput.setTextColor(terminal.theme.inputLineTextColor)
-    luaInput.setOnEditorActionListener { _, actionId, _ ->
-        if (actionId == EditorInfo.IME_ACTION_DONE) {
-            val input = luaInput.text.toString()
-            switchToCmdInput(terminal, luaInput, terminateBtn, originalUsernameText)
-            callback(input)
-        }
-        false
-    }
+fun requestInput(luaExecutor: LuaExecutor, terminal: Terminal, scriptName: String, prompt: String, callback: (String) -> Unit) {
+    val originalUsernameText = terminal.username.text
+    switchToLuaInput(terminal, luaExecutor, scriptName, prompt, originalUsernameText, callback)
 }
 
-private fun switchToLuaInput(terminal: Terminal, luaExecutor: LuaExecutor, scriptName: String, luaInput: EditText, terminateBtn: TextView, originalUsernameText: String) {
+private fun switchToLuaInput(
+    terminal: Terminal,
+    luaExecutor: LuaExecutor,
+    scriptName: String,
+    prompt: String,
+    originalUsernameText: String,
+    callback: (String) -> Unit,
+) {
     terminal.binding.cmdInput.isEnabled = false
+    terminal.output(prompt, terminal.theme.inputLineTextColor, null)
     terminal.username.text = "$scriptName>"
+    terminal.binding.modernPrompt.username = "$scriptName>"
 
-    luaInput.imeOptions = EditorInfo.IME_ACTION_DONE
-    luaInput.isSingleLine = true
-    luaInput.hint = "Enter your input here"
-    luaInput.textSize = terminal.preferenceObject.getInt("fontSize", 16).toFloat()
-    val param = LinearLayout.LayoutParams(
-        LinearLayout.LayoutParams.WRAP_CONTENT,
-        LinearLayout.LayoutParams.WRAP_CONTENT,
-        1.0f
-    )
-    luaInput.setLayoutParams(param)
-    luaInput.background = null
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        luaInput.textCursorDrawable = AppCompatResources.getDrawable(terminal.activity.baseContext, R.drawable.cursor_drawable)
-    }
-
-    val spannable = SpannableString("[Terminate Script]")
-    spannable.setSpan(UnderlineSpan(), 0, spannable.length, 0)
-    terminateBtn.text = spannable
-    terminateBtn.textSize = terminal.preferenceObject.getInt("fontSize", 16).toFloat()
-    terminateBtn.setTextColor(terminal.theme.errorTextColor)
-    // button should not go to next line
-    terminateBtn.isSingleLine = true
-    terminateBtn.setOnClickListener {
-        terminal.binding.terminalOutput.removeView(terminateBtn)
-        terminal.binding.inputLineLayout.removeView(luaInput)
-        terminal.binding.cmdInput.visibility = View.VISIBLE
-        terminal.binding.cmdInput.isEnabled = true
-        terminal.username.text = originalUsernameText
-        terminal.binding.cmdInput.requestFocus()
-        // terminate the lua script
+    var terminateActionId = ""
+    terminateActionId = terminal.binding.addActionOutput(
+        text = "[Terminate Script]",
+        color = terminal.theme.errorTextColor,
+        underlined = true,
+        fontSize = terminal.preferenceObject.getInt("fontSize", 16).toFloat(),
+    ) {
+        switchToCmdInput(terminal, terminateActionId = terminateActionId, originalUsernameText = originalUsernameText)
         luaExecutor.terminate()
     }
+
     terminal.binding.cmdInput.visibility = View.GONE
-    terminal.binding.inputLineLayout.addView(luaInput)
-    terminal.binding.terminalOutput.addView(terminateBtn)
-    luaInput.requestFocus()
+    terminal.binding.showLuaInput(
+        LuaInputSession(
+            scriptName = scriptName,
+            originalUsernameText = originalUsernameText,
+            placeholder = "Enter your input here",
+            onSubmit = { input ->
+                switchToCmdInput(terminal, terminateActionId = terminateActionId, originalUsernameText = originalUsernameText)
+                callback(input)
+            },
+            onTerminate = {
+                switchToCmdInput(terminal, terminateActionId = terminateActionId, originalUsernameText = originalUsernameText)
+                luaExecutor.terminate()
+            },
+            color = terminal.theme.inputLineTextColor,
+            fontSize = terminal.preferenceObject.getInt("fontSize", 16).toFloat(),
+            cursorColor = terminal.theme.inputLineTextColor,
+            typeface = terminal.typeface,
+        ),
+    )
+    terminal.binding.requestLuaInputFocus()
 }
 
-private fun switchToCmdInput(terminal: Terminal, luaInput: EditText, terminateBtn: TextView, originalUsernameText: String) {
-    terminal.binding.terminalOutput.removeView(terminateBtn)
-    terminal.binding.inputLineLayout.removeView(luaInput)
+private fun switchToCmdInput(terminal: Terminal, terminateActionId: String, originalUsernameText: String) {
+    terminal.binding.removeOutputItem(terminateActionId)
+    terminal.binding.clearLuaInput()
     terminal.binding.cmdInput.visibility = View.VISIBLE
     terminal.binding.cmdInput.isEnabled = true
     terminal.username.text = originalUsernameText
-    terminal.binding.cmdInput.requestFocus()
+    terminal.binding.modernPrompt.username = getUserName(terminal.preferenceObject)
+    terminal.binding.requestCommandInputFocus()
 }

@@ -54,9 +54,9 @@ class LuaExecutor(private val scriptName: String, private val terminal: Terminal
     private inner class InputFunction : OneArgFunction() {
         override fun call(prompt: LuaValue): LuaValue {
             val deferred = CompletableDeferred<String>()
-            val promptString = prompt.tojstring()
+            val promptString = if (prompt.isnil()) "" else prompt.tojstring()
             terminal.activity.runOnUiThread {
-                requestInput(this@LuaExecutor, terminal, scriptName) { input ->
+                requestInput(this@LuaExecutor, terminal, scriptName, promptString) { input ->
                     deferred.complete(input)
                 }
             }
