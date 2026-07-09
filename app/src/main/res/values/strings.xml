@@ -741,6 +741,12 @@
     <string name="font">Font</string>
     <string name="arrow_keys">Arrow Keys</string>
     <string name="suggestions">Suggestions</string>
+    <string name="plugins">Plugins</string>
+    <string name="manage_your_plugins">Manage Your Plugins</string>
+    <string name="plugin_manager_description">Turn plugins on or off and check their status.</string>
+    <string name="plugin_count_summary">%1$d/%2$d enabled</string>
+    <string name="plugin_version_pill">v%1$s</string>
+    <string name="plugin_author_label">By %1$s</string>
     <string name="gestures">Gestures</string>
     <string name="keyboard">Keyboard</string>
     <string name="advanced">Advanced</string>

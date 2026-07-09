@@ -739,6 +739,12 @@
     <string name="font">Шрифт</string>
     <string name="arrow_keys">Клавиши-стрелки</string>
     <string name="suggestions">Подсказки</string>
+    <string name="plugins">Плагины</string>
+    <string name="manage_your_plugins">Управление плагинами</string>
+    <string name="plugin_manager_description">Включайте или отключайте плагины и проверяйте их состояние.</string>
+    <string name="plugin_count_summary">%1$d/%2$d включено</string>
+    <string name="plugin_version_pill">v%1$s</string>
+    <string name="plugin_author_label">Автор: %1$s</string>
     <string name="gestures">Жесты</string>
     <string name="keyboard">Клавиатура</string>
     <string name="advanced">Дополнительно</string>
