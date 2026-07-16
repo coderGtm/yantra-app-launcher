@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.ui.components.settingsItem.ButtonSetting
+import com.coderGtm.yantra.ui.components.settingsItem.ToggleSetting
 import com.coderGtm.yantra.ui.components.containers.SettingsGroup
 
 /** Shown only for Pro users. Wrap in `if (isProUser)` at call site. */
@@ -14,6 +15,8 @@ fun AiGroup(
     onOpenApiKeySetter: () -> Unit,
     onOpenModelSetter: () -> Unit,
     onOpenSystemPromptSetter: () -> Unit,
+    streamAiResponse: Boolean,
+    onStreamAiResponseChange: (Boolean) -> Unit,
 ) {
     SettingsGroup(title = stringResource(R.string.ai)) {
         ButtonSetting(
@@ -31,10 +34,15 @@ fun AiGroup(
             onClick = onOpenModelSetter
         )
         HorizontalDivider()
+        ToggleSetting(
+            title = stringResource(R.string.stream_ai_response),
+            checked = streamAiResponse,
+            onCheckedChange = onStreamAiResponseChange
+        )
+        HorizontalDivider()
         ButtonSetting(
             title   = stringResource(R.string.change_ai_system_prompt),
             onClick = onOpenSystemPromptSetter
         )
     }
 }
-

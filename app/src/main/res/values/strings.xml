@@ -680,6 +680,7 @@
     <string name="change_ai_model">Change AI Model</string>
     <string name="ai_model_description">Enter the model slug for your AI</string>
     <string name="ai_model_updated">AI model updated!</string>
+    <string name="stream_ai_response">Stream AI Response</string>
     <string name="cannot_bt_restrictions">Cannot toggle Bluetooth state on this version of Android due to system restrictions.</string>
     <string name="failed_to_update_script">Failed to update script!</string>
     <string name="select_option_for_editing">Select an option for editing %1$s</string>

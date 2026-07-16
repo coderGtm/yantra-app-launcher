@@ -1,15 +1,27 @@
 package com.coderGtm.yantra.commands.ai
 
 import android.graphics.Typeface
-import com.android.volley.DefaultRetryPolicy
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
 import com.coderGtm.yantra.AI_SYSTEM_PROMPT
 import com.coderGtm.yantra.DEFAULT_AI_API_DOMAIN
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.models.CommandMetadata
+import com.coderGtm.yantra.network.HttpClientProvider
 import com.coderGtm.yantra.terminal.Terminal
+import io.ktor.client.request.header
+import io.ktor.client.request.preparePost
+import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsChannel
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
+import io.ktor.http.contentType
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import kotlin.coroutines.cancellation.CancellationException
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -34,40 +46,61 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         val url = "https://$apiDomain/v1/chat/completions"
         val apiKey = terminal.preferenceObject.getString("aiApiKey", "") ?: ""
         val systemPrompt = terminal.preferenceObject.getString("aiSystemPrompt", AI_SYSTEM_PROMPT) ?: AI_SYSTEM_PROMPT
-        val requestBody = getRequestBody(systemPrompt, message, terminal)
+        val shouldStream = terminal.preferenceObject.getBoolean("streamAiResponse", true)
+        val requestBody = getRequestBody(systemPrompt, message, shouldStream, terminal)
 
         if (apiKey == "") {
             output(terminal.activity.getString(R.string.no_ai_api_key_found), terminal.theme.errorTextColor, Typeface.BOLD_ITALIC)
             return
         }
 
-        // Create a Volley request
-        val request = object: JsonObjectRequest(
-            Method.POST,
-            url,
-            requestBody,
-            { response ->
-                handleResponse(response, this@Command, requestBody)
-            },
-            { error ->
-                handleError(error, this@Command)
-            }
-        )
-
-        {
-            override fun getHeaders(): MutableMap<String, String> {
-                val headers = HashMap<String, String>()
-                headers["Authorization"] = "Bearer $apiKey"
-                headers["Content-Type"] = "application/json"
-                return headers
-            }
+        val streamingOutputId = if (shouldStream) {
+            output(
+                text = terminal.activity.getString(R.string.communicating_with_ai),
+                state = terminal.theme.resultTextColor,
+                style = Typeface.BOLD_ITALIC
+            )
+        } else {
+            null
         }
 
-        request.retryPolicy = DefaultRetryPolicy(1000 * 60 * 5, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+        if (!shouldStream) {
+            output(terminal.activity.getString(R.string.communicating_with_ai), terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
+        }
 
-        // Add the request to the Volley queue for execution
-        val requestQueue = Volley.newRequestQueue(terminal.activity)
-        requestQueue.add(request)
-        output(terminal.activity.getString(R.string.communicating_with_ai), terminal.theme.resultTextColor, Typeface.BOLD_ITALIC)
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                if (shouldStream) {
+                    withContext(Dispatchers.IO) {
+                        HttpClientProvider.client.preparePost(url) {
+                            header(HttpHeaders.Authorization, "Bearer $apiKey")
+                            contentType(ContentType.Application.Json)
+                            setBody(requestBody.toString())
+                        }.execute { response ->
+                            handleStreamingResponse(
+                                responseChannel = response.bodyAsChannel(),
+                                command = this@Command,
+                                requestBody = requestBody,
+                                outputId = streamingOutputId!!
+                            )
+                        }
+                    }
+                } else {
+                    val responseText = withContext(Dispatchers.IO) {
+                        HttpClientProvider.client.preparePost(url) {
+                            header(HttpHeaders.Authorization, "Bearer $apiKey")
+                            contentType(ContentType.Application.Json)
+                            setBody(requestBody.toString())
+                        }.execute { response ->
+                            response.bodyAsText()
+                        }
+                    }
+                    handleResponse(JSONObject(responseText), this@Command, requestBody)
+                }
+            } catch (e: Exception) {
+                if (e is CancellationException) return@launch
+                handleKtorError(e, this@Command, streamingOutputId)
+            }
+        }
     }
 }
