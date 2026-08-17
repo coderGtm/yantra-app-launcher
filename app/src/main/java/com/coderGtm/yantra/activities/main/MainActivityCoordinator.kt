@@ -101,6 +101,7 @@ internal class MainActivityCoordinator(
 
     fun onDestroy() {
         LocalBroadcastManager.getInstance(activity).unregisterReceiver(termuxCommandResultReceiver)
+        terminal.cancelSuggestionScope()
     }
 
     fun onSingleTap() {
