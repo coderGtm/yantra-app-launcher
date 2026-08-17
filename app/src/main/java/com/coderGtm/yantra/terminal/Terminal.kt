@@ -23,6 +23,7 @@ import com.coderGtm.yantra.R
 import com.coderGtm.yantra.applyLauncherBackground
 import com.coderGtm.yantra.activities.MainActivity
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getAliases
@@ -41,14 +42,25 @@ import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
 import com.coderGtm.yantra.showRatingAndCommunityPopups
+import com.coderGtm.yantra.suggestions.CompletionInput
+import com.coderGtm.yantra.suggestions.CompletionResult
 import com.coderGtm.yantra.suggestions.SuggestionEngine
 import com.coderGtm.yantra.suggestions.SuggestionSources
 import com.coderGtm.yantra.suggestions.buildCommandCompletionSpecs
+import com.coderGtm.yantra.suggestions.tokenize
 import com.coderGtm.yantra.ui.screens.main.MainActivityUiRefs
 import com.coderGtm.yantra.vibrate
 import java.io.File
 import java.util.concurrent.CountDownLatch
 import java.util.TimerTask
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class Terminal(
     val activity: Activity,
@@ -98,6 +110,132 @@ class Terminal(
             getWeatherFields = { com.coderGtm.yantra.commands.weather.VALID_WEATHER_FIELDS },
         )
     )
+
+    private val suggestionScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+    private var suggestionJob: Job? = null
+
+    fun scheduleSuggestions(
+        rawInput: String,
+        primaryEnabled: Boolean,
+        secondaryEnabled: Boolean,
+    ) {
+        suggestionJob?.cancel()
+        suggestionJob = suggestionScope.launch {
+            delay(75)
+            val snapshotInput = rawInput
+            val snapshotCommands = commands.keys.toSet()
+            val snapshotAliases = aliasList.associate { it.key to it.value }
+            // Preserve the old "contacts not fetched yet" message for the call command.
+            val firstToken = snapshotInput.trim().split(" ").firstOrNull()
+            val effectiveFirst = if (firstToken != null) snapshotAliases[firstToken] ?: firstToken else null
+            if (effectiveFirst == "call" && !contactsFetched && secondaryEnabled) {
+                binding.suggestionsTab.removeAllViews()
+                binding.addSuggestion(
+                    text = activity.getString(R.string.contacts_not_fetched_yet),
+                    color = theme.suggestionTextColor,
+                    fontSize = 14.5f,
+                    typeface = typeface,
+                    style = Typeface.BOLD_ITALIC,
+                    onClick = {},
+                )
+                return@launch
+            }
+            val results = withContext(Dispatchers.Default) {
+                suggestionEngine.complete(
+                    input = CompletionInput(rawText = snapshotInput, cursor = snapshotInput.length),
+                    commands = snapshotCommands,
+                    aliases = snapshotAliases,
+                    sources = suggestionSources,
+                    primarySuggestionsEnabled = primaryEnabled,
+                    secondarySuggestionsEnabled = secondaryEnabled,
+                    orderedPrimarySuggestions = primarySuggestions.filter { !it.isHidden }.map { it.text },
+                )
+            }
+            // Render only if this request is still the current one.
+            if (suggestionJob?.isActive == true) {
+                renderSuggestions(results, snapshotInput)
+            }
+        }
+    }
+
+    private fun renderSuggestions(results: List<CompletionResult>, rawInput: String) {
+        binding.suggestionsTab.removeAllViews()
+        results.forEach { result ->
+            binding.addSuggestion(
+                text = result.displayText,
+                color = theme.suggestionTextColor,
+                fontSize = 14.5f,
+                typeface = typeface,
+                style = Typeface.BOLD,
+                onClick = {
+                    val currentText = binding.cmdInput.text.toString()
+                    val applied = currentText.substring(0, result.edit.start) +
+                        result.edit.replacement +
+                        currentText.substring(result.edit.end)
+                    binding.cmdInput.setText(applied)
+                    binding.cmdInput.setSelection(applied.length)
+                    requestCmdInputFocusAndShowKeyboard(binding)
+                    if (!result.isPrimary && result.allowAutoExecute && preferenceObject.getBoolean("actOnSuggestionTap", false)) {
+                        this@Terminal.handleCommand(applied)
+                        binding.cmdInput.setText("")
+                    }
+                },
+                onLongClick = if (result.isPrimary) {
+                    {
+                        val commandClass = commands[result.commandName]
+                        if (commandClass != null) {
+                            val metadata = commandClass.getDeclaredConstructor(Terminal::class.java)
+                                .newInstance(this@Terminal).metadata
+                            YantraLauncherDialog(activity).showInfo(
+                                title = metadata.helpTitle,
+                                message = metadata.description,
+                                positiveButton = activity.getString(R.string.ok),
+                            )
+                        }
+                    }
+                } else {
+                    null
+                },
+            )
+        }
+        // Preserve actOnLastSecondarySuggestion auto-execute behavior.
+        if (results.size == 1 && !results[0].isPrimary &&
+            preferenceObject.getBoolean("actOnLastSecondarySuggestion", false)
+        ) {
+            val effectiveCommand = results[0].commandName
+            // Don't auto-execute for some commands.
+            if (effectiveCommand == "call" || effectiveCommand == "time" || effectiveCommand == "bg" ||
+                effectiveCommand == "notepad" || effectiveCommand == "todo" || effectiveCommand == "run"
+            ) {
+                return
+            }
+            // Don't auto-execute if only flag suggestion.
+            if (results[0].displayText.startsWith("-")) {
+                return
+            }
+            // Don't auto-execute if no input after primary command.
+            val tokens = tokenize(CompletionInput(rawText = rawInput, cursor = rawInput.length))
+            if (tokens.tokens.size <= 1) {
+                return
+            }
+            output(activity.getString(R.string.auto_executing_suggestion), theme.successTextColor, Typeface.ITALIC)
+            val result = results.first()
+            val currentText = binding.cmdInput.text.toString()
+            val applied = currentText.substring(0, result.edit.start) +
+                result.edit.replacement +
+                currentText.substring(result.edit.end)
+            binding.cmdInput.setText(applied)
+            binding.suggestionsTab.removeAllViews()
+            handleCommand(applied)
+            binding.cmdInput.setText("")
+            Thread {
+                Thread.sleep(500)
+                activity.runOnUiThread {
+                    binding.cmdInput.setText("")
+                }
+            }.start()
+        }
+    }
 
     fun initialize() {
         if (preferenceObject.getBoolean("useModernPromptDesign", false)) {
@@ -221,6 +359,8 @@ class Terminal(
         }
     }
     fun handleInput(input: String) {
+        suggestionJob?.cancel()
+        binding.suggestionsTab.removeAllViews()
         handleCommand(input)
         binding.cmdInput.setText("")
         if (hideKeyboardOnEnter) hideSoftKeyboard()
@@ -464,6 +604,10 @@ class Terminal(
                 typeface = typeface,
             )
         }
+    }
+
+    fun cancelSuggestionScope() {
+        suggestionScope.cancel()
     }
 
 }

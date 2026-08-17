@@ -2,6 +2,7 @@ package com.coderGtm.yantra.terminal
 
 import android.app.Activity
 import android.content.SharedPreferences
+import com.coderGtm.yantra.Croissant
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.commands.todo.getToDo
 import com.coderGtm.yantra.commands.weather.VALID_WEATHER_FIELDS
@@ -100,3 +101,33 @@ internal fun buildSfxNames(activity: Activity): List<String> =
         .orEmpty()
         .filter { it.isFile && (it.name.endsWith(".mp3") || it.name.endsWith(".wav") || it.name.endsWith(".ogg")) }
         .map { it.name.removeSuffix(".mp3").removeSuffix(".wav").removeSuffix(".ogg") }
+
+fun getFolders(terminal: Terminal): List<String> {
+    val files = Croissant().getListOfObjects(terminal, terminal.workingDir)
+
+    val fullList = mutableListOf<String>()
+
+    for (file in files) {
+        if (file.isDirectory && !file.isHidden) {
+            fullList.add(file.name)
+        }
+    }
+
+    fullList.sort()
+    return fullList
+}
+
+fun getFiles(terminal: Terminal): List<String> {
+    val files = Croissant().getListOfObjects(terminal, terminal.workingDir)
+
+    val fullList = mutableListOf<String>()
+
+    for (file in files) {
+        if (!file.isDirectory) {
+            fullList.add(file.name)
+        }
+    }
+
+    fullList.sort()
+    return fullList
+}
