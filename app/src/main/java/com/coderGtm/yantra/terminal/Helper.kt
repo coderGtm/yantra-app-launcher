@@ -47,10 +47,10 @@ fun reorderPrimarySuggestions(preferenceObject: SharedPreferences, suggestionLis
 fun getPrimarySuggestionsList(commands:  Map<String, Class<out BaseCommand>>, aliasList: MutableList<Alias>): MutableList<Suggestion> {
     val all: MutableList<Suggestion> = mutableListOf()
     commands.forEach {
-        all.add(Suggestion(it.key, 0, false, false))
+        all.add(Suggestion(it.key, false))
     }
     aliasList.forEach {
-        all.add(Suggestion(it.key, 0, false, false))
+        all.add(Suggestion(it.key, false))
     }
 
     return all

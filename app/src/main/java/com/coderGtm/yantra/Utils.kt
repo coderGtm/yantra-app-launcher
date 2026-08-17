@@ -551,7 +551,7 @@ fun loadPrimarySuggestionsOrder(preferenceObject: SharedPreferences): MutableLis
         for (i in order.indices) {
             val text = order[i].split(" ")[0]
             val isHidden = order[i].split(" ")[1] == "1"
-            suggestions.add(Suggestion(text, 0, false, isHidden))
+            suggestions.add(Suggestion(text, isHidden))
         }
         return suggestions
     }
