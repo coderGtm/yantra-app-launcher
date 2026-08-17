@@ -197,6 +197,12 @@ class SuggestionEngineTest {
         val results = complete("")
         assertEquals(0, results.size)
     }
+
+    @Test
+    fun `primary command middle-letter match`() {
+        val results = complete("nch")
+        assertTrue(results.any { it.displayText == "launch" })
+    }
 }
 
 class WeatherCompletionTest {
@@ -406,5 +412,18 @@ class EngineEdgeCaseTest {
     fun `unknown command no secondary suggestions`() {
         val results = complete("zzz x")
         assertEquals(0, results.size)
+    }
+
+    @Test
+    fun `run choice matches from middle letters`() {
+        // Old behavior: typing "run lua" (middle letters of "-lua") suggested "-lua".
+        val results = completeRun("run lua")
+        assertTrue(results.any { it.displayText == "-lua" })
+    }
+
+    @Test
+    fun `launch value matches from middle letters`() {
+        val results = completeLaunch("launch oog")
+        assertTrue(results.any { it.displayText.contains("Google Maps") })
     }
 }

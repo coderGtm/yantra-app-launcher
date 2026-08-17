@@ -101,10 +101,11 @@ Repeated spaces are preserved as boundaries: `"launch  Google"` is two tokens,
 `SuggestionEngine.complete()` first checks whether the user is typing just the command name:
 
 - **Single token and no trailing space** → primary suggestions (command names). The engine
-  prefix-matches the typed text against the available commands (and aliases). A fully-typed
-  command is not re-suggested (`run` does not suggest `run`). `orderedPrimarySuggestions`,
-  when supplied, is honored exactly so the user's reordering / hidden-command settings are
-  preserved.
+  matches the typed text anywhere in the command name (case-insensitive substring, mirroring
+  the old `containsMatchIn` behavior — typing `nch` still suggests `launch`), preserving the
+  user-configured order. A fully-typed command is not re-suggested (`run` does not suggest
+  `run`). `orderedPrimarySuggestions`, when supplied, is honored exactly so the user's
+  reordering / hidden-command settings are preserved.
 - **Anything else** (command + argument, or a trailing space) → secondary suggestions. The
   engine resolves the first token through the alias map, looks up the command's spec, and
   walks the grammar.
@@ -117,9 +118,10 @@ walks the rules left to right, **consuming argument positions**:
 - **`Choice`** — a fixed set of discrete options (e.g. `launch -s | -p`). It consumes its
   slot only when the token at that slot *exactly* matches one of its options (a completed
   flag). When the slot is the in-progress token, it claims the position only if the partial
-  text prefix-matches an option; otherwise it falls through **without** consuming, letting a
-  following value rule claim the position. This is what lets `launch Google M` complete as
-  `launch Google Maps ` instead of doubling `Google`.
+  text matches an option anywhere (case-insensitive substring); otherwise it falls through
+  **without** consuming, letting a following value rule claim the position. This is what lets
+  `launch Google M` complete as `launch Google Maps ` instead of doubling `Google`, while
+  `run lua` still suggests `-lua`.
 - **`Remainder`** — everything from the first unconsumed argument to the end of input is one
   logical value (e.g. `run -lua <script>` or `call <full name>`). It replaces the **whole
   span**, which fixes the old doubling bug. `Remainder` replaces the *entire* remainder, not
@@ -220,6 +222,9 @@ CandidateSource.SCRIPTS -> {
   `matchValue`.
 - **Case sensitivity**: matching is case-insensitive (`lowercase()`). Change it in
   `matchDiscrete` / `matchValue` if needed.
+- **Where matching happens**: substring matching applies in three places — the primary path
+  (command names), the `Choice`/`RepeatChoice` rule claim, and `matchValue`/`matchDiscrete`
+  candidate filtering. Changing one leaves the others on the old behavior.
 
 ### Toggle auto-execute on tap
 
@@ -246,8 +251,9 @@ Inside the `mapOf(...)`:
 ),
 ```
 
-The `gift` command name is automatically available for **primary** completion (command-name
-prefix matching) — no extra work is needed there, because primary suggestions come from
+The `gift` command name is automatically available for **primary** completion (substring
+matching against command names) — no extra work is needed there, because primary suggestions
+come from
 `getAvailableCommands()` / the alias list.
 
 ### 2. Provide the data

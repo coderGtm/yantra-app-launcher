@@ -45,10 +45,11 @@ class SuggestionEngine(
                 // ordered per the user's settings), honor its order exactly. Otherwise fall
                 // back to the commands + aliases sets.
                 val candidates = orderedPrimarySuggestions ?: (commands + aliases.keys).toList()
-                // Exact match on a fully-typed command is omitted (mirrors the old
+                // Match anywhere in the name (mirrors the old containsMatchIn behavior),
+                // preserving source order. Exact matches are omitted (mirrors the old
                 // skip-when-equal behavior): type "run" and "run" is not re-suggested.
                 val names = candidates
-                    .filter { it.length > raw.length && it.startsWith(raw, ignoreCase = true) }
+                    .filter { it.length > raw.length && it.contains(raw, ignoreCase = true) }
                     .distinct()
                 names.forEach { name ->
                     results.add(
@@ -106,13 +107,13 @@ class SuggestionEngine(
                     val slotIsActive = (consumed == context.activeArgumentIndex)
                     if (slotIsActive) {
                         val prefixMatches = tokenAtSlot == null ||
-                            (tokenAtSlot != null && options.any { it.startsWith(tokenAtSlot, ignoreCase = true) })
+                            (tokenAtSlot != null && options.any { it.contains(tokenAtSlot, ignoreCase = true) })
                         if (prefixMatches) {
                             activeRule = rule
                             break
                         }
-                        // Active token does not prefix-match any option: fall through,
-                        // do not consume this position.
+                        // Active token does not match any option (not even as a substring):
+                        // fall through, do not consume this position.
                     } else {
                         val consumedExact = tokenAtSlot != null &&
                             options.any { it.equals(tokenAtSlot, ignoreCase = true) }
