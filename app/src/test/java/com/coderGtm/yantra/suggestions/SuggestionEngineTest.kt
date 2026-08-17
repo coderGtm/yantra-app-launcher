@@ -257,3 +257,154 @@ class WeatherCompletionTest {
         assertTrue(results.none { it.displayText == "New York" })
     }
 }
+
+class EngineEdgeCaseTest {
+
+    private val edgeSpecs = mapOf(
+        "run" to CommandCompletionSpec(
+            rules = listOf(
+                CompletionRule.Choice { listOf("-lua", "-clean") },
+                CompletionRule.Remainder(CandidateSource.SCRIPTS),
+            ),
+        ),
+        "scripts" to CommandCompletionSpec(
+            rules = listOf(
+                CompletionRule.Choice { listOf("-new", "-rm") },
+                CompletionRule.Remainder(CandidateSource.SCRIPTS),
+            ),
+            autoExecuteAllowed = false,
+        ),
+        "launch" to CommandCompletionSpec(
+            rules = listOf(
+                CompletionRule.Choice { listOf("-s", "-p") },
+                CompletionRule.Remainder(CandidateSource.APPS),
+            ),
+        ),
+    )
+
+    private val edgeSources = object : SuggestionSources {
+        override fun candidates(source: CandidateSource, context: CompletionContext): List<CompletionCandidate> {
+            val preceding = context.precedingConsumedArgument
+            val list = when (source) {
+                CandidateSource.SCRIPTS -> if (preceding == "-new") emptyList() else listOf("backup", "cleanup")
+                CandidateSource.APPS -> when (preceding) {
+                    "-s" -> listOf("My Shortcut")
+                    "-p" -> listOf("com.google.maps")
+                    else -> listOf("Google Maps", "Goat", "Google", "Gmail", "Mango")
+                }
+                else -> emptyList()
+            }
+            return list.map { CompletionCandidate(it) }
+        }
+    }
+
+    private fun completeEdge(
+        engine: SuggestionEngine,
+        raw: String,
+    ) = engine.complete(
+        input = CompletionInput(rawText = raw, cursor = raw.length),
+        commands = edgeSpecs.keys,
+        aliases = emptyMap(),
+        sources = edgeSources,
+        primarySuggestionsEnabled = true,
+        secondarySuggestionsEnabled = true,
+    )
+
+    private fun completeScripts(raw: String) = completeEdge(SuggestionEngine(edgeSpecs), raw)
+    private fun completeRun(raw: String) = completeEdge(SuggestionEngine(edgeSpecs), raw)
+    private fun completeLaunch(raw: String) = completeEdge(SuggestionEngine(edgeSpecs), raw)
+
+    private fun complete(raw: String) = completeEdge(SuggestionEngine(edgeSpecs), raw)
+
+    @Test
+    fun `alias completion uses effective command`() {
+        val engine = SuggestionEngine(edgeSpecs)
+        val results = engine.complete(
+            input = CompletionInput(rawText = "goo -", cursor = 5),
+            commands = setOf("run"),
+            aliases = mapOf("goo" to "run"),
+            sources = edgeSources,
+            primarySuggestionsEnabled = true,
+            secondarySuggestionsEnabled = true,
+        )
+        assertTrue(results.any { it.displayText == "-lua" })
+    }
+
+    @Test
+    fun `scripts rm suggests scripts`() {
+        val results = completeScripts("scripts -rm ba")
+        assertEquals(listOf("backup"), results.map { it.displayText })
+    }
+
+    @Test
+    fun `scripts new suggests nothing`() {
+        val results = completeScripts("scripts -new x")
+        assertEquals(0, results.size)
+    }
+
+    @Test
+    fun `run clean suggests scripts`() {
+        val results = completeRun("run -clean ba")
+        assertEquals(listOf("backup"), results.map { it.displayText })
+    }
+
+    @Test
+    fun `run without flag suggests scripts`() {
+        // The Choice rule falls through (no "-lua"/"-clean" prefix), so the
+        // Remainder(SCRIPTS) rule claims position 0.
+        val results = completeRun("run ba")
+        assertEquals(listOf("backup"), results.map { it.displayText })
+    }
+
+    @Test
+    fun `launch flag selects package names`() {
+        val results = completeLaunch("launch -p com.google.ma")
+        assertEquals(listOf("com.google.maps"), results.map { it.displayText })
+    }
+
+    @Test
+    fun `launch flag selects shortcuts`() {
+        // edgeSources maps APPS to SHORTCUTS when preceding consumed argument is "-s".
+        val results = completeLaunch("launch -s My S")
+        assertTrue(results.any { it.displayText.contains("My Shortcut") })
+    }
+
+    @Test
+    fun `multiple internal spaces handled`() {
+        val results = complete("run  -")
+        assertTrue(results.any { it.displayText == "-lua" })
+    }
+
+    @Test
+    fun `trailing space suggests all choices`() {
+        val results = complete("run ")
+        assertTrue(results.map { it.displayText }.containsAll(listOf("-lua", "-clean")))
+    }
+
+    @Test
+    fun `partial choice completion`() {
+        val results = complete("run -")
+        assertTrue(results.map { it.displayText }.containsAll(listOf("-lua", "-clean")))
+    }
+
+    @Test
+    fun `exact primary command not re-suggested`() {
+        val results = complete("run")
+        assertEquals(0, results.size)
+    }
+
+    @Test
+    fun `candidate ordering prefix before substring`() {
+        // APPS source order: [Google Maps, Goat, Google, Gmail, Mango]
+        // Partial "go": prefix matches keep source order (Google Maps, Goat, Google);
+        // substring match (Mango contains "go") comes after all prefix matches.
+        val results = completeLaunch("launch go")
+        assertEquals(listOf("Google Maps", "Goat", "Google", "Mango"), results.map { it.displayText })
+    }
+
+    @Test
+    fun `unknown command no secondary suggestions`() {
+        val results = complete("zzz x")
+        assertEquals(0, results.size)
+    }
+}
