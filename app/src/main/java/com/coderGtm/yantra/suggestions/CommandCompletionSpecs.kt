@@ -133,4 +133,14 @@ fun buildCommandCompletionSpecs(
             CompletionRule.Remainder(CandidateSource.SCRIPTS),
         ),
     ),
+    "weather" to CommandCompletionSpec(
+        rules = listOf(
+            CompletionRule.DelimitedValue(
+                source = CandidateSource.LOCATIONS,
+                delimiter = { it.startsWith("-") },
+            ),
+            CompletionRule.RepeatChoice { getWeatherFields().map { "-$it" } },
+        ),
+        autoExecuteAllowed = false,
+    ),
 )

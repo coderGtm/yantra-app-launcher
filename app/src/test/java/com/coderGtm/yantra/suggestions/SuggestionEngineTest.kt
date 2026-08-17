@@ -198,3 +198,62 @@ class SuggestionEngineTest {
         assertEquals(0, results.size)
     }
 }
+
+class WeatherCompletionTest {
+
+    private fun weatherEngine() = SuggestionEngine(
+        mapOf(
+            "weather" to CommandCompletionSpec(
+                rules = listOf(
+                    CompletionRule.DelimitedValue(
+                        source = CandidateSource.LOCATIONS,
+                        delimiter = { it.startsWith("-") },
+                    ),
+                    CompletionRule.RepeatChoice { listOf("-temp", "-humidity") },
+                ),
+                autoExecuteAllowed = false,
+            ),
+        )
+    )
+
+    private val weatherSources = object : SuggestionSources {
+        override fun candidates(source: CandidateSource, context: CompletionContext): List<CompletionCandidate> =
+            when (source) {
+                CandidateSource.LOCATIONS -> listOf("New York", "Paris").map { CompletionCandidate(it) }
+                else -> emptyList()
+            }
+    }
+
+    private fun completeWeather(raw: String) = weatherEngine().complete(
+        input = CompletionInput(rawText = raw, cursor = raw.length),
+        commands = setOf("weather"),
+        aliases = emptyMap(),
+        sources = weatherSources,
+        primarySuggestionsEnabled = true,
+        secondarySuggestionsEnabled = true,
+    )
+
+    @Test
+    fun `weather location completion`() {
+        val results = completeWeather("weather New Y")
+        assertTrue(results.any { it.displayText.contains("New York") })
+    }
+
+    @Test
+    fun `weather field completion after location`() {
+        val results = completeWeather("weather New York -")
+        assertTrue(results.any { it.displayText == "-temp" })
+    }
+
+    @Test
+    fun `weather repeated field completion`() {
+        val results = completeWeather("weather New York -temp -")
+        assertTrue(results.any { it.displayText == "-humidity" })
+    }
+
+    @Test
+    fun `weather location completion stops once a field is entered`() {
+        val results = completeWeather("weather New York -")
+        assertTrue(results.none { it.displayText == "New York" })
+    }
+}
