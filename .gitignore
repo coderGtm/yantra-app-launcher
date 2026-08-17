@@ -22,3 +22,5 @@ misc.xml
 /app/free/beta/*
 /app/pro/beta/*
 /app/free/release/*
+
+.worktrees/
