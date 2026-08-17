@@ -28,6 +28,7 @@ import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getAliases
 import com.coderGtm.yantra.getCurrentTheme
 import com.coderGtm.yantra.getInit
+import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.isPro
@@ -40,6 +41,9 @@ import com.coderGtm.yantra.requestCmdInputFocusAndShowKeyboard
 import com.coderGtm.yantra.requestUpdateIfAvailable
 import com.coderGtm.yantra.runInitTasks
 import com.coderGtm.yantra.showRatingAndCommunityPopups
+import com.coderGtm.yantra.suggestions.SuggestionEngine
+import com.coderGtm.yantra.suggestions.SuggestionSources
+import com.coderGtm.yantra.suggestions.buildCommandCompletionSpecs
 import com.coderGtm.yantra.ui.screens.main.MainActivityUiRefs
 import com.coderGtm.yantra.vibrate
 import java.io.File
@@ -81,6 +85,19 @@ class Terminal(
     lateinit var appList: ArrayList<AppBlock>
     lateinit var shortcutList: ArrayList<ShortcutBlock>
     lateinit var aliasList: MutableList<Alias>
+
+    val suggestionSources: SuggestionSources = TerminalSuggestionSources(this)
+    val suggestionEngine: SuggestionEngine = SuggestionEngine(
+        buildCommandCompletionSpecs(
+            getScripts = { getScripts(preferenceObject) },
+            getAliases = { aliasList.map { it.key } },
+            getThemes = { terminalPreferenceThemeNames(preferenceObject) },
+            getTodoArguments = { buildTodoArguments(preferenceObject) },
+            getSfxNames = { buildSfxNames(activity) },
+            getCommandNames = { commands.keys.toList() },
+            getWeatherFields = { com.coderGtm.yantra.commands.weather.VALID_WEATHER_FIELDS },
+        )
+    )
 
     fun initialize() {
         if (preferenceObject.getBoolean("useModernPromptDesign", false)) {
