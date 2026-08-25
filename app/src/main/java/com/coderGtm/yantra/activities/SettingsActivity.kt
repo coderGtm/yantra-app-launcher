@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -49,6 +50,8 @@ import com.coderGtm.yantra.misc.openUsernamePrefixSetter
 import com.coderGtm.yantra.activities.helpers.openFontSelector
 import com.coderGtm.yantra.activities.helpers.openLanguagePicker
 import com.coderGtm.yantra.activities.helpers.openSoundEffectsList
+import com.coderGtm.yantra.plugins.PluginManager
+import com.coderGtm.yantra.plugins.YantraPlugin
 import com.coderGtm.yantra.toast
 import com.coderGtm.yantra.ui.components.containers.SettingsScreen
 import com.coderGtm.yantra.ui.settings.groups.AiGroup
@@ -59,6 +62,8 @@ import com.coderGtm.yantra.ui.settings.groups.FontGroup
 import com.coderGtm.yantra.ui.settings.groups.GesturesGroup
 import com.coderGtm.yantra.ui.settings.groups.KeyboardGroup
 import com.coderGtm.yantra.ui.settings.groups.OtherGroup
+import com.coderGtm.yantra.ui.settings.groups.PluginManagerDialog
+import com.coderGtm.yantra.ui.settings.groups.PluginsGroup
 import com.coderGtm.yantra.ui.settings.groups.PromptGroup
 import com.coderGtm.yantra.ui.settings.groups.SuggestionsGroup
 import com.coderGtm.yantra.ui.settings.groups.TermuxGroup
@@ -84,6 +89,7 @@ class SettingsActivity : AppCompatActivity() {
     private var hideKeyboardOnEnter          by mutableStateOf(true)
     private var actOnSuggestionTap           by mutableStateOf(false)
     private var actOnLastSecondarySuggestion by mutableStateOf(false)
+    private var showPluginManager            by mutableStateOf(false)
     private var initCmdLog                   by mutableStateOf(false)
     private var useModernPromptDesign        by mutableStateOf(false)
     private var disableAds                   by mutableStateOf(false)
@@ -97,6 +103,8 @@ class SettingsActivity : AppCompatActivity() {
     private var usernamePrefix               by mutableStateOf("$")
 
     private val isProUser by lazy { isPro(this) }
+    private val builtInPlugins by lazy { PluginManager.builtInPlugins() }
+    private val pluginEnabledStates = mutableStateMapOf<String, Boolean>()
 
     internal val supportedLocales = mapOf(
         "English"    to "en",
@@ -189,6 +197,10 @@ class SettingsActivity : AppCompatActivity() {
         hideKeyboardOnEnter              = preferenceObject.getBoolean("hideKeyboardOnEnter", true)
         actOnSuggestionTap               = preferenceObject.getBoolean("actOnSuggestionTap", false)
         actOnLastSecondarySuggestion     = preferenceObject.getBoolean("actOnLastSecondarySuggestion", false)
+        pluginEnabledStates.clear()
+        builtInPlugins.forEach { plugin ->
+            pluginEnabledStates[plugin.preferenceKey] = plugin.isEnabled(preferenceObject)
+        }
         initCmdLog                       = preferenceObject.getBoolean("initCmdLog", false)
         useModernPromptDesign            = preferenceObject.getBoolean("useModernPromptDesign", false)
         disableAds                       = preferenceObject.getBoolean("disableAds", false)
@@ -261,6 +273,23 @@ class SettingsActivity : AppCompatActivity() {
                 onActOnLastSecondarySuggestionChange = { actOnLastSecondarySuggestion = it; preferenceEditObject.putBoolean("actOnLastSecondarySuggestion", it).apply(); changedSettingsCallback(this@SettingsActivity) }
             )
 
+            PluginsGroup(
+                enabledPluginCount = builtInPlugins.count { isPluginEnabled(it) },
+                installedPluginCount = builtInPlugins.size,
+                onOpenPluginManager = { showPluginManager = true }
+            )
+
+            if (showPluginManager) {
+                PluginManagerDialog(
+                    plugins = builtInPlugins,
+                    isPluginEnabled = { isPluginEnabled(it) },
+                    onPluginEnabledChange = { plugin, enabled ->
+                        setPluginEnabled(plugin, enabled)
+                    },
+                    onDismiss = { showPluginManager = false }
+                )
+            }
+
             GesturesGroup(
                 isProUser                    = isProUser,
                 onOpenDoubleTapActionSetter  = { openDoubleTapActionSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) },
@@ -313,5 +342,20 @@ class SettingsActivity : AppCompatActivity() {
                 onOpenNewsWebsiteSetter    = { openNewsWebsiteSetter(this@SettingsActivity, preferenceObject, preferenceEditObject) }
             )
         }
+    }
+
+    private fun isPluginEnabled(plugin: YantraPlugin): Boolean {
+        return pluginEnabledStates[plugin.preferenceKey]
+            ?: preferenceObject.getBoolean(plugin.preferenceKey, plugin.defaultEnabled)
+    }
+
+    private fun setPluginEnabled(plugin: YantraPlugin, enabled: Boolean) {
+        if (!PluginManager.compatibilityFor(plugin).canEnable) {
+            return
+        }
+
+        pluginEnabledStates[plugin.preferenceKey] = enabled
+        preferenceEditObject.putBoolean(plugin.preferenceKey, enabled).apply()
+        changedSettingsCallback(this@SettingsActivity)
     }
 }

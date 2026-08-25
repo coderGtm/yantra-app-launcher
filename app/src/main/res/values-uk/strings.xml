@@ -739,6 +739,12 @@
     <string name="font">Шрифт</string>
     <string name="arrow_keys">Клавіші зі стрілками</string>
     <string name="suggestions">Підказки</string>
+    <string name="plugins">Плагіни</string>
+    <string name="manage_your_plugins">Керування плагінами</string>
+    <string name="plugin_manager_description">Вмикайте або вимикайте плагіни та перевіряйте їхній стан.</string>
+    <string name="plugin_count_summary">%1$d/%2$d увімкнено</string>
+    <string name="plugin_version_pill">v%1$s</string>
+    <string name="plugin_author_label">Автор: %1$s</string>
     <string name="gestures">Жести</string>
     <string name="keyboard">Клавіатура</string>
     <string name="advanced">Додатково</string>
