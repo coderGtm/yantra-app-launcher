@@ -193,8 +193,27 @@ class SuggestionEngineTest {
     }
 
     @Test
-    fun `empty input`() {
+    fun `empty input shows all primary suggestions`() {
         val results = complete("")
+        assertEquals(listOf("run", "launch"), results.map { it.displayText })
+        results.forEach { r ->
+            assertEquals(true, r.isPrimary)
+            assertEquals(0, r.edit.start)
+            assertEquals(0, r.edit.end)
+            assertEquals("${r.displayText} ", r.edit.replacement)
+        }
+    }
+
+    @Test
+    fun `empty input with primary disabled shows nothing`() {
+        val results = engine.complete(
+            input = CompletionInput(rawText = "", cursor = 0),
+            commands = setOf("run", "launch"),
+            aliases = emptyMap(),
+            sources = fakeSources,
+            primarySuggestionsEnabled = false,
+            secondarySuggestionsEnabled = true,
+        )
         assertEquals(0, results.size)
     }
 

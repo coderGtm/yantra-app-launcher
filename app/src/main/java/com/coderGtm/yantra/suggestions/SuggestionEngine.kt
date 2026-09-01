@@ -29,17 +29,14 @@ class SuggestionEngine(
         val tokenized = tokenize(input)
         val results = mutableListOf<CompletionResult>()
 
-        if (tokenized.tokens.isEmpty()) {
-            return results
-        }
-
-        val firstToken = tokenized.tokens.first()
+        // Primary: the user is completing the command name itself. When the input is empty
+        // (no tokens), every primary suggestion is shown; as the user types, the candidates
+        // are filtered to those matching the partial command name.
+        val firstToken = tokenized.tokens.firstOrNull()
         val isSingleToken = tokenized.tokens.size == 1 && !tokenized.hasTrailingWhitespace
-
-        // Primary: the user is completing the command name itself.
-        if (isSingleToken) {
+        if (tokenized.tokens.isEmpty() || isSingleToken) {
             if (primarySuggestionsEnabled) {
-                val raw = firstToken.text
+                val raw = firstToken?.text ?: ""
                 // When an ordered primary suggestion list is provided (already filtered and
                 // ordered per the user's settings), honor its order exactly. Otherwise fall
                 // back to the commands + aliases sets.
@@ -55,8 +52,8 @@ class SuggestionEngine(
                         CompletionResult(
                             displayText = name,
                             edit = CompletionEdit(
-                                start = firstToken.start,
-                                end = firstToken.end,
+                                start = firstToken?.start ?: 0,
+                                end = firstToken?.end ?: 0,
                                 replacement = "$name ",
                             ),
                             isPrimary = true,
@@ -74,7 +71,7 @@ class SuggestionEngine(
             return results
         }
 
-        val effectiveCommand = aliases[firstToken.text] ?: firstToken.text.lowercase()
+        val effectiveCommand = firstToken?.let { aliases[it.text] ?: it.text.lowercase() } ?: return results
         val spec = specs[effectiveCommand] ?: return results
 
         val argumentTokens = tokenized.tokens.drop(1)
