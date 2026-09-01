@@ -26,6 +26,7 @@ import com.coderGtm.yantra.ui.screens.main.toComposeFontStyle
 import com.coderGtm.yantra.ui.screens.main.toComposeFontWeight
 import java.util.Locale
 import androidx.compose.ui.platform.LocalLocale
+import androidx.compose.ui.platform.LocalDensity
 
 @Composable
 internal fun MainActivityOverlayControls(
@@ -44,10 +45,12 @@ internal fun MainActivityOverlayControls(
         }
 
         if (uiRefs.suggestionsTab.items.isNotEmpty()) {
+            val legacyImeBottom = with(LocalDensity.current) { uiRefs.legacyImeHeightPx.toDp() }
             Row(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .fillMaxWidth()
+                    .padding(bottom = legacyImeBottom)
                     .background(Color(uiRefs.suggestionsTab.backgroundColorInt))
                     .horizontalScroll(rememberScrollState()),
             ) {

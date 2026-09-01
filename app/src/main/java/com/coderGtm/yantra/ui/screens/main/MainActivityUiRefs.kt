@@ -88,6 +88,7 @@ class MainActivityUiRefs(
     val downBtn = ComposeButtonController("▼")
     val suggestionsTab = ComposeSuggestionsController()
     val modernPrompt = ComposeModernPromptController()
+    var legacyImeHeightPx by mutableIntStateOf(0)
 
     var luaInputSession by mutableStateOf<LuaInputSession?>(null)
 
