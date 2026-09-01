@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import com.coderGtm.yantra.Croissant
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.commands.todo.getToDo
-import com.coderGtm.yantra.commands.weather.VALID_WEATHER_FIELDS
 import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.suggestions.CandidateSource
 import com.coderGtm.yantra.suggestions.CompletionCandidate
@@ -56,8 +55,6 @@ class TerminalSuggestionSources(
             CandidateSource.COMMANDS -> state.commandNames.map { CompletionCandidate(it) }
             CandidateSource.THEMES -> terminalPreferenceThemeNames(terminal.preferenceObject).map { CompletionCandidate(it) }
             CandidateSource.LOCATIONS -> emptyList() // no location data source exists
-            CandidateSource.WEATHER_FIELDS -> VALID_WEATHER_FIELDS.map { CompletionCandidate("-$it") }
-            CandidateSource.TODO_ARGUMENTS -> emptyList() // injected via specs builder
         }
     }
 

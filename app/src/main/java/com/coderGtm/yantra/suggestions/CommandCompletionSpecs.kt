@@ -1,12 +1,8 @@
 package com.coderGtm.yantra.suggestions
 
 fun buildCommandCompletionSpecs(
-    getScripts: () -> List<String>,
-    getAliases: () -> List<String>,
     getThemes: () -> List<String>,
     getTodoArguments: () -> List<String>,
-    getSfxNames: () -> List<String>,
-    getCommandNames: () -> List<String>,
     getWeatherFields: () -> Set<String>,
 ): Map<String, CommandCompletionSpec> = mapOf(
     "launch" to CommandCompletionSpec(

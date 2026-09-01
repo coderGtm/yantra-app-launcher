@@ -12,9 +12,7 @@ enum class CandidateSource {
     COMMANDS,
     ALIASES,
     THEMES,
-    WEATHER_FIELDS,
     LOCATIONS,
-    TODO_ARGUMENTS,
 }
 
 interface SuggestionSources {

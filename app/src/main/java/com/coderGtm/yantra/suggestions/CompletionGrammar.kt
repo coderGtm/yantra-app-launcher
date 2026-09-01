@@ -8,9 +8,6 @@ data class CompletionContext(
     val hasTrailingWhitespace: Boolean,
     val consumedArgumentCount: Int = 0,
 ) {
-    val activeArgument: String?
-        get() = arguments.getOrNull(activeArgumentIndex)
-
     /**
      * The number of argument positions consumed by rules before the active rule.
      * The engine fills this in via `copy(consumedArgumentCount = consumed)` when it

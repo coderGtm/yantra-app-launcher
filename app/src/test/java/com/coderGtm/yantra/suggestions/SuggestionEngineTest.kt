@@ -626,12 +626,8 @@ class ProductionUnaliasSpecTest {
     // Remainder(CandidateSource.ALIASES) rule, the flag-then-alias case regresses.
     private val engine = SuggestionEngine(
         buildCommandCompletionSpecs(
-            getScripts = { emptyList() },
-            getAliases = { listOf("goo", "tun") },
             getThemes = { emptyList() },
             getTodoArguments = { emptyList() },
-            getSfxNames = { emptyList() },
-            getCommandNames = { emptyList() },
             getWeatherFields = { emptySet() },
         )
     )

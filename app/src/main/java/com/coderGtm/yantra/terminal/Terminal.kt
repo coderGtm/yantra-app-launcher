@@ -29,7 +29,6 @@ import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getAliases
 import com.coderGtm.yantra.getCurrentTheme
 import com.coderGtm.yantra.getInit
-import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.getUserName
 import com.coderGtm.yantra.getUserNamePrefix
 import com.coderGtm.yantra.isPro
@@ -99,12 +98,8 @@ class Terminal(
 
     val suggestionEngine: SuggestionEngine = SuggestionEngine(
         buildCommandCompletionSpecs(
-            getScripts = { getScripts(preferenceObject) },
-            getAliases = { aliasList.map { it.key } },
             getThemes = { terminalPreferenceThemeNames(preferenceObject) },
             getTodoArguments = { buildTodoArguments(preferenceObject) },
-            getSfxNames = { buildSfxNames(activity) },
-            getCommandNames = { commands.keys.toList() },
             getWeatherFields = { com.coderGtm.yantra.commands.weather.VALID_WEATHER_FIELDS },
         ).filterKeys { it in commands }
     )
@@ -129,13 +124,12 @@ class Terminal(
         suggestionJob?.cancel()
         suggestionJob = suggestionScope.launch {
             delay(75)
-            val snapshotInput = rawInput
             val snapshotCommands = commands.keys.toSet()
             val snapshotAliases = aliasList.associate { it.key to it.value }
             val state = buildSuggestionState()
             val sources = TerminalSuggestionSources(this@Terminal, state)
             // Preserve the old "contacts not fetched yet" message for the call command.
-            val firstToken = snapshotInput.trim().split(" ").firstOrNull()
+            val firstToken = rawInput.trim().split(" ").firstOrNull()
             val effectiveFirst = if (firstToken != null) snapshotAliases[firstToken] ?: firstToken.lowercase() else null
             if (effectiveFirst == "call" && !contactsFetched && secondaryEnabled) {
                 binding.suggestionsTab.removeAllViews()
@@ -151,7 +145,7 @@ class Terminal(
             }
             val results = withContext(Dispatchers.Default) {
                 suggestionEngine.complete(
-                    input = CompletionInput(rawText = snapshotInput, cursor = snapshotInput.length),
+                    input = CompletionInput(rawText = rawInput, cursor = rawInput.length),
                     commands = snapshotCommands,
                     aliases = snapshotAliases,
                     sources = sources,
@@ -160,10 +154,7 @@ class Terminal(
                     orderedPrimarySuggestions = primarySuggestions.filter { !it.isHidden }.map { it.text },
                 )
             }
-            // Render only if this request is still the current one.
-            if (suggestionJob?.isActive == true) {
-                renderSuggestions(results, snapshotInput)
-            }
+            renderSuggestions(results, rawInput)
         }
     }
 

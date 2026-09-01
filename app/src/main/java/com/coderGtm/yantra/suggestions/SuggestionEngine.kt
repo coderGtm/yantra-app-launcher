@@ -4,7 +4,6 @@ data class CompletionEdit(
     val start: Int,
     val end: Int,
     val replacement: String,
-    val cursor: Int,
 )
 
 data class CompletionResult(
@@ -59,7 +58,6 @@ class SuggestionEngine(
                                 start = firstToken.start,
                                 end = firstToken.end,
                                 replacement = "$name ",
-                                cursor = firstToken.start + name.length + 1,
                             ),
                             isPrimary = true,
                             allowAutoExecute = false,
@@ -173,7 +171,6 @@ class SuggestionEngine(
                                     start = spanStart,
                                     end = spanEnd,
                                     replacement = "$cand ",
-                                    cursor = spanStart + cand.length + 1,
                                 ),
                                 isPrimary = false,
                                 allowAutoExecute = spec.autoExecuteAllowed,
@@ -196,7 +193,6 @@ class SuggestionEngine(
                                     start = valueStart,
                                     end = input.beforeCursor.length,
                                     replacement = cand.replacementText + " ",
-                                    cursor = valueStart + cand.replacementText.length + 1,
                                 ),
                                 isPrimary = false,
                                 allowAutoExecute = spec.autoExecuteAllowed,
@@ -219,7 +215,6 @@ class SuggestionEngine(
                                     start = valueStart,
                                     end = input.beforeCursor.length,
                                     replacement = cand.replacementText + " ",
-                                    cursor = valueStart + cand.replacementText.length + 1,
                                 ),
                                 isPrimary = false,
                                 allowAutoExecute = spec.autoExecuteAllowed,
@@ -243,7 +238,6 @@ class SuggestionEngine(
                                     start = spanStart,
                                     end = spanEnd,
                                     replacement = "$cand ",
-                                    cursor = spanStart + cand.length + 1,
                                 ),
                                 isPrimary = false,
                                 allowAutoExecute = spec.autoExecuteAllowed,
