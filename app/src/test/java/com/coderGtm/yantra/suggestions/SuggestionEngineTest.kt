@@ -446,3 +446,77 @@ class EngineEdgeCaseTest {
         assertTrue(results.any { it.displayText.contains("Google Maps") })
     }
 }
+
+class MergedChoiceAndValueTest {
+
+    private val specs = mapOf(
+        "launch" to CommandCompletionSpec(
+            rules = listOf(
+                CompletionRule.Choice { listOf("-s", "-p") },
+                CompletionRule.Remainder(CandidateSource.APPS),
+            ),
+        ),
+        "run" to CommandCompletionSpec(
+            rules = listOf(
+                CompletionRule.Choice { listOf("-lua", "-clean") },
+                CompletionRule.Remainder(CandidateSource.SCRIPTS),
+            ),
+        ),
+    )
+
+    private val sources = object : SuggestionSources {
+        override fun candidates(source: CandidateSource, context: CompletionContext): List<CompletionCandidate> =
+            when (source) {
+                CandidateSource.APPS -> listOf("Signal", "Slack", "Google Maps").map { CompletionCandidate(it) }
+                CandidateSource.SCRIPTS -> listOf("luatest", "cleanup").map { CompletionCandidate(it) }
+                else -> emptyList()
+            }
+    }
+
+    private fun complete(raw: String) = SuggestionEngine(specs).complete(
+        input = CompletionInput(rawText = raw, cursor = raw.length),
+        commands = specs.keys,
+        aliases = emptyMap(),
+        sources = sources,
+        primarySuggestionsEnabled = true,
+        secondarySuggestionsEnabled = true,
+    )
+
+    @Test
+    fun `launch trailing space shows flags and apps`() {
+        val results = complete("launch ")
+        val texts = results.map { it.displayText }
+        assertTrue(texts.containsAll(listOf("-s", "-p", "Signal", "Slack", "Google Maps")))
+    }
+
+    @Test
+    fun `launch partial letter shows flag and matching apps`() {
+        val results = complete("launch s")
+        val texts = results.map { it.displayText }
+        assertTrue(texts.contains("-s"))
+        assertTrue(texts.contains("Signal"))
+        assertTrue(texts.contains("Slack"))
+    }
+
+    @Test
+    fun `run trailing space shows flags and scripts`() {
+        val results = complete("run ")
+        val texts = results.map { it.displayText }
+        assertTrue(texts.containsAll(listOf("-lua", "-clean", "luatest", "cleanup")))
+    }
+
+    @Test
+    fun `run partial shows flag and matching scripts`() {
+        val results = complete("run lua")
+        val texts = results.map { it.displayText }
+        assertTrue(texts.contains("-lua"))
+        assertTrue(texts.contains("luatest"))
+    }
+
+    @Test
+    fun `merge does not apply after a flag is consumed`() {
+        val results = complete("launch -s ")
+        val texts = results.map { it.displayText }
+        assertTrue(texts.none { it == "-s" || it == "-p" })
+    }
+}
