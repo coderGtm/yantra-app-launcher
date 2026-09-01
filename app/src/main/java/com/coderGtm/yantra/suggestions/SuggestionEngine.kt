@@ -229,7 +229,8 @@ class SuggestionEngine(
                     }
                 }
                 is CompletionRule.RepeatChoice -> {
-                    val options = rule.options(context)
+                    val used = context.arguments.map { it.lowercase() }.toSet()
+                    val options = rule.options(context).filter { it.lowercase() !in used }
                     val partial = activeToken?.text ?: ""
                     val matches = matchDiscrete(options, partial)
                     val spanStart = activeToken?.start ?: input.beforeCursor.length

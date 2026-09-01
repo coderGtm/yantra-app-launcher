@@ -106,7 +106,7 @@ class Terminal(
             getSfxNames = { buildSfxNames(activity) },
             getCommandNames = { commands.keys.toList() },
             getWeatherFields = { com.coderGtm.yantra.commands.weather.VALID_WEATHER_FIELDS },
-        )
+        ).filterKeys { it in commands }
     )
 
     fun buildSuggestionState(): TerminalSuggestionState = TerminalSuggestionState(

@@ -281,6 +281,14 @@ class WeatherCompletionTest {
         val results = completeWeather("weather New York -")
         assertTrue(results.none { it.displayText == "New York" })
     }
+
+    @Test
+    fun `weather does not re-suggest an already used field`() {
+        val results = completeWeather("weather New York -temp -")
+        val texts = results.map { it.displayText }
+        assertTrue(texts.contains("-humidity"))
+        assertTrue(texts.none { it == "-temp" })
+    }
 }
 
 class EngineEdgeCaseTest {
