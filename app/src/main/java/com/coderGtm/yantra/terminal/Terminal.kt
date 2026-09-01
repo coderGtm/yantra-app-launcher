@@ -127,7 +127,7 @@ class Terminal(
             val snapshotAliases = aliasList.associate { it.key to it.value }
             // Preserve the old "contacts not fetched yet" message for the call command.
             val firstToken = snapshotInput.trim().split(" ").firstOrNull()
-            val effectiveFirst = if (firstToken != null) snapshotAliases[firstToken] ?: firstToken else null
+            val effectiveFirst = if (firstToken != null) snapshotAliases[firstToken] ?: firstToken.lowercase() else null
             if (effectiveFirst == "call" && !contactsFetched && secondaryEnabled) {
                 binding.suggestionsTab.removeAllViews()
                 binding.addSuggestion(

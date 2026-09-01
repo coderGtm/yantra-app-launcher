@@ -203,6 +203,25 @@ class SuggestionEngineTest {
         val results = complete("nch")
         assertTrue(results.any { it.displayText == "launch" })
     }
+
+    @Test
+    fun `autocapitalized command gets secondary suggestions`() {
+        val results = complete("Launch G")
+        assertTrue(results.any { it.displayText == "Gmail" })
+    }
+
+    @Test
+    fun `autocapitalized command via alias gets secondary suggestions`() {
+        val results = engine.complete(
+            input = CompletionInput(rawText = "RUN ba", cursor = 7),
+            commands = setOf("run"),
+            aliases = emptyMap(),
+            sources = fakeSources,
+            primarySuggestionsEnabled = true,
+            secondarySuggestionsEnabled = true,
+        )
+        assertTrue(results.any { it.displayText == "backup" })
+    }
 }
 
 class WeatherCompletionTest {

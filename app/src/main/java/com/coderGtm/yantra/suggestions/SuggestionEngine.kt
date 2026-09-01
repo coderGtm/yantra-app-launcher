@@ -76,7 +76,7 @@ class SuggestionEngine(
             return results
         }
 
-        val effectiveCommand = aliases[firstToken.text] ?: firstToken.text
+        val effectiveCommand = aliases[firstToken.text] ?: firstToken.text.lowercase()
         val spec = specs[effectiveCommand] ?: return results
 
         val argumentTokens = tokenized.tokens.drop(1)
