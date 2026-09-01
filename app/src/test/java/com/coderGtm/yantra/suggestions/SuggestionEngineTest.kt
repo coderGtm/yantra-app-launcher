@@ -611,3 +611,56 @@ class UnaliasCompletionTest {
         assertEquals(0, complete("unalias -1").size)
     }
 }
+
+class ProductionUnaliasSpecTest {
+
+    // Exercises the REAL production spec map: if the unalias entry loses its
+    // Remainder(CandidateSource.ALIASES) rule, the flag-then-alias case regresses.
+    private val engine = SuggestionEngine(
+        buildCommandCompletionSpecs(
+            getScripts = { emptyList() },
+            getAliases = { listOf("goo", "tun") },
+            getThemes = { emptyList() },
+            getTodoArguments = { emptyList() },
+            getSfxNames = { emptyList() },
+            getCommandNames = { emptyList() },
+            getWeatherFields = { emptySet() },
+        )
+    )
+
+    private val sources = object : SuggestionSources {
+        override fun candidates(source: CandidateSource, context: CompletionContext): List<CompletionCandidate> =
+            when (source) {
+                CandidateSource.ALIASES -> listOf("goo", "tun").map { CompletionCandidate(it) }
+                else -> emptyList()
+            }
+    }
+
+    private fun complete(raw: String) = engine.complete(
+        input = CompletionInput(rawText = raw, cursor = raw.length),
+        commands = setOf("unalias"),
+        aliases = emptyMap(),
+        sources = sources,
+        primarySuggestionsEnabled = true,
+        secondarySuggestionsEnabled = true,
+    )
+
+    @Test
+    fun `production unalias trailing space shows flag and aliases`() {
+        val texts = complete("unalias ").map { it.displayText }
+        assertTrue(texts.containsAll(listOf("-1", "goo", "tun")))
+    }
+
+    @Test
+    fun `production unalias partial shows matching aliases`() {
+        val texts = complete("unalias go").map { it.displayText }
+        assertTrue(texts.contains("goo"))
+        assertTrue(texts.none { it == "tun" })
+    }
+
+    @Test
+    fun `production unalias flag then alias suggests aliases`() {
+        val texts = complete("unalias -1 go").map { it.displayText }
+        assertTrue(texts.contains("goo"))
+    }
+}
