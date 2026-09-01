@@ -45,7 +45,6 @@ import com.coderGtm.yantra.showRatingAndCommunityPopups
 import com.coderGtm.yantra.suggestions.CompletionInput
 import com.coderGtm.yantra.suggestions.CompletionResult
 import com.coderGtm.yantra.suggestions.SuggestionEngine
-import com.coderGtm.yantra.suggestions.SuggestionSources
 import com.coderGtm.yantra.suggestions.buildCommandCompletionSpecs
 import com.coderGtm.yantra.suggestions.tokenize
 import com.coderGtm.yantra.ui.screens.main.MainActivityUiRefs
@@ -98,7 +97,6 @@ class Terminal(
     lateinit var shortcutList: ArrayList<ShortcutBlock>
     lateinit var aliasList: MutableList<Alias>
 
-    val suggestionSources: SuggestionSources = TerminalSuggestionSources(this)
     val suggestionEngine: SuggestionEngine = SuggestionEngine(
         buildCommandCompletionSpecs(
             getScripts = { getScripts(preferenceObject) },
@@ -109,6 +107,15 @@ class Terminal(
             getCommandNames = { commands.keys.toList() },
             getWeatherFields = { com.coderGtm.yantra.commands.weather.VALID_WEATHER_FIELDS },
         )
+    )
+
+    fun buildSuggestionState(): TerminalSuggestionState = TerminalSuggestionState(
+        appNames = if (this::appList.isInitialized) appList.map { it.appName } else emptyList(),
+        packageNames = if (this::appList.isInitialized) appList.map { it.packageName } else emptyList(),
+        shortcutLabels = if (this::shortcutList.isInitialized) shortcutList.map { it.label } else emptyList(),
+        contactNames = contactNames.toList(),
+        commandNames = commands.keys.toList(),
+        aliasKeys = if (this::aliasList.isInitialized) aliasList.map { it.key } else emptyList(),
     )
 
     private val suggestionScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
@@ -125,6 +132,8 @@ class Terminal(
             val snapshotInput = rawInput
             val snapshotCommands = commands.keys.toSet()
             val snapshotAliases = aliasList.associate { it.key to it.value }
+            val state = buildSuggestionState()
+            val sources = TerminalSuggestionSources(this@Terminal, state)
             // Preserve the old "contacts not fetched yet" message for the call command.
             val firstToken = snapshotInput.trim().split(" ").firstOrNull()
             val effectiveFirst = if (firstToken != null) snapshotAliases[firstToken] ?: firstToken.lowercase() else null
@@ -145,7 +154,7 @@ class Terminal(
                     input = CompletionInput(rawText = snapshotInput, cursor = snapshotInput.length),
                     commands = snapshotCommands,
                     aliases = snapshotAliases,
-                    sources = suggestionSources,
+                    sources = sources,
                     primarySuggestionsEnabled = primaryEnabled,
                     secondarySuggestionsEnabled = secondaryEnabled,
                     orderedPrimarySuggestions = primarySuggestions.filter { !it.isHidden }.map { it.text },

@@ -79,7 +79,8 @@ fun buildCommandCompletionSpecs(
     "alias" to CommandCompletionSpec(listOf(CompletionRule.Choice { listOf("-1") })),
     "unalias" to CommandCompletionSpec(
         rules = listOf(
-            CompletionRule.Choice { listOf("-1") + getAliases() },
+            CompletionRule.Choice { listOf("-1") },
+            CompletionRule.Remainder(CandidateSource.ALIASES),
         ),
     ),
     "theme" to CommandCompletionSpec(

@@ -562,3 +562,52 @@ class BestFuzzyMatchTest {
         assertNull(bestFuzzyMatch(listOf("Gallery"), ""))
     }
 }
+
+class UnaliasCompletionTest {
+
+    private val engine = SuggestionEngine(
+        mapOf(
+            "unalias" to CommandCompletionSpec(
+                rules = listOf(
+                    CompletionRule.Choice { listOf("-1") },
+                    CompletionRule.Remainder(CandidateSource.ALIASES),
+                ),
+            ),
+        )
+    )
+
+    private val sources = object : SuggestionSources {
+        override fun candidates(source: CandidateSource, context: CompletionContext): List<CompletionCandidate> =
+            when (source) {
+                CandidateSource.ALIASES -> listOf("goo", "tun").map { CompletionCandidate(it) }
+                else -> emptyList()
+            }
+    }
+
+    private fun complete(raw: String) = engine.complete(
+        input = CompletionInput(rawText = raw, cursor = raw.length),
+        commands = setOf("unalias"),
+        aliases = emptyMap(),
+        sources = sources,
+        primarySuggestionsEnabled = true,
+        secondarySuggestionsEnabled = true,
+    )
+
+    @Test
+    fun `unalias trailing space shows flag and aliases`() {
+        val texts = complete("unalias ").map { it.displayText }
+        assertTrue(texts.containsAll(listOf("-1", "goo", "tun")))
+    }
+
+    @Test
+    fun `unalias partial shows matching aliases`() {
+        val texts = complete("unalias go").map { it.displayText }
+        assertTrue(texts.contains("goo"))
+        assertTrue(texts.none { it == "tun" })
+    }
+
+    @Test
+    fun `unalias exact flag suggests nothing`() {
+        assertEquals(0, complete("unalias -1").size)
+    }
+}

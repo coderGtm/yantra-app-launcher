@@ -13,7 +13,19 @@ import com.coderGtm.yantra.suggestions.CompletionContext
 import com.coderGtm.yantra.suggestions.SuggestionSources
 import com.coderGtm.yantra.suggestions.bestFuzzyMatch
 
-class TerminalSuggestionSources(private val terminal: Terminal) : SuggestionSources {
+class TerminalSuggestionState(
+    val appNames: List<String>,
+    val packageNames: List<String>,
+    val shortcutLabels: List<String>,
+    val contactNames: List<String>,
+    val commandNames: List<String>,
+    val aliasKeys: List<String>,
+)
+
+class TerminalSuggestionSources(
+    private val terminal: Terminal,
+    private val state: TerminalSuggestionState,
+) : SuggestionSources {
 
     override fun candidates(
         source: CandidateSource,
@@ -25,43 +37,26 @@ class TerminalSuggestionSources(private val terminal: Terminal) : SuggestionSour
         }
         val precedingArg = context.precedingConsumedArgument
         return when (source) {
-            CandidateSource.APPS -> {
-                val effective = when (precedingArg) {
-                    "-s" -> CandidateSource.SHORTCUTS
-                    "-p" -> CandidateSource.PACKAGE_NAMES
-                    else -> CandidateSource.APPS
-                }
-                when (effective) {
-                    CandidateSource.SHORTCUTS -> terminal.shortcutList.map { CompletionCandidate(it.label) }
-                    CandidateSource.PACKAGE_NAMES -> terminal.appList.map { CompletionCandidate(it.packageName) }
-                    else -> terminal.appList.map { CompletionCandidate(it.appName) }
-                }
+            CandidateSource.APPS -> when (precedingArg) {
+                "-s" -> state.shortcutLabels.map { CompletionCandidate(it) }
+                "-p" -> state.packageNames.map { CompletionCandidate(it) }
+                else -> state.appNames.map { CompletionCandidate(it) }
             }
-            CandidateSource.SHORTCUTS -> terminal.shortcutList.map { CompletionCandidate(it.label) }
-            CandidateSource.PACKAGE_NAMES -> terminal.appList.map { CompletionCandidate(it.packageName) }
+            CandidateSource.SHORTCUTS -> state.shortcutLabels.map { CompletionCandidate(it) }
+            CandidateSource.PACKAGE_NAMES -> state.packageNames.map { CompletionCandidate(it) }
+            CandidateSource.ALIASES -> state.aliasKeys.map { CompletionCandidate(it) }
             CandidateSource.FILES -> getFiles(terminal).map { CompletionCandidate(it) }
             CandidateSource.FOLDERS -> getFolders(terminal).map { CompletionCandidate(it) }
             CandidateSource.SCRIPTS -> {
                 if (precedingArg == "-new") emptyList()
                 else getScripts(terminal.preferenceObject).map { CompletionCandidate(it) }
             }
-            CandidateSource.CONTACTS -> terminal.contactNames.map { CompletionCandidate(it) }
-            CandidateSource.SFX -> terminal.activity.filesDir
-                .listFiles()
-                .orEmpty()
-                .filter { it.isFile && (it.name.endsWith(".mp3") || it.name.endsWith(".wav") || it.name.endsWith(".ogg")) }
-                .map { CompletionCandidate(it.name.removeSuffix(".mp3").removeSuffix(".wav").removeSuffix(".ogg")) }
-            CandidateSource.COMMANDS -> terminal.commands.keys.map { CompletionCandidate(it) }
-            CandidateSource.ALIASES -> terminal.aliasList.map { CompletionCandidate(it.key) }
-            CandidateSource.THEMES -> {
-                val saved = terminal.preferenceObject.getString("savedThemeList", "")
-                    ?.split(",")
-                    ?.filter { it.isNotEmpty() }
-                    .orEmpty()
-                (Themes.entries.map { it.name } + saved).map { CompletionCandidate(it) }
-            }
-            CandidateSource.WEATHER_FIELDS -> VALID_WEATHER_FIELDS.map { CompletionCandidate("-$it") }
+            CandidateSource.CONTACTS -> state.contactNames.map { CompletionCandidate(it) }
+            CandidateSource.SFX -> buildSfxNames(terminal.activity).map { CompletionCandidate(it) }
+            CandidateSource.COMMANDS -> state.commandNames.map { CompletionCandidate(it) }
+            CandidateSource.THEMES -> terminalPreferenceThemeNames(terminal.preferenceObject).map { CompletionCandidate(it) }
             CandidateSource.LOCATIONS -> emptyList() // no location data source exists
+            CandidateSource.WEATHER_FIELDS -> VALID_WEATHER_FIELDS.map { CompletionCandidate("-$it") }
             CandidateSource.TODO_ARGUMENTS -> emptyList() // injected via specs builder
         }
     }
@@ -69,7 +64,7 @@ class TerminalSuggestionSources(private val terminal: Terminal) : SuggestionSour
     private fun launchfMatch(context: CompletionContext): List<CompletionCandidate> {
         val query = context.rawInput.trim().split(Regex("\\s+"), limit = 2).getOrNull(1)
             ?.trim()?.lowercase().orEmpty()
-        val best = bestFuzzyMatch(terminal.appList.map { it.appName }, query) ?: return emptyList()
+        val best = bestFuzzyMatch(state.appNames, query) ?: return emptyList()
         return listOf(CompletionCandidate(best, preMatched = true))
     }
 }
@@ -96,7 +91,13 @@ internal fun buildSfxNames(activity: Activity): List<String> =
         .map { it.name.removeSuffix(".mp3").removeSuffix(".wav").removeSuffix(".ogg") }
 
 fun getFolders(terminal: Terminal): List<String> {
-    val files = Croissant().getListOfObjects(terminal, terminal.workingDir)
+    // Croissant's error paths may call terminal.output and throw while parsing the
+    // provider response; suggestions must never crash the completion coroutine.
+    val files = try {
+        Croissant().getListOfObjects(terminal, terminal.workingDir)
+    } catch (_: Exception) {
+        return emptyList()
+    }
 
     val fullList = mutableListOf<String>()
 
@@ -111,7 +112,13 @@ fun getFolders(terminal: Terminal): List<String> {
 }
 
 fun getFiles(terminal: Terminal): List<String> {
-    val files = Croissant().getListOfObjects(terminal, terminal.workingDir)
+    // Croissant's error paths may call terminal.output and throw while parsing the
+    // provider response; suggestions must never crash the completion coroutine.
+    val files = try {
+        Croissant().getListOfObjects(terminal, terminal.workingDir)
+    } catch (_: Exception) {
+        return emptyList()
+    }
 
     val fullList = mutableListOf<String>()
 
