@@ -128,6 +128,7 @@ class Terminal(
             val snapshotAliases = aliasList.associate { it.key to it.value }
             val state = buildSuggestionState()
             val sources = TerminalSuggestionSources(this@Terminal, state)
+            val orderedPrimary = primarySuggestions.filter { !it.isHidden }.map { it.text }
             // Preserve the old "contacts not fetched yet" message for the call command.
             val firstToken = rawInput.trim().split(" ").firstOrNull()
             val effectiveFirst = if (firstToken != null) snapshotAliases[firstToken] ?: firstToken.lowercase() else null
@@ -151,7 +152,7 @@ class Terminal(
                     sources = sources,
                     primarySuggestionsEnabled = primaryEnabled,
                     secondarySuggestionsEnabled = secondaryEnabled,
-                    orderedPrimarySuggestions = primarySuggestions.filter { !it.isHidden }.map { it.text },
+                    orderedPrimarySuggestions = orderedPrimary,
                 )
             }
             renderSuggestions(results, rawInput)

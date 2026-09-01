@@ -211,7 +211,7 @@ class SuggestionEngineTest {
     }
 
     @Test
-    fun `autocapitalized command via alias gets secondary suggestions`() {
+    fun `autocapitalized command gets secondary suggestions via lowercase fallback`() {
         val results = engine.complete(
             input = CompletionInput(rawText = "RUN ba", cursor = 7),
             commands = setOf("run"),

@@ -49,15 +49,15 @@ input text
 │ CommandCompletionSpec (grammar)    │      │ SuggestionSources adapter     │
 │ CommandCompletionSpecs.kt          │      │ (TerminalSuggestionSources    │◀── TerminalSuggestionState
 └────────────────────────────────────┘      │  (terminal, state))           │    (main-thread snapshot of
-                │                            └───────────────────────────────┘    apps/shortcuts/contacts/…)
-                ▼
+               │                            └───────────────────────────────┘    apps/shortcuts/contacts/…)
+               ▼
 ┌───────────────────────────────────────────────────────────────┐
 │ List<CompletionResult>                                        │
 │   CompletionResult(displayText, edit, isPrimary,              │
 │                    allowAutoExecute, commandName)             │
 └───────────────────────────────────────────────────────────────┘
-                │
-                ▼
+               │
+               ▼
       Terminal.renderSuggestions()  → suggestion chips (Compose UI)
 ```
 
@@ -195,8 +195,7 @@ A trailing space is always appended so the user can keep typing the next argumen
 `renderSuggestions()` builds the chips. Clicking a chip applies the edit; a primary chip's
 long-press shows the command's help dialog. The `actOnSuggestionTap` and
 `actOnLastSecondarySuggestion` settings are honored here (including the old exclusion list
-for `call`, `time`, `bg`, `notepad`, `todo`, `run`, and dash-prefixed suggestions). The
-`call` command's "contacts not fetched yet" message is also preserved.
+for `call`, `time`, `bg`, `notepad`, `todo`, `run`, and dash-prefixed suggestions).
 
 The suggestion `CoroutineScope` is cancelled in `MainActivityCoordinator.onDestroy()`.
 
@@ -234,7 +233,9 @@ whitespace token (trimmed and lowercased — alias- and autocapitalization-safe)
 `bestFuzzyMatch(state.appNames, query)`, and returns the single best similarity match as
 `CompletionCandidate(best, preMatched = true)`. The `preMatched` flag bypasses the engine's
 substring filter, so the chip appears even when the query is not a substring of the app
-name (e.g. `launchf gmaps` → `Google Maps`).
+name (e.g. `launchf gmaps` → `Google Maps`). A `preMatched` candidate also bypasses the
+exact-match omission — typing the full best match (`launchf gmail`) still suggests it,
+unlike non-preMatched sources where an exact match is omitted.
 
 ---
 
