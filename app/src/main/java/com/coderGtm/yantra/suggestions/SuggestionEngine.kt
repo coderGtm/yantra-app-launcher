@@ -280,10 +280,14 @@ class SuggestionEngine(
 
     private fun matchValue(candidates: List<CompletionCandidate>, partial: String): List<CompletionCandidate> {
         val lowerPartial = partial.trim().lowercase()
-        if (lowerPartial.isEmpty()) return candidates
+        if (lowerPartial.isEmpty()) return candidates.distinctBy { it.displayText }
         val prefix = mutableListOf<CompletionCandidate>()
         val substring = mutableListOf<CompletionCandidate>()
         candidates.forEach { cand ->
+            if (cand.preMatched) {
+                prefix.add(cand)
+                return@forEach
+            }
             val lower = cand.displayText.lowercase()
             when {
                 lower == lowerPartial -> {}

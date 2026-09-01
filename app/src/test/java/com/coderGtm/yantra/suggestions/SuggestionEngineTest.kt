@@ -520,3 +520,45 @@ class MergedChoiceAndValueTest {
         assertTrue(texts.none { it == "-s" || it == "-p" })
     }
 }
+
+class PreMatchedCandidateTest {
+
+    @Test
+    fun `prematched candidate bypasses substring filter`() {
+        val engine = SuggestionEngine(
+            mapOf("lfz" to CommandCompletionSpec(listOf(CompletionRule.Remainder(CandidateSource.SCRIPTS))))
+        )
+        val sources = object : SuggestionSources {
+            override fun candidates(source: CandidateSource, context: CompletionContext) =
+                when (source) {
+                    CandidateSource.SCRIPTS -> listOf(CompletionCandidate("Google Maps", preMatched = true))
+                    else -> emptyList()
+                }
+        }
+        val results = engine.complete(
+            input = CompletionInput(rawText = "lfz gmaps", cursor = 10),
+            commands = setOf("lfz"),
+            aliases = emptyMap(),
+            sources = sources,
+            primarySuggestionsEnabled = true,
+            secondarySuggestionsEnabled = true,
+        )
+        assertTrue(results.any { it.displayText == "Google Maps" })
+    }
+}
+
+class BestFuzzyMatchTest {
+
+    @Test
+    fun `picks best similarity even without substring relation`() {
+        // Normalized Levenshtein similarity for "gmaps": gmail 0.6 > google maps 0.45 > gallery 0.14.
+        // "gmaps" is a substring of none of them.
+        assertEquals("Gmail", bestFuzzyMatch(listOf("Gallery", "Google Maps", "Gmail"), "gmaps"))
+    }
+
+    @Test
+    fun `empty names or query returns null`() {
+        assertNull(bestFuzzyMatch(emptyList(), "gmaps"))
+        assertNull(bestFuzzyMatch(listOf("Gallery"), ""))
+    }
+}

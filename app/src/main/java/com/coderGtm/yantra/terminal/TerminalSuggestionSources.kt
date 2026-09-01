@@ -6,12 +6,12 @@ import com.coderGtm.yantra.Croissant
 import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.commands.todo.getToDo
 import com.coderGtm.yantra.commands.weather.VALID_WEATHER_FIELDS
-import com.coderGtm.yantra.findSimilarity
 import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.suggestions.CandidateSource
 import com.coderGtm.yantra.suggestions.CompletionCandidate
 import com.coderGtm.yantra.suggestions.CompletionContext
 import com.coderGtm.yantra.suggestions.SuggestionSources
+import com.coderGtm.yantra.suggestions.bestFuzzyMatch
 
 class TerminalSuggestionSources(private val terminal: Terminal) : SuggestionSources {
 
@@ -67,17 +67,10 @@ class TerminalSuggestionSources(private val terminal: Terminal) : SuggestionSour
     }
 
     private fun launchfMatch(context: CompletionContext): List<CompletionCandidate> {
-        if (!terminal.appListFetched) return emptyList()
-        val activeArg = context.activeArgument
-        if (activeArg.isNullOrEmpty()) return emptyList()
-        val name = context.rawInput.trim().removePrefix(context.commandName).trim().lowercase()
-        if (name.isEmpty()) return emptyList()
-        val scores = mutableListOf<Double>()
-        for (app in terminal.appList) {
-            scores.add(findSimilarity(app.appName.lowercase(), name))
-        }
-        val maxIndex = scores.indexOf(scores.max())
-        return listOf(CompletionCandidate(terminal.appList[maxIndex].appName))
+        val query = context.rawInput.trim().split(Regex("\\s+"), limit = 2).getOrNull(1)
+            ?.trim()?.lowercase().orEmpty()
+        val best = bestFuzzyMatch(terminal.appList.map { it.appName }, query) ?: return emptyList()
+        return listOf(CompletionCandidate(best, preMatched = true))
     }
 }
 
