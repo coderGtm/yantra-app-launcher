@@ -1,8 +1,5 @@
 package com.coderGtm.yantra.misc
 
-import android.graphics.Rect
-import android.view.View
-import android.view.ViewTreeObserver
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -24,41 +21,11 @@ fun android.view.View.applySystemBarsAndImePadding(includeSides: Boolean = true)
 }
 
 /**
- * Computes the software keyboard height on API < 30, where the `ime()` window inset
- * type does not exist. The keyboard is inferred from the difference between the view's
- * full height and the visible display frame; the navigation bar bottom inset is removed
- * so it is not double-counted (system bars are padded separately). Sub-quarter deltas
- * are treated as noise rather than a keyboard.
+ * On API < 30 (Android 10 and below) the `ime()` window inset type does not exist, so
+ * Compose's [androidx.compose.foundation.layout.imePadding] cannot lift content above the
+ * keyboard. Under `adjustNothing` the window's visible display frame also does not change,
+ * so the keyboard cannot be detected by measuring the frame. The only reliable mechanism
+ * on those versions is `adjustResize`, which physically resizes the window so bottom-anchored
+ * content sits above the keyboard. API 30+ keeps insets-based handling instead.
  */
-fun legacyImeHeightFromFrame(viewHeight: Int, visibleBottom: Int, navBarBottom: Int): Int {
-    val candidate = viewHeight - visibleBottom - navBarBottom
-    return if (candidate > viewHeight / 4) candidate else 0
-}
-
-fun computeLegacyImeHeight(view: View): Int {
-    val visible = Rect()
-    view.getWindowVisibleDisplayFrame(visible)
-    val navBarBottom = ViewCompat.getRootWindowInsets(view)
-        ?.getInsets(WindowInsetsCompat.Type.systemBars())?.bottom ?: 0
-    return legacyImeHeightFromFrame(view.height, visible.bottom, navBarBottom)
-}
-
-/**
- * Tracks keyboard height on API < 30 via the visible display frame, reporting it through
- * [onHeightChanged] only when it actually changes. Returns a detach lambda to remove the
- * listener (required to avoid leaking [view] and its activity).
- */
-fun installLegacyImeHeightTracking(view: View, onHeightChanged: (Int) -> Unit): () -> Unit {
-    var lastHeight = -1
-    val listener = ViewTreeObserver.OnGlobalLayoutListener {
-        val height = computeLegacyImeHeight(view)
-        if (height != lastHeight) {
-            lastHeight = height
-            onHeightChanged(height)
-        }
-    }
-    view.viewTreeObserver.addOnGlobalLayoutListener(listener)
-    return {
-        view.viewTreeObserver.removeOnGlobalLayoutListener(listener)
-    }
-}
+fun requiresLegacyImeResize(sdkInt: Int): Boolean = sdkInt < 30

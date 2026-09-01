@@ -4,10 +4,11 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.view.KeyEvent
+import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.WindowCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.coderGtm.yantra.misc.installLegacyImeHeightTracking
+import com.coderGtm.yantra.misc.requiresLegacyImeResize
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SHARED_PREFS_FILE_NAME
 import com.coderGtm.yantra.YantraLauncher
@@ -56,11 +57,9 @@ internal class MainActivityCoordinator(
 
     private val speechCoordinator = MainActivitySpeechCoordinator(activity) { terminal }
 
-    private var legacyImeTracker: (() -> Unit)? = null
-
     fun onCreate() {
         WindowCompat.setDecorFitsSystemWindows(activity.window, false)
-        installLegacyImeTracking()
+        installLegacyImeResize()
 
         app.preferenceObject = activity.applicationContext.getSharedPreferences(SHARED_PREFS_FILE_NAME, 0)
         setProStatus(activity, app.preferenceObject)
@@ -85,16 +84,17 @@ internal class MainActivityCoordinator(
 
     /**
      * On API < 30 the `ime()` window inset type does not exist, so Compose's
-     * [androidx.compose.foundation.layout.imePadding] cannot lift content above the keyboard.
-     * Track the keyboard height manually for the suggestion row; API 30+ keeps the native path.
+     * [androidx.compose.foundation.layout.imePadding] cannot lift content above the keyboard,
+     * and under `adjustNothing` the window's visible frame does not change either (so the
+     * keyboard cannot be detected by measuring it). Override the manifest's `adjustNothing`
+     * with `adjustResize` so the window physically resizes and bottom-anchored content (the
+     * suggestion row) rises above the keyboard. API 30+ keeps the insets-based path.
      */
-    private fun installLegacyImeTracking() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+    private fun installLegacyImeResize() {
+        if (!requiresLegacyImeResize(Build.VERSION.SDK_INT)) {
             return
         }
-        legacyImeTracker = installLegacyImeHeightTracking(activity.window.decorView) { height ->
-            uiRefs.legacyImeHeightPx = height
-        }
+        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
     fun onStart() {
@@ -119,8 +119,6 @@ internal class MainActivityCoordinator(
     }
 
     fun onDestroy() {
-        legacyImeTracker?.invoke()
-        legacyImeTracker = null
         LocalBroadcastManager.getInstance(activity).unregisterReceiver(termuxCommandResultReceiver)
         terminal.cancelSuggestionScope()
     }
