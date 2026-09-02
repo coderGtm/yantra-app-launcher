@@ -22,6 +22,7 @@ material = "1.13.0"
 mockitoCore = "5.20.0"
 mockitoInline = "5.2.0"
 mockitoKotlin = "6.1.0"
+orgJson = "20240303"
 preferenceKtx = "1.2.1"
 securityCryptoVersion = "1.1.0"
 volley = "1.2.1"
@@ -59,6 +60,7 @@ material3 = { module = "androidx.compose.material3:material3" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
+org-json = { module = "org.json:json", version.ref = "orgJson" }
 preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
 security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCryptoVersion" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling" }

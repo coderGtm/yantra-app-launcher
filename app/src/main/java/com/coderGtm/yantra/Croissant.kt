@@ -10,11 +10,12 @@ import com.coderGtm.yantra.models.DirectoryContents
 import com.coderGtm.yantra.terminal.Terminal
 import org.json.JSONArray
 import org.json.JSONException
+import androidx.core.net.toUri
 
 class Croissant {
     private fun main(activity: Activity, command: String, path: String = "/"): JSONArray {
         val contentResolver: ContentResolver = activity.contentResolver
-        val uri = Uri.parse("content://com.anready.croissant.files")
+        val uri = "content://com.anready.croissant.files".toUri()
             .buildUpon()
             .appendQueryParameter("command", command) // Adding parameter command
             .appendQueryParameter("path", path)
@@ -40,15 +41,19 @@ class Croissant {
         }
     }
 
-    fun checkCroissantPermission(activity: Activity):Boolean {
-        val fileInfo = main(activity, "isPermissionsGranted").getJSONObject(0)
+    fun checkCroissantPermission(activity: Activity): Boolean {
+        val jsonArray = main(activity, "isPermissionsGranted")
+        if (hasDataError(jsonArray)) {
+            return false
+        }
+        val fileInfo = jsonArray.getJSONObject(0)
         return fileInfo.getBoolean("result")
     }
 
     fun getListOfObjects(terminal: Terminal, path: String): MutableList<DirectoryContents> {
         val jsonArray = main(terminal.activity, "list", path)
 
-        if (jsonArray.length() > 0 && jsonArray.getString(0).equals("Error while getting data!")) {
+        if (hasDataError(jsonArray)) {
             if (!isCroissantInstalled(terminal)) {
                 val releasePageUrl = "https://github.com/Anready/Croissant/releases"
                 val appName = "Croissant"
@@ -81,7 +86,7 @@ class Croissant {
 
     fun isPathExist(terminal: Terminal, path: String): Boolean {
         val jsonArray = main(terminal.activity, "pathExist", path)
-        if (jsonArray.length() > 0 && jsonArray.getJSONObject(0).equals("Error while getting data!")) {
+        if (hasDataError(jsonArray)) {
             terminal.output("Data not found", terminal.theme.errorTextColor, null)
             return false
         }
@@ -114,5 +119,12 @@ class Croissant {
         } catch (_: JSONException) {
             return false
         }
+    }
+
+    fun hasDataError(jsonArray: JSONArray): Boolean {
+        if (jsonArray.length() == 0) return false
+        val first = jsonArray.opt(0) ?: return false
+        if (first !is String) return false
+        return first.startsWith("Error while getting data!")
     }
 }
