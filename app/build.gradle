@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.coderGtm.yantra"
         minSdk 23
-        targetSdk 35
+        targetSdk 36
         versionCode 123
         versionName "10.5.0"
 
