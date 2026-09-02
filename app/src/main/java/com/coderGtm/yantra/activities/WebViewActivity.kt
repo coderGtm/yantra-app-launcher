@@ -19,6 +19,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.coderGtm.yantra.R
@@ -152,29 +153,30 @@ class WebViewActivity : AppCompatActivity() {
         reloadBtn.setOnClickListener {
             webView.reload()
         }
-    }
 
-    override fun onBackPressed() {
-        if (webView.canGoBack()) {
-            val bfList = webView.copyBackForwardList()
-            val bfItem = bfList.getItemAtIndex(bfList.currentIndex - 1)
-            titleBar.text = Uri.parse(bfItem.url).host.toString()
-            webView.goBack()
-        } else {
-            with(webView) {
-                loadUrl("about:blank")
-                clearHistory()
-                clearFormData()
-                clearCache(true)
-                deleteDatabase("webview.db")
-                deleteDatabase("webviewCache.db")
-                WebStorage.getInstance().deleteAllData()
-                CookieManager.getInstance().removeAllCookies(null)
-                CookieManager.getInstance().flush()
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (webView.canGoBack()) {
+                    val bfList = webView.copyBackForwardList()
+                    val bfItem = bfList.getItemAtIndex(bfList.currentIndex - 1)
+                    titleBar.text = Uri.parse(bfItem.url).host.toString()
+                    webView.goBack()
+                } else {
+                    with(webView) {
+                        loadUrl("about:blank")
+                        clearHistory()
+                        clearFormData()
+                        clearCache(true)
+                        deleteDatabase("webview.db")
+                        deleteDatabase("webviewCache.db")
+                        WebStorage.getInstance().deleteAllData()
+                        CookieManager.getInstance().removeAllCookies(null)
+                        CookieManager.getInstance().flush()
+                    }
+                    finish()
+                }
             }
-            super.onBackPressed()
-            finish()
-        }
+        })
     }
 }
 
