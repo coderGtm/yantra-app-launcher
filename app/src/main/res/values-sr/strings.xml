@@ -130,7 +130,7 @@
     <string name="internet_speed_test">Тест брзине интернета</string>
     <string name="loading_please_wait">Учитавање...Молимо сачекајте.</string>
     <string name="cmd_ai_title">ai [порука/reset]</string>
-    <string name="cmd_ai_help">Једноставан алат за приступ chatGPT-у из терминала. Заснован на OpenAI-јевом gpt-3.5-turbo, можете ћаскати са својим AI асистентом. Потребан је API кључ који се уноси у \'settings\'. Када желите да обришете историју порука да бисте уштедели токене, можете користити \'reset\' поруку (\'ai reset\').</string>
+    <string name="cmd_ai_help">Алат за приступ AI моделима из терминала. Подесите провајдера компатибилног са OpenAI-јем, API кључ и опциони системски упит у \'settings\'. Користите \'ai reset\' да обришете историју порука.</string>
     <string name="ai_msg_missing">Наведите поруку коју желите да пошаљете AI-у.</string>
     <string name="no_ai_api_key_found">Вероватно сте заборавили да унесете API кључ. Унесите га у \'settings\'.</string>
     <string name="communicating_with_ai">Комуникација са AI-јем...</string>
@@ -172,7 +172,7 @@
     <string name="health"><![CDATA[-> Здравље: %1$s]]></string>
     <string name="temperature_c_f"><![CDATA[-> Температура: %1$s°C (%2$s°F)]]></string>
     <string name="battery_invalid_Args">Неисправни аргументи. Погледајте \"help battery\" за информације о употреби</string>
-    <string name="cmd_bg_title">bg | bg random [-id=53] [-grayscale] [-blur=2]</string>
+    <string name="cmd_bg_title">bg | bg random [-id=53] [-grayscale] [-blur=1..10]</string>
     <string name="cmd_bg_help">\'bg\' се користи за постављање прилагођене позадине из Албума. Користите \'bg -1\' да бисте уклонили прилагођену позадину и поставили једноставну позадину теме. Користите \'bg random\' да бисте добили насумичну позадину са picsum.photos. Можете добити одређену слику прослеђивањем њеног id-а као параметра заставице (потпуна листа на https://picsum.photos/images). Опциона -grayscale заставица се користи за добијање сиве слике. Добијте замућену слику прослеђивањем заставице blur са интензитетом од 1 до 10. Напомена: Ова команда мења само позадину почетног екрана, а не екрана за закључавање.</string>
     <string name="bg_too_many_args">Превише аргумената. Користите \'bg -1\' да бисте уклонили прилагођену позадину</string>
     <string name="removed_wallpaper">Позадина је уклоњена</string>
@@ -256,7 +256,7 @@
     <string name="play_store">Play Store</string>
     <string name="cmd_flash_title">flash [стање]</string>
     <string name="cmd_flash_help">Укључује/искључује блиц осветљење.\nПример: \'flash on\' или \'flash 0\'.\nКористите без аргумената да бисте променили стање.</string>
-    <string name="cmd_gupt_title">GUPT | GUPT [url]</string>
+    <string name="cmd_gupt_title">gupt [url]</string>
     <string name="cmd_gupt_help">G.U.P.T значи Get Undercover Private Tab. Ако сте уморни од одласка у прегледач сваки пут и отварања Инкогнито картице, са GUPT командом, добијате уграђену Приватну инкогнито картицу.\nПример: \'gupt https://www.youtube.com\'.\nКористите без url-а да бисте отворили подразумевани https://www.google.com</string>
     <string name="initializing_g_u_p_t">Покретање G.U.P.T...</string>
     <string name="getting_undercover_private_tab">Добијање Undercover Private Tab...</string>
@@ -304,8 +304,8 @@
     <string name="cmd_launchf_title">launchf [приближно име апликације]</string>
     <string name="cmd_launchf_help">Покреће апликацију поклапањем са датим именом апликације користећи fuzzy search алгоритам (Levenshtein дистанца).\nПример: \'launchf tube\' може покренути YouTube.</string>
     <string name="launchf_no_string">Наведите стринг за покретање апликације са fuzzy search-ом.</string>
-    <string name="cmd_list_title">list [компонента]</string>
-    <string name="cmd_list_help">Приказује наведену компоненту [apps/themes/contacts].</string>
+    <string name="cmd_list_title">list [apps|themes|contacts|shortcuts]</string>
+    <string name="cmd_list_help">Приказује инсталиране апликације, теме, контакте или доступне пречице апликација.</string>
     <string name="invalid_list_cmd">Неисправна команда. Погледајте \'help list\' за информације о употреби</string>
     <string name="fetching_apps">Преузимање апликација...</string>
     <string name="fetching_contacts">Преузимање контаката...</string>
@@ -349,7 +349,7 @@
     <string name="specify_script_to_run">Наведите име скрипте за покретање.</string>
     <string name="run_only_one_param">\'run\' команда прихвата само 1 параметар: Име скрипте за покретање.</string>
     <string name="script_not_found">Скрипта \'%1$s\' није дефинисана. Користите наредбу \'scripts\' да направите сопствене Yantra скрипте.</string>
-    <string name="cmd_screentime_title">screentime [име_апликације] [-all]</string>
+    <string name="cmd_screentime_title">screentime [име_апликације|-all]</string>
     <string name="cmd_screentime_help">Приказује укупно време проведено на екрану током дана! Наведите име апликације да бисте добили време за одређену апликацију или користите заставицу \'-all\' да бисте добили време за све апликације коришћене данас.\nПример: \'screentime Instagram\' или \'screentime -all\'</string>
     <string name="permission_required">Дозвола је потребна</string>
     <string name="screentime_permission">Молимо дајте Yantra Launcher-у дозволу \'Usage Access\' да бисте приступили подацима о времену проведеном на екрану.</string>
@@ -359,7 +359,7 @@
     <string name="todays_screen_time">Данашње време на екрану: %1$s</string>
     <string name="no_apps_found">Нису пронађене апликације.</string>
     <string name="less_than_1_minute">Мање од 1 минуте</string>
-    <string name="cmd_scripts_help">Управљајте прилагођеним скриптама за Yantra Launcher, за извршавање више команди одједном. Скрипте могу садржати Yantra Launcher команде. Али такође можете креирати ексклузивне Lua скрипте за проширену функционалност. Ако користите Lua код, можете чак и позивати Yantra Launcher команде из скрипте користећи функцију binding.exec().\nПример: \'binding.exec("text Scripts are cool!")\'. Користите \'-new\' за креирање нове скрипте и \'-rm\' за брисање скрипте. Користите \'scripts naziv_skripte\' за уређивање скрипте, а без аргумената за приказ свих скрипти. Такође погледајте команду \'run\'.</string>
+    <string name="cmd_scripts_help">Управља прилагођеним скриптама за Yantra Launcher. Користите \'scripts\' за приказ скрипти, \'scripts -new назив\' за креирање, \'scripts назив\' за уређивање и \'scripts -rm назив\' за брисање скрипте. Скрипте могу садржати Yantra Launcher команде или Lua код; Lua скрипте могу позивати команде помоћу binding.exec(). Такође погледајте команду \'run\'.</string>
     <string name="opening_yantra_scripts">Отварам Yantra скрипте...</string>
     <string name="yantra_scripts">Yantra скрипте</string>
     <string name="scripts_disclaimer">Прегледајте, измените или обришите ову скрипту. Напомена: Унесите 1 наредбу по линији, као што то обично радите у Yantra терминалу.</string>
@@ -376,7 +376,7 @@
     <string name="script_name_another_validation">Име скрипте мора почети словом и не може садржати размаке</string>
     <string name="name_already_taken">Ово име је већ заузето</string>
     <string name="script_created">Скрипта \'%1$s\' је успешно направљена! Сада је можете уредити.</string>
-    <string name="cmd_search_help">Претражује интернет за дати упит. Може се одабрати претраживач са заставицом -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore|maps|youtube). Подразумевани је google. Можете користити прилагођени претраживач навођењем URL са заставицом -u (-u=https://example.com/search?q=). Упит је једини обавезан аргумент који се наводи на крају наредбе. Аутоматски се кодира као URL током извршавања наредбе. Примери:\n\'search Yantra Launcher\'\n\'search -e=duckduckgo Yantra Launcher\'\n\'search -u=https://example.com/search?q= Yantra Launcher\'</string>
+    <string name="cmd_search_help">Претражује интернет за дати упит. Претраживач се може одабрати заставицом -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore|maps|youtube). Подразумевани је google. Можете користити прилагођени претраживач навођењем URL-а заставицом -u (-u=https://example.com/search?q=). Упит се наводи на крају наредбе и аутоматски се кодира за URL. Примери:\n\'search Yantra Launcher\'\n\'search -e=duckduckgo Yantra Launcher\'\n\'search -u=https://example.com/search?q= Yantra Launcher\'</string>
     <string name="missing_query">Молимо унесите упит.</string>
     <string name="invalid_search_engine">Неисправан претраживач. Погледајте \'help search\' за информације о кључним речима претраживача.</string>
     <string name="searching_for_with">Претрага за \'%1$s\' са %2$s...</string>
@@ -394,8 +394,8 @@
     <string name="support_chunk_1">Yantra Launcher је моћан и бесплатан алат отвореног кода за повећање продуктивности и стил. Развој и одржавање овог лаунчера захтевају много труда, ресурса и драгоценог времена. Ако вам је Yantra Launcher учинио живот бољим, молимо Вас да погледате одељак Support на GitHub страници пројекта.</string>
     <string name="support_chunk_2">\nЗапамтите, Yantra Launcher је потпуно бесплатан и отвореног кода. Можете подржати програмерима доприносећи пројекту, пријављујући грешке, предлажући функције и делећи га са пријатељима и породицом.</string>
     <string name="redirecting_to_support_page">:: Преусмеравам вас на одељак подршке на GitHub страници пројекта...</string>
-    <string name="cmd_sysinfo_title">sysinfo | sysinfo -component</string>
-    <string name="cmd_sysinfo_help">Приказује информације о систему, слично \'Neofetch\'</string>
+    <string name="cmd_sysinfo_title">sysinfo [-component]</string>
+    <string name="cmd_sysinfo_help">Приказује информације о систему, слично \'Neofetch\'. Користите заставицу компоненте, као што су -os, -host, -kernel, -uptime, -apps, -terminal, -font, -resolution, -theme, -cpu, -memory или -art, да прикажете одређене информације.</string>
     <string name="unknown_flag">Непозната заставица: %1$s</string>
     <string name="cmd_termux_title"><![CDATA[termux <cmd> [args]]]></string>
     <string name="cmd_termux_help">Извршава дату наредбу у Termux-у ако је инсталиран и бележи stdout излаз. Имајте на уму да мора бити омогућено \'allow-external-apps\' у ~/.termux/termux.properties у Termux апликацији и дата RUN_COMMAND дозвола из поставки Yantra Launcher-а. Такође, резултат се враћа тек након потпуног извршавања наредбе (изласка) због ограничења API-ја.\nУпотреба: termux име_наредбе [args]\nПример: \'termux echo Hello from Termux\'\nЗа решавање и даље присутних проблема, питајте у Discord заједници или ми пошаљите мејл на coderGtm@gmail.com.</string>
@@ -409,8 +409,8 @@
     <string name="text_no_msg">Молимо наведите текст поруке.</string>
     <string name="send_via">Пошаљи преко</string>
     <string name="text_broadcasted">Текст је емитован</string>
-    <string name="cmd_theme_title"><![CDATA[theme <име>]]></string>
-    <string name="cmd_theme_help">Примењује одређену тему на Yantra Launcher.\nПример: \'theme Tokyonight\'.\nДа бисте сачували тренутну прилагођену конфигурацију теме као нову тему, користите \'theme -save\'. Користите \'theme -export\' да извезете датотеку теме за дељење и \'theme -import\' да увезете датотеку теме. На крају, користите \'theme -remove\' да избришете сачувану/увезену тему.</string>
+    <string name="cmd_theme_title"><![CDATA[theme <име|custom|-save|-export|-import|-remove>]]></string>
+    <string name="cmd_theme_help">Примењује тему на Yantra Launcher. Пример: \'theme Tokyonight\'. Користите \'theme custom\' да отворите уређивач прилагођене теме, \'theme -save\' да сачувате тренутну тему, \'theme -export\' да извезете тему, \'theme -import\' да увезете тему и \'theme -remove\' да избришете сачувану или увезену тему.</string>
     <string name="specify_theme_or_action">Наведите назив теме или радњу.</string>
     <string name="only_theme_name_reqd">Неисправна употреба наредбе. Наредба \'theme\' прихвата један параметар: име теме!</string>
     <string name="launching_custom_theme_designer">[+] Покрећем Designer за прилагођене теме</string>

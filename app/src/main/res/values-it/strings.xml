@@ -130,7 +130,7 @@
     <string name="internet_speed_test">Test Velocità Internet</string>
     <string name="loading_please_wait">Caricamento... Attendere Prego.</string>
     <string name="cmd_ai_title">ai [messaggio]</string>
-    <string name="cmd_ai_help">Uno strumento semplice per accedere a chatGPT dal terminale. Basato su gpt-3.5-turbo di OpenAI, puoi chattare con il tuo assistente IA personale. È richiesta l\'inserimento di una chiave API in \'settings\'. Questo comando non ricorda il contesto, quindi il modello non sarà a conoscenza della tua conversazione precedente.</string>
+    <string name="cmd_ai_help">Uno strumento per accedere ai modelli IA dal terminale. Configura un provider compatibile con OpenAI, una chiave API e un prompt di sistema opzionale in \'settings\'. Usa \'ai reset\' per cancellare la cronologia dei messaggi.</string>
     <string name="ai_msg_missing">Si prega di specificare il messaggio da inviare all\'AI.</string>
     <string name="no_ai_api_key_found">Probabilmente hai dimenticato di fornire una chiave API. Inseriscila in \'settings\'.</string>
     <string name="communicating_with_ai">Comunicazione con IA...</string>
@@ -172,7 +172,7 @@
     <string name="health"><![CDATA[-> Salute: %1$s]]></string>
     <string name="temperature_c_f"><![CDATA[-> Temperatura: %1$s°C (%2$s°F)]]></string>
     <string name="battery_invalid_Args">Argomenti non validi forniti. Vedere \"help battery\" per informazioni sull\'uso</string>
-    <string name="cmd_bg_title">bg | bg random [-id=53] [-grayscale] [-blur=2]</string>
+    <string name="cmd_bg_title">bg | bg random [-id=53] [-grayscale] [-blur=1..10]</string>
     <string name="cmd_bg_help">\'bg\' viene utilizzato per impostare uno sfondo personalizzato dalle Gallerie. Usa \'bg -1\' per rimuovere lo sfondo personalizzato e impostare lo sfondo del tema solido. Usa \'bg random\' per ottenere un\'immagine casuale da picsum.photos. Puoi ottenere un\'immagine specifica passando il suo ID come parametro (elenco completo su https://picsum.photos/images). Un flag opzionale -grayscale viene utilizzato per ottenere un\'immagine in scala di grigi. Ottieni un\'immagine sfocata fornendo il flag blur con un\'intensità da 1 a 10. Nota che questo comando modifica solo lo sfondo della schermata Home, non quello della schermata di blocco.</string>
     <string name="bg_too_many_args">Troppi argomenti. Usare \'bg -1\' per rimuovere lo Sfondo personalizzato</string>
     <string name="removed_wallpaper">Sfondo rimosso</string>
@@ -256,7 +256,7 @@
     <string name="play_store">Play Store</string>
     <string name="cmd_flash_title">flash [stato]</string>
     <string name="cmd_flash_help">Attiva/Disattiva la torcia. Esempio: \'flash on\' o \'flash 0\'. Usa senza argomenti per alternare lo stato.</string>
-    <string name="cmd_gupt_title">GUPT | GUPT [url]</string>
+    <string name="cmd_gupt_title">gupt [url]</string>
     <string name="cmd_gupt_help">G.U.P.T sta per Get Undercover Private Tab. Stanco di andare sul browser ogni volta e aprire una scheda in incognito. Con il comando GUPT, ottieni una scheda in incognito integrata. Esempio: \'gupt https://www.youtube.com\'. Usa senza url per aprire https://www.google.com come predefinito</string>
     <string name="initializing_g_u_p_t">Inizializzazione di G.U.P.T...</string>
     <string name="getting_undercover_private_tab">Ottenendo la scheda privata in incognito...</string>
@@ -304,8 +304,8 @@
     <string name="cmd_launchf_title">launchf [nome app approssimativo]</string>
     <string name="cmd_launchf_help">Avvia l\'app confrontando il nome dell\'app fornito utilizzando l\'algoritmo di ricerca fuzzy (Distanza di Levenshtein). Esempio: \'launchf tube\' potrebbe avviare YouTube.</string>
     <string name="launchf_no_string">Si prega di fornire una stringa per avviare l\'app con ricerca fuzzy.</string>
-    <string name="cmd_list_title">list [componente]</string>
-    <string name="cmd_list_help">Elenca il componente specificato [app/temi/contatti].</string>
+    <string name="cmd_list_title">list [apps|themes|contacts|shortcuts]</string>
+    <string name="cmd_list_help">Elenca le app installate, i temi, i contatti o le scorciatoie delle app disponibili.</string>
     <string name="invalid_list_cmd">Comando non valido. Consultare \'help list\' per le informazioni sull\'uso</string>
     <string name="fetching_apps">Recupero delle app in corso...</string>
     <string name="fetching_contacts">Recupero dei contatti in corso...</string>
@@ -349,7 +349,7 @@
     <string name="specify_script_to_run">Si prega di specificare il nome dello script da eseguire.</string>
     <string name="run_only_one_param">Il comando \'run\' accetta solo 1 parametro: Il nome dello script da eseguire.</string>
     <string name="script_not_found">Lo script \'%1$s\' non definito. Usa il comando \'scripts\' per creare i tuoi Scripts Yantra.</string>
-    <string name="cmd_screentime_title">screentime [nome-app][-all]</string>
+    <string name="cmd_screentime_title">screentime [nome-app|-all]</string>
     <string name="cmd_screentime_help">Mostra il tempo totale di utilizzo dello schermo per il giorno corrente! Fornisci il nome dell\'app per ottenere il tempo di utilizzo per una specifica app, o usa il flag \'-all\' per ottenere il tempo di utilizzo per tutte le app utilizzate oggi.\nEsempio: \'screentime Instagram\' o \'screentime -all\'</string>
     <string name="permission_required">Permesso richiesto</string>
     <string name="screentime_permission">Concedi il permesso \'Accesso all\'utilizzo\' a Yantra Launcher per accedere ai dati richiesti per il tempo di utilizzo dello schermo.</string>
@@ -359,7 +359,7 @@
     <string name="todays_screen_time">Tempo di utilizzo dello schermo oggi: %1$s</string>
     <string name="no_apps_found">Nessuna app trovata.</string>
     <string name="less_than_1_minute">Meno di 1 minuto</string>
-    <string name="cmd_scripts_help">Apre la finestra di dialogo per creare, modificare ed eliminare script personalizzati per Yantra Launcher, per eseguire più comandi contemporaneamente. Gli script possono contenere comandi di Yantra Launcher, ma è anche possibile creare script esclusivi in Lua per funzionalità estese. Se si utilizza il codice Lua, è possibile richiamare i comandi di Yantra Launcher dallo script utilizzando la funzione binding.exec(). \nEsempio: \'binding.exec("text Scripts are cool!")\'. Vedi anche il comando \'run\'.</string>
+    <string name="cmd_scripts_help">Gestisce gli script personalizzati per Yantra Launcher. Usa \'scripts\' per elencare gli script, \'scripts -new nome\' per crearne uno, \'scripts nome\' per modificarlo e \'scripts -rm nome\' per eliminarlo. Gli script possono contenere comandi di Yantra Launcher o codice Lua; gli script Lua possono richiamare i comandi con binding.exec(). Vedi anche il comando \'run\'.</string>
     <string name="opening_yantra_scripts">Apertura Scripts Yantra...</string>
     <string name="yantra_scripts">Scripts Yantra</string>
     <string name="scripts_disclaimer">Visualizza, modifica o elimina questo script. Nota: Inserisci 1 comando per linea, proprio come fai normalmente nel terminale Yantra.</string>
@@ -376,7 +376,7 @@
     <string name="script_name_another_validation">Il nome dello script deve iniziare con una lettera e non può contenere spazi</string>
     <string name="name_already_taken">Questo nome è già in uso</string>
     <string name="script_created">Script \'%1$s\' creato con successo! Ora puoi modificarlo.</string>
-    <string name="cmd_search_help">Cerca su internet la query fornita. È possibile specificare il motore di ricerca con il flag -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore|maps|youtube). Di default è google. Puoi usare un motore di ricerca personalizzato specificando l\'url con il flag -u (-u=https://esempio.com/search?q=). La query è l\'unico argomento richiesto che viene fornito alla fine del comando. Viene automaticamente codificata per URL durante l\'esecuzione del comando. Esempi:\n\'search Yantra Launcher\'\n\'search -e=duckduckgo Yantra Launcher\'\n\'search -u=https://esempio.com/search?q= Yantra Launcher\'</string>
+    <string name="cmd_search_help">Cerca su internet la query fornita. Puoi specificare il motore di ricerca con il flag -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore|maps|youtube). Il motore predefinito è google. Puoi usare un motore personalizzato specificando l\'URL con il flag -u (-u=https://example.com/search?q=). La query viene fornita alla fine del comando e codificata automaticamente per l\'URL. Esempi:\n\'search Yantra Launcher\'\n\'search -e=duckduckgo Yantra Launcher\'\n\'search -u=https://example.com/search?q= Yantra Launcher\'</string>
     <string name="missing_query">Si prega di fornire una query.</string>
     <string name="invalid_search_engine">Motore di ricerca non valido. Consulta \'help search\' per informazioni sulle parole chiave del motore di ricerca.</string>
     <string name="searching_for_with">Cercando \'%1$s\' con %2$s...</string>
@@ -394,8 +394,8 @@
     <string name="support_chunk_1">Yantra Launcher è uno strumento potente, gratuito ed open-source per aumentare la tua produttività ed essere figo. Sviluppare questo launcher e mantenerlo richiede davvero molti sforzi, risorse e tempo prezioso. Se Yantra Launcher ha fatto una differenza positiva nella tua vita, ti invito a controllare la sezione "Supporto" nella pagina GitHub del progetto.</string>
     <string name="support_chunk_2">\nRicorda, Yantra Launcher è completamente gratuito e open-source. Puoi supportare lo sviluppatore contribuendo al progetto, segnalando problemi, suggerendo funzionalità e condividendolo con i tuoi amici e familiari.</string>
     <string name="redirecting_to_support_page">:: Reindirizzamento alla sezione Supporto nella pagina GitHub del progetto...</string>
-    <string name="cmd_sysinfo_title">sysinfo | sysinfo -componente</string>
-    <string name="cmd_sysinfo_help">Mostra informazioni di sistema, molto simile a \'Neofetch\'</string>
+    <string name="cmd_sysinfo_title">sysinfo [-component]</string>
+    <string name="cmd_sysinfo_help">Mostra informazioni di sistema, molto simile a \'Neofetch\'. Usa un flag componente come -os, -host, -kernel, -uptime, -apps, -terminal, -font, -resolution, -theme, -cpu, -memory o -art per mostrare informazioni specifiche.</string>
     <string name="unknown_flag">Flag sconosciuto: %1$s</string>
     <string name="cmd_termux_title"><![CDATA[termux <cmd> [args]]]></string>
     <string name="cmd_termux_help">Esegue il comando dato in termux se è installato e registra lo stdout generato. Nota che la proprietà \'allow-external-apps\' deve essere impostata su true in ~/.termux/termux.properties nell\'app Termux e il permesso RUN_COMMAND deve essere dato dalla pagina delle impostazioni di Yantra Launcher. Inoltre, il risultato viene restituito solo dopo che il comando è stato completamente eseguito (uscito) a causa delle restrizioni API.\nUso: termux nome_cmd [args]\nEsempio: \'termux echo Hello from Termux\'\nPer risolvere qualsiasi problema ancora presente, chiedi nella Comunità Discord o mandami una mail a coderGtm@gmail.com.</string>
@@ -409,8 +409,8 @@
     <string name="text_no_msg">Si prega di specificare la stringa del messaggio.</string>
     <string name="send_via">Invia tramite</string>
     <string name="text_broadcasted">Testo inviato</string>
-    <string name="cmd_theme_title"><![CDATA[theme <nome>]]></string>
-    <string name="cmd_theme_help">Applica il tema specificato a Yantra Launcher. Esempio: \'theme Tokyonight\'. Per salvare la configurazione corrente del tema personalizzato come nuovo tema, utilizzare \'theme -save\'. Utilizza \'theme -export\' per esportare un file di tema condivisibile e \'theme -import\' per importare un file di tema. Infine, usa \'theme -remove\' per eliminare un tema salvato/importato.</string>
+    <string name="cmd_theme_title"><![CDATA[theme <nome|custom|-save|-export|-import|-remove>]]></string>
+    <string name="cmd_theme_help">Applica un tema a Yantra Launcher. Esempio: \'theme Tokyonight\'. Usa \'theme custom\' per aprire il designer del tema personalizzato, \'theme -save\' per salvare il tema corrente, \'theme -export\' per esportare un tema, \'theme -import\' per importarne uno e \'theme -remove\' per eliminare un tema salvato o importato.</string>
     <string name="specify_theme_or_action">Specifica un nome di tema o un\'azione.</string>
     <string name="only_theme_name_reqd">Uso del comando non valido. Il comando \'theme\' accetta un solo parametro: il nome del tema!</string>
     <string name="launching_custom_theme_designer">[+] Avvio del Designer di Temi Personalizzati</string>

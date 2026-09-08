@@ -5,7 +5,7 @@ Used to set the theme for Yantra Launcher.
 ## Syntax
 
 ```
-theme <theme_name>
+theme <theme_name|custom|-save|-export|-import|-remove>
 ```
 
 ## Built-in Themes
@@ -60,3 +60,10 @@ Creating a custom theme requires you to select the following parameters from a b
 ```
 theme Custom
 ```
+
+## Theme Actions
+
+- `theme -save`: Saves the current custom theme.
+- `theme -export`: Exports a theme file.
+- `theme -import`: Imports a theme file.
+- `theme -remove`: Removes a saved or imported theme.

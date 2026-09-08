@@ -29,6 +29,7 @@ search -e=<engine_name> -u=<URL>
     - `you`
     - `playstore`
     - `maps`
+    - `youtube`
 === "`-u` (url)"
     If your favorite search engine is not listed for `-e` flag, you can use this flag
     to provide a custom search engine to use.

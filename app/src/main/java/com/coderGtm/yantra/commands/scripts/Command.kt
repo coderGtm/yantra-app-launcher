@@ -17,7 +17,7 @@ import androidx.core.content.edit
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
         name = "scripts",
-        helpTitle = "scripts",
+        helpTitle = "scripts [-new/-rm] [script_name]",
         description = terminal.activity.getString(R.string.cmd_scripts_help)
     )
 

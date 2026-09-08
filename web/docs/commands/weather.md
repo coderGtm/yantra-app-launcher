@@ -15,10 +15,10 @@ weather <location> [-fields]
 ## Example
 ```
 weather London
-weather "New York" -temp -humidity
+weather New York -temp -humidity
 ```
 
 !!! tip
     Use `weather list` to see all supported fields like `-uv`, `-wind`, `-feels`, etc.
-    If your location name has spaces, you can enter it directly or wrap it in quotes.
+    If your location name has spaces, enter the words directly without shell-style quotes.
     All field arguments must come after the location.

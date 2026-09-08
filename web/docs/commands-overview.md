@@ -10,8 +10,8 @@ Launches specified app or shortcut. Example: 'launch Chrome'. Use the '-p' flag 
 Documentation/Manual for all commands of Yantra Launcher. Use 'help cmd_name' to get documentation for specific command.
 ## community [discord|reddit]
 Redirects to the Discord server of Yantra Launcher. Here you can share and get Feedback, Suggestions, Insights, tips and CLI emotions from other users like you! Use the optional 'discord' or 'reddit' parameters to navigate to a specific platform.
-## theme <name>
-Applies specified theme to Yantra Launcher. Example: 'theme Tokyonight'
+## theme <name|custom|-save|-export|-import|-remove>
+Applies a theme to Yantra Launcher. Use 'theme custom' to open the custom theme designer. Use '-save', '-export', '-import', or '-remove' for saved and shared themes.
 ## call [name | number]
 Calls specified contact name. If contact name is not found then the raw input (considered as phone number) is called.
 ## bluetooth [state]
@@ -21,7 +21,9 @@ Toggles flashlight on/off. Example: 'flash on' or 'flash 0'. Use without any arg
 ## internet
 Opens a panel containing settings to enable internet connection.
 ## ai [message/reset]
-A simple tool to access chatGPT from the terminal. Based on OpenAI's gpt-3.5-turbo, you can chat with your own AI assistant. An API key is required to be entered in 'settings'. When you want to erase the message history to save tokens, you can use the 'reset' message ('ai reset').
+A tool for accessing AI models from the terminal. Configure an OpenAI-compatible provider, API key, and optional system prompt in 'settings'. Use 'ai reset' to erase message history.
+## notepad
+Opens the built-in notepad.
 ## todo
 A simple TODO utility. Use 'todo' to get list of tasks with their indexes and progress. Add a task like 'todo Go for a brisk walk'. Mark tasks as done using their index returned from 'todo' command, like 'todo 2' marks the 3rd task as done. Use 'todo -1' to clear list.
 
@@ -45,7 +47,7 @@ Lists contents in the current directory. Optionally, pass the '-a' flag to also 
 ## open [file name]
 Opens specified file. Example: 'open certificate.pdf'
 ## search
-Searches the internet for the provided query. Search engine can be specified with the -e flag (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore). Default is google. You can use a custom search engine by specifying the url with the -u flag (-u=https://example.com/search?q=). The query is the only required argument that is provided at the end of the command. It is automatically URL encoded during execution of the command. Examples:
+Searches the internet for the provided query. Search engine can be specified with the -e flag (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore|maps|youtube). Default is google. You can use a custom search engine by specifying the URL with the -u flag (-u=https://example.com/search?q=). The query is provided at the end of the command and is automatically URL encoded. Examples:
 'search Yantra Launcher'
 'search -e=duckduckgo Yantra Launcher'
 'search -u=https://example.com/search?q= Yantra Launcher'
@@ -55,8 +57,8 @@ Opens the specified URL in your browser, if present, ofc!
 G.U.P.T stands for Get Undercover Private Tab. Tired of going to browser everytime and opening Incognito Tab. With GUPT command, you get a built-in Private incognito Tab. Example: 'gupt https://www.youtube.com'. Use without url to default to https://www.google.com
 ## tts <text string>
 Speaks provided text (Text-to-Speech). Example: 'tts Travel, World!'
-## sfx
-Play sound effects
+## sfx [sound_effect]
+Plays the default sound effect, or a named sound effect added through settings.
 ## news
 Opens the news website configured via settings. Defaults to Google News
 ## bored
@@ -78,17 +80,19 @@ Examples:
 'timer 3600 Take out the trash' sets timer for 1 hour with a message to display.
 ## settings
 Launches Settings for Yantra Launcher.
-## sysinfo | sysinfo -component
-Displays system information, much like 'Neofetch'
-## screentime [app-name][-all]
+## sysinfo [-component]
+Displays system information, much like 'Neofetch'. Use component flags such as '-os', '-host', '-kernel', '-uptime', '-apps', '-terminal', '-font', '-resolution', '-theme', '-cpu', '-memory', or '-art' for selected information.
+## setclr <color>/-1
+Changes the terminal text color to an eight-digit color code without '#', or resets it with '-1'.
+## screentime [app-name|-all]
 Shows Total Screen time for the day! Give app name to get screen time for particular app, or use the '-all' flag to get screentime for all apps used today.
 Example: 'screentime Instagram' or 'screentime -all'
-## scripts
-Opens dialog for creating, modifying and deleting custom scripts for Yantra Launcher, to execute multiple commands at once. Scripts can have Yantra Launcher commands in it. But you can also create exclusive Lua scripts for extended functionality. If you are using Lua code, you can even call Yantra Launcher commands from the script using the binding.exec() function.
+## scripts [-new/-rm] [script_name]
+Manages custom scripts for Yantra Launcher. Use 'scripts' to list scripts, 'scripts -new script_name' to create one, 'scripts script_name' to edit one, and 'scripts -rm script_name' to delete one. Scripts can have Yantra Launcher commands in it. But you can also create exclusive Lua scripts for extended functionality. If you are using Lua code, you can even call Yantra Launcher commands from the script using the binding.exec() function.
 Example: 'binding.exec(text Scripts are cool!)'. Also see the 'run' command.
 ## quote
 Displays a random quote! What else do you expect?
-## bg | bg random [-id=53] [-grayscale] [-blur=2]
+## bg | bg random [-id=53] [-grayscale] [-blur=1..10]
 'bg' is used to set custom Wallpaper from the Albums. Use 'bg -1' to remove custom Wallpaper and set to solid theme background. Use 'bg random' to fetch a random Wallpaper from the picsum.photos. You can fetch a specific image by passing its id as a flag parameter (full list at https://picsum.photos/images). An optional -grayscale flag is used to get a grayscale image. Get a blurred image by providing the blur flag with intensity from 1 to 10. Note that this command only changes the Home screen wallpaper, not the Lock screen one.
 ## text <msg>
 Broadcasts text message. Example: 'text Yantra is cool!'
@@ -130,8 +134,12 @@ Launches app settings page for specified app. Example: 'info Big Battery Display
 Launches app settings by matching given app name string using fuzzy search algorithm (Levenshtein distance). Example: 'infof tube' may open system settings for YouTube.
 ## uninstall <app name>
 Uninstalls the specified app. Example: 'u Instagram'
-## list [component]
-Lists specified component [apps/themes/contacts].
+## list [apps|themes|contacts|shortcuts]
+Lists installed apps, themes, contacts, or available app shortcuts.
+## location
+Shows the device's current location when location permission is available.
+## pro
+Opens the Play Store page for the Pro version.
 ## unalias
 Used to un-alias (remove) an alias.
 Usage: 'unalias alias_name'

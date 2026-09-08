@@ -130,7 +130,7 @@
     <string name="internet_speed_test">Тест швидкості Інтернету</string>
     <string name="loading_please_wait">Завантаження... Будь ласка, зачекайте.</string>
     <string name="cmd_ai_title">ai [message/reset]</string>
-    <string name="cmd_ai_help">Простий інструмент для доступу до chatGPT з терміналу. На основі gpt-3.5-turbo OpenAI ви можете спілкуватися зі своїм власним помічником ШІ. Необхідно ввести ключ API \'settings\'. Якщо ви хочете стерти історію повідомлень, щоб зберегти маркери, ви можете скористатися повідомлення \'reset\' (\'ai reset\').</string>
+    <string name="cmd_ai_help">Інструмент для доступу до моделей ШІ з терміналу. Налаштуйте провайдера, сумісного з OpenAI, ключ API та необов’язковий системний промпт у \'settings\'. Використовуйте \'ai reset\', щоб стерти історію повідомлень.</string>
     <string name="ai_msg_missing">Будь ласка, вкажіть повідомлення для надсилання в AI.</string>
     <string name="no_ai_api_key_found">Можливо, ви забули надати ключ API. Будь ласка, введіть його \'settings\'.</string>
     <string name="communicating_with_ai">Спілкування з ШІ...</string>
@@ -172,7 +172,7 @@
     <string name="health"><![CDATA[-> Здоров\'я: %1$s]]></string>
     <string name="temperature_c_f"><![CDATA[-> Температура: %1$s°C (%2$s°F)]]></string>
     <string name="battery_invalid_Args">Надано недійсні аргументи. дивіться \"help battery\" для інформації про використання</string>
-    <string name="cmd_bg_title">bg | bg random [-id=53] [-grayscale] [-blur=2]</string>
+    <string name="cmd_bg_title">bg | bg random [-id=53] [-grayscale] [-blur=1..10]</string>
     <string name="cmd_bg_help">\'bg\' використовується для встановлення власних шпалер з альбомів. Використовуйте \'bg -1\', щоб видалити власний фоновий малюнок і встановити суцільний фон теми. Використовуйте \'bg random\', щоб отримати випадкові шпалери з picsum.photos. Ви можете отримати конкретне зображення, передавши його ідентифікатор як параметр прапора (повний список на https://picsum.photos/images). Додатковий прапор -grayscale використовується для отримання зображення у градаціях сірого. Отримайте розмите зображення, встановивши позначку розмиття з інтенсивністю від 1 до 10. Зауважте, що ця команда змінює лише фоновий малюнок головного екрана, а не екран блокування.</string>
     <string name="bg_too_many_args">Забагато аргументів. Використовуйте \'bg -1\', щоб видалити спеціальні шпалери</string>
     <string name="removed_wallpaper">Видалені шпалери</string>
@@ -256,7 +256,7 @@
     <string name="play_store">Play Store</string>
     <string name="cmd_flash_title">flash [стан]</string>
     <string name="cmd_flash_help">Перемикає ліхтарик увімкнено/вимкнено. Приклад: \'flash on\' або \'flash 0\'. Використовуйте без аргументів для перемикання стану.</string>
-    <string name="cmd_gupt_title">GUPT | GUPT [url]</string>
+    <string name="cmd_gupt_title">gupt [url]</string>
     <string name="cmd_gupt_help">G.U.P.T означає Get Undercover Private Tab. Втомилися щоразу йти до браузера та відкривати режим інкогніто. З командою GUPT ви отримуєте вбудовану приватну вкладку інкогніто. Приклад: \'gupt https://www.youtube.com\'. Використовуйте без URL за замовчуванням на https://www.google.com</string>
     <string name="initializing_g_u_p_t">Ініціалізація G.U.P.T...</string>
     <string name="getting_undercover_private_tab">Отримання приватної вкладки інкогніто...</string>
@@ -304,8 +304,8 @@
     <string name="cmd_launchf_title">launchf [приблизна назва додатку]</string>
     <string name="cmd_launchf_help">Запускає додаток, використовуючи алгоритм нечіткого пошуку (відстань Левенштейна). Приклад: \'launchf tube\' може запустити YouTube.</string>
     <string name="launchf_no_string">Будь ласка, надайте рядок для запуску додатку з нечітким пошуком.</string>
-    <string name="cmd_list_title">list [компонент]</string>
-    <string name="cmd_list_help">Перелічує вказані компоненти [додатки/тематика/контакти].</string>
+    <string name="cmd_list_title">list [apps|themes|contacts|shortcuts]</string>
+    <string name="cmd_list_help">Перелічує встановлені додатки, теми, контакти або доступні ярлики додатків.</string>
     <string name="invalid_list_cmd">Неправильна команда. Дивіться \'help list\' для інформації про використання</string>
     <string name="fetching_apps">Отримання додатків...</string>
     <string name="fetching_contacts">Отримання контактів...</string>
@@ -349,7 +349,7 @@
     <string name="specify_script_to_run">Будь ласка, вкажіть ім\'я скрипта для запуску.</string>
     <string name="run_only_one_param">Команда \'run\' приймає лише 1 параметр: Ім\'я скрипта для запуску.</string>
     <string name="script_not_found">Скрипт \'%1$s\' не визначений. Використовуйте команду \'scripts\', щоб створити власні Yantra Scripts.</string>
-    <string name="cmd_screentime_title">screentime [app-name][-all]</string>
+    <string name="cmd_screentime_title">screentime [app-name|-all]</string>
     <string name="cmd_screentime_help">Показує загальний екранний час за день! Вкажіть ім\'я додатку, щоб отримати екранний час для конкретного додатку, або використовуйте прапорець \'-all\', щоб отримати екранний час для всіх додатків, використаних сьогодні.\nПриклад: \'screentime Instagram\' або \'screentime -all\'</string>
     <string name="permission_required">Потрібен дозвіл</string>
     <string name="screentime_permission">Будь ласка, надайте дозвіл \'Usage Access\' для Yantra Launcher, щоб отримати необхідні дані про екранний час.</string>
@@ -359,7 +359,7 @@
     <string name="todays_screen_time">Сьогоднішній екранний час: %1$s</string>
     <string name="no_apps_found">Додатки не знайдено.</string>
     <string name="less_than_1_minute">Менше 1 хвилини</string>
-    <string name="cmd_scripts_help">Відкриває діалог для створення, модифікації та видалення користувацьких скриптів для Yantra Launcher, щоб виконати кілька команд одночасно. Скрипти можуть містити команди Yantra Launcher, але ви також можете створювати ексклюзивні Lua скрипти для розширеної функціональності. Якщо ви використовуєте Lua код, ви навіть можете викликати команди Yantra Launcher з скрипта, використовуючи функцію binding.exec().\nПриклад: \'binding.exec("text Скрипти - це круто!")\'. Також дивіться команду \'run\'.</string>
+    <string name="cmd_scripts_help">Керує користувацькими скриптами для Yantra Launcher. Використовуйте \'scripts\', щоб переглянути список, \'scripts -new назва\', щоб створити скрипт, \'scripts назва\', щоб редагувати його, і \'scripts -rm назва\', щоб видалити його. Скрипти можуть містити команди Yantra Launcher або код Lua; скрипти Lua можуть викликати команди за допомогою binding.exec(). Також дивіться команду \'run\'.</string>
     <string name="opening_yantra_scripts">Відкриття Yantra Scripts...</string>
     <string name="yantra_scripts">Yantra Scripts</string>
     <string name="scripts_disclaimer">Перегляньте, редагуйте або видаліть цей скрипт. Примітка: Введіть 1 команду в рядку, як ви зазвичай вводите в терміналі Yantra.</string>
@@ -376,7 +376,7 @@
     <string name="script_name_another_validation">Ім\'я скрипта має починатися з літери і не може містити пробілів</string>
     <string name="name_already_taken">Це ім\'я вже зайняте</string>
     <string name="script_created">Скрипт \'%1$s\' успішно створено! Тепер ви можете його редагувати.</string>
-    <string name="cmd_search_help">Шукає в інтернеті за вказаним запитом. Пошукову систему можна вказати за допомогою прапорця -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore|maps|youtube). За замовчуванням використовується google. Ви можете використовувати власну пошукову систему, вказавши URL з прапорцем -u (-u=https://example.com/search?q=). Запит є єдиним обов\'язковим аргументом, який надається в кінці команди. Він автоматично кодується URL під час виконання команди. Приклади:\n\'search Yantra Launcher\'\n\'search -e=duckduckgo Yantra Launcher\'\n\'search -u=https://example.com/search?q= Yantra Launcher\'</string>
+    <string name="cmd_search_help">Шукає в інтернеті за вказаним запитом. Пошукову систему можна вказати за допомогою прапорця -e (-e=google|duckduckgo|brave|bing|yahoo|ecosia|startpage|qwant|you|playstore|maps|youtube). За замовчуванням використовується google. Ви можете використовувати власну пошукову систему, вказавши URL з прапорцем -u (-u=https://example.com/search?q=). Запит надається в кінці команди та автоматично кодується для URL. Приклади:\n\'search Yantra Launcher\'\n\'search -e=duckduckgo Yantra Launcher\'\n\'search -u=https://example.com/search?q= Yantra Launcher\'</string>
     <string name="missing_query">Будь ласка, надайте запит.</string>
     <string name="invalid_search_engine">Неправильна пошукова система. Дивіться \'help search\', щоб отримати інформацію про ключові слова пошукових систем.</string>
     <string name="searching_for_with">Шукаю \'%1$s\' з %2$s...</string>
@@ -394,8 +394,8 @@
     <string name="support_chunk_1">Yantra Launcher - потужний та безкоштовний інструмент з відкритим кодом для підвищення вашої продуктивності і для того, щоб бути крутим. Розробка цього лаунчера та його підтримка дійсно вимагає великої кількості зусиль, ресурсів та безцінного часу. Якщо Yantra Launcher приніс будь-які позитивні зміни у вашому житті, я закликаю вас перевірити розділ Підтримка на сторінці проекту на GitHub.</string>
     <string name="support_chunk_2">\nПам\'ятайте, що Yantra Launcher є абсолютно безкоштовним і з відкритим кодом. Ви можете підтримати розробника, зробивши внесок у проект, повідомивши про проблеми, пропонуючи нові функції та поділившись ним з вашими друзями та родиною.</string>
     <string name="redirecting_to_support_page">:: Перенаправляю вас до розділу Підтримка на сторінці проекту на GitHub...</string>
-    <string name="cmd_sysinfo_title">sysinfo | sysinfo -component</string>
-    <string name="cmd_sysinfo_help">Відображає інформацію про систему, подібно до \'Neofetch\'</string>
+    <string name="cmd_sysinfo_title">sysinfo [-component]</string>
+    <string name="cmd_sysinfo_help">Відображає інформацію про систему, подібно до \'Neofetch\'. Використовуйте прапорець компонента, наприклад -os, -host, -kernel, -uptime, -apps, -terminal, -font, -resolution, -theme, -cpu, -memory або -art, щоб показати вибрану інформацію.</string>
     <string name="unknown_flag">Невідомий прапорець: %1$s</string>
     <string name="cmd_termux_title"><![CDATA[ termux <cmd> [args] ]]></string>
     <string name="cmd_termux_help">Виконує вказану команду в termux, якщо він встановлений, і записує згенеровані stdout. Зверніть увагу, що властивість \'allow-external-apps\' повинна бути встановлена в true у ~/.termux/termux.properties в додатку Termux, і дозвіл RUN_COMMAND повинен бути наданий на сторінці налаштувань Yantra Launcher. Результат повертається тільки після повного виконання команди (завершення) через обмеження API.\nВикористання: termux cmd_name [args]\nПриклад: \'termux echo Hello from Termux\'\nЩоб вирішити будь-які проблеми, які все ще виникають, запитайте в Discord Community або напишіть мені на coderGtm@gmail.com.</string>
@@ -409,8 +409,8 @@
     <string name="text_no_msg">Будь ласка, вкажіть рядок повідомлення.</string>
     <string name="send_via">Надіслати через</string>
     <string name="text_broadcasted">Текст розіслано</string>
-    <string name="cmd_theme_title"><![CDATA[ theme <name> ]]></string>
-    <string name="cmd_theme_help">Застосовує вказану тему до Yantra Launcher. Приклад: \'theme Tokyonight\'. Щоб зберегти поточну спеціальну конфігурацію теми як нову тему, скористайтеся \'theme -save\'. Використовуйте \'theme -export\' для експорту спільного файлу теми та \'theme -import\' для імпорту файлу теми. Нарешті, використовуйте \'theme -remove\', щоб видалити збережену/імпортовану тему.</string>
+    <string name="cmd_theme_title"><![CDATA[theme <name|custom|-save|-export|-import|-remove>]]></string>
+    <string name="cmd_theme_help">Застосовує тему до Yantra Launcher. Приклад: \'theme Tokyonight\'. Використовуйте \'theme custom\', щоб відкрити редактор власної теми, \'theme -save\', щоб зберегти поточну тему, \'theme -export\', щоб експортувати тему, \'theme -import\', щоб імпортувати її, і \'theme -remove\', щоб видалити збережену або імпортовану тему.</string>
     <string name="specify_theme_or_action">Будь ласка, вкажіть назву теми або дію.</string>
     <string name="only_theme_name_reqd">Неправильне використання команди. Команда \'theme\' приймає один параметр: ім\'я теми!</string>
     <string name="launching_custom_theme_designer">[+] Запуск Дизайнера тем</string>

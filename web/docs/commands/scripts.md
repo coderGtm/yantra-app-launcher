@@ -3,14 +3,17 @@
 This is a command which allows you to create your own script on ```Lua``` language, or create the list of yantra's commands which will be executing command-by-command
 
 !!! note
-    Currently, the scripts folder is internal to Yantra Launcher and cannot be accessed or edited directly using external text editors or file management applications.
+    Scripts are stored internally by Yantra Launcher. You can edit a script in the launcher or choose an external editor from its edit dialog.
 
 ## Syntax
 ```
 scripts
+scripts -new <name>
+scripts <name>
+scripts -rm <name>
 ```
 
-This command just open a dialog in which you can edit current scripts or create a new one.
+Use `scripts` to list scripts, `scripts -new <name>` to create one, `scripts <name>` to edit one, and `scripts -rm <name>` to delete one.
 
 ## Examples
 
