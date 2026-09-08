@@ -115,8 +115,9 @@
     <string name="no_thanks">Не, хвала</string>
     <string name="we_d_miss_you">Недостајаћете нам!\n༼☯﹏☯༽</string>
     <string name="crash_title">Дошло је до неочекиване грешке!</string>
-    <string name="crash_message">Извињавамо се, изгледа да се Yantra Launcher срушио! Молимо Вас да пошаљете извештај програмеру како бисте помогли у откривању грешке. Притиском на \'У реду\' бићете преусмерени на вашу е-пошту.</string>
+    <string name="crash_message">Извињавамо се, изгледа да се Yantra Launcher срушио! Молимо Вас да пошаљете извештај програмеру како бисте помогли у откривању грешке. Притиском на \'У реду\' извештај ће бити послат.</string>
     <string name="crash_comment_prompt">Овде можете додати опциони коментар да опишете рушење:</string>
+    <string name="dialog_email">Имејл адреса (опционо) како бисмо могли да вас контактирамо ако је потребно:</string>
     <string name="background_color">Боја позадине</string>
     <string name="pick_color">Изабери боју</string>
     <string name="input_color">Боја уноса</string>

@@ -65,6 +65,8 @@ Android Studio generates a `local.properties` file in the root directory of the 
     ```properties
     weatherAPIkey="your-weather-api-key"
     backupPassword="your-backup-password"
+    crashReportEndpoint="https://your-backend.example.com/api/v1/crash-report"
+    crashApiKey="your-crash-report-api-key"
     ```
     *Note: You can leave these as-is, or get an API key from [weatherapi.com](https://www.weatherapi.com/) to use the weather feature.*
 

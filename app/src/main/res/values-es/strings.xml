@@ -115,8 +115,9 @@
     <string name="no_thanks">No, gracias</string>
     <string name="we_d_miss_you">¡Te extrañaríamos!\n༼☯﹏☯༽</string>
     <string name="crash_title">¡Ha ocurrido un error inesperado!</string>
-    <string name="crash_message">Lo siento, ¡Yantra Launcher parece haberse bloqueado! Por favor, envía un informe al desarrollador para ayudar a depurar el fallo. Pulsar Ok te llevará a tu cliente de correo electrónico.</string>
+    <string name="crash_message">Lo siento, ¡Yantra Launcher parece haberse bloqueado! Por favor, envía un informe al desarrollador para ayudar a depurar el fallo. Pulsar Ok enviará el informe.</string>
     <string name="crash_comment_prompt">Puedes añadir un comentario opcional aquí para describir el fallo:</string>
+    <string name="dialog_email">Correo electrónico (opcional) para que podamos contactarte si es necesario:</string>
     <string name="background_color">Color de fondo</string>
     <string name="pick_color">Elegir color</string>
     <string name="input_color">Color de entrada</string>

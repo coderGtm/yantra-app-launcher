@@ -115,8 +115,9 @@
     <string name="no_thanks">Нет, спасибо</string>
     <string name="we_d_miss_you">Мы скучали по тебе! ༼☯﹏☯༽</string>
     <string name="crash_title">Произошла непредвиденная ошибка!</string>
-    <string name="crash_message">Извините, Yantra Launcher, кажется, упал! Пожалуйста, отправьте отчет разработчику, чтобы помочь исправить ошибку. Нажатие кнопки \"ОК\" откроет ваш почтовый клиент.</string>
+    <string name="crash_message">Извините, Yantra Launcher, кажется, упал! Пожалуйста, отправьте отчет разработчику, чтобы помочь исправить ошибку. Нажатие кнопки \"ОК\" отправит отчет.</string>
     <string name="crash_comment_prompt">Вы можете добавить комментарий об ошибке:</string>
+    <string name="dialog_email">Email (необязательно), если нужно, чтобы мы могли с вами связаться:</string>
     <string name="background_color">Цвет фона</string>
     <string name="pick_color">Выбрать цвет</string>
     <string name="input_color">Цвет ввода</string>

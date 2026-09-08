@@ -115,8 +115,9 @@
     <string name="no_thanks">No grazie</string>
     <string name="we_d_miss_you">Ci mancherai!\n༼☯﹏☯༽</string>
     <string name="crash_title">Si è verificato un errore inaspettato!</string>
-    <string name="crash_message">Spiacente, Yantra Launcher sembra essere crashato! Invia un report allo sviluppatore per aiutare a debuggare il crash. Premendo Ok verrai indirizzato al tuo client email.</string>
+    <string name="crash_message">Spiacente, Yantra Launcher sembra essere crashato! Invia un report allo sviluppatore per aiutare a debuggare il crash. Premendo Ok invierai il report.</string>
     <string name="crash_comment_prompt">Puoi aggiungere un commento opzionale qui per descrivere il crash (preferibilmente in Inglese):</string>
+    <string name="dialog_email">Indirizzo email (facoltativo) per poterti contattare in caso di necessità:</string>
     <string name="background_color">Colore di Sfondo</string>
     <string name="pick_color">Scegli Colore</string>
     <string name="input_color">Colore Input</string>

@@ -30,7 +30,7 @@ webkitVersion = "1.14.0"
 
 [libraries]
 acra-dialog = { module = "ch.acra:acra-dialog", version.ref = "acraVersion" }
-acra-mail = { module = "ch.acra:acra-mail", version.ref = "acraVersion" }
+acra-http = { module = "ch.acra:acra-http", version.ref = "acraVersion" }
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtxVersion" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityKtxVersion" }
 android-image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "androidImageCropperVersion" }

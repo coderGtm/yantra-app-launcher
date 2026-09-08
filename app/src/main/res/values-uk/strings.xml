@@ -115,8 +115,9 @@
     <string name="no_thanks">Ні дякую</string>
     <string name="we_d_miss_you">Ми будемо сумувати за тобою!\n༼☯﹏☯༽</string>
     <string name="crash_title">Сталася несподівана помилка!</string>
-    <string name="crash_message">Вибачте, Yantra Launcher, здається, вийшов з ладу! Будь ласка, надішліть звіт розробнику, щоб допомогти усунути збій. Натиснувши OK, ви перейдете до клієнта електронної пошти.</string>
+    <string name="crash_message">Вибачте, Yantra Launcher, здається, вийшов з ладу! Будь ласка, надішліть звіт розробнику, щоб допомогти усунути збій. Натиснувши OK, ви надішлете звіт.</string>
     <string name="crash_comment_prompt">Ви можете додати тут необов’язковий коментар, щоб описати збій:</string>
+    <string name="dialog_email">Електронна пошта (необов\'язково), якщо потрібно, щоб ми могли з вами зв\'язатися:</string>
     <string name="background_color">Колір фону</string>
     <string name="pick_color">Рожевий колір</string>
     <string name="input_color">Колір введення</string>

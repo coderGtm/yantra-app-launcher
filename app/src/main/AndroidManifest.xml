@@ -149,6 +149,14 @@
             android:value="${weatherAPIkey}" />
 
         <meta-data
+            android:name="CRASH_REPORT_ENDPOINT"
+            android:value="${crashReportEndpoint}" />
+
+        <meta-data
+            android:name="CRASH_API_KEY"
+            android:value="${crashApiKey}" />
+
+        <meta-data
             android:name="BACKUP_PASSWORD"
             android:value="${backupPassword}" />
     </application>
