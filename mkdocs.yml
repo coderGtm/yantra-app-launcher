@@ -12,6 +12,7 @@ nav:
     - Commands:
         - Essentials:
             - help: docs/commands/help.md
+            - wiki: docs/commands/wiki.md
             - echo: docs/commands/echo.md
             - exit: docs/commands/exit.md
             - reset: docs/commands/reset.md

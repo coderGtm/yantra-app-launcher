@@ -486,6 +486,8 @@
     <string name="an_error_occurred_no_reason">Дошло је до грешке.</string>
     <string name="cmd_web_title"><![CDATA[web <url>]]></string>
     <string name="cmd_web_help">Отвара наведени URL у вашем претраживачу, ако је присутан, наравно!</string>
+    <string name="cmd_wiki_title">wiki</string>
+    <string name="cmd_wiki_help">Отвара Yantra Launcher вики у вашем веб-прегледачу.</string>
     <string name="please_specify_the_url_to_open">Молимо наведите URL за отварање.</string>
     <string name="opening_in_your_web_browser">Отварам \'%1$s\' у вашем претраживачу...</string>
     <string name="you_would_need_a_web_browser_to_open_this_url">Треба вам претраживач да бисте отворили овај URL, који нисам могао да пронађем на вашем уређају :|</string>

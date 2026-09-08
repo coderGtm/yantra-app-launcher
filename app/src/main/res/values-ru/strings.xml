@@ -486,6 +486,8 @@
     <string name="an_error_occurred_no_reason">Произошла ошибка.</string>
     <string name="cmd_web_title"><![CDATA[web <url>]]></string>
     <string name="cmd_web_help">Открывает указанный URL в вашем браузере, если он присутствует, конечно!</string>
+    <string name="cmd_wiki_title">wiki</string>
+    <string name="cmd_wiki_help">Открывает вики Yantra Launcher в вашем веб-браузере.</string>
     <string name="please_specify_the_url_to_open">Пожалуйста, укажите URL для открытия.</string>
     <string name="opening_in_your_web_browser">Открытие \'%1$s\' в вашем веб-браузере...</string>
     <string name="you_would_need_a_web_browser_to_open_this_url">Вам понадобится веб-браузер, чтобы открыть этот URL-адрес, который я не нашел на вашем устройстве :|</string>

@@ -486,6 +486,8 @@
     <string name="an_error_occurred_no_reason">Se ha producido un error.</string>
     <string name="cmd_web_title"><![CDATA[web <url>]]></string>
     <string name="cmd_web_help">Abre la URL especificada en tu navegador, si está presente, ¡por supuesto!</string>
+    <string name="cmd_wiki_title">wiki</string>
+    <string name="cmd_wiki_help">Abre la wiki de Yantra Launcher en tu navegador web.</string>
     <string name="please_specify_the_url_to_open">Por favor, especifica la URL a abrir.</string>
     <string name="opening_in_your_web_browser">Abriendo \'%1$s\' en tu navegador web...</string>
     <string name="you_would_need_a_web_browser_to_open_this_url">Necesitarías un navegador web para abrir esta URL, que no pude encontrar en tu dispositivo :|</string>

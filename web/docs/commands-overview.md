@@ -53,6 +53,8 @@ Searches the internet for the provided query. Search engine can be specified wit
 'search -u=https://example.com/search?q= Yantra Launcher'
 ## web <url>
 Opens the specified URL in your browser, if present, ofc!
+## wiki
+Opens the Yantra Launcher wiki in your default web browser.
 ## gupt [url]
 G.U.P.T stands for Get Undercover Private Tab. Tired of going to browser everytime and opening Incognito Tab. With GUPT command, you get a built-in Private incognito Tab. Example: 'gupt https://www.youtube.com'. Use without url to default to https://www.google.com
 ## tts <text string>
