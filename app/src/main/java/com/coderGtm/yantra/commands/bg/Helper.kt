@@ -8,6 +8,8 @@ import com.coderGtm.yantra.R
 import com.coderGtm.yantra.applyLauncherBackground
 import com.coderGtm.yantra.setLauncherBackgroundBitmap
 
+internal fun isValidBlur(value: Int): Boolean = value in 1..10
+
 fun getRandomWallpaper(id: Int = -1, grayscale: Boolean = false, blur: Int = 0, command: Command) {
     val dimensions = "${command.terminal.activity.resources.displayMetrics.widthPixels}/${command.terminal.activity.resources.displayMetrics.heightPixels}"
     var url = "https://picsum.photos"

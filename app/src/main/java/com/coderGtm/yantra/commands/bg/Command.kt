@@ -47,7 +47,12 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                         grayscale = true
                     }
                     else if (arg.startsWith("-blur=")) {
-                        blur = arg.split("=")[1].toInt()
+                        val blurValue = arg.substringAfter("=").toIntOrNull()
+                        if (blurValue == null || !isValidBlur(blurValue)) {
+                            output(terminal.activity.getString(R.string.bg_invalid_args),terminal.theme.errorTextColor)
+                            return
+                        }
+                        blur = blurValue
                     }
                     else {
                         output(terminal.activity.getString(R.string.bg_invalid_args),terminal.theme.errorTextColor)
