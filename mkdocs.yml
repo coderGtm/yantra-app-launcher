@@ -4,7 +4,7 @@ site_author: 'The Yantra Launcher Community'
 docs_dir: web/
 repo_name: 'coderGtm/yantra-app-launcher'
 repo_url: 'https://github.com/coderGtm/yantra-app-launcher'
-edit_uri: 'edit/main/docs/'
+edit_uri: 'edit/main/web/docs/'
 nav:
     - Home: docs/index.md
     - Quickstart: docs/quickstart.md
@@ -12,6 +12,7 @@ nav:
     - Commands:
         - Essentials:
             - help: docs/commands/help.md
+            - echo: docs/commands/echo.md
             - exit: docs/commands/exit.md
             - reset: docs/commands/reset.md
             - clear: docs/commands/clear.md
@@ -51,6 +52,7 @@ nav:
             - dict: docs/commands/dict.md
         - System:
             - settings: docs/commands/settings.md
+            - location: docs/commands/location.md
             - battery: docs/commands/battery.md
             - sysinfo: docs/commands/sysinfo.md
             - lock: docs/commands/lock.md
@@ -64,6 +66,7 @@ nav:
         - Automation:
             - alias: docs/commands/alias.md
             - unalias: docs/commands/unalias.md
+            - backup: docs/commands/backup.md
             - scripts: docs/commands/scripts.md
             - run: docs/commands/run.md
             - init: docs/commands/init.md
@@ -83,6 +86,14 @@ nav:
             - bored: docs/commands/bored.md
             - ai: docs/commands/ai.md
             - pro: docs/commands/pro.md
+    - Guides:
+        - Minimal vs Pro: docs/guides/minimal-vs-pro.md
+        - Command Conventions: docs/guides/command-conventions.md
+        - Permissions & Prerequisites: docs/guides/permissions.md
+        - Termux Setup: docs/guides/termux.md
+        - Settings Reference: docs/guides/settings.md
+        - Troubleshooting: docs/guides/troubleshooting.md
+        - Security & Privacy: docs/guides/security-and-privacy.md
     - Frequently Asked Questions: docs/faq.md
     
 theme:

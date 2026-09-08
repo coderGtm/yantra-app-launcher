@@ -28,7 +28,7 @@ Ensure that termux is installed on your device from github or f-droid. Follow th
 
   6. Now, you can easily execute Termux commands from your Yantra Launcher terminal. If you get an error though saying something about Termux not running in background, follow the steps mention here: <https://github.com/coderGtm/yantra-app-launcher/issues/5#issuecomment-1778961986>
 
-*Feel free to open an issue or discuss in the [Discord community](https://discord.gg/sRZUG8rPjk) if you still face any problems!*
+*Feel free to open an issue or discuss in the [Discord community](https://discord.gg/YW7hYbPrTh) if you still face any problems!*
 
 ## 2. How to get the `ai` command working?
 
@@ -36,7 +36,7 @@ Getting ChatGPT like responses in your Home Screen Terminal is so cool that you 
 
 1. Choose an AI Provider. It could be anything that conforms to the ChatGPT API Response style. You can even use a paid OpenAI API in Yantra Launcher. Free alternatives may be found here: <https://github.com/zukixa/cool-ai-stuff>.
 2. Get the base domain of the service. For example, Naga AI's API url is <https://api.naga.ac/v1/chat/completions>. So the base domain here would be "api.naga.ac". Enter this base domain only in the Yantra Launcher Settings by using the `settings` command.
-3. Next, get the API Key. This is the most important part. How you get an API key can differ from one service provider to other, so it's best to check out their specific instructions. For example, to get Naga AI's API Key, you need to join their [Discord server](https://discord.naga.ac/) and send a message there. For more assistance you may ask in their server or in [Yantra Launcher's community server](https://discord.gg/sRZUG8rPjk).
+3. Next, get the API Key. This is the most important part. How you get an API key can differ from one service provider to another, so it's best to check out their specific instructions. For example, to get Naga AI's API Key, you need to join their [Discord server](https://discord.naga.ac/) and send a message there. For more assistance you may ask in their server or in [Yantra Launcher's community server](https://discord.gg/YW7hYbPrTh).
 4. Enter this API Key in Yantra Launcher's Settings.
 5. If you followed all the steps correctly and your service provider is working properly then you can now use the `ai` from your Yantra Launcher terminal.Test it by sending a message like:
 
@@ -44,7 +44,7 @@ Getting ChatGPT like responses in your Home Screen Terminal is so cool that you 
    ai Hello World
    ```
 
-*Feel free to discuss in the [Discord community](https://discord.gg/sRZUG8rPjk) if you still face any issues!*
+*Feel free to discuss in the [Discord community](https://discord.gg/YW7hYbPrTh) if you still face any issues!*
 
 ## 3. What is the 'gupt' command?
 
@@ -69,7 +69,7 @@ Salient features of G.U.P.T:
 
 ## 4. How to use Lua scripting in Yantra Launcher?
 
-Lua Scripting is a very powerful feature addition to Yantra Launcher using which you can literally do almost anything within your launcher. The reason being obvious: Lua is an entire programming language which has been embedded in the Launcher. This FAQ assumes that you already know how normal Yantra Launcher scripts work. If you don't know then pleas read the documentation of that command using the `help scripts` command.
+Lua Scripting is a very powerful feature addition to Yantra Launcher using which you can literally do almost anything within your launcher. The reason being obvious: Lua is an entire programming language which has been embedded in the Launcher. This FAQ assumes that you already know how normal Yantra Launcher scripts work. If you don't know then please read the documentation of that command using the `help scripts` command.
 
 Creating a Lua script has the same process as creating a normal Yantra Launcher commands script:
 
@@ -84,7 +84,7 @@ As you saw, the script creation process is the same. But the difference lies in 
 run -lua jokeNotifier
 ```
 
-Also, note that the embedded Lua language may not have the modules you are loking for. This is because most modules are written in C while this embedding is based on Java ([LuaJ](http://www.luaj.org/luaj.html)). But worry not, I have included 2 custom modules for the embedding using which you can do amazing things. The first one is the `http` module to create and send HTTP requests and parse their responses. The second one is a `binding` module to execute Yantra Launcher commands from Lua scripts. Also, there are custom `input` and `print` functions to facilitate IO operations in the absence of an stdout. Here are some code snippets to show the usage:
+Also, note that the embedded Lua language may not have the modules you are looking for. This is because most modules are written in C while this embedding is based on Java ([LuaJ](http://www.luaj.org/luaj.html)). But worry not, I have included 2 custom modules for the embedding using which you can do amazing things. The first one is the `http` module to create and send HTTP requests and parse their responses. The second one is a `binding` module to execute Yantra Launcher commands from Lua scripts. Also, there are custom `input` and `print` functions to facilitate IO operations in the absence of an stdout. Here are some code snippets to show the usage:
 
 ```lua
 -- A script to ask for a name and wait for 5 seconds before using a Yantra Launcher command
@@ -131,6 +131,6 @@ else
 end
 ```
 
-I hope these examples are enough to get you started. If that's the case then probably you can now see the extent of power you have on your fingertips while using your Yantra Lancher.
+I hope these examples are enough to get you started. If that's the case then probably you can now see the extent of power you have on your fingertips while using your Yantra Launcher.
 
 *(Yes, you know what I am saying...AUTOMATE)*

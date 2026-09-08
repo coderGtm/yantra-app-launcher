@@ -14,6 +14,8 @@ notepad [list / new <name> / read <name> / delete <name> / edit <name>]
 - `notepad edit <note_name>`: Opens the editor to modify a note's content.
 - `notepad delete <note_name>`: Deletes the specified note.
 
+Note names are entered as one command-line word, so they cannot contain spaces. Avoid commas too: Yantra Launcher uses commas internally to store the note list, and a comma in a name can make that list ambiguous. `TodoToday` and `shopping_list` are good names; `shopping list` is not.
+
 ## Example
 ```
 notepad new TodoToday

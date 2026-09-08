@@ -53,7 +53,7 @@ Searches the internet for the provided query. Search engine can be specified wit
 'search -u=https://example.com/search?q= Yantra Launcher'
 ## web <url>
 Opens the specified URL in your browser, if present, ofc!
-## GUPT | GUPT [url]
+## gupt [url]
 G.U.P.T stands for Get Undercover Private Tab. Tired of going to browser everytime and opening Incognito Tab. With GUPT command, you get a built-in Private incognito Tab. Example: 'gupt https://www.youtube.com'. Use without url to default to https://www.google.com
 ## tts <text string>
 Speaks provided text (Text-to-Speech). Example: 'tts Travel, World!'
@@ -63,8 +63,8 @@ Plays the default sound effect, or a named sound effect added through settings.
 Opens the news website configured via settings. Defaults to Google News
 ## bored
 Helps you find things to do when you're bored! (using Bored API)
-## time [utc] [GMT]
-Shows current local Date and Time. Use the utc arg to get UTC time. An optional time difference parameter can add or subtract that from UTC time. Example:
+## time [utc] [offset]
+Shows the current local date and time. Use the utc argument to get UTC time. An optional +/-HH:MM offset can add or subtract from UTC time. Example:
 time
 time utc
 time utc +5:30

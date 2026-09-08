@@ -4,21 +4,22 @@ The `weather` command fetches and displays the current weather report and foreca
 
 ## Syntax
 ```
-weather <location> [-fields]
+weather <location> [-field ...]
 ```
 
 ## Usage
 - `weather <location>`: Displays a basic weather report for the given location.
 - `weather list`: Lists all available weather fields you can use to customize the output.
-- `weather <location> -field1 -field2`: Displays the weather for the location with specific fields (e.g., `-temp`, `-humidity`).
+- `weather <location> -field1 -field2`: Displays the weather for the location with specific fields (e.g., `-temp`, `-humidity`). Each field needs its own hyphenated argument.
 
 ## Example
 ```
 weather London
 weather New York -temp -humidity
+weather Tokyo -uv -wind -sunrise
 ```
 
 !!! tip
-    Use `weather list` to see all supported fields like `-uv`, `-wind`, `-feels`, etc.
+    Use `weather list` to see all supported fields like `-uv`, `-wind`, `-feels`, and more. Do not combine fields into one argument such as `-temp-humidity`; write them as `-temp -humidity` instead.
     If your location name has spaces, enter the words directly without shell-style quotes.
     All field arguments must come after the location.

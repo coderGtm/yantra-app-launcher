@@ -21,7 +21,8 @@ We've organized this wiki to help you get the most out of your Yantra experience
 
 - **[Quickstart](quickstart.md):** If you've just installed the app, start here to learn the basics.
 - **[Commands Overview](commands-overview.md):** A high-level look at what Yantra Launcher's commands can do.
-- **[Commands Reference](commands/help.md):** Deep dives into every single command, from `ai` to `weather`.
+- **[Commands Reference](commands-overview.md):** Start with the overview, then choose a command from the sidebar for its full page.
+- **[Guides](guides/command-conventions.md):** Learn the conventions, permissions, integrations, privacy details, and troubleshooting tricks that connect the commands together.
 - **[FAQ](faq.md):** Common questions and troubleshooting tips.
 
 ## Join our Community 🤝

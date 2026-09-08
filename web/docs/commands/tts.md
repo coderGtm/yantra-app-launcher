@@ -7,7 +7,7 @@ The `tts` command stands for Text To Speech. As the name suggests, it is used fo
 tts <text goes here>
 ```
 
-Internally, it uses the Google Speech Synthesis engine for converting the text to audio. The engine is invoked for the period of the synthesis and then shut back down to preserve resources.
+Yantra Launcher uses Android's installed Text-to-Speech service for this. That means the actual voice engine is the one selected or provided as the default on your device; it is not necessarily Google TTS. The engine is initialized for the request and shut down after speaking to preserve resources.
 
 ## Example
 ```

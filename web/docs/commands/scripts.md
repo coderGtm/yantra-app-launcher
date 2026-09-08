@@ -1,6 +1,6 @@
 # scripts
 
-This is a command which allows you to create your own script on ```Lua``` language, or create the list of yantra's commands which will be executing command-by-command
+The `scripts` command lets you create your own Lua scripts or a list of Yantra Launcher commands that will be executed command-by-command. Same command, two flavors.
 
 !!! note
     Scripts are stored internally by Yantra Launcher. You can edit a script in the launcher or choose an external editor from its edit dialog.
@@ -14,6 +14,22 @@ scripts -rm <name>
 ```
 
 Use `scripts` to list scripts, `scripts -new <name>` to create one, `scripts <name>` to edit one, and `scripts -rm <name>` to delete one.
+
+Creating or editing a script opens a choice between Yantra Launcher's editor and an external editor. The script is stored inside Yantra Launcher either way. `scripts <name>` edits a script; it does not run it.
+
+## Running scripts
+
+Use the `run` command to execute a saved script:
+
+```
+run <name>
+run -clean <name>
+run -lua <name>
+```
+
+Regular scripts contain one Yantra Launcher command per line. `run <name>` executes those lines in order and prints their command output; `run -clean <name>` executes them without printing the command log. Lua scripts must be started with `run -lua <name>` so they are passed to the Lua interpreter instead of being treated as terminal commands.
+
+Lua scripts can use `print()` for output, `input()` for user input, and `binding.exec("command")` to run a Yantra Launcher command from Lua.
 
 ## Examples
 
@@ -56,5 +72,4 @@ echo hi
 
 ## Notes about Lua:
 
-You need to use input instead of io.read()
-TO exe
+You need to use `input()` instead of `io.read()` for input in Yantra Launcher. To execute Lua, use `run -lua <name>`.
