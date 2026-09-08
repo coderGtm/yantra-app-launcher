@@ -1,7 +1,18 @@
+package com.coderGtm.yantra
+
 import android.content.Context
-import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.coderGtm.yantra.network.HttpClientProvider
+import io.ktor.client.plugins.ResponseException
+import io.ktor.client.request.header
+import io.ktor.client.request.request
+import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.ContentType
+import io.ktor.http.HttpMethod
+import io.ktor.http.contentType
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
 import org.luaj.vm2.LuaTable
@@ -25,24 +36,7 @@ class LuaHttpAPI(context: Context) : LuaTable() {
             val latch = OneShotLatch()
             val responseTable = LuaTable()
 
-            val requestBuilder = AndroidNetworking.get(url.checkjstring())
-            headers.keys().forEach { key ->
-                requestBuilder.addHeaders(key.checkjstring(), headers.get(key).checkjstring())
-            }
-
-            requestBuilder.build().getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(jsonResponse: JSONObject?) {
-                    if (jsonResponse != null) {
-                        responseTable.set("body", toLuaTable(jsonResponse))
-                    }
-                    latch.release()
-                }
-
-                override fun onError(error: ANError) {
-                    responseTable.set("error", LuaValue.valueOf(error.errorDetail))
-                    latch.release()
-                }
-            })
+            requestJsonObject(HttpMethod.Get, url.checkjstring(), headers, null, responseTable, latch)
 
             latch.acquire()  // Block until the response is received
             return responseTable
@@ -56,26 +50,7 @@ class LuaHttpAPI(context: Context) : LuaTable() {
             val latch = OneShotLatch()
             val responseTable = LuaTable()
 
-            val requestBuilder = AndroidNetworking.post(url.checkjstring())
-            headers.keys().forEach { key ->
-                requestBuilder.addHeaders(key.checkjstring(), headers.get(key).checkjstring())
-            }
-
-            requestBuilder.addJSONObjectBody(JSONObject(body))
-
-            requestBuilder.build().getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(jsonResponse: JSONObject?) {
-                    if (jsonResponse != null) {
-                        responseTable.set("body", toLuaTable(jsonResponse))
-                    }
-                    latch.release()
-                }
-
-                override fun onError(error: ANError) {
-                    responseTable.set("error", LuaValue.valueOf(error.errorDetail))
-                    latch.release()
-                }
-            })
+            requestJsonObject(HttpMethod.Post, url.checkjstring(), headers, body, responseTable, latch)
 
             latch.acquire()  // Block until the response is received
             return responseTable
@@ -89,26 +64,7 @@ class LuaHttpAPI(context: Context) : LuaTable() {
             val latch = OneShotLatch()
             val responseTable = LuaTable()
 
-            val requestBuilder = AndroidNetworking.put(url.checkjstring())
-            headers.keys().forEach { key ->
-                requestBuilder.addHeaders(key.checkjstring(), headers.get(key).checkjstring())
-            }
-
-            requestBuilder.addJSONObjectBody(JSONObject(body))
-
-            requestBuilder.build().getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(jsonResponse: JSONObject?) {
-                    if (jsonResponse != null) {
-                        responseTable.set("body", toLuaTable(jsonResponse))
-                    }
-                    latch.release()
-                }
-
-                override fun onError(error: ANError) {
-                    responseTable.set("error", LuaValue.valueOf(error.errorDetail))
-                    latch.release()
-                }
-            })
+            requestJsonObject(HttpMethod.Put, url.checkjstring(), headers, body, responseTable, latch)
 
             latch.acquire()  // Block until the response is received
             return responseTable
@@ -122,26 +78,7 @@ class LuaHttpAPI(context: Context) : LuaTable() {
             val latch = OneShotLatch()
             val responseTable = LuaTable()
 
-            val requestBuilder = AndroidNetworking.delete(url.checkjstring())
-            headers.keys().forEach { key ->
-                requestBuilder.addHeaders(key.checkjstring(), headers.get(key).checkjstring())
-            }
-
-            requestBuilder.addJSONObjectBody(JSONObject(body))
-
-            requestBuilder.build().getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(jsonResponse: JSONObject?) {
-                    if (jsonResponse != null) {
-                        responseTable.set("body", toLuaTable(jsonResponse))
-                    }
-                    latch.release()
-                }
-
-                override fun onError(error: ANError) {
-                    responseTable.set("error", LuaValue.valueOf(error.errorDetail))
-                    latch.release()
-                }
-            })
+            requestJsonObject(HttpMethod.Delete, url.checkjstring(), headers, body, responseTable, latch)
 
             latch.acquire()  // Block until the response is received
             return responseTable
@@ -155,29 +92,51 @@ class LuaHttpAPI(context: Context) : LuaTable() {
             val latch = OneShotLatch()
             val responseTable = LuaTable()
 
-            val requestBuilder = AndroidNetworking.patch(url.checkjstring())
-            headers.keys().forEach { key ->
-                requestBuilder.addHeaders(key.checkjstring(), headers.get(key).checkjstring())
-            }
-
-            requestBuilder.addJSONObjectBody(JSONObject(body))
-
-            requestBuilder.build().getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(jsonResponse: JSONObject?) {
-                    if (jsonResponse != null) {
-                        responseTable.set("body", toLuaTable(jsonResponse))
-                    }
-                    latch.release()
-                }
-
-                override fun onError(error: ANError) {
-                    responseTable.set("error", LuaValue.valueOf(error.errorDetail))
-                    latch.release()
-                }
-            })
+            requestJsonObject(HttpMethod.Patch, url.checkjstring(), headers, body, responseTable, latch)
 
             latch.acquire()  // Block until the response is received
             return responseTable
+        }
+    }
+
+    private fun requestJsonObject(
+        method: HttpMethod,
+        url: String,
+        headers: LuaTable,
+        body: String?,
+        responseTable: LuaTable,
+        latch: OneShotLatch
+    ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val jsonBody = body?.takeIf { it.isNotBlank() }?.let { JSONObject(it).toString() }
+                val responseText = HttpClientProvider.client.request(url) {
+                    this.method = method
+                    headers.keys().forEach { key ->
+                        header(key.checkjstring(), headers.get(key).checkjstring())
+                    }
+                    if (jsonBody != null) {
+                        contentType(ContentType.Application.Json)
+                        setBody(jsonBody)
+                    }
+                }.bodyAsText()
+                responseTable.set("body", toLuaTable(JSONObject(responseText)))
+            } catch (e: Exception) {
+                responseTable.set("error", valueOf(errorMessage(e)))
+            } finally {
+                latch.release()
+            }
+        }
+    }
+
+    private fun errorMessage(exception: Exception): String {
+        val status = (exception as? ResponseException)?.response?.status
+        val detail = exception.message?.takeIf { it.isNotBlank() }
+            ?: exception::class.simpleName.orEmpty()
+        return if (status != null) {
+            "$status: $detail"
+        } else {
+            detail.ifBlank { "Unknown error" }
         }
     }
 
@@ -203,10 +162,10 @@ class LuaHttpAPI(context: Context) : LuaTable() {
         return when (value) {
             is JSONObject -> toLuaTable(value)
             is JSONArray -> toLuaTable(value)
-            is String -> LuaValue.valueOf(value)
-            is Number -> LuaValue.valueOf(value.toDouble())
-            is Boolean -> LuaValue.valueOf(value)
-            else -> LuaValue.NIL
+            is String -> valueOf(value)
+            is Number -> valueOf(value.toDouble())
+            is Boolean -> valueOf(value)
+            else -> NIL
         }
     }
 }

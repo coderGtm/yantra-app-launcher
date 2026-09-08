@@ -3,7 +3,6 @@ kotlin = "2.4.10"
 acraVersion = "5.13.1"
 activityKtxVersion = "1.13.0"
 androidImageCropperVersion = "4.7.0"
-androidNetworkingVersion = "1.0.4"
 appcompat = "1.8.0"
 appUpdate = "2.1.0"
 colorpickerview = "2.4.0"
@@ -34,7 +33,6 @@ acra-http = { module = "ch.acra:acra-http", version.ref = "acraVersion" }
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtxVersion" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityKtxVersion" }
 android-image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "androidImageCropperVersion" }
-android-networking = { module = "com.github.amitshekhariitbhu.Fast-Android-Networking:android-networking", version.ref = "androidNetworkingVersion" }
 app-update = { module = "com.google.android.play:app-update", version.ref = "appUpdate" }
 app-update-ktx = { module = "com.google.android.play:app-update-ktx", version.ref = "appUpdate" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }

@@ -90,7 +90,6 @@ dependencies {
     proImplementation libs.webkit
     implementation libs.android.image.cropper
     implementation libs.luaj.jse
-    implementation libs.android.networking
     implementation libs.security.crypto
     implementation libs.bundles.ktor
     implementation libs.localbroadcastmanager

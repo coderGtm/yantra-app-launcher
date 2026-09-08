@@ -1,6 +1,5 @@
 package com.coderGtm.yantra
 
-import LuaHttpAPI
 import com.coderGtm.yantra.commands.run.requestInput
 import com.coderGtm.yantra.terminal.Terminal
 import kotlinx.coroutines.CompletableDeferred

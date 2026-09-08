@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import com.androidnetworking.AndroidNetworking
 import org.acra.ReportField
 import org.acra.config.dialog
 import org.acra.config.httpSender
@@ -62,10 +61,5 @@ class YantraLauncher : Application() {
                 socketTimeout = 10000
             }
         }
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        AndroidNetworking.initialize(applicationContext)
     }
 }
