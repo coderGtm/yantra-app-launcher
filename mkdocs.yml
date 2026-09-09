@@ -96,6 +96,7 @@ nav:
         - Troubleshooting: docs/guides/troubleshooting.md
         - Security & Privacy: docs/guides/security-and-privacy.md
     - Frequently Asked Questions: docs/faq.md
+    - Privacy Policy: docs/privacy-policy.md
     
 theme:
   name: material
