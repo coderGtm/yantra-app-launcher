@@ -3,6 +3,9 @@ package com.coderGtm.yantra.ui.components.main
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.gestures.BringIntoViewSpec
+import androidx.compose.foundation.gestures.LocalBringIntoViewSpec
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,6 +18,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
@@ -40,13 +44,23 @@ import com.coderGtm.yantra.ui.screens.main.toComposeFontStyle
 import com.coderGtm.yantra.ui.screens.main.toComposeFontWeight
 import kotlin.math.abs
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun MainActivityTerminalPane(
     uiRefs: MainActivityUiRefs,
     modifier: Modifier = Modifier,
 ) {
     val listState = rememberLazyListState()
-    LaunchedEffect(uiRefs.scrollView.scrollToBottomNonce, uiRefs.terminalOutput.items.size, uiRefs.luaInputSession) {
+    // Typing changes the input text but not the output size, so the input text itself must be a
+    // key here. Otherwise the only thing pulling the list to the input is the text field's own
+    // animated bring-into-view request, which crawls across a large output instead of snapping.
+    val commandInputText = uiRefs.cmdInput.value.text
+    LaunchedEffect(
+        uiRefs.scrollView.scrollToBottomNonce,
+        uiRefs.terminalOutput.items.size,
+        uiRefs.luaInputSession,
+        commandInputText,
+    ) {
         val lastIndex = uiRefs.terminalOutput.items.lastIndex + 2
         if (lastIndex >= 0) {
             listState.scrollToItem(lastIndex)
@@ -104,12 +118,17 @@ internal fun MainActivityTerminalPane(
                 }
             },
     ) {
-        LazyColumn(
-            state = listState,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 15.dp, vertical = 15.dp),
-        ) {
+        // The focused text field asks to be brought into view on every keystroke, and LazyColumn
+        // answers that with a long animated scroll across the whole output. Returning zero here
+        // marks each such request satisfied immediately, so no animation ever starts; the explicit
+        // scrollToItem above is the only thing that moves the list.
+        CompositionLocalProvider(LocalBringIntoViewSpec provides NoAnimatedBringIntoView) {
+            LazyColumn(
+                state = listState,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 15.dp, vertical = 15.dp),
+            ) {
             items(
                 items = uiRefs.terminalOutput.items,
                 key = { it.id },
@@ -132,8 +151,18 @@ internal fun MainActivityTerminalPane(
             item(key = "bottomSpacer", contentType = "spacer") {
                 Spacer(modifier = Modifier.height(15.dp))
             }
+            }
         }
     }
+}
+
+/**
+ * Marks every framework bring-into-view request as already satisfied so the list never starts
+ * the animated crawl those requests would otherwise trigger. Explicit scrollToItem snaps are
+ * unaffected.
+ */
+private val NoAnimatedBringIntoView = object : BringIntoViewSpec {
+    override fun calculateScrollDistance(offset: Float, size: Float, containerSize: Float): Float = 0f
 }
 
 @Composable

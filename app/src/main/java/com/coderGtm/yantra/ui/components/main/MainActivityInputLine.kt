@@ -83,15 +83,22 @@ internal fun MainActivityInputLine(
             LuaInputField(
                 session = session,
                 onValueChange = uiRefs::updateLuaInputValue,
+                onFocusGained = uiRefs.scrollView::scrollToBottom,
             )
         } else if (uiRefs.cmdInput.visibility == View.VISIBLE) {
-            CommandInputField(controller = uiRefs.cmdInput)
+            CommandInputField(
+                controller = uiRefs.cmdInput,
+                onFocusGained = uiRefs.scrollView::scrollToBottom,
+            )
         }
     }
 }
 
 @Composable
-private fun RowScope.CommandInputField(controller: ComposeInputController) {
+private fun RowScope.CommandInputField(
+    controller: ComposeInputController,
+    onFocusGained: () -> Unit,
+) {
     val focusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
     var isFocused by remember { mutableStateOf(false) }
@@ -136,7 +143,10 @@ private fun RowScope.CommandInputField(controller: ComposeInputController) {
             .weight(1f)
             .padding(start = 5.dp)
             .focusRequester(focusRequester)
-            .onFocusChanged { isFocused = it.isFocused }
+            .onFocusChanged {
+                if (it.isFocused) onFocusGained()
+                isFocused = it.isFocused
+            }
             .drawTerminalCursor(
                 value = controller.value,
                 textLayoutResult = textLayoutResult,
@@ -156,6 +166,7 @@ private fun RowScope.CommandInputField(controller: ComposeInputController) {
 private fun RowScope.LuaInputField(
     session: LuaInputSession,
     onValueChange: (TextFieldValue) -> Unit,
+    onFocusGained: () -> Unit,
 ) {
     val focusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -185,7 +196,10 @@ private fun RowScope.LuaInputField(
             .weight(1f)
             .padding(start = 5.dp)
             .focusRequester(focusRequester)
-            .onFocusChanged { isFocused = it.isFocused }
+            .onFocusChanged {
+                if (it.isFocused) onFocusGained()
+                isFocused = it.isFocused
+            }
             .drawTerminalCursor(
                 value = session.value,
                 textLayoutResult = textLayoutResult,
