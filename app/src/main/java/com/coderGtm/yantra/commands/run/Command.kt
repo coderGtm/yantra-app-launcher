@@ -6,6 +6,10 @@ import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -55,8 +59,15 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         if (rcvdScriptName in scripts) {
             val scriptBody = terminal.preferenceObject.getString("script_$rcvdScriptName","") ?: ""
             val cmdsInScript = scriptBody.split("\n")
-            cmdsInScript.forEach {
-                terminal.handleCommand(it.trim(), logCmd = !clean)
+            CoroutineScope(Dispatchers.Main).launch {
+                cmdsInScript.forEach { cmd ->
+                    val trimmed = cmd.trim()
+                    if (trimmed.isEmpty()) return@forEach
+                    terminal.handleCommand(trimmed, logCmd = !clean)
+                    while (terminal.isSleeping) {
+                        delay(50)
+                    }
+                }
             }
         }
         else {
