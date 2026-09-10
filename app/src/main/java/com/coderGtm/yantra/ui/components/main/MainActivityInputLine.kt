@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.withFrameNanos
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.focus.FocusRequester
@@ -59,6 +60,7 @@ internal fun MainActivityInputLine(
             .padding(bottom = 200.dp)
             .clickable { uiRefs.inputLineLayout.performClick() },
         horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         if (uiRefs.modernPrompt.visible) {
             ModernInputPrompt(
@@ -74,7 +76,6 @@ internal fun MainActivityInputLine(
                 fontFamily = uiRefs.username.typeface?.let { FontFamily(it) },
                 fontWeight = uiRefs.username.style.toComposeFontWeight(),
                 fontStyle = uiRefs.username.style.toComposeFontStyle(),
-                modifier = Modifier.padding(top = 2.dp),
             )
         }
 
