@@ -180,6 +180,7 @@ suspend fun handleStreamingResponse(
         if (choicesArray.length() == 0) continue
 
         val delta = choicesArray.getJSONObject(0).optJSONObject("delta") ?: continue
+        if (delta.isNull("content")) continue
         val content = delta.optString("content")
         if (content.isEmpty()) continue
 
