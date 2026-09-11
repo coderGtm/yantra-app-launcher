@@ -304,8 +304,8 @@
     <string name="cmd_launchf_title">launchf [approx app name]</string>
     <string name="cmd_launchf_help">Launches app by matching given app name string using fuzzy search algorithm (Levenshtein distance). Example: \'launchf tube\' may launch YouTube.</string>
     <string name="launchf_no_string">Please give a string to launch app with fuzzy search.</string>
-    <string name="cmd_list_title">list [apps|themes|contacts|shortcuts]</string>
-    <string name="cmd_list_help">Lists installed apps, themes, contacts, or available app shortcuts.</string>
+    <string name="cmd_list_title">list [apps [-p] [category]|themes|contacts|shortcuts]</string>
+    <string name="cmd_list_help">Lists installed apps grouped by category, themes, contacts, or available app shortcuts. Use \'list apps\' for app names only, \'list apps -p\' to include package names, and \'list apps &lt;category&gt; [-p]\' to filter one category.</string>
     <string name="invalid_list_cmd">Invalid command. See \'help list\' for usage info</string>
     <string name="fetching_apps">Fetching apps...</string>
     <string name="fetching_contacts">Fetching Contacts...</string>

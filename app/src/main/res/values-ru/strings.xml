@@ -304,8 +304,8 @@
     <string name="cmd_launchf_title">launchf [примерное имя приложения]</string>
     <string name="cmd_launchf_help">Запускает приложение, сопоставляя заданную строку имени приложения с помощью алгоритма нечеткого поиска (расстояние Левенштейна). Пример: \'launchf tube\' может запустить YouTube.</string>
     <string name="launchf_no_string">Пожалуйста, введите строку для запуска приложения с помощью нечеткого поиска.</string>
-    <string name="cmd_list_title">list [apps|themes|contacts|shortcuts]</string>
-    <string name="cmd_list_help">Перечисляет установленные приложения, темы, контакты или доступные ярлыки приложений.</string>
+    <string name="cmd_list_title">list [apps [-p] [category]|themes|contacts|shortcuts]</string>
+    <string name="cmd_list_help">Перечисляет установленные приложения с группировкой по категориям, темы, контакты или доступные ярлыки приложений. Используйте \'list apps\' только для имён приложений, \'list apps -p\' чтобы включить имена пакетов, и \'list apps &lt;category&gt; [-p]\' чтобы показать одну категорию.</string>
     <string name="invalid_list_cmd">Неверная команда. См. \'help list\' для информации об использовании</string>
     <string name="fetching_apps">Получение приложений...</string>
     <string name="fetching_contacts">Получение контактов...</string>

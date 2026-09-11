@@ -101,6 +101,7 @@ class Terminal(
             getThemes = { terminalPreferenceThemeNames(preferenceObject) },
             getTodoArguments = { buildTodoArguments(preferenceObject) },
             getWeatherFields = { com.coderGtm.yantra.commands.weather.VALID_WEATHER_FIELDS },
+            getAppCategories = { com.coderGtm.yantra.commands.list.AppCategories.ALL },
         ).filterKeys { it in commands }
     )
 

@@ -13,11 +13,58 @@ import com.coderGtm.yantra.Themes
 import com.coderGtm.yantra.contactsManager
 import com.coderGtm.yantra.isPro
 
-fun listApps(command: Command) {
-    command.output(command.terminal.activity.getString(R.string.found_apps, command.terminal.appList.size))
-    command.output("-------------------------")
-    for (app in command.terminal.appList) {
-        command.output("""- ${app.appName} (${app.packageName})""")
+fun resolveAppCategory(packageName: String, command: Command): String {
+    return try {
+        val pm = command.terminal.activity.packageManager
+        val info = pm.getApplicationInfo(packageName, 0)
+        AppCategories.fromApplicationInfoCategory(info.category)
+    } catch (_: Exception) {
+        AppCategories.OTHER
+    }
+}
+
+fun listApps(command: Command, filter: String? = null, showPackages: Boolean = false) {
+    val normalizedFilter = filter?.let { normalizeCategoryFilter(it) }
+    if (filter != null && normalizedFilter == null) {
+        command.output(
+            command.terminal.activity.getString(R.string.list_unknow_param, filter),
+            command.terminal.theme.errorTextColor
+        )
+        command.output(
+            "Available categories: ${AppCategories.ALL.joinToString(", ")}",
+            command.terminal.theme.resultTextColor
+        )
+        return
+    }
+
+    val categorized = command.terminal.appList.distinct().map { app ->
+        CategorizedApp(app.appName, app.packageName, resolveAppCategory(app.packageName, command))
+    }
+    var grouped = groupAppsByCategory(categorized)
+    if (normalizedFilter != null) {
+        grouped = grouped.filter { it.category == normalizedFilter }
+    }
+
+    val total = grouped.sumOf { it.apps.size }
+    if (normalizedFilter != null) {
+        command.output(
+            command.terminal.activity.getString(R.string.found_apps, total) + " in $normalizedFilter"
+        )
+    } else {
+        command.output(
+            command.terminal.activity.getString(R.string.found_apps, total) + " in ${grouped.size} categories"
+        )
+    }
+
+    for (group in grouped) {
+        command.output(
+            formatCategoryTitle(group),
+            command.terminal.theme.warningTextColor,
+            android.graphics.Typeface.BOLD
+        )
+        for (app in group.apps) {
+            command.output(formatAppLine(app, showPackages))
+        }
     }
 }
 

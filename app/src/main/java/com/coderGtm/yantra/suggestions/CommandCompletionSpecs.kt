@@ -4,6 +4,7 @@ fun buildCommandCompletionSpecs(
     getThemes: () -> List<String>,
     getTodoArguments: () -> List<String>,
     getWeatherFields: () -> Set<String>,
+    getAppCategories: () -> List<String> = { emptyList() },
 ): Map<String, CommandCompletionSpec> = mapOf(
     "launch" to CommandCompletionSpec(
         rules = listOf(
@@ -33,6 +34,18 @@ fun buildCommandCompletionSpecs(
     "list" to CommandCompletionSpec(
         rules = listOf(
             CompletionRule.Choice { listOf("apps", "shortcuts", "themes", "contacts") },
+            CompletionRule.Choice { ctx ->
+                if (ctx.arguments.getOrNull(0)?.lowercase() != "apps") emptyList()
+                else if (ctx.arguments.any { it.equals("-p", ignoreCase = true) }) emptyList()
+                else getAppCategories() + "-p"
+            },
+            CompletionRule.Choice { ctx ->
+                val args = ctx.arguments
+                if (args.getOrNull(0)?.lowercase() != "apps") emptyList()
+                else if (args.any { it.equals("-p", ignoreCase = true) }) emptyList()
+                else if (args.size >= 2 && getAppCategories().any { it.equals(args[1], ignoreCase = true) }) listOf("-p")
+                else emptyList()
+            },
         ),
     ),
     "notepad" to CommandCompletionSpec(

@@ -304,8 +304,8 @@
     <string name="cmd_launchf_title">launchf [приближно име апликације]</string>
     <string name="cmd_launchf_help">Покреће апликацију поклапањем са датим именом апликације користећи fuzzy search алгоритам (Levenshtein дистанца).\nПример: \'launchf tube\' може покренути YouTube.</string>
     <string name="launchf_no_string">Наведите стринг за покретање апликације са fuzzy search-ом.</string>
-    <string name="cmd_list_title">list [apps|themes|contacts|shortcuts]</string>
-    <string name="cmd_list_help">Приказује инсталиране апликације, теме, контакте или доступне пречице апликација.</string>
+    <string name="cmd_list_title">list [apps [-p] [category]|themes|contacts|shortcuts]</string>
+    <string name="cmd_list_help">Приказује инсталиране апликације груписане по категоријама, теме, контакте или доступне пречице апликација. Користите \'list apps\' само за називе, \'list apps -p\' за приказ назива пакета и \'list apps &lt;category&gt; [-p]\' за филтрирање једне категорије.</string>
     <string name="invalid_list_cmd">Неисправна команда. Погледајте \'help list\' за информације о употреби</string>
     <string name="fetching_apps">Преузимање апликација...</string>
     <string name="fetching_contacts">Преузимање контаката...</string>
