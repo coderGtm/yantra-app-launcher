@@ -4,18 +4,26 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Typeface
+import android.os.Build
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.TypedValue
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.core.graphics.drawable.DrawableCompat
+import com.coderGtm.yantra.R
 import com.coderGtm.yantra.interfaces.TerminalGestureListenerCallback
+import com.coderGtm.yantra.terminal.TerminalEditText
 import java.util.UUID
 
 sealed class MainTerminalOutputItem(open val id: String) {
@@ -302,42 +310,85 @@ class EditableString(private val raw: String) {
     override fun toString(): String = raw
 }
 
+/**
+ * Facade over the native [TerminalEditText] hosted in the Compose input row.
+ *
+ * The command field is deliberately a framework EditText rather than a Compose
+ * BasicTextField: the native view owns the [android.view.inputmethod.InputConnection],
+ * so programmatic clears via [setText] finish any active composing region and IMEs
+ * with composing buffers (e.g. SwiftKey) cannot push stale text back. A Compose
+ * state-only reset does not end the IME session, which caused submitted commands
+ * to stick in the input line on such keyboards.
+ *
+ * Text flows imperatively (never through recomposition): callers use [setText] /
+ * [text], and typing is mirrored into [inputText] for Compose readers.
+ */
 class ComposeInputController {
-    var value by mutableStateOf(TextFieldValue(""))
+    // Compose-observable mirror of the native field's text (e.g. scroll-snapping
+    // on typing). Never fed into an IME.
+    var inputText by mutableStateOf("")
+        private set
     var isEnabled by mutableStateOf(true)
     var visibility by mutableIntStateOf(View.VISIBLE)
     var textColorInt by mutableIntStateOf(Color.WHITE)
     var textSize by mutableStateOf(16f)
     var typeface by mutableStateOf<Typeface?>(null)
     var cursorColorInt by mutableIntStateOf(Color.WHITE)
-    var focusRequestNonce by mutableIntStateOf(0)
-    var showKeyboardNonce by mutableIntStateOf(0)
-    var hideKeyboardNonce by mutableIntStateOf(0)
+
+    private var editText: TerminalEditText? = null
+    private var pendingText: String = ""
+    private var pendingSelection: Int = 0
+    private var pendingFocusRequest: Boolean = false
+    private var pendingShowKeyboard: Boolean = false
 
     private val textChangedListeners = mutableListOf<(CharSequence?) -> Unit>()
     private var editorActionListener: ((Any?, Int, Any?) -> Boolean)? = null
 
     val text: EditableString?
-        get() = EditableString(value.text)
+        get() = EditableString(editText?.text?.toString() ?: pendingText)
 
     fun setText(text: String) {
-        value = TextFieldValue(text = text, selection = TextRange(text.length))
-        notifyTextChanged()
+        val view = editText
+        if (view == null) {
+            pendingText = text
+            pendingSelection = text.length
+            inputText = text
+            notifyTextChanged(text)
+            return
+        }
+        // Framework setText(): finishes any active composing region, so the IME
+        // cannot restore the old text afterwards. Mirror + listeners update via
+        // the TextWatcher registered in [attach].
+        view.setText(text)
+        view.setSelection(text.length)
     }
 
     fun setSelection(index: Int) {
-        value = value.copy(selection = TextRange(index.coerceIn(0, value.text.length)))
+        val view = editText
+        if (view == null) {
+            pendingSelection = index.coerceIn(0, pendingText.length)
+            return
+        }
+        view.setSelection(index.coerceIn(0, view.text?.length ?: 0))
     }
 
     fun requestFocus(showKeyboard: Boolean = true) {
-        focusRequestNonce++
+        val view = editText
+        if (view == null) {
+            pendingFocusRequest = true
+            pendingShowKeyboard = showKeyboard
+            return
+        }
+        view.requestFocus()
         if (showKeyboard) {
-            showKeyboardNonce++
+            showKeyboard(view)
         }
     }
 
     fun hideKeyboard() {
-        hideKeyboardNonce++
+        val view = editText ?: return
+        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     fun setTextColor(color: Int) {
@@ -346,22 +397,85 @@ class ComposeInputController {
 
     fun setOnEditorActionListener(listener: (Any?, Int, Any?) -> Boolean) {
         editorActionListener = listener
+        editText?.setOnEditorActionListener { _, actionId, event ->
+            editorActionListener?.invoke(null, actionId, event) ?: false
+        }
     }
 
     fun addTextChangedListener(listener: (CharSequence?) -> Unit) {
         textChangedListeners += listener
     }
 
-    fun dispatchEditorAction(actionId: Int): Boolean =
-        editorActionListener?.invoke(null, actionId, null) ?: false
-
-    fun onValueChanged(newValue: TextFieldValue) {
-        value = newValue
-        notifyTextChanged()
+    fun attach(view: TerminalEditText, onFocusGained: () -> Unit) {
+        editText = view
+        applyStyle(view)
+        applyCursor(view)
+        view.setText(pendingText)
+        view.setSelection(pendingSelection.coerceIn(0, pendingText.length))
+        inputText = pendingText
+        view.setOnEditorActionListener { _, actionId, event ->
+            editorActionListener?.invoke(null, actionId, event) ?: false
+        }
+        view.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                onFocusGained()
+            }
+        }
+        view.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val current = s?.toString().orEmpty()
+                pendingText = current
+                pendingSelection = view.selectionStart.coerceAtLeast(0)
+                inputText = current
+                notifyTextChanged(current)
+            }
+            override fun afterTextChanged(s: Editable?) = Unit
+        })
+        if (pendingFocusRequest) {
+            pendingFocusRequest = false
+            view.post {
+                view.requestFocus()
+                if (pendingShowKeyboard) {
+                    showKeyboard(view)
+                }
+                pendingShowKeyboard = false
+            }
+        }
     }
 
-    private fun notifyTextChanged() {
-        textChangedListeners.forEach { it(value.text) }
+    fun detach(view: TerminalEditText) {
+        if (editText === view) {
+            pendingText = view.text?.toString().orEmpty()
+            pendingSelection = view.selectionStart.coerceAtLeast(0)
+            editText = null
+        }
+    }
+
+    fun applyStyle(view: TerminalEditText) {
+        view.setTextColor(textColorInt)
+        view.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize)
+        view.typeface = typeface
+        view.isEnabled = isEnabled
+    }
+
+    private fun applyCursor(view: TerminalEditText) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            return
+        }
+        val drawable = AppCompatResources.getDrawable(view.context, R.drawable.cursor_drawable)
+            ?.mutate() ?: return
+        DrawableCompat.setTint(drawable, cursorColorInt)
+        view.textCursorDrawable = drawable
+    }
+
+    private fun showKeyboard(view: TerminalEditText) {
+        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(view, 0)
+    }
+
+    private fun notifyTextChanged(text: CharSequence?) {
+        textChangedListeners.forEach { it(text) }
     }
 }
 
