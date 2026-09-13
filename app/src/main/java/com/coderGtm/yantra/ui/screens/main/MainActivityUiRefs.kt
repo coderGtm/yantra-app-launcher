@@ -276,6 +276,25 @@ internal fun Int?.toComposeFontStyle(): FontStyle? = when (this) {
     else -> null
 }
 
+/**
+ * Wraps an Android [Typeface] for Compose, baking the old TextView-style [style]
+ * (BOLD/ITALIC/BOLD_ITALIC) into the Typeface itself via [Typeface.create].
+ *
+ * The pre-Compose terminal used `TextView.setTypeface(typeface, style)`, which
+ * fake-bolds / skews when the custom font only ships a regular cut (e.g. the
+ * bundled Source Code Pro). `FontFamily(singleRegularTypeface)` + `FontWeight.Bold`
+ * does NOT synthesize — Compose just reuses the regular glyphs, so bold was
+ * silently invisible after the rewrite. Baking restores the old visual.
+ *
+ * When [this] is null the system font handles [FontWeight]/[FontStyle], so null
+ * is returned to let Compose pick the platform bold cut.
+ */
+internal fun Typeface?.toComposeFontFamily(style: Int?): FontFamily? {
+    if (this == null) return null
+    if (style == null || style == Typeface.NORMAL) return FontFamily(this)
+    return FontFamily(Typeface.create(this, style))
+}
+
 class ComposeButtonController(initialText: String) {
     var text by mutableStateOf(initialText)
     var visibility by mutableIntStateOf(View.GONE)

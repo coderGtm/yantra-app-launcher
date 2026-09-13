@@ -16,12 +16,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.coderGtm.yantra.ui.screens.main.ComposeButtonController
 import com.coderGtm.yantra.ui.screens.main.MainActivityUiRefs
 import com.coderGtm.yantra.ui.screens.main.MainSuggestionItem
+import com.coderGtm.yantra.ui.screens.main.toComposeFontFamily
 import com.coderGtm.yantra.ui.screens.main.toComposeFontStyle
 import com.coderGtm.yantra.ui.screens.main.toComposeFontWeight
 import java.util.Locale
@@ -79,7 +79,7 @@ private fun MainActivitySuggestionChip(item: MainSuggestionItem) {
         text = item.text.uppercase(LocalLocale.current.platformLocale),
         color = Color(item.color),
         fontSize = item.fontSize.sp,
-        fontFamily = item.typeface?.let { FontFamily(it) },
+        fontFamily = item.typeface.toComposeFontFamily(item.style),
         fontWeight = item.style.toComposeFontWeight(),
         fontStyle = item.style.toComposeFontStyle(),
         modifier = Modifier

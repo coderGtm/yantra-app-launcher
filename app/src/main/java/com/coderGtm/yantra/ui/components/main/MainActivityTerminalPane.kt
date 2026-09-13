@@ -40,6 +40,7 @@ import com.mikepenz.markdown.m3.markdownTypography
 import com.coderGtm.yantra.ui.components.ModernChatBubble
 import com.coderGtm.yantra.ui.screens.main.MainActivityUiRefs
 import com.coderGtm.yantra.ui.screens.main.MainTerminalOutputItem
+import com.coderGtm.yantra.ui.screens.main.toComposeFontFamily
 import com.coderGtm.yantra.ui.screens.main.toComposeFontStyle
 import com.coderGtm.yantra.ui.screens.main.toComposeFontWeight
 import kotlin.math.abs
@@ -192,7 +193,11 @@ private fun MainActivityOutputItem(item: MainTerminalOutputItem) {
 
 @Composable
 private fun MainActivityTextOutput(item: MainTerminalOutputItem.Text) {
-    val fontFamily = item.typeface?.let { FontFamily(it) }
+
+    // Bake BOLD/ITALIC into the Typeface (see toComposeFontFamily): a single-cut
+    // custom font + FontWeight.Bold alone renders as regular in Compose.
+    val fontFamily = item.typeface.toComposeFontFamily(item.style)
+
     val itemColor = Color(item.color)
 
     if (item.markdown) {
