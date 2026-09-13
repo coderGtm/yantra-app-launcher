@@ -76,6 +76,8 @@ class Terminal(
     private var cmdHistoryCursor = -1
     private var commandCache = mutableListOf<Map<String, BaseCommand>>()
 
+    private var isProcessingInput = false
+
     val theme = getCurrentTheme(activity, preferenceObject)
     val commands = getAvailableCommands(activity)
     var primarySuggestions: MutableList<Suggestion> = mutableListOf()
@@ -361,12 +363,15 @@ class Terminal(
         }
     }
     fun handleInput(input: String) {
+        if (isProcessingInput) return
+        isProcessingInput = true
         suggestionJob?.cancel()
         binding.suggestionsTab.removeAllViews()
         handleCommand(input)
         binding.cmdInput.setText("")
         if (hideKeyboardOnEnter) hideSoftKeyboard()
         goFullScreen()
+        isProcessingInput = false
     }
     private fun hideSoftKeyboard() {
         binding.hideKeyboard()
