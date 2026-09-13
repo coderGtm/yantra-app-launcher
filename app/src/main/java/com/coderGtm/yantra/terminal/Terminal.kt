@@ -399,6 +399,11 @@ class Terminal(
             handleCommand(cmdToExecute)
         }
     }
+
+    fun prependToCommandQueue(commands: List<String>) {
+        commandQueue.addAll(0, commands)
+    }
+
     private fun createTouchListeners() {
         binding.scrollView.setGestureListenerCallback((activity as MainActivity))
         // for keyboard open

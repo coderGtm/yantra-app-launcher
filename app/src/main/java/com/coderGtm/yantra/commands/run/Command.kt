@@ -59,16 +59,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         if (rcvdScriptName in scripts) {
             val scriptBody = terminal.preferenceObject.getString("script_$rcvdScriptName","") ?: ""
             val cmdsInScript = scriptBody.split("\n")
-            CoroutineScope(Dispatchers.Main).launch {
-                cmdsInScript.forEach { cmd ->
-                    val trimmed = cmd.trim()
-                    if (trimmed.isEmpty()) return@forEach
-                    terminal.handleCommand(trimmed, logCmd = !clean)
-                    while (terminal.isSleeping) {
-                        delay(50)
-                    }
-                }
-            }
+                .map { it.trim() }
+                .filter { it.isNotEmpty() }
+            terminal.prependToCommandQueue(cmdsInScript)
+            terminal.executeCommandsInQueue()
         }
         else {
             output(terminal.activity.getString(R.string.script_not_found, rcvdScriptName),terminal.theme.errorTextColor)
