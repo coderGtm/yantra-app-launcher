@@ -22,6 +22,7 @@ import com.coderGtm.yantra.NO_LOG_COMMANDS
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.applyLauncherBackground
 import com.coderGtm.yantra.activities.MainActivity
+import com.coderGtm.yantra.activities.main.MainActivityBehavior
 import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.blueprints.YantraLauncherDialog
 import com.coderGtm.yantra.contactsManager
@@ -515,7 +516,9 @@ class Terminal(
         // Update reactive font state so the Compose input prompt recomposes with the real font
         binding.modernPrompt.fontFamily = typeface?.let { androidx.compose.ui.text.font.FontFamily(it) }
         printIntro()
-        if (isPro(activity) && !initTasksQueued) {
+        // finishInitialization is the moment the terminal becomes initialized,
+        // so pass true explicitly (initialized is set to true just below).
+        if (MainActivityBehavior.shouldRunInit(true, isPro(activity), initTasksQueued)) {
             initTasksQueued = true
             Thread {
                 val initList = getInit(preferenceObject)
