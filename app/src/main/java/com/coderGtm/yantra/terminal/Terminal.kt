@@ -80,6 +80,7 @@ class Terminal(
     val commands = getAvailableCommands(activity)
     var primarySuggestions: MutableList<Suggestion> = mutableListOf()
     var initialized = false
+    var initTasksQueued = false
     var typeface: Typeface? = Typeface.createFromAsset(activity.assets, "fonts/source_code_pro.ttf")
     var dominantFontColor: Int? = null
     var isSleeping = false
@@ -514,7 +515,8 @@ class Terminal(
         // Update reactive font state so the Compose input prompt recomposes with the real font
         binding.modernPrompt.fontFamily = typeface?.let { androidx.compose.ui.text.font.FontFamily(it) }
         printIntro()
-        if (isPro(activity)) {
+        if (isPro(activity) && !initTasksQueued) {
+            initTasksQueued = true
             Thread {
                 val initList = getInit(preferenceObject)
                 runInitTasks(initList, preferenceObject, this@Terminal)

@@ -55,6 +55,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
         coordinator.onDestroy()
     }
 
+    override fun onStop() {
+        super.onStop()
+        coordinator.onStop()
+    }
+
     override fun onSingleTap() = coordinator.onSingleTap()
 
     override fun onDoubleTap() = coordinator.onDoubleTap()
