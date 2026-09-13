@@ -12,15 +12,31 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         description = terminal.activity.getString(R.string.cmd_list_help)
     )
     override fun execute(command: String) {
-        val args = command.split(" ")
-        if (args.size > 2) {
+        val args = command.trim().split(Regex("\\s+"))
+        if (args.size > 4) {
             output(terminal.activity.getString(R.string.invalid_list_cmd), terminal.theme.errorTextColor)
             return
         }
         if (args.size > 1) {
             if (args[1].lowercase() == "apps") {
-                output(terminal.activity.getString(R.string.fetching_apps))
-                listApps(this)
+                val rest = args.drop(2)
+                when (val parsed = parseListAppsArgs(rest)) {
+                    is ListAppsArgs.Valid -> {
+                        output(terminal.activity.getString(R.string.fetching_apps))
+                        listApps(this, parsed.filter, parsed.showPackages)
+                    }
+                    is ListAppsArgs.Invalid -> {
+                        if (rest.size == 1) {
+                            output(terminal.activity.getString(R.string.fetching_apps))
+                            listApps(this, rest[0])
+                        } else {
+                            output(terminal.activity.getString(R.string.invalid_list_cmd), terminal.theme.errorTextColor)
+                        }
+                    }
+                }
+            }
+            else if (args.size > 2) {
+                output(terminal.activity.getString(R.string.invalid_list_cmd), terminal.theme.errorTextColor)
             }
             else if (args[1].lowercase() == "shortcuts") {
                 output(terminal.activity.getString(R.string.fetching_shortcuts))

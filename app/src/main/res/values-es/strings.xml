@@ -60,7 +60,7 @@
     <string name="termux_command_session_action_description">Ingresa un entero para el comando de Termux llamado Session Action. Disponible: 0,1,2,3. Ver TermuxConstants.java en GitHub para más información.</string>
     <string name="invalid_action">¡Acción invalida!</string>
     <string name="termux_command_session_action_updated">¡Comando de Termux Session Action actualizado!</string>
-    <string name="ai_api_provider_description">Ingrese el dominio de su proveedor de IA para usar en el comando \'ai\'. No proporcione la URL completa, solo se requiere el dominio (Por ejemplo: api.openai.com)</string>
+    <string name="ai_api_provider_description">Ingrese su proveedor de IA compatible con OpenAI para el comando \'ai\'. Ingrese solo el dominio (p. ej. api.openai.com) o la URL base completa (p. ej. https://api.openai.com/v1). La ruta de chat completions (/v1/chat/completions) se añade automáticamente si falta, y se asume https:// si no se indica esquema.</string>
     <string name="ai_api_provider_updated">¡Proveedor de API de IA actualizado! Asegúrate de usar la clave API correspondiente.</string>
     <string name="ai_api_key_description">Ingrese su clave API para usar en el comando \'ai\', correspondiente a su proveedor de IA.</string>
     <string name="ai_api_key_updated">¡Clave API de IA actualizada!</string>
@@ -304,8 +304,8 @@
     <string name="cmd_launchf_title">launchf [nombre aproximado de la aplicación]</string>
     <string name="cmd_launchf_help">Inicia la aplicación haciendo coincidir la cadena de nombre de la aplicación dada utilizando el algoritmo de búsqueda difusa (distancia de Levenshtein). Ejemplo: \'launchf tube\' puede iniciar YouTube.</string>
     <string name="launchf_no_string">Por favor, proporciona una cadena para iniciar la aplicación con búsqueda difusa.</string>
-    <string name="cmd_list_title">list [apps|themes|contacts|shortcuts]</string>
-    <string name="cmd_list_help">Lista las aplicaciones instaladas, los temas, los contactos o los accesos directos disponibles.</string>
+    <string name="cmd_list_title">list [apps [-p] [category]|themes|contacts|shortcuts]</string>
+    <string name="cmd_list_help">Lista las aplicaciones instaladas agrupadas por categoría, los temas, los contactos o los accesos directos disponibles. Usa \'list apps\' solo para los nombres, \'list apps -p\' para incluir los nombres de paquete y \'list apps &lt;category&gt; [-p]\' para filtrar una categoría.</string>
     <string name="invalid_list_cmd">Comando inválido. Ver \'help list\' para información de uso</string>
     <string name="fetching_apps">Buscando aplicaciones...</string>
     <string name="fetching_contacts">Obteniendo contactos...</string>

@@ -136,8 +136,8 @@ Launches app settings page for specified app. Example: 'info Big Battery Display
 Launches app settings by matching given app name string using fuzzy search algorithm (Levenshtein distance). Example: 'infof tube' may open system settings for YouTube.
 ## uninstall <app name>
 Uninstalls the specified app. Example: 'u Instagram'
-## list [apps|themes|contacts|shortcuts]
-Lists installed apps, themes, contacts, or available app shortcuts.
+## list [apps [-p] [category]|themes|contacts|shortcuts]
+Lists installed apps grouped by category, themes, contacts, or available app shortcuts. Use 'list apps' for names only, 'list apps -p' to include package names, and 'list apps <category> [-p]' to filter one category.
 ## location
 Shows the device's current location when location permission is available.
 ## pro

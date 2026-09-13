@@ -54,7 +54,7 @@ internal fun MainActivityTerminalPane(
     // Typing changes the input text but not the output size, so the input text itself must be a
     // key here. Otherwise the only thing pulling the list to the input is the text field's own
     // animated bring-into-view request, which crawls across a large output instead of snapping.
-    val commandInputText = uiRefs.cmdInput.value.text
+    val commandInputText = uiRefs.cmdInput.inputText
     LaunchedEffect(
         uiRefs.scrollView.scrollToBottomNonce,
         uiRefs.terminalOutput.items.size,

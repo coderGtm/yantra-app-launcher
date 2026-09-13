@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Native command input hosted in the Compose input row via AndroidView.
+    Attributes mirror the pre-Compose activity_main.xml cmdInput config:
+    framework-owned InputConnection, so EditText.setText("") finishes any
+    active composing region (SwiftKey-safe), unlike a Compose state reset. -->
+<com.coderGtm.yantra.terminal.TerminalEditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:imeOptions="actionSend"
+    android:inputType="textMultiLine"
+    android:textCursorDrawable="@drawable/cursor_drawable"
+    android:textSize="16sp" />

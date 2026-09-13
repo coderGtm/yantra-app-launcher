@@ -16,6 +16,8 @@ To use the `ai` command, you need 2 things:
 
 An AI provider is a service that follows the [OpenAI API Reference](https://platform.openai.com/docs/api-reference/making-requests). Although you can use the ChatGPT API directly, keep in mind that it is a paid service.
 
+For the provider, enter just the domain (for example `api.openai.com`) or the full base URL (for example `https://api.openai.com/v1`). Yantra adds the chat completions path (`/v1/chat/completions`) automatically when it is missing, and assumes `https://` when you leave out the scheme.
+
 !!! note
     There are numerous free AI API providers that are compatible with the command as they follow the OpenAI standard. Some examples include NagaAI and Zukijourney.
 

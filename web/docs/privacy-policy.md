@@ -19,7 +19,7 @@ Yantra Launcher stores your configuration locally on your Android device so the 
 
 - Settings, themes, fonts, aliases, and username.
 - Todos, notes, scripts (including Lua scripts), command history, and backups you create.
-- AI provider base domain, API key, and model settings you enter in Settings.
+- AI provider base URL or domain, API key, and model settings you enter in Settings.
 
 This data never leaves your device unless *you* cause it to — for example by creating a backup file and sharing it, exporting a theme, or running a command that contacts an outside service (see below).
 

@@ -1,7 +1,7 @@
 package com.coderGtm.yantra.ui.components.main
 
+import android.view.LayoutInflater
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.keyframes
@@ -40,6 +40,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import com.coderGtm.yantra.R
+import com.coderGtm.yantra.terminal.TerminalEditText
 import com.coderGtm.yantra.ui.components.ModernInputPrompt
 import com.coderGtm.yantra.ui.screens.main.ComposeInputController
 import com.coderGtm.yantra.ui.screens.main.LuaInputSession
@@ -100,66 +103,19 @@ private fun RowScope.CommandInputField(
     controller: ComposeInputController,
     onFocusGained: () -> Unit,
 ) {
-    val focusRequester = remember { FocusRequester() }
-    val keyboardController = LocalSoftwareKeyboardController.current
-    var isFocused by remember { mutableStateOf(false) }
-    var textLayoutResult by remember { mutableStateOf<TextLayoutResult?>(null) }
-    val cursorColor = Color(controller.cursorColorInt)
-    val cursorAlpha = rememberTerminalCursorAlpha(
-        isVisible = isFocused && controller.value.selection.collapsed,
-    )
-
-    LaunchedEffect(controller.focusRequestNonce) {
-        if (controller.focusRequestNonce == 0) {
-            return@LaunchedEffect
-        }
-        focusRequester.requestFocus()
-    }
-    LaunchedEffect(controller.showKeyboardNonce) {
-        if (controller.showKeyboardNonce == 0) {
-            return@LaunchedEffect
-        }
-        focusRequester.requestFocus()
-        withFrameNanos { }
-        keyboardController?.show()
-    }
-    LaunchedEffect(controller.hideKeyboardNonce) {
-        if (controller.hideKeyboardNonce == 0) {
-            return@LaunchedEffect
-        }
-        keyboardController?.hide()
-    }
-
-    BasicTextField(
-        value = controller.value,
-        onValueChange = controller::onValueChanged,
-        enabled = controller.isEnabled,
-        cursorBrush = SolidColor(Color.Transparent),
-        textStyle = TextStyle(
-            color = Color(controller.textColorInt),
-            fontSize = controller.textSize.sp,
-            fontFamily = controller.typeface?.let { FontFamily(it) },
-        ),
+    // Native editor boundary: TerminalEditText owns the InputConnection, so
+    // framework setText() finishes composing (SwiftKey-safe). Text is driven
+    // imperatively through the controller, never through recomposition.
+    AndroidView(
+        factory = { context ->
+            (LayoutInflater.from(context).inflate(R.layout.view_cmd_input, null) as TerminalEditText)
+                .also { controller.attach(it, onFocusGained) }
+        },
+        update = { controller.applyStyle(it) },
+        onRelease = { controller.detach(it) },
         modifier = Modifier
             .weight(1f)
-            .padding(start = 5.dp)
-            .focusRequester(focusRequester)
-            .onFocusChanged {
-                if (it.isFocused) onFocusGained()
-                isFocused = it.isFocused
-            }
-            .drawTerminalCursor(
-                value = controller.value,
-                textLayoutResult = textLayoutResult,
-                cursorColor = cursorColor,
-                cursorAlpha = cursorAlpha,
-            ),
-        keyboardOptions = KeyboardOptions(autoCorrectEnabled = true, imeAction = androidx.compose.ui.text.input.ImeAction.Send),
-        keyboardActions = KeyboardActions(onSend = {
-            controller.dispatchEditorAction(EditorInfo.IME_ACTION_SEND)
-        }),
-        singleLine = false,
-        onTextLayout = { textLayoutResult = it },
+            .padding(start = 5.dp),
     )
 }
 

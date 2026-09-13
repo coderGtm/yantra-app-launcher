@@ -60,7 +60,7 @@
     <string name="termux_command_session_action_description">Унеси цео број за Termux акцију сесије. Доступно: 0,1,2,3. Погледај TermuxConstants.java на GitHub-у за више информација.</string>
     <string name="invalid_action">Неисправна акција!</string>
     <string name="termux_command_session_action_updated">Акција Termux сесије је ажурирана!</string>
-    <string name="ai_api_provider_description">Унеси домен вашег AI провајдера за употребу у \'ai\' команди. Не уносите цео URL, само домен је потребан (нпр.: api.openai.com</string>
+    <string name="ai_api_provider_description">Унеси свог OpenAI-компатибилног AI провајдера за команду \'ai\'. Унеси само домен (нпр. api.openai.com) или пун основни URL (нпр. https://api.openai.com/v1). Путања chat completions (/v1/chat/completions) се додаје аутоматски ако недостаје, а https:// се подразумева ако шема није наведена.</string>
     <string name="ai_api_provider_updated">AI API провајдер је ажуриран! Обавезно користите одговарајући API кључ.</string>
     <string name="ai_api_key_description">Унеси свој API кључ за употребу у \'ai\' команди, који одговара вашем AI провајдеру.</string>
     <string name="ai_api_key_updated">AI API кључ је ажуриран!</string>
@@ -304,8 +304,8 @@
     <string name="cmd_launchf_title">launchf [приближно име апликације]</string>
     <string name="cmd_launchf_help">Покреће апликацију поклапањем са датим именом апликације користећи fuzzy search алгоритам (Levenshtein дистанца).\nПример: \'launchf tube\' може покренути YouTube.</string>
     <string name="launchf_no_string">Наведите стринг за покретање апликације са fuzzy search-ом.</string>
-    <string name="cmd_list_title">list [apps|themes|contacts|shortcuts]</string>
-    <string name="cmd_list_help">Приказује инсталиране апликације, теме, контакте или доступне пречице апликација.</string>
+    <string name="cmd_list_title">list [apps [-p] [category]|themes|contacts|shortcuts]</string>
+    <string name="cmd_list_help">Приказује инсталиране апликације груписане по категоријама, теме, контакте или доступне пречице апликација. Користите \'list apps\' само за називе, \'list apps -p\' за приказ назива пакета и \'list apps &lt;category&gt; [-p]\' за филтрирање једне категорије.</string>
     <string name="invalid_list_cmd">Неисправна команда. Погледајте \'help list\' за информације о употреби</string>
     <string name="fetching_apps">Преузимање апликација...</string>
     <string name="fetching_contacts">Преузимање контаката...</string>

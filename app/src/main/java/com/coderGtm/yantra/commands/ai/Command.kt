@@ -42,8 +42,8 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
             output(terminal.activity.getString(R.string.ai_reset), terminal.theme.successTextColor)
             return
         }
-        val apiDomain = terminal.preferenceObject.getString("aiApiDomain", DEFAULT_AI_API_DOMAIN) ?: DEFAULT_AI_API_DOMAIN
-        val url = "https://$apiDomain/v1/chat/completions"
+        val rawInput = terminal.preferenceObject.getString("aiApiDomain", DEFAULT_AI_API_DOMAIN) ?: DEFAULT_AI_API_DOMAIN
+        val url = buildApiUrl(rawInput.trim())
         val apiKey = terminal.preferenceObject.getString("aiApiKey", "") ?: ""
         val systemPrompt = terminal.preferenceObject.getString("aiSystemPrompt", AI_SYSTEM_PROMPT) ?: AI_SYSTEM_PROMPT
         val shouldStream = terminal.preferenceObject.getBoolean("streamAiResponse", true)
@@ -101,6 +101,23 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
                 if (e is CancellationException) return@launch
                 handleKtorError(e, this@Command, streamingOutputId)
             }
+        }
+    }
+
+    private fun buildApiUrl(input: String): String {
+        val withScheme = if (!input.startsWith("http://") && !input.startsWith("https://")) {
+            "https://$input"
+        } else {
+            input
+        }
+        val cleaned = withScheme.trimEnd('/')
+        if (cleaned.endsWith("/v1/chat/completions")) {
+            return cleaned
+        }
+        return when {
+            cleaned.endsWith("/v1/chat") -> "$cleaned/completions"
+            cleaned.endsWith("/v1") -> "$cleaned/chat/completions"
+            else -> "$cleaned/v1/chat/completions"
         }
     }
 }

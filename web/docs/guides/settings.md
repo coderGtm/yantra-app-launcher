@@ -14,7 +14,7 @@ If Yantra is your default launcher, this is also where you can select or change 
 
 ## AI
 
-The `ai` command needs an OpenAI-compatible provider, its base API domain, an API key, and optionally a system prompt. Enter these in the AI settings. The provider may be paid or free.
+The `ai` command needs an OpenAI-compatible provider, its base URL or domain, an API key, and optionally a system prompt. Enter these in the AI settings. The provider may be paid or free. Just the domain (like `api.openai.com`) or the full base URL (like `https://api.openai.com/v1`) both work — Yantra adds the chat completions path automatically when it is missing and assumes `https://` when no scheme is given.
 
 ## Termux
 
