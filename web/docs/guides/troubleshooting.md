@@ -20,7 +20,7 @@ Check your connection first, then check the command's provider requirements. `we
 
 ## AI Does Not Respond
 
-Confirm the provider base domain, API key, and system prompt in `settings`. The base domain should not include the `/v1/chat/completions` path unless the settings page specifically asks for it. Then send a short test such as `ai hi` before attempting a very large request.
+Confirm the provider base URL or domain, API key, and system prompt in `settings`. Just the domain (like `api.naga.ac`) or the full base URL (like `https://api.naga.ac/v1`) both work, since Yantra adds `/v1/chat/completions` automatically when it is missing. Then send a short test such as `ai hi` before attempting a very large request.
 
 ## Termux Commands Fail
 

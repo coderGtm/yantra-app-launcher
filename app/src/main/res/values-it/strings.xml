@@ -60,7 +60,7 @@
     <string name="termux_command_session_action_description">Inserisci un numero intero per l\'Azione della Sessione Termux. Disponibili: 0,1,2,3. Consulta TermuxConstants.java su GitHub per maggiori informazioni.</string>
     <string name="invalid_action">Azione non valida!</string>
     <string name="termux_command_session_action_updated">Azione della sessione del comando Termux aggiornata!</string>
-    <string name="ai_api_provider_description">Inserisci il dominio del tuo fornitore IA da utilizzare nel comando \'ai\'. Non fornire l\'URL completo, è richiesto solo il dominio (Ad esempio: api.openai.com)</string>
+    <string name="ai_api_provider_description">Inserisci il tuo provider IA compatibile con OpenAI per il comando \'ai\'. Inserisci solo il dominio (es. api.openai.com) oppure l\'URL base completo (es. https://api.openai.com/v1). Il percorso chat completions (/v1/chat/completions) viene aggiunto automaticamente se mancante, e https:// viene usato se non viene indicato alcuno schema.</string>
     <string name="ai_api_provider_updated">Fornitore API IA aggiornato! Assicurati di utilizzare la Chiave API corrispondente</string>
     <string name="ai_api_key_description">Inserisci la tua Chiave API da utilizzare nel comando \'ai\', corrispondente al tuo fornitore IA.</string>
     <string name="ai_api_key_updated">Chiave API IA aggiornata!</string>

@@ -60,7 +60,7 @@
     <string name="termux_command_session_action_description">Введіть ціле число для дії сеансу Termux. В наявності: 0,1,2,3. Перегляньте TermuxConstants.java на GitHub для отримання додаткової інформації.</string>
     <string name="invalid_action">Дія недійсна!</string>
     <string name="termux_command_session_action_updated">Сесія дії команди Termux оновлено!</string>
-    <string name="ai_api_provider_description">Введіть домен вашого постачальника AI для використання в команді \'ai\'. Не вказуйте повну URL-адресу, потрібен лише домен (наприклад: api.openai.com)</string>
+    <string name="ai_api_provider_description">Введіть свого OpenAI-сумісного провайдера ШІ для команди \'ai\'. Введіть лише домен (наприклад: api.openai.com) або повну базову URL-адресу (наприклад: https://api.openai.com/v1). Шлях chat completions (/v1/chat/completions) додається автоматично, якщо він відсутній, а https:// мається на увазі, якщо схему не вказано.</string>
     <string name="ai_api_provider_updated">Провайдер AI API оновлено! Переконайтеся, що ви використовуєте вітповідний API ключ</string>
     <string name="ai_api_key_description">Введіть ваш API ключ для використання в команді \'ai\', вітповідно до вашого AI провайдеру.</string>
     <string name="ai_api_key_updated">AI API ключ оновлено!</string>
