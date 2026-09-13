@@ -107,6 +107,10 @@ internal class MainActivityCoordinator(
         }
     }
 
+    fun onStop() {
+        terminal.initTasksQueued = false
+    }
+
     fun onRestart() {
         Thread {
             requestUpdateIfAvailable(app.preferenceObject, activity)
