@@ -142,6 +142,7 @@ fun buildCommandCompletionSpecs(
             CompletionRule.Choice { listOf("-lua", "-clean") },
             CompletionRule.Remainder(CandidateSource.SCRIPTS),
         ),
+        autoExecuteAllowed = false
     ),
     "weather" to CommandCompletionSpec(
         rules = listOf(
