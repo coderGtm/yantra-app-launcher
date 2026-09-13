@@ -98,7 +98,8 @@ internal class MainActivityCoordinator(
     }
 
     fun onStart() {
-        if (terminal.initialized && isPro(activity)) {
+        if (terminal.initialized && isPro(activity) && !terminal.initTasksQueued) {
+            terminal.initTasksQueued = true
             Thread {
                 val initList = getInit(app.preferenceObject)
                 runInitTasks(initList, app.preferenceObject, terminal)
