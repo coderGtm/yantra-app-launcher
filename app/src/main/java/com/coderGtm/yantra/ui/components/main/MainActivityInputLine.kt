@@ -47,6 +47,7 @@ import com.coderGtm.yantra.ui.components.ModernInputPrompt
 import com.coderGtm.yantra.ui.screens.main.ComposeInputController
 import com.coderGtm.yantra.ui.screens.main.LuaInputSession
 import com.coderGtm.yantra.ui.screens.main.MainActivityUiRefs
+import com.coderGtm.yantra.ui.screens.main.toComposeFontFamily
 import com.coderGtm.yantra.ui.screens.main.toComposeFontStyle
 import com.coderGtm.yantra.ui.screens.main.toComposeFontWeight
 import kotlin.math.max
@@ -76,7 +77,7 @@ internal fun MainActivityInputLine(
                 text = uiRefs.username.text,
                 color = Color(uiRefs.username.textColorInt),
                 fontSize = uiRefs.username.textSize.sp,
-                fontFamily = uiRefs.username.typeface?.let { FontFamily(it) },
+                fontFamily = uiRefs.username.typeface.toComposeFontFamily(uiRefs.username.style),
                 fontWeight = uiRefs.username.style.toComposeFontWeight(),
                 fontStyle = uiRefs.username.style.toComposeFontStyle(),
             )
