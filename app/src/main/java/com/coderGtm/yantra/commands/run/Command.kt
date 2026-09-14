@@ -6,6 +6,10 @@ import com.coderGtm.yantra.blueprints.BaseCommand
 import com.coderGtm.yantra.getScripts
 import com.coderGtm.yantra.models.CommandMetadata
 import com.coderGtm.yantra.terminal.Terminal
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class Command(terminal: Terminal) : BaseCommand(terminal) {
     override val metadata = CommandMetadata(
@@ -55,9 +59,10 @@ class Command(terminal: Terminal) : BaseCommand(terminal) {
         if (rcvdScriptName in scripts) {
             val scriptBody = terminal.preferenceObject.getString("script_$rcvdScriptName","") ?: ""
             val cmdsInScript = scriptBody.split("\n")
-            cmdsInScript.forEach {
-                terminal.handleCommand(it.trim(), logCmd = !clean)
-            }
+                .map { it.trim() }
+                .filter { it.isNotEmpty() }
+            terminal.prependToCommandQueue(cmdsInScript)
+            terminal.executeCommandsInQueue()
         }
         else {
             output(terminal.activity.getString(R.string.script_not_found, rcvdScriptName),terminal.theme.errorTextColor)
