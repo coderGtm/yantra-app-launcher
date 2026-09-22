@@ -2,6 +2,7 @@ package com.coderGtm.yantra.activities.main
 
 import android.app.Activity
 import android.graphics.Typeface
+import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.edit
 import com.canhub.cropper.CropImageContract
@@ -132,6 +133,17 @@ internal class MainActivityLaunchers(
         val editedText = tempFile.readText()
         appProvider().preferenceObject.edit { putString("script_$scriptName", editedText) }
         toast(activity, activity.getString(R.string.script_saved_successfully, scriptName))
+    }
+
+    private var importGuiCallback: ((Uri?) -> Unit)? = null
+    private val importGuiLauncher = activity.registerForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
+        importGuiCallback?.invoke(uri)
+        importGuiCallback = null
+    }
+
+    fun importGui(callback: (Uri?) -> Unit) {
+        importGuiCallback = callback
+        importGuiLauncher.launch(null)
     }
 
     private fun copyTempFileToUri(fileName: String, targetUri: android.net.Uri) {

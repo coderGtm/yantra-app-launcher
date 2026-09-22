@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/desktopRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#111111">
+
+    <!-- Wallpaper -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="YANTRA GUI IS ALIVE! 🚀"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:background="#222222" />
+
+    <FrameLayout
+        android:id="@+id/wallpaperLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!-- Desktop Icons -->
+
+    <FrameLayout
+        android:id="@+id/iconLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!-- Widgets -->
+
+    <FrameLayout
+        android:id="@+id/widgetLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!-- Overlay -->
+
+    <FrameLayout
+        android:id="@+id/overlayLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!-- Dock -->
+
+    <LinearLayout
+        android:id="@+id/dockLayer"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="48dp"/>
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="48dp"/>
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="48dp"/>
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="48dp"/>
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="48dp"/>
+
+    </LinearLayout>
+
+    <!-- Desktop Editor -->
+
+    <FrameLayout
+        android:id="@+id/editorLayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/openDrawerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="24dp"
+        android:contentDescription="Open Drawer"
+        android:src="@drawable/ic_apps"
+        app:backgroundTint="#FF6200EE"
+        app:tint="@android:color/white"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/cliButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="24dp"
+        android:text="CLI"
+        android:icon="@drawable/ic_terminal"/>
+
+</FrameLayout>

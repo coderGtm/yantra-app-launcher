@@ -66,6 +66,7 @@ class Terminal(
     val binding: MainActivityUiRefs,
     val preferenceObject: SharedPreferences
 ) {
+    private var isInitializing = false
     private val fontSize = preferenceObject.getInt("fontSize", 16).toFloat()
     private val hideKeyboardOnEnter = preferenceObject.getBoolean("hideKeyboardOnEnter", true)
     private val cacheSize = 5
@@ -242,6 +243,9 @@ class Terminal(
     }
 
     fun initialize() {
+        if (initialized || isInitializing) return
+        isInitializing = true
+
         if (preferenceObject.getBoolean("useModernPromptDesign", false)) {
             binding.modernPrompt.visible = true
             binding.modernPrompt.username = getUserName(preferenceObject)

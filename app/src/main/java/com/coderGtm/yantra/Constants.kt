@@ -332,3 +332,6 @@ const val DEFAULT_SYSINFO_ART =
 val NO_LOG_COMMANDS = listOf("sleep", "echo", "notify")
 val DEFAULT_ALIAS_LIST = arrayListOf(Alias("h", "help"), Alias("l", "launch"), Alias("i", "info"), Alias("u", "uninstall"), Alias("bt", "bluetooth"), Alias("w", "weather"), Alias("tx", "termux"), Alias("cls", "clear"), Alias("google", "search -e=google"), Alias("ddg", "search -e=duckduckgo")
 )
+
+const val SYSTEM_PKG_CLI = "com.yantra.system.cli"
+const val SYSTEM_PKG_SETTINGS = "com.yantra.system.settings"

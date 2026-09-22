@@ -4,7 +4,9 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.view.KeyEvent
+import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.FrameLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.WindowCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -25,6 +27,17 @@ import com.coderGtm.yantra.services.TermuxCommandService
 import com.coderGtm.yantra.setProStatus
 import com.coderGtm.yantra.terminal.Terminal
 import com.coderGtm.yantra.ui.screens.main.MainActivityUiRefs
+import com.coderGtm.yantra.core.runtime.LauncherRuntime
+import com.coderGtm.yantra.core.shell.ShellManager
+import com.coderGtm.yantra.cli.shell.TerminalShell
+import com.coderGtm.yantra.gui.shell.DesktopShell
+import com.coderGtm.yantra.gui.shell.WebGuiShell
+import com.coderGtm.yantra.gui.package_manager.GuiRegistry
+import com.coderGtm.yantra.gui.package_manager.GuiPackageImporter
+import com.coderGtm.yantra.gui.package_manager.GuiPackage
+import com.coderGtm.yantra.core.shell.InterfaceStateStore
+import com.coderGtm.yantra.gui.desktop.repository.HomeRepository
+import com.coderGtm.yantra.ui.screens.gui.NativeGuiState
 import java.util.Timer
 import kotlin.concurrent.schedule
 
@@ -37,6 +50,20 @@ internal class MainActivityCoordinator(
 
     lateinit var terminal: Terminal
         private set
+
+    private val shellManager = ShellManager()
+
+    val guiRegistry = GuiRegistry(activity)
+    private val guiPackageImporter = GuiPackageImporter(activity, guiRegistry)
+    private val interfaceStateStore = InterfaceStateStore(activity)
+    private val homeRepository = HomeRepository(activity)
+    
+    val guiContainer = FrameLayout(activity).apply {
+        layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+    }
 
     /**
      * Utility Activity Launchers
@@ -70,6 +97,36 @@ internal class MainActivityCoordinator(
             preferenceObject = app.preferenceObject,
         )
         terminal.initialize()
+        
+        uiRefs.guiContainer = guiContainer
+        uiRefs.nativeGuiState = NativeGuiState(homeRepository.load())
+
+        // Initialize Shell Platform
+        LauncherRuntime.shellManager = shellManager
+        
+        val terminalShell = TerminalShell(terminal)
+        LauncherRuntime.registerShell("cli", terminalShell)
+
+        val desktopShell = DesktopShell(uiRefs)
+        LauncherRuntime.registerShell("gui", desktopShell)
+        
+        // Register already imported shells
+        guiRegistry.all().forEach { pkg ->
+            registerImportedGuiShell(pkg)
+        }
+
+        shellManager.onShellChanged = { name, _ ->
+            uiRefs.activeShellName = name
+            interfaceStateStore.save(name)
+        }
+
+        val savedShell = interfaceStateStore.load()
+        if (savedShell != null && LauncherRuntime.hasShell(savedShell)) {
+            LauncherRuntime.switchShell(savedShell)
+        } else {
+            LauncherRuntime.switchShell("cli")
+        }
+
         informOfProVersionIfOldUser(activity)
 
         LocalBroadcastManager.getInstance(activity).registerReceiver(
@@ -78,7 +135,16 @@ internal class MainActivityCoordinator(
         )
 
         activity.onBackPressedDispatcher.addCallback(activity, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() = Unit
+            override fun handleOnBackPressed() {
+                val currentShell = LauncherRuntime.currentShell
+                if (currentShell?.onBackPressed() == true) return
+                
+                // If not handled by shell, let activity handle it
+                // Note: We might need to disable this callback temporarily to call super
+                isEnabled = false
+                activity.onBackPressedDispatcher.onBackPressed()
+                isEnabled = true
+            }
         })
     }
 
@@ -180,4 +246,28 @@ internal class MainActivityCoordinator(
     }
 
     fun getPreferenceObject(): android.content.SharedPreferences = app.preferenceObject
+
+    fun importGuiPackage(callback: (GuiPackageImporter.Result) -> Unit) {
+        utilActivityLaunchers.importGui { uri ->
+            if (uri == null) {
+                callback(GuiPackageImporter.Result(false, errors = listOf("No folder selected.")))
+                return@importGui
+            }
+            val result = guiPackageImporter.import(uri)
+            callback(result)
+        }
+    }
+
+    fun registerImportedGuiShell(pkg: GuiPackage) {
+        val webShell = WebGuiShell(
+            guiContainer = guiContainer,
+            guiPackage = pkg,
+            terminalProvider = { terminal }
+        )
+        LauncherRuntime.registerShell(pkg.id, webShell)
+    }
+
+    fun unregisterImportedGuiShell(name: String) {
+        LauncherRuntime.unregisterShell(name)
+    }
 }

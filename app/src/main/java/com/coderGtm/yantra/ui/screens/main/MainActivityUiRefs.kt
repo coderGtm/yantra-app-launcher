@@ -9,6 +9,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.runtime.getValue
@@ -24,6 +25,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.interfaces.TerminalGestureListenerCallback
 import com.coderGtm.yantra.terminal.TerminalEditText
+import com.coderGtm.yantra.ui.screens.gui.NativeGuiState
 import java.util.UUID
 
 sealed class MainTerminalOutputItem(open val id: String) {
@@ -98,6 +100,23 @@ class MainActivityUiRefs(
     val modernPrompt = ComposeModernPromptController()
 
     var luaInputSession by mutableStateOf<LuaInputSession?>(null)
+
+    /**
+     * The name of the currently active shell (e.g. "cli", "gui").
+     *
+     * This state drives the switching logic in [MainActivityScreen].
+     */
+    var activeShellName by mutableStateOf("cli")
+
+    /**
+     * The persistent GUI container hosted in the Compose UI.
+     */
+    var guiContainer by mutableStateOf<ViewGroup?>(null)
+
+    /**
+     * State for the Native GUI 2.0
+     */
+    var nativeGuiState by mutableStateOf<NativeGuiState?>(null)
 
     fun clearTerminalOutput() = terminalOutput.removeAllViews()
 

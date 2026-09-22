@@ -95,6 +95,8 @@ dependencies {
     implementation libs.localbroadcastmanager
     implementation platform(libs.compose.bom)
     implementation libs.material3
+    implementation libs.material.icons.core
+    implementation libs.material.icons.extended
     implementation libs.ui.tooling
 
     testImplementation libs.junit

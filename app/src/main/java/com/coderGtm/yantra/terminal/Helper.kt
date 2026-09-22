@@ -3,6 +3,7 @@ package com.coderGtm.yantra.terminal
 import android.app.Activity
 import android.content.SharedPreferences
 import com.coderGtm.yantra.blueprints.BaseCommand
+import com.coderGtm.yantra.commands.shell.Command
 import com.coderGtm.yantra.isPro
 import com.coderGtm.yantra.loadPrimarySuggestionsOrder
 import com.coderGtm.yantra.models.Alias
@@ -127,6 +128,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "feedback" to com.coderGtm.yantra.commands.feedback.Command::class.java,
             "support" to com.coderGtm.yantra.commands.support.Command::class.java,
             "exit" to com.coderGtm.yantra.commands.exit.Command::class.java,
+            "shell" to Command::class.java,
         )
     }
     else {
@@ -164,6 +166,7 @@ fun getAvailableCommands(activity: Activity): Map<String,  Class<out BaseCommand
             "feedback" to com.coderGtm.yantra.commands.feedback.Command::class.java,
             "support" to com.coderGtm.yantra.commands.support.Command::class.java,
             "exit" to com.coderGtm.yantra.commands.exit.Command::class.java,
+            "shell" to com.coderGtm.yantra.commands.shell.Command::class.java,
         )
     }
 }

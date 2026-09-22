@@ -55,6 +55,8 @@ localbroadcastmanager = { module = "androidx.localbroadcastmanager:localbroadcas
 luaj-jse = { module = "org.luaj:luaj-jse", version.ref = "luajJse" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 material3 = { module = "androidx.compose.material3:material3" }
+material-icons-core = { module = "androidx.compose.material:material-icons-core" }
+material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }

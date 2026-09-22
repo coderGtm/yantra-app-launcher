@@ -7,6 +7,8 @@ import android.view.KeyEvent
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import com.coderGtm.yantra.activities.main.MainActivityCoordinator
+import com.coderGtm.yantra.gui.package_manager.GuiPackage
+import com.coderGtm.yantra.gui.package_manager.GuiPackageImporter
 import com.coderGtm.yantra.ui.screens.main.MainActivityScreen
 import com.coderGtm.yantra.ui.screens.main.MainActivityUiRefs
 import com.coderGtm.yantra.ui.screens.main.createMainActivityUiRefs
@@ -90,4 +92,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener, TerminalG
     val exportThemeLauncher get() = coordinator.utilActivityLaunchers.exportTheme
     val getThemeFile get() = coordinator.utilActivityLaunchers.getThemeFile
     val externalEditor get() = coordinator.utilActivityLaunchers.externalEditor
+
+    fun getGuiRegistry() = coordinator.guiRegistry
+    fun importGuiPackage(callback: (GuiPackageImporter.Result) -> Unit) =
+        coordinator.importGuiPackage(callback)
+    fun registerImportedGuiShell(pkg: GuiPackage) =
+        coordinator.registerImportedGuiShell(pkg)
+    fun unregisterImportedGuiShell(name: String) = coordinator.unregisterImportedGuiShell(name)
 }
