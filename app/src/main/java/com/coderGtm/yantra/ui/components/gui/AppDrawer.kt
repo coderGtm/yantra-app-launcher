@@ -2,15 +2,18 @@ package com.coderGtm.yantra.ui.components.gui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -20,6 +23,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.coderGtm.yantra.gui.drawer.repository.AppRepository
 import com.coderGtm.yantra.gui.web.YantraAppResolver
+import com.coderGtm.yantra.ui.components.gui.interaction.DragSession
+import com.coderGtm.yantra.ui.components.gui.interaction.DragSource
+import com.coderGtm.yantra.ui.components.gui.interaction.detectLauncherItemGestures
 import com.coderGtm.yantra.ui.screens.gui.NativeGuiState
 import kotlinx.coroutines.launch
 
@@ -58,18 +64,37 @@ fun AppDrawer(
             .onGloballyPositioned { componentOffset = it.positionInWindow() }
     ) {
         Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-            // Search Bar
-            TextField(
-                value = state.searchQuery,
-                onValueChange = { state.searchQuery = it },
+            // Search Bar with Settings button
+            Row(
                 modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
-                placeholder = { Text("Search apps...") },
-                shape = RoundedCornerShape(12.dp),
-                colors = TextFieldDefaults.colors(
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                TextField(
+                    value = state.searchQuery,
+                    onValueChange = { state.searchQuery = it },
+                    modifier = Modifier.weight(1f),
+                    placeholder = { Text("Search apps...") },
+                    shape = RoundedCornerShape(12.dp),
+                    colors = TextFieldDefaults.colors(
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    )
                 )
-            )
+                IconButton(
+                    onClick = {
+                        onClose()
+                        state.isSettingsOpen = true
+                    },
+                    modifier = Modifier.size(48.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = "Settings",
+                        tint = Color.White
+                    )
+                }
+            }
             
             Row(modifier = Modifier.weight(1f)) {
                 LazyVerticalGrid(
@@ -85,31 +110,35 @@ fun AppDrawer(
                         
                         HomeItemView(
                             packageName = app.packageName,
-                            onClick = {
-                                appResolver.launch(app.packageName)
-                                onClose()
-                            },
-                            onLongClick = {
-                                state.selectedAppForMenu = app
-                            },
                             modifier = Modifier
+                                .alpha(if (state.draggingPackageName == app.packageName) 0.4f else 1.0f)
                                 .onGloballyPositioned { itemPosition = it.positionInWindow() }
                                 .pointerInput(app.packageName) {
-                                    detectDragGesturesAfterLongPress(
-                                        onDragStart = { offset ->
-                                            state.draggingPackageName = app.packageName
-                                            state.dragOffset = itemPosition + offset
+                                    detectLauncherItemGestures(
+                                        onTap = {
+                                            appResolver.launch(app.packageName)
+                                            onClose()
                                         },
-                                        onDrag = { change, dragAmount ->
-                                            change.consume()
-                                            state.dragOffset += dragAmount
+                                        onLongPressWithoutMove = {
+                                            state.selectedAppForMenu = app
                                         },
-                                        onDragEnd = {
+                                        onDragStart = { startPos ->
+                                            state.dragSession = DragSession(
+                                                itemId = app.packageName,
+                                                source = DragSource.DRAWER,
+                                                startPosition = itemPosition + startPos,
+                                                currentPosition = itemPosition + startPos
+                                            )
+                                        },
+                                        onDrag = { dragDelta ->
+                                            state.dragOffset += dragDelta
+                                        },
+                                        onDrop = {
                                             onDrop(app.packageName, state.dragOffset)
-                                            state.draggingPackageName = null
+                                            state.dragSession = null
                                         },
-                                        onDragCancel = {
-                                            state.draggingPackageName = null
+                                        onCancel = {
+                                            state.dragSession = null
                                         }
                                     )
                                 }

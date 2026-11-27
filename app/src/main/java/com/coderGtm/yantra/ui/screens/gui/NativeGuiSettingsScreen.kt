@@ -1,8 +1,6 @@
 package com.coderGtm.yantra.ui.screens.gui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
@@ -11,10 +9,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.coderGtm.yantra.SYSTEM_PKG_CLI
 import com.coderGtm.yantra.core.runtime.LauncherRuntime
 import com.coderGtm.yantra.gui.desktop.controller.HomeLayoutController
 import com.coderGtm.yantra.gui.desktop.model.HomeLayout
 import com.coderGtm.yantra.gui.desktop.repository.HomeRepository
+import com.coderGtm.yantra.ui.components.containers.SettingsGroup
+import com.coderGtm.yantra.ui.components.containers.SettingsScreen
+import com.coderGtm.yantra.ui.components.settingsItem.ButtonSetting
+import com.coderGtm.yantra.ui.components.settingsItem.ToggleSetting
+import com.coderGtm.yantra.ui.theme.YantraSettingsTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -24,56 +28,71 @@ fun NativeGuiSettingsScreen(
 ) {
     val context = LocalContext.current
     val repository = remember { HomeRepository(context) }
+    val controller = remember { HomeLayoutController(repository, state) }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Native GUI Settings") },
-                navigationIcon = {
-                    IconButton(onClick = onClose) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+    YantraSettingsTheme {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("Native GUI Settings") },
+                    navigationIcon = {
+                        IconButton(onClick = onClose) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        }
                     }
+                )
+            }
+        ) { padding ->
+            SettingsScreen(modifier = Modifier.padding(padding)) {
+                SettingsGroup(title = "Interface") {
+                    ButtonSetting(
+                        title = "Switch to Command Line Interface",
+                        onClick = {
+                            LauncherRuntime.switchShell("cli")
+                            onClose()
+                        }
+                    )
                 }
-            )
-        }
-    ) { padding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Text("Interface", style = MaterialTheme.typography.titleMedium)
-            
-            Button(
-                onClick = { 
-                    LauncherRuntime.switchShell("cli")
-                    onClose()
-                },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Switch to CLI Shell")
-            }
 
-            HorizontalDivider()
+                SettingsGroup(title = "Home & Dock Layout") {
+                    ToggleSetting(
+                        title = "Add CLI button on homescreen",
+                        checked = controller.isOnHome(SYSTEM_PKG_CLI),
+                        onCheckedChange = { enabled ->
+                            if (enabled) {
+                                controller.addToHome(SYSTEM_PKG_CLI)
+                            } else {
+                                controller.removeFromHome(SYSTEM_PKG_CLI)
+                            }
+                        },
+                        description = "Display the CLI shortcut on the home screen"
+                    )
+                    HorizontalDivider()
+                    ToggleSetting(
+                        title = "Add CLI button in Dock",
+                        checked = controller.isOnDock(SYSTEM_PKG_CLI),
+                        onCheckedChange = { enabled ->
+                            if (enabled) {
+                                controller.addToDock(SYSTEM_PKG_CLI)
+                            } else {
+                                controller.removeFromDock(SYSTEM_PKG_CLI)
+                            }
+                        },
+                        description = "Display the CLI shortcut in the left dock"
+                    )
+                }
 
-            Text("Home Layout", style = MaterialTheme.typography.titleMedium)
-            
-            Button(
-                onClick = { 
-                    state.layout = HomeLayout()
-                    repository.save(state.layout)
-                    onClose()
-                },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
-            ) {
-                Text("Reset Home Layout")
+                SettingsGroup(title = "General Layout") {
+                    ButtonSetting(
+                        title = "Reset Home Layout",
+                        onClick = {
+                            state.layout = HomeLayout()
+                            repository.save(state.layout)
+                            onClose()
+                        }
+                    )
+                }
             }
-            
-            // TODO: Add more settings for Grid, Dock, Wallpaper, Appearance
         }
     }
 }

@@ -9,6 +9,44 @@ class HomeLayoutController(
     private val repository: HomeRepository,
     private val state: NativeGuiState
 ) {
+    fun addOrMoveToHome(packageName: String, pageIndex: Int = 0, column: Int, row: Int) {
+        val currentLayout = state.layout
+        val pages = currentLayout.pages.toMutableList()
+        
+        // Ensure the page exists
+        while (pages.size <= pageIndex) {
+            pages.add(HomePage(pages.size))
+        }
+        
+        // Remove packageName from anywhere in home layout to prevent duplicates
+        val cleanedPages = pages.map { page ->
+            page.copy(items = page.items.filter { it.packageName != packageName })
+        }.toMutableList()
+        
+        val targetPage = cleanedPages[pageIndex]
+        val items = targetPage.items.toMutableList()
+        
+        // Handle occupied target cell (relocate occupant to first empty spot)
+        val occupyingIndex = items.indexOfFirst { it.column == column && it.row == row }
+        if (occupyingIndex != -1) {
+            val occupant = items[occupyingIndex]
+            items.removeAt(occupyingIndex)
+            val emptySpot = findFirstEmptySpot(items)
+            if (emptySpot != null) {
+                items.add(HomeItem(occupant.packageName, emptySpot.first, emptySpot.second))
+            } else {
+                items.add(occupant)
+            }
+        }
+        
+        items.add(HomeItem(packageName, column, row))
+        cleanedPages[pageIndex] = targetPage.copy(items = items)
+        
+        val newLayout = currentLayout.copy(pages = cleanedPages)
+        state.layout = newLayout
+        repository.save(newLayout)
+    }
+
     fun addToHome(packageName: String, pageIndex: Int = 0, column: Int? = null, row: Int? = null) {
         val currentLayout = state.layout
         val pages = currentLayout.pages.toMutableList()
@@ -53,6 +91,36 @@ class HomeLayoutController(
         return null
     }
     
+    fun moveOnHome(packageName: String, pageIndex: Int = 0, targetColumn: Int, targetRow: Int) {
+        val currentLayout = state.layout
+        val pages = currentLayout.pages.toMutableList()
+        if (pageIndex !in pages.indices) return
+        
+        val page = pages[pageIndex]
+        val items = page.items.toMutableList()
+        
+        val itemIndex = items.indexOfFirst { it.packageName == packageName }
+        if (itemIndex == -1) return
+        
+        val oldItem = items[itemIndex]
+        if (oldItem.column == targetColumn && oldItem.row == targetRow) return
+        
+        val occupyingIndex = items.indexOfFirst { it.column == targetColumn && it.row == targetRow }
+        
+        if (occupyingIndex != -1) {
+            val occupyingItem = items[occupyingIndex]
+            items[itemIndex] = occupyingItem.copy(column = oldItem.column, row = oldItem.row)
+            items[occupyingIndex] = oldItem.copy(column = targetColumn, row = targetRow)
+        } else {
+            items[itemIndex] = oldItem.copy(column = targetColumn, row = targetRow)
+        }
+        
+        pages[pageIndex] = page.copy(items = items)
+        val newLayout = currentLayout.copy(pages = pages)
+        state.layout = newLayout
+        repository.save(newLayout)
+    }
+
     fun removeFromHome(packageName: String) {
         val currentLayout = state.layout
         val pages = currentLayout.pages.map { page ->

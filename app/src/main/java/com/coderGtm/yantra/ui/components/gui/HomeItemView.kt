@@ -2,6 +2,7 @@ package com.coderGtm.yantra.ui.components.gui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -23,7 +24,6 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import com.coderGtm.yantra.R
 import com.coderGtm.yantra.SYSTEM_PKG_CLI
@@ -34,7 +34,7 @@ import com.coderGtm.yantra.SYSTEM_PKG_SETTINGS
 fun HomeItemView(
     packageName: String,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
     onLongClick: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
@@ -48,14 +48,17 @@ fun HomeItemView(
         }
     }
     
+    val clickModifier = when {
+        onLongClick != null && onClick != null -> Modifier.combinedClickable(onClick = onClick, onLongClick = onLongClick)
+        onClick != null -> Modifier.clickable(onClick = onClick)
+        else -> Modifier
+    }
+
     if (systemItem != null) {
         Column(
             modifier = modifier
                 .padding(4.dp)
-                .combinedClickable(
-                    onClick = onClick,
-                    onLongClick = onLongClick
-                ),
+                .then(clickModifier),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (systemItem.second != null) {
@@ -97,10 +100,7 @@ fun HomeItemView(
         Column(
             modifier = modifier
                 .padding(4.dp)
-                .combinedClickable(
-                    onClick = onClick,
-                    onLongClick = onLongClick
-                ),
+                .then(clickModifier),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(

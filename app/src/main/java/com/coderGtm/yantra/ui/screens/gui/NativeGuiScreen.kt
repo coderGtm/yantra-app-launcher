@@ -59,7 +59,7 @@ internal fun NativeGuiScreen(uiRefs: MainActivityUiRefs) {
             )
             
             Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
-                HomeScreen(state = state, modifier = Modifier.fillMaxSize())
+                HomeScreen(state = state, controller = controller, modifier = Modifier.fillMaxSize())
             }
         }
 
@@ -97,7 +97,7 @@ internal fun NativeGuiScreen(uiRefs: MainActivityUiRefs) {
                         val homeX = offset.x - dockWidthPx
                         val col = (homeX / ((screenWidth - dockWidthPx) / cols)).toInt().coerceIn(0, cols - 1)
                         val row = (offset.y / (screenHeight / rows)).toInt().coerceIn(0, rows - 1)
-                        controller.addToHome(pkg, column = col, row = row)
+                        controller.addOrMoveToHome(pkg, pageIndex = state.currentPage, column = col, row = row)
                     }
                     state.isDrawerOpen = false
                 }

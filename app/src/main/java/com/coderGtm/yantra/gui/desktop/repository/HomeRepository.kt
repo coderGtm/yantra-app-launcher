@@ -58,7 +58,8 @@ class HomeRepository(private val context: Context) {
         )
 
         val homeItems = mutableListOf<HomeItem>()
-        var col = 0
+        homeItems.add(HomeItem(SYSTEM_PKG_CLI, 0, 0))
+        var col = 1
         var row = 0
 
         commonPackages.forEach { pkg ->
